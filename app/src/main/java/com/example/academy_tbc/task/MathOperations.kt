@@ -70,7 +70,7 @@ internal class MathOperations {
                 n < 0 -> -n.toString().removePrefix("-").reversed().toInt()
                 else -> n.toString().reversed().toInt()
             }
-        } catch (e: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             0
         }
     }
