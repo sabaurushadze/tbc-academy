@@ -96,8 +96,8 @@ fun main() {
     val mathOperations = MathOperations()
 
 //  ტესტირება
-    val usg = mathOperations.usg(15, 5)
-    val usj = mathOperations.usj(625, 25)
+    val usg = mathOperations.usg(2, 2)
+    val usj = mathOperations.usj(0, 0)
 
     val containsDollarNegative = mathOperations.containsDollarSymbol("TBC Academy Android Course")
     val containsDollarPositive = mathOperations.containsDollarSymbol("TBC Currency rates - 100$: 266.3₾")
