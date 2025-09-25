@@ -54,8 +54,8 @@ fun main() {
             }
         }
 
-        val tryAgain = readNonEmptyInput("Try again <Y/N>?")
-        playAgain = tryAgain.equals("Y", ignoreCase = true)
+        val ANSWER = readNonEmptyInput("Try again <Y/N>?")
+        playAgain = ANSWER.equals("Y", ignoreCase = true)
     }
 }
 
