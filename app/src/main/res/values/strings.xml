@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">academy-tbc</string>
+    <string name="app_name">Number to text converter</string>
+    <string name="one_thousand">one thousand</string>
+    <string name="cant_start_with_zero">A number cannot start with 0</string>
+    <string name="input_from_one_to_thousand">Please input numbers from 1 to 1000</string>
+    <string name="input_number_from_1_to_1000">Input number from 1 to 1000</string>
+    <string name="internal_error">Internal Error!</string>
+    <string name="english">English</string>
+    <string name="georgian">Georgian</string>
+    <string name="calculate">Calculate</string>
+    <string name="result">Result: </string>
 </resources>
