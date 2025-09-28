@@ -89,7 +89,6 @@ open class NumberToTextConverter(protected var userInput: String, val context: C
             !isFirstDigitOdd -> value.dropLast(1) + "და"
             else -> value
         }
-//              change to singleDigitsOrTens
         val singleDigitsOrDouble = if (isFirstDigitOdd) elevenToNineteen else singleDigits
         for (pair in singleDigitsOrDouble.entries) {
             if (isFirstDigitOdd && secondDigit == pair.key[1]) {
