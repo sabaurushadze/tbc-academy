@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">academy-tbc</string>
+    <string name="app_name">Davaleba4</string>
+    <string name="profile_info">Profile Info</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="age">Age</string>
+    <string name="save">Save</string>
+    <string name="clear">Clear</string>
 </resources>

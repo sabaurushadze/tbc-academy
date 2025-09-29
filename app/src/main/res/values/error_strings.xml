@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="try_again">Try Again</string>
+    <string name="age_not_valid">Age not valid!</string>
+    <string name="age_cant_be_empty">Age cannot be empty!</string>
+    <string name="last_name_too_long">Last name too long!</string>
+    <string name="last_name_cant_be_empty">last name cannot be empty!</string>
+    <string name="first_name_too_long">First name too long!</string>
+    <string name="first_name_cant_be_empty">First name cannot be empty!</string>
+    <string name="username_length_not_valid">Username length not valid</string>
+    <string name="user_name_cant_be_empty">User name cannot be empty!</string>
+    <string name="wrong_email_format">Wrong email format!</string>
+    <string name="email_cant_be_empty">Email cannot be empty!</string>
+</resources>
