@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">academy-tbc</string>
+    <string name="app_name">Leqcia 5</string>
+    <string name="enter_full_name">Enter Full name</string>
+    <string name="enter_email">Enter email</string>
+    <string name="add_user">Add user</string>
+    <string name="user_amount">Users -> %d</string>
+    <string name="get_user_info">get user info</string>
+    <string name="user_info">Full name: %1$s\nEmail: %2$s</string>
 </resources>
