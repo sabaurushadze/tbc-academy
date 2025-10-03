@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">academy-tbc</string>
+    <string name="enter_anagram">Enter anagram</string>
+    <string name="save">Save</string>
+    <string name="output">Output</string>
+    <string name="clear">Clear</string>
+    <string name="number_of_anagram_groups">Number of anagram groups: %1$d</string>
 </resources>
