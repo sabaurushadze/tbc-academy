@@ -7,13 +7,274 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBookingPlace"
+        android:layout_width="374dp"
+        android:layout_height="460dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="@+id/main"
+        app:layout_constraintStart_toStartOf="@+id/main"
+        app:layout_constraintTop_toTopOf="@+id/main" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnArrowLeft"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/circle"
+        app:layout_constraintStart_toStartOf="@+id/ivBookingPlace"
+        app:layout_constraintTop_toTopOf="@+id/ivBookingPlace"
+        app:srcCompat="@drawable/icon_arrow_left" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnArchive"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="21dp"
+        android:background="@drawable/circle"
+        app:layout_constraintEnd_toEndOf="@+id/ivBookingPlace"
+        app:layout_constraintTop_toTopOf="@+id/ivBookingPlace"
+        app:srcCompat="@drawable/archive" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPlaceInfo"
+        android:layout_width="331dp"
+        android:layout_height="104dp"
+        android:layout_marginHorizontal="21dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/container"
+        app:layout_constraintBottom_toBottomOf="@+id/ivBookingPlace"
+        app:layout_constraintEnd_toEndOf="@+id/ivBookingPlace"
+        app:layout_constraintStart_toStartOf="@+id/ivBookingPlace" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPlaceName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/inter_semibold_24"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/tvPlaceInfo"
+        app:layout_constraintTop_toTopOf="@+id/tvPlaceInfo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="22dp"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/whiteSecondary"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvPlaceInfo"
+        app:layout_constraintTop_toTopOf="@+id/tvPlaceInfo" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivLocationIcon"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginBottom="18dp"
+        android:src="@drawable/location"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPlaceInfo"
+        app:layout_constraintStart_toStartOf="@+id/tvPlaceInfo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvContinentOfPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="18dp"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/whiteSecondary"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPlaceInfo"
+        app:layout_constraintStart_toEndOf="@+id/ivLocationIcon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/blackSecondary"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPlaceInfo"
+        app:layout_constraintEnd_toStartOf="@+id/tvPriceAmount" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPriceAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/whiteSecondary"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPlaceInfo"
+        app:layout_constraintEnd_toEndOf="@+id/tvPlaceInfo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvOverview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/overview_tab"
+        android:textColor="@color/blackPrimary"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@id/main"
+        app:layout_constraintTop_toBottomOf="@+id/ivBookingPlace" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/details_tab"
+        android:textColor="@color/blackHeadlineTransparent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/tvOverview"
+        app:layout_constraintTop_toBottomOf="@+id/ivBookingPlace" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ibTimeIcon"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="99dp"
+        android:background="@drawable/rounded_rectangle_radius_6dp"
+        android:clickable="false"
+        app:layout_constraintStart_toStartOf="@id/main"
+        app:layout_constraintTop_toBottomOf="@+id/ivBookingPlace"
+        app:srcCompat="@drawable/icon_clock" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTimeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="105dp"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/textGray"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/ibTimeIcon"
+        app:layout_constraintTop_toBottomOf="@+id/ivBookingPlace" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ibWeatherIcon"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="99dp"
+        android:background="@drawable/rounded_rectangle_radius_6dp"
+        android:clickable="false"
+        app:layout_constraintEnd_toStartOf="@+id/ibStarIcon"
+        app:layout_constraintStart_toEndOf="@+id/ibTimeIcon"
+        app:layout_constraintTop_toBottomOf="@+id/ivBookingPlace"
+        app:srcCompat="@drawable/icon_cloud" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTemperatureValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="104dp"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/textGray"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/ibWeatherIcon"
+        app:layout_constraintTop_toBottomOf="@+id/ivBookingPlace" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ibStarIcon"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="99dp"
+
+        android:background="@drawable/rounded_rectangle_radius_6dp"
+        android:clickable="false"
+        app:layout_constraintEnd_toEndOf="@+id/main"
+        app:layout_constraintStart_toEndOf="@id/tvTemperatureValue"
+        app:layout_constraintTop_toBottomOf="@+id/ivBookingPlace"
+        app:srcCompat="@drawable/star_icon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvRatingValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="105dp"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/textGray"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/ibStarIcon"
+        app:layout_constraintTop_toBottomOf="@+id/ivBookingPlace" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/svTextScroll"
+        android:layout_width="374dp"
+        android:layout_height="75dp"
+        android:layout_marginHorizontal="28dp"
+        android:layout_marginTop="164dp"
+        app:layout_constraintEnd_toEndOf="@id/main"
+        app:layout_constraintStart_toStartOf="@id/main"
+        app:layout_constraintTop_toBottomOf="@+id/ivBookingPlace">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPlaceDescription"
+            android:layout_width="374dp"
+            android:layout_height="135dp"
+            android:fontFamily="@font/roboto_medium"
+            android:lineHeight="27sp"
+            android:textColor="@color/textGray2"
+            android:textSize="18sp" />
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btnBookNow"
+        android:layout_width="373dp"
+        android:layout_height="66dp"
+        android:layout_marginHorizontal="28dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_rectangle_radius_20dp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/main"
+        app:layout_constraintStart_toStartOf="@+id/main"
+        app:layout_constraintTop_toBottomOf="@+id/svTextScroll" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvBookNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="163dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/book_now"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnBookNow"
+        app:layout_constraintTop_toTopOf="@+id/btnBookNow" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivSendIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="120dp"
+        android:src="@drawable/send_icon"
+        app:layout_constraintEnd_toEndOf="@+id/btnBookNow"
+        app:layout_constraintTop_toTopOf="@+id/btnBookNow" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

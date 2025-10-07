@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">academy-tbc</string>
+    <string name="overview_tab">Overview</string>
+    <string name="details_tab">Details</string>
+    <string name="book_now">Book Now</string>
+    <string name="andes_mountain">Andes Mountain</string>
+    <string name="south_america">South, America</string>
+    <string name="price">Price</string>
+    <string name="andes_time">8 hours</string>
+    <string name="temperature_in_andes">16 &#176;C</string>
+    <string name="andes_rating">4.5</string>
+    <string name="andes_overview">This vast mountain range is renowned for its remarkable diversity in terms of topography and climate. It features towering peaks, active volcanoes, deep canyons, expansive plateaus, and lush valleys. The Andes are also home to</string>
+    <string name="currency_usd">$</string>
+    <string name="andes_price_amount">230</string>
+    <string name="booking_successful">Booking successful!</string>
+
 </resources>
