@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "866569488355",
+    "project_id": "tbc-academy-auth",
+    "storage_bucket": "tbc-academy-auth.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866569488355:android:d7d4dd54ab0382c62842d6",
+        "android_client_info": {
+          "package_name": "com.example.academy_tbc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAazDxcSA8TozPKIpgSkgxopJMhA5xPgDc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866569488355:android:17fd90549ef0b9bb2842d6",
+        "android_client_info": {
+          "package_name": "com.example.authentication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAazDxcSA8TozPKIpgSkgxopJMhA5xPgDc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
