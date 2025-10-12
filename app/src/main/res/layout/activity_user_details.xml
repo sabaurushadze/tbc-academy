@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserDetailsActivity">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ilFirstName"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="48dp"
+        android:inputType="text"
+        app:boxCornerRadiusBottomEnd="6dp"
+        app:boxCornerRadiusBottomStart="6dp"
+        app:boxCornerRadiusTopEnd="6dp"
+        app:boxCornerRadiusTopStart="6dp"
+        app:boxStrokeColor="@color/black"
+        app:boxStrokeWidth="2dp"
+        app:layout_constraintEnd_toEndOf="@id/main"
+        app:layout_constraintStart_toStartOf="@id/main"
+        app:layout_constraintTop_toTopOf="@id/main">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="@string/first_name"
+            android:inputType="text"
+            android:textSize="15sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ilLastName"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:inputType="text"
+        app:boxCornerRadiusBottomEnd="6dp"
+        app:boxCornerRadiusBottomStart="6dp"
+        app:boxCornerRadiusTopEnd="6dp"
+        app:boxCornerRadiusTopStart="6dp"
+        app:boxStrokeColor="@color/black"
+        app:boxStrokeWidth="2dp"
+        app:layout_constraintEnd_toEndOf="@id/main"
+        app:layout_constraintStart_toStartOf="@id/main"
+        app:layout_constraintTop_toBottomOf="@id/ilFirstName">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etLastName"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="@string/last_name"
+            android:inputType="text"
+            android:textSize="15sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ilAge"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:inputType="text"
+        app:boxCornerRadiusBottomEnd="6dp"
+        app:boxCornerRadiusBottomStart="6dp"
+        app:boxCornerRadiusTopEnd="6dp"
+        app:boxCornerRadiusTopStart="6dp"
+        app:boxStrokeColor="@color/black"
+        app:boxStrokeWidth="2dp"
+        app:layout_constraintEnd_toEndOf="@id/main"
+        app:layout_constraintStart_toStartOf="@+id/main"
+        app:layout_constraintTop_toBottomOf="@id/ilLastName">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAge"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="@string/age"
+            android:inputType="number"
+            android:textSize="15sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/save"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:backgroundTint="@color/success_green"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="@id/main"
+        app:layout_constraintEnd_toEndOf="@+id/main"
+        app:layout_constraintStart_toStartOf="@id/main" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
