@@ -53,20 +53,33 @@ class UserManagementActivity : AppCompatActivity() {
         val firstName = data.getStringExtra(FIRST_NAME)
         val lastName = data.getStringExtra(LAST_NAME)
         val age = data.getStringExtra(AGE)
-        val email = data.getStringExtra(EMAIL)
+        val email = data.getStringExtra(EMAIL) ?: return
 
-        val user = User().apply {
-            firstName?.let { this.firstName = it }
-            lastName?.let { this.lastName = it }
-            age?.let { this.age = it }
+        val operation = data.getStringExtra(OPERATION)
+
+        when (operation) {
+            OPERATION_UPDATE -> {
+                val currentUser = users[email]
+                if (currentUser != null) {
+                    val updatedUser = currentUser.copy(
+                        firstName = firstName ?: currentUser.firstName,
+                        lastName = lastName ?: currentUser.lastName,
+                        age = age ?: currentUser.age
+                    )
+                    users[email] = updatedUser
+                    binding.root.showSnackBar(getString(R.string.user_updated_successfully))
+                }
+            }
+
+            OPERATION_ADD -> {
+                if (firstName != null && lastName != null && age != null) {
+                    val newUser = User(firstName, lastName, age)
+                    users[email] = newUser
+                    binding.root.showSnackBar(getString(R.string.user_added_successfully))
+                }
+            }
         }
 
-        email?.let { users[it] = user }
-
-        when (data.getStringExtra(OPERATION)) {
-            OPERATION_ADD -> binding.root.showSnackBar(getString(R.string.user_added_successfully))
-            OPERATION_UPDATE -> binding.root.showSnackBar(getString(R.string.user_updated_successfully))
-        }
         setTextToSuccessOrFailure(
             binding.tvOperationSuccessOrError, R.string.success, R.color.success_green
         )

@@ -1,7 +1,7 @@
 package com.example.academy_tbc
 
 data class User(
-    var firstName: String = "firstName",
-    var lastName: String = "lastName",
-    var age: String = "33",
+    val firstName: String,
+    val lastName: String,
+    val age: String,
 )
