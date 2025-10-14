@@ -1,4 +1,4 @@
-package com.example.academy_tbc
+package com.example.academy_tbc.utils
 
 import android.view.View
 import android.widget.EditText

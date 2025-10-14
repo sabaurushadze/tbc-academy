@@ -8,12 +8,45 @@
     tools:context=".UserDetailsActivity">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ilEmail"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="128dp"
+        android:inputType="text"
+        app:boxCornerRadiusBottomEnd="6dp"
+        app:boxCornerRadiusBottomStart="6dp"
+        app:boxCornerRadiusTopEnd="6dp"
+        app:boxCornerRadiusTopStart="6dp"
+        app:boxStrokeColor="@color/black"
+        app:boxStrokeWidth="2dp"
+        app:cursorColor="@color/black"
+        app:hintTextColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@id/main"
+        app:layout_constraintStart_toStartOf="@+id/main"
+        app:layout_constraintTop_toTopOf="@id/main"
+        app:prefixTextColor="@color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:enabled="true"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress|text"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ilFirstName"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="8dp"
         android:inputType="text"
         app:boxCornerRadiusBottomEnd="6dp"
         app:boxCornerRadiusBottomStart="6dp"
@@ -23,7 +56,7 @@
         app:boxStrokeWidth="2dp"
         app:layout_constraintEnd_toEndOf="@id/main"
         app:layout_constraintStart_toStartOf="@id/main"
-        app:layout_constraintTop_toTopOf="@id/main">
+        app:layout_constraintTop_toBottomOf="@id/ilEmail">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etFirstName"
@@ -92,20 +125,56 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSave"
-        android:layout_width="match_parent"
+        android:id="@+id/btnRemoveUser"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="64dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="@string/save"
+        android:text="@string/remove_user"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="14sp"
+        android:visibility="gone"
+        app:backgroundTint="@color/error_red"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="@id/main"
+        app:layout_constraintEnd_toStartOf="@id/btnUpdateUser"
+        app:layout_constraintStart_toStartOf="@id/main" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnUpdateUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="64dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/update_user"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:backgroundTint="@color/info_blue"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="@id/main"
+        app:layout_constraintEnd_toStartOf="@id/btnAddUser"
+        app:layout_constraintStart_toEndOf="@id/btnRemoveUser" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/add_user"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="visible"
         app:backgroundTint="@color/success_green"
         app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="@id/main"
-        app:layout_constraintEnd_toEndOf="@+id/main"
-        app:layout_constraintStart_toStartOf="@id/main" />
+        app:layout_constraintEnd_toEndOf="@id/main"
+        app:layout_constraintStart_toEndOf="@id/btnUpdateUser" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,8 +2,7 @@ package com.example.academy_tbc
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Patterns.EMAIL_ADDRESS
-import android.widget.EditText
+import android.view.View
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -11,18 +10,37 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.academy_tbc.databinding.ActivityUserManagementBinding
+import com.example.academy_tbc.utils.showSnackBar
+import kotlin.random.Random
 
 class UserManagementActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserManagementBinding
-    private var users: HashMap<String, User> = hashMapOf()
+    private var users: HashMap<String, User> = linkedMapOf()
     private var deletedUsers: Int = 0
 
     val userDetailsLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        if (result.resultCode == RESULT_OK) {
-            result.data?.let { data ->
-                handleUserDetailsResult(data)
+        when (result.resultCode) {
+            RESULT_ADD -> {
+                result.data?.let { data ->
+                    handleAddUser(data)
+                    showStats()
+                }
+            }
+
+            RESULT_UPDATE -> {
+                result.data?.let { data ->
+                    handleUpdateUser(data)
+                    showStats()
+                }
+            }
+
+            RESULT_DELETE -> {
+                result.data?.let { data ->
+                    handleRemoveUser(data)
+                    showStats()
+                }
             }
         }
     }
@@ -33,156 +51,96 @@ class UserManagementActivity : AppCompatActivity() {
         binding = ActivityUserManagementBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        applySystemWindowInsetsAsPadding(view)
 
-        crud()
+        setUp()
     }
 
-    private fun crud() {
+    private fun setUp() {
         addUser()
-        removeUser()
         updateUser()
         showStats()
     }
 
-    private fun handleUserDetailsResult(data: Intent) {
-        val firstName = data.getStringExtra(FIRST_NAME)
-        val lastName = data.getStringExtra(LAST_NAME)
-        val age = data.getStringExtra(AGE)
+    private fun handleAddUser(data: Intent) = with(binding) {
+        val user = data.getParcelableExtra<User>(USER) ?: return
         val email = data.getStringExtra(EMAIL) ?: return
 
-        val operation = data.getStringExtra(OPERATION)
-
-        when (operation) {
-            OPERATION_UPDATE -> {
-                val currentUser = users[email]
-                if (currentUser != null) {
-                    val updatedUser = currentUser.copy(
-                        firstName = firstName ?: currentUser.firstName,
-                        lastName = lastName ?: currentUser.lastName,
-                        age = age ?: currentUser.age
-                    )
-                    users[email] = updatedUser
-                    binding.root.showSnackBar(getString(R.string.user_updated_successfully))
-                }
-            }
-
-            OPERATION_ADD -> {
-                if (firstName != null && lastName != null && age != null) {
-                    val newUser = User(firstName, lastName, age)
-                    users[email] = newUser
-                    binding.root.showSnackBar(getString(R.string.user_added_successfully))
-                }
-            }
+        if (users.contains(email)) {
+            root.showSnackBar(getString(R.string.user_already_exists))
+            setTextToSuccessOrFailure(
+                tvOperationSuccessOrError, R.string.failure, R.color.error_red
+            )
+        } else {
+            users[email] = user
+            root.showSnackBar(getString(R.string.user_added_successfully))
+            setTextToSuccessOrFailure(
+                tvOperationSuccessOrError, R.string.success, R.color.success_green
+            )
         }
+    }
 
+    private fun handleUpdateUser(data: Intent) = with(binding) {
+        val user = data.getParcelableExtra<User>(USER) ?: return
+        val email = data.getStringExtra(EMAIL) ?: return
+
+        users[email] = user
+        binding.root.showSnackBar(getString(R.string.user_updated_successfully))
         setTextToSuccessOrFailure(
             binding.tvOperationSuccessOrError, R.string.success, R.color.success_green
         )
-        clearEmailField()
-        showStats()
+    }
+
+    private fun handleRemoveUser(data: Intent) = with(binding) {
+        val email = data.getStringExtra(EMAIL) ?: return
+
+        users.remove(email)
+        deletedUsers++
+        root.showSnackBar(getString(R.string.user_deleted_successfully))
+        setTextToSuccessOrFailure(
+            tvOperationSuccessOrError, R.string.success, R.color.success_green
+        )
     }
 
     private fun addUser() = with(binding) {
         btnAddUser.setOnClickListener {
-            val email = etEmail.toText()
-
-            if (!isValidEmail(email)) {
-                return@setOnClickListener
-            }
-
-            if (users.contains(email)) {
-                root.showSnackBar(getString(R.string.error_user_already_exists))
-                setTextToSuccessOrFailure(
-                    tvOperationSuccessOrError, R.string.failure, R.color.error_red
-                )
-                clearEmailField()
-                return@setOnClickListener
-            }
-
-            val intent = Intent(this@UserManagementActivity, UserDetailsActivity::class.java)
-            intent.putExtra(EMAIL, email)
-            intent.putExtra(OPERATION, OPERATION_ADD)
-            userDetailsLauncher.launch(intent)
+            launchUserDetailsActivity(operation = OPERATION_ADD)
         }
     }
 
     private fun updateUser() = with(binding) {
         btnUpdateUser.setOnClickListener {
-            val email = etEmail.toText()
-
-            if (!isValidEmail(email)) {
-                return@setOnClickListener
-            }
-
-            if (!users.contains(email)) {
-                root.showSnackBar(getString(R.string.error_user_does_not_exist))
+            if (users.isEmpty()) {
+                binding.root.showSnackBar(getString(R.string.error_no_users_found))
                 setTextToSuccessOrFailure(
-                    tvOperationSuccessOrError, R.string.failure, R.color.error_red
+                    binding.tvOperationSuccessOrError, R.string.failure, R.color.error_red
                 )
-                clearEmailField()
                 return@setOnClickListener
-            }
+            } else {
+                val randomUser = Random.nextInt(0, users.size)
+                val randomUserEmail = users.keys.toList()[randomUser]
 
-            val intent = Intent(this@UserManagementActivity, UserDetailsActivity::class.java)
-            intent.putExtra(EMAIL, email)
-            intent.putExtra(OPERATION, OPERATION_UPDATE)
-            intent.putExtra(FIRST_NAME, users[email]?.firstName)
-            intent.putExtra(LAST_NAME, users[email]?.lastName)
-            intent.putExtra(AGE, users[email]?.age)
-            userDetailsLauncher.launch(intent)
+                launchUserDetailsActivity(
+                    operation = OPERATION_UPDATE,
+                    email = randomUserEmail,
+                    user = users[randomUserEmail]
+                )
+            }
         }
     }
 
-    private fun removeUser() = with(binding) {
-        btnRemoveUser.setOnClickListener {
-            val email = etEmail.toText()
-
-            if (!isValidEmail(email)) {
-                return@setOnClickListener
-            }
-
-            if (!users.contains(email)) {
-                root.showSnackBar(getString(R.string.error_user_does_not_exist))
-                setTextToSuccessOrFailure(
-                    tvOperationSuccessOrError, R.string.failure, R.color.error_red
-                )
-                clearEmailField()
-                return@setOnClickListener
-            }
-
-            users.remove(email)
-            deletedUsers++
-            showStats()
-            root.showSnackBar(getString(R.string.user_deleted_successfully))
-            setTextToSuccessOrFailure(
-                tvOperationSuccessOrError, R.string.success, R.color.success_green
-            )
-            clearEmailField()
+    private fun launchUserDetailsActivity(
+        email: String? = null,
+        user: User? = null,
+        operation: String,
+    ) {
+        val intent = Intent(this@UserManagementActivity, UserDetailsActivity::class.java)
+        intent.apply {
+            email?.let { putExtra(EMAIL, it) }
+            user?.let { putExtra(USER, it) }
+            putExtra(OPERATION, operation)
         }
-    }
-
-
-    private fun isValidEmail(email: String): Boolean = with(binding) {
-        fun setError(view: EditText, message: String): Boolean {
-            view.error = message
-            return false
-        }
-        return when {
-            email.isBlank() -> setError(
-                etEmail, getString(R.string.error_please_enter_your_email)
-            )
-
-            !EMAIL_ADDRESS.matcher(email).matches() -> setError(
-                etEmail, getString(R.string.error_invalid_email_format)
-            )
-
-            else -> true
-        }
+        userDetailsLauncher.launch(intent)
     }
 
     private fun showStats() = with(binding) {
@@ -199,17 +157,23 @@ class UserManagementActivity : AppCompatActivity() {
         tvSuccessOrError.setTextColor(getColor(colorId))
     }
 
-    private fun clearEmailField() = with(binding) {
-        etEmail.text?.clear()
+    private fun applySystemWindowInsetsAsPadding(view: View) {
+        ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
     }
 
     companion object {
+        const val RESULT_ADD = RESULT_OK
+        const val RESULT_UPDATE = RESULT_FIRST_USER
+        const val RESULT_DELETE = RESULT_FIRST_USER + 1
+        const val USER = "user"
         const val OPERATION_ADD = "add"
         const val OPERATION_UPDATE = "update"
+        const val OPERATION_DELETE = "delete"
         const val OPERATION = "operation"
-        const val FIRST_NAME = "firstName"
-        const val LAST_NAME = "lastName"
-        const val AGE = "age"
         const val EMAIL = "email"
     }
 }

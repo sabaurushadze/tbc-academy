@@ -9,12 +9,9 @@
     <string name="update_user">Update</string>
     <string name="failure">Failure</string>
     <string name="success">Success</string>
-    <string name="save">Save</string>
     <string name="active_users">Active users: %1$d</string>
     <string name="deleted_users">Deleted users: %1$d</string>
 
-    <string name="error_user_already_exists">User already exists</string>
-    <string name="error_user_does_not_exist">User does not exist</string>
     <string name="error_please_enter_your_first_name">Please Enter your first name</string>
     <string name="error_please_enter_your_last_name">Please Enter your last name</string>
     <string name="error_please_enter_your_age">Please Enter your age</string>
@@ -23,9 +20,11 @@
     <string name="error_please_enter_your_real_age">Please enter your real age</string>
     <string name="error_please_enter_your_email">Please Enter your email</string>
     <string name="error_invalid_email_format">Invalid email format</string>
+    <string name="error_no_users_found">No users found</string>
 
     <string name="user_added_successfully">User added successfully</string>
     <string name="user_deleted_successfully">User deleted successfully</string>
     <string name="user_updated_successfully">User updated successfully</string>
+    <string name="user_already_exists">User already exists</string>
 
 </resources>
