@@ -67,13 +67,14 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            tvId.text = "id :" + foundUser?.id.toString()
-            tvFirstName.text = "First Name: " + foundUser?.firstName.toString()
-            tvLastName.text = "Last Name: " + foundUser?.lastName.toString()
-            tvBirthday.text = "Birthday: " + convertTimestampToDate(foundUser?.birthday.toString())
-            tvAddress.text = "Address: " + foundUser?.address.toString()
-            tvEmail.text = "Email: " + foundUser?.email.toString()
-            tvDesc.text = "desc: " + foundUser?.desc.toString()
+            tvId.text = getString(R.string.id_output, foundUser.id)
+            tvFirstName.text = getString(R.string.first_name_output, foundUser.firstName)
+            tvLastName.text = getString(R.string.last_name_output, foundUser.lastName)
+            tvBirthday.text =
+                getString(R.string.birthday_output, convertTimestampToDate(foundUser.birthday))
+            tvAddress.text = getString(R.string.address_output, foundUser.address)
+            tvEmail.text = getString(R.string.email_output, foundUser.email)
+            tvDesc.text = getString(R.string.desc_output, foundUser.desc)
 
         }
     }

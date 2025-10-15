@@ -29,4 +29,11 @@
     <string name="id_filed_should_not_be_empty">Id filed should not be empty</string>
     <string name="id_field_should_not_be_empty">Id field should not be empty</string>
     <string name="email_not_valid">Email is not valid</string>
+    <string name="id_output">id : %1$d</string>
+    <string name="first_name_output">First Name: %1$s</string>
+    <string name="last_name_output">Last Name: %1$s</string>
+    <string name="birthday_output">Birthday: %1$s</string>
+    <string name="address_output">Address: %1$s</string>
+    <string name="email_output">Email: %1$s</string>
+    <string name="desc_output">desc: %1$s</string>
 </resources>
