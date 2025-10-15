@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">academy-tbc</string>
+    <string name="add_new_user">Add new user</string>
+    <string name="enter_id">Enter id</string>
+    <string name="enter_first_name">Enter first name</string>
+    <string name="enter_last_name">Enter last name</string>
+    <string name="enter_birthday">Enter birthday</string>
+    <string name="enter_address">Enter address</string>
+    <string name="enter_email">Enter email</string>
+    <string name="search">Search</string>
+    <string name="enter_desc">Enter desc</string>
+    <string name="enter_id_to_update">Enter Id to update</string>
+    <string name="desc">Desc</string>
+    <string name="email">Email</string>
+    <string name="add_description">Add Description</string>
+    <string name="save">Save</string>
+    <string name="enter_user_info">Enter User info</string>
+    <string name="search_field_should_not_be_empty">Search Field should not be empty!</string>
+    <string name="user_not_found">User not found!</string>
+    <string name="id_should_not_be_empty">Id should not be empty</string>
+    <string name="desc_should_not_be_empty">Desc should not be empty</string>
+    <string name="user_with_that_id_already_exists">User with that id already exists</string>
+    <string name="id_field_not_be_empty">Id field not be empty</string>
+    <string name="first_name_should_not_be_empty">First name should not be empty</string>
+    <string name="last_name_should_not_be_empty">Last name should not be empty</string>
+    <string name="birthday_should_not_be_empty">Birthday should not be empty</string>
+    <string name="address_should_not_be_empty">Address should not be empty</string>
+    <string name="email_should_not_be_empty">Email should not be empty</string>
+    <string name="id_filed_should_not_be_empty">Id filed should not be empty</string>
+    <string name="id_field_should_not_be_empty">Id field should not be empty</string>
+    <string name="email_not_valid">Email is not valid</string>
 </resources>

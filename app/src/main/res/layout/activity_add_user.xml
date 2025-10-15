@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddUserActivity">
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:hint="@string/enter_id"
+        android:inputType="number" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:hint="@string/enter_first_name"
+        android:inputType="textPersonName" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etLastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:hint="@string/enter_last_name"
+        android:inputType="textPersonName" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etBirthday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:clickable="true"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:hint="@string/enter_birthday"
+        android:inputType="none"
+        android:longClickable="false" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:hint="@string/enter_address"
+        android:inputType="text" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="24dp"
+        android:hint="@string/enter_email"
+        android:inputType="textEmailAddress" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSaveUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/save" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
