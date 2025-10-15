@@ -27,7 +27,7 @@ object UsersList {
             email = "omger@gmail.com"
         ),
         User(
-            id =32,
+            id = 32,
             firstName = "ბორის",
             lastName = "გარუჩავა",
             birthday = "1714947701641",
@@ -35,7 +35,7 @@ object UsersList {
             email = ""
         ),
         User(
-            id =34,
+            id = 34,
             firstName = "აბთო",
             lastName = "სიხარულიძე",
             birthday = "1711947701641",
