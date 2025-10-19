@@ -6,6 +6,11 @@ import android.widget.EditText
 import com.example.academy_tbc.R
 
 object Validations {
+    private fun setError(view: EditText, message: String): Boolean {
+        view.error = message
+        return false
+    }
+
     fun isValidInput(
         context: Context,
         etFirstName: EditText,
@@ -16,10 +21,6 @@ object Validations {
         age: String,
     ): Boolean {
 
-        fun setError(view: EditText, message: String): Boolean {
-            view.error = message
-            return false
-        }
         return when {
             firstName.isBlank() -> setError(
                 etFirstName, context.getString(R.string.error_please_enter_your_first_name)
@@ -55,10 +56,6 @@ object Validations {
         email: String,
     ): Boolean {
 
-        fun setError(view: EditText, message: String): Boolean {
-            view.error = message
-            return false
-        }
         return when {
             email.isBlank() -> setError(
                 etEmail, context.getString(R.string.error_please_enter_your_email)
