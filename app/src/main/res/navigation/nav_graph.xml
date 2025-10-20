@@ -19,8 +19,6 @@
         android:name="com.example.academy_tbc.UserDetailsFragment"
         android:label="fragment_user_details"
         tools:layout="@layout/fragment_user_details">
-        <argument android:name="operation" />
-        <argument android:name="email" />
     </fragment>
 
 </navigation>

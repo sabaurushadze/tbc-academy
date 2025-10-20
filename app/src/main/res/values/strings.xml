@@ -10,8 +10,6 @@
     <string name="failure">Failure</string>
     <string name="success">Success</string>
     <string name="pending">Pending</string>
-    <string name="active_users">Active users: %1$d</string>
-    <string name="deleted_users">Deleted users: %1$d</string>
 
     <string name="error_please_enter_your_first_name">Please Enter your first name</string>
     <string name="error_please_enter_your_last_name">Please Enter your last name</string>
@@ -25,7 +23,11 @@
 
     <string name="user_added_successfully">User added successfully</string>
     <string name="user_deleted_successfully">User deleted successfully</string>
+    <string name="user_deletion_failed">User deletion failed</string>
     <string name="user_updated_successfully">User updated successfully</string>
+    <string name="user_update_failed">User update failed</string>
     <string name="user_already_exists">User already exists</string>
+    <string name="active_users">Active users: %1$d</string>
+    <string name="users_removed">Users removed: %1$d</string>
 
 </resources>

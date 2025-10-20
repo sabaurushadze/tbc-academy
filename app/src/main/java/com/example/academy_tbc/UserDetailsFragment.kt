@@ -1,67 +1,47 @@
 package com.example.academy_tbc
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.academy_tbc.UserManagementFragment.Companion.OPERATION_ADD
 import com.example.academy_tbc.UserManagementFragment.Companion.OPERATION_UPDATE
+import com.example.academy_tbc.common.BaseFragment
 import com.example.academy_tbc.databinding.FragmentUserDetailsBinding
-import com.example.academy_tbc.extensions.showSnackBar
 import com.example.academy_tbc.extensions.toText
 import com.example.academy_tbc.utils.Validations.isValidEmail
 import com.example.academy_tbc.utils.Validations.isValidInput
 
 
-class UserDetailsFragment : Fragment() {
-    private var _binding: FragmentUserDetailsBinding? = null
-    private val binding get() = _binding!!
-    private val args: UserDetailsFragmentArgs by navArgs()
+class UserDetailsFragment : BaseFragment<FragmentUserDetailsBinding>(
+    FragmentUserDetailsBinding::inflate
+) {
+    override fun bind() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentUserDetailsBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun listeners() {
+        setFragmentResultListener("operation_request") { requestKey, bundle ->
+            val operationResult = bundle.getString("operation_result")
+            showButtonsBasedOnOperation(operationResult)
+        }
         uiInitialization()
-        listeners()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    private fun listeners() {
         addUser()
-        updateUser(args.email)
-        removeUser(args.email)
+        updateUser()
+        removeUser()
     }
 
     private fun uiInitialization() {
-        showButtonsBasedOnOperation()
-        initializeUpdateFields(args.email)
+        initializeUpdateFields()
     }
 
     private fun addUser() = with(binding) {
         btnAddUser.setOnClickListener {
             val firstName: String = etFirstName.toText()
             val lastName = etLastName.toText()
-            val age = etAge.toText()
+            val age = etAge.text.toString().toIntOrNull()
             val email = etEmail.toText().lowercase()
-
-            if (UserManager.containsEmail(email)) {
-                root.showSnackBar(getString(R.string.user_already_exists))
-                return@setOnClickListener
-            }
 
             if (!(isValidEmail(
                     context = requireContext(), etEmail = etEmail, email = email
@@ -78,19 +58,18 @@ class UserDetailsFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            val user = User(firstName, lastName, age)
-            UserManager.addUser(user = user, email = email)
-            UserManager.setOperation(Operation.SUCCESS)
+            val userItem = UserItem(firstName, lastName, age, email)
+            setFragmentResult("request_add", bundleOf("newUser" to userItem))
             findNavController().popBackStack()
         }
     }
 
-    private fun updateUser(email: String) = with(binding) {
+    private fun updateUser() = with(binding) {
         btnUpdateUser.setOnClickListener {
             val firstName: String = etFirstName.toText()
             val lastName = etLastName.toText()
-            val age = etAge.toText()
-
+            val age = etAge.text.toString().toIntOrNull()
+            val email = etEmail.toText()
 
             if (!isValidInput(
                     context = requireContext(),
@@ -105,35 +84,39 @@ class UserDetailsFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            val updatedUser = User(firstName, lastName, age)
-
-            UserManager.updateUser(user = updatedUser, email = email)
-            UserManager.setOperation(Operation.SUCCESS)
+            val updatedUser = UserItem(
+                firstName = firstName, lastName = lastName, age = age, email = email
+            )
+            setFragmentResult("updated_user_request", bundleOf("updated_user" to updatedUser))
             findNavController().popBackStack()
         }
     }
 
-    private fun removeUser(email: String) {
+    private fun removeUser() {
         binding.btnRemoveUser.setOnClickListener {
-            UserManager.removeUser(email)
-            UserManager.setOperation(Operation.SUCCESS)
+            val userEmail = binding.etEmail.toText()
+            setFragmentResult("remove_user_request", bundleOf("user_email_to_remove" to userEmail))
             findNavController().popBackStack()
         }
     }
 
-    private fun initializeUpdateFields(email: String) {
-        val user = UserManager.getUserByEmail(email)
-        if (user != null) {
-            binding.etFirstName.setText(user.firstName)
-            binding.etLastName.setText(user.lastName)
-            binding.etAge.setText(user.age)
-            binding.etEmail.setText(email)
-            binding.etEmail.isEnabled = false
+    private fun initializeUpdateFields() = with(binding) {
+        setFragmentResultListener("update_request") { requestKey, bundle ->
+            val user = bundle.getParcelable<UserItem>("userToUpdate")
+
+            if (user != null) {
+                etFirstName.setText(user.firstName)
+                etLastName.setText(user.lastName)
+                etAge.setText(user.age.toString())
+                etEmail.setText(user.email)
+                etEmail.isEnabled = false
+                etEmail.setTextColor(resources.getColor(R.color.disabled_gray, null))
+            }
         }
     }
 
-    private fun showButtonsBasedOnOperation() = with(binding) {
-        when (args.operation) {
+    private fun showButtonsBasedOnOperation(operation: String?) = with(binding) {
+        when (operation) {
             OPERATION_UPDATE -> {
                 btnAddUser.visibility = View.GONE
                 btnRemoveUser.visibility = View.VISIBLE

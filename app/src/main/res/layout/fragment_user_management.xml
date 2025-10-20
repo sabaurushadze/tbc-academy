@@ -1,46 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/snow"
     tools:context=".UserManagementFragment">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnUpdateUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="64dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="@string/update_user"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:backgroundTint="@color/info_blue"
-        app:cornerRadius="12dp"
-        app:layout_constraintBottom_toBottomOf="@id/main"
-        app:layout_constraintEnd_toStartOf="@+id/btnAddUser"
-        app:layout_constraintStart_toStartOf="@id/main" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAddUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="64dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="@string/add_user"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:backgroundTint="@color/success_green"
-        app:cornerRadius="12dp"
-        app:layout_constraintBottom_toBottomOf="@id/main"
-        app:layout_constraintEnd_toEndOf="@id/main"
-        app:layout_constraintStart_toEndOf="@+id/btnUpdateUser" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvActiveUserCount"
@@ -50,9 +18,7 @@
         android:layout_marginTop="32dp"
         android:fontFamily="@font/roboto_bold"
         android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@id/main"
-        app:layout_constraintTop_toTopOf="@id/main" />
+        android:textSize="18sp" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvDeletedUserCount"
@@ -62,9 +28,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto_bold"
         android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@id/main"
-        app:layout_constraintTop_toBottomOf="@+id/tvActiveUserCount" />
+        android:textSize="18sp" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvOperationSuccessOrError"
@@ -73,8 +37,31 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto_bold"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@id/main"
-        app:layout_constraintTop_toBottomOf="@id/tvDeletedUserCount" />
+        android:textSize="24sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/add_user"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:backgroundTint="@color/success_green"
+            app:cornerRadius="12dp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvUsers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

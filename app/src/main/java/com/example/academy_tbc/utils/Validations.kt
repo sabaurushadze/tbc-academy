@@ -18,7 +18,7 @@ object Validations {
         etAge: EditText,
         firstName: String,
         lastName: String,
-        age: String,
+        age: Int?,
     ): Boolean {
 
         return when {
@@ -30,7 +30,7 @@ object Validations {
                 etLastName, context.getString(R.string.error_please_enter_your_last_name)
             )
 
-            age.isBlank() -> setError(
+            age == null -> setError(
                 etAge, context.getString(R.string.error_please_enter_your_age)
             )
 
@@ -42,7 +42,7 @@ object Validations {
                 etLastName, context.getString(R.string.error_last_name_length_is_not_valid)
             )
 
-            age.toInt() !in 1..120 -> setError(
+            age !in 1..120 -> setError(
                 etAge, context.getString(R.string.error_please_enter_your_real_age)
             )
 

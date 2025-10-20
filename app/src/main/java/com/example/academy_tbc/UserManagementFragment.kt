@@ -1,90 +1,147 @@
 package com.example.academy_tbc
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
-import com.example.academy_tbc.UserManager.activeUsers
-import com.example.academy_tbc.UserManager.deletedUserCount
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.academy_tbc.common.BaseFragment
 import com.example.academy_tbc.databinding.FragmentUserManagementBinding
 import com.example.academy_tbc.extensions.showSnackBar
 
 
-class UserManagementFragment : Fragment() {
-    private var _binding: FragmentUserManagementBinding? = null
-    private val binding get() = _binding!!
+class UserManagementFragment : BaseFragment<FragmentUserManagementBinding>(
+    FragmentUserManagementBinding::inflate
+) {
+    private val users = mutableListOf<UserItem>()
+    private var usersRemoved = 0
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentUserManagementBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        listeners()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    private fun listeners() {
-        addUser()
-        updateUser()
+    override fun listeners() {
         showResult()
+        addUser()
+        handleAddUser()
+        handleUpdateUser()
+        handleRemoveUser()
     }
 
-    private fun addUser() {
-        binding.btnAddUser.setOnClickListener {
-            findNavController().navigate(
-                UserManagementFragmentDirections.actionUserManagementFragmentToUserDetailsFragment(
-                    operation = OPERATION_ADD, email = ""
-                )
-            )
+    override fun bind() = with(binding) {
+        rvUsers.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        rvUsers.adapter = UsersAdapter(
+            users = users,
+        ) { clickedUser ->
+            updateUser(clickedUser)
         }
     }
 
-    private fun updateUser() {
-        binding.btnUpdateUser.setOnClickListener {
-            if (activeUsers > 0) {
-                val randomUserEmail = UserManager.getRandomUser()
-                findNavController().navigate(
-                    UserManagementFragmentDirections.actionUserManagementFragmentToUserDetailsFragment(
-                        operation = OPERATION_UPDATE, email = randomUserEmail
+    private fun handleAddUser() = with(binding) {
+        setFragmentResultListener("request_add") { requestKey, bundle ->
+            val newUser = bundle.getParcelable<UserItem>("newUser")
+            if (newUser != null) {
+                val isEmailPresent = users.any { it.email == newUser.email }
+
+                if (isEmailPresent) {
+                    setTextToSuccessOrFailure(
+                        tvSuccessOrError = tvOperationSuccessOrError,
+                        textId = R.string.failure,
+                        colorId = R.color.error_red
                     )
-                )
-            } else {
-                UserManager.setOperation(Operation.FAILURE)
-                showResult()
-                binding.root.showSnackBar(getString(R.string.error_no_users_found))
+                    root.showSnackBar(getString(R.string.user_already_exists))
+                } else {
+                    users.add(newUser)
+                    rvUsers.adapter?.notifyItemInserted(users.size - 1)
+                    showResult()
+                    setTextToSuccessOrFailure(
+                        tvSuccessOrError = tvOperationSuccessOrError,
+                        textId = R.string.success,
+                        colorId = R.color.success_green
+                    )
+                    root.showSnackBar(getString(R.string.user_added_successfully))
+                }
             }
         }
     }
 
-    private fun showResult() = with(binding) {
-        tvActiveUserCount.text = getString(R.string.active_users, activeUsers)
-        tvDeletedUserCount.text = getString(R.string.deleted_users, deletedUserCount)
-        when (UserManager.currentOperation) {
-            Operation.PENDING -> setTextToSuccessOrFailure(
-                tvOperationSuccessOrError, R.string.pending, R.color.info_blue
-            )
+    private fun handleUpdateUser() = with(binding) {
+        setFragmentResultListener("updated_user_request") { requestKey, bundle ->
+            val updatedUser = bundle.getParcelable<UserItem>("updated_user")
+            if (updatedUser != null) {
+                val userIndex = users.indexOfFirst { it.email == updatedUser.email }
 
-            Operation.SUCCESS -> setTextToSuccessOrFailure(
-                tvOperationSuccessOrError, R.string.success, R.color.success_green
-            )
+                if (userIndex != -1) {
+                    users[userIndex] = users[userIndex].copy(
+                        firstName = updatedUser.firstName,
+                        lastName = updatedUser.lastName,
+                        age = updatedUser.age
+                    )
+                    setTextToSuccessOrFailure(
+                        tvSuccessOrError = tvOperationSuccessOrError,
+                        textId = R.string.success,
+                        colorId = R.color.success_green
+                    )
+                    root.showSnackBar(getString(R.string.user_updated_successfully))
+                    rvUsers.adapter?.notifyItemChanged(userIndex)
+                } else {
+                    setTextToSuccessOrFailure(
+                        tvSuccessOrError = tvOperationSuccessOrError,
+                        textId = R.string.failure,
+                        colorId = R.color.error_red
+                    )
+                    root.showSnackBar(getString(R.string.user_update_failed))
+                }
+            }
+            showResult()
+        }
+    }
 
-            Operation.FAILURE -> setTextToSuccessOrFailure(
-                tvOperationSuccessOrError, R.string.failure, R.color.error_red
+    private fun handleRemoveUser() = with(binding) {
+        setFragmentResultListener("remove_user_request") { requestKey, bundle ->
+            val userEmail = bundle.getString("user_email_to_remove")
+            val userIndex = users.indexOfFirst { it.email == userEmail }
+
+            if (userIndex != -1) {
+                users.removeAt(userIndex)
+                rvUsers.adapter?.notifyItemRemoved(userIndex)
+                usersRemoved++
+                setTextToSuccessOrFailure(
+                    tvSuccessOrError = tvOperationSuccessOrError,
+                    textId = R.string.success,
+                    colorId = R.color.success_green
+                )
+                root.showSnackBar(getString(R.string.user_deleted_successfully))
+            } else {
+                setTextToSuccessOrFailure(
+                    tvSuccessOrError = tvOperationSuccessOrError,
+                    textId = R.string.success,
+                    colorId = R.color.success_green
+                )
+                root.showSnackBar(getString(R.string.user_deletion_failed))
+            }
+            showResult()
+        }
+    }
+
+    private fun addUser() {
+        binding.btnAddUser.setOnClickListener {
+            setFragmentResult("operation_request", bundleOf("operation_result" to OPERATION_ADD))
+            findNavController().navigate(
+                UserManagementFragmentDirections.actionUserManagementFragmentToUserDetailsFragment()
             )
         }
+    }
+
+    private fun updateUser(clickedUser: UserItem) {
+        setFragmentResult("operation_request", bundleOf("operation_result" to OPERATION_UPDATE))
+        setFragmentResult("update_request", bundleOf("userToUpdate" to clickedUser))
+        findNavController().navigate(
+            UserManagementFragmentDirections.actionUserManagementFragmentToUserDetailsFragment()
+        )
+    }
+
+
+    private fun showResult() = with(binding) {
+        tvActiveUserCount.text = getString(R.string.active_users, users.size)
+        tvDeletedUserCount.text = getString(R.string.users_removed, usersRemoved)
     }
 
     private fun setTextToSuccessOrFailure(
