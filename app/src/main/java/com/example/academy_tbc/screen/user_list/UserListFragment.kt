@@ -35,8 +35,8 @@ class UserListFragment : BaseFragment<FragmentUserListBinding>(
     }
 
     private fun handleAddUser() = with(binding) {
-        setFragmentResultListener("request_add") { requestKey, bundle ->
-            val newUser = bundle.getParcelable<UserItem>("newUser")
+        setFragmentResultListener(REQUEST_ADD_USER) { requestKey, bundle ->
+            val newUser = bundle.getParcelable<UserItem>(KEY_NEW_USER)
             if (newUser != null) {
                 val isEmailPresent = users.any { it.email == newUser.email }
 
@@ -63,8 +63,8 @@ class UserListFragment : BaseFragment<FragmentUserListBinding>(
     }
 
     private fun handleUpdateUser() = with(binding) {
-        setFragmentResultListener("updated_user_request") { requestKey, bundle ->
-            val updatedUser = bundle.getParcelable<UserItem>("updated_user")
+        setFragmentResultListener(REQUEST_UPDATED_USER) { requestKey, bundle ->
+            val updatedUser = bundle.getParcelable<UserItem>(KEY_UPDATED_USER)
             if (updatedUser != null) {
                 val userIndex = users.indexOfFirst { it.email == updatedUser.email }
 
@@ -95,8 +95,8 @@ class UserListFragment : BaseFragment<FragmentUserListBinding>(
     }
 
     private fun handleRemoveUser() = with(binding) {
-        setFragmentResultListener("remove_user_request") { requestKey, bundle ->
-            val userEmail = bundle.getString("user_email_to_remove")
+        setFragmentResultListener(REQUEST_REMOVE_USER) { requestKey, bundle ->
+            val userEmail = bundle.getString(KEY_USER_EMAIL_TO_REMOVE)
             val userIndex = users.indexOfFirst { it.email == userEmail }
 
             if (userIndex != -1) {
@@ -123,7 +123,7 @@ class UserListFragment : BaseFragment<FragmentUserListBinding>(
 
     private fun addUser() {
         binding.btnAddUser.setOnClickListener {
-            setFragmentResult("operation_request", bundleOf("operation_result" to OPERATION_ADD))
+            setFragmentResult(REQUEST_OPERATION, bundleOf(KEY_OPERATION_RESULT to OPERATION_ADD))
             findNavController().navigate(
                 UserListFragmentDirections.actionUserManagementFragmentToUserDetailsFragment()
             )
@@ -131,8 +131,8 @@ class UserListFragment : BaseFragment<FragmentUserListBinding>(
     }
 
     private fun updateUser(clickedUser: UserItem) {
-        setFragmentResult("operation_request", bundleOf("operation_result" to OPERATION_UPDATE))
-        setFragmentResult("update_request", bundleOf("userToUpdate" to clickedUser))
+        setFragmentResult(REQUEST_OPERATION, bundleOf(KEY_OPERATION_RESULT to OPERATION_UPDATE))
+        setFragmentResult(REQUEST_USER_TO_UPDATE, bundleOf(KEY_USER_TO_UPDATE to clickedUser))
         findNavController().navigate(
             UserListFragmentDirections.actionUserManagementFragmentToUserDetailsFragment()
         )
@@ -154,6 +154,18 @@ class UserListFragment : BaseFragment<FragmentUserListBinding>(
     }
 
     companion object {
+        const val REQUEST_OPERATION = "operation_request"
+        const val REQUEST_ADD_USER = "request_add_user"
+        const val REQUEST_USER_TO_UPDATE = "request_user_to_update"
+        const val REQUEST_UPDATED_USER = "request_updated_user"
+        const val REQUEST_REMOVE_USER = "request_remove_user"
+
+        const val KEY_OPERATION_RESULT = "operation_result"
+        const val KEY_NEW_USER = "new_user"
+        const val KEY_USER_TO_UPDATE = "user_to_update"
+        const val KEY_UPDATED_USER = "updated_user"
+        const val KEY_USER_EMAIL_TO_REMOVE = "user_email_to_remove"
+
         const val OPERATION_ADD = "add"
         const val OPERATION_UPDATE = "update"
     }

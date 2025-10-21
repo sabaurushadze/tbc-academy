@@ -11,6 +11,16 @@ import com.example.academy_tbc.databinding.FragmentUserEditBinding
 import com.example.academy_tbc.extension.toText
 import com.example.academy_tbc.screen.user_list.UserItem
 import com.example.academy_tbc.screen.user_list.UserListFragment
+import com.example.academy_tbc.screen.user_list.UserListFragment.Companion.KEY_NEW_USER
+import com.example.academy_tbc.screen.user_list.UserListFragment.Companion.KEY_OPERATION_RESULT
+import com.example.academy_tbc.screen.user_list.UserListFragment.Companion.KEY_UPDATED_USER
+import com.example.academy_tbc.screen.user_list.UserListFragment.Companion.KEY_USER_EMAIL_TO_REMOVE
+import com.example.academy_tbc.screen.user_list.UserListFragment.Companion.KEY_USER_TO_UPDATE
+import com.example.academy_tbc.screen.user_list.UserListFragment.Companion.REQUEST_ADD_USER
+import com.example.academy_tbc.screen.user_list.UserListFragment.Companion.REQUEST_OPERATION
+import com.example.academy_tbc.screen.user_list.UserListFragment.Companion.REQUEST_REMOVE_USER
+import com.example.academy_tbc.screen.user_list.UserListFragment.Companion.REQUEST_USER_TO_UPDATE
+import com.example.academy_tbc.screen.user_list.UserListFragment.Companion.REQUEST_UPDATED_USER
 import com.example.academy_tbc.utils.Validations
 
 class UserEditFragment : BaseFragment<FragmentUserEditBinding>(
@@ -19,8 +29,8 @@ class UserEditFragment : BaseFragment<FragmentUserEditBinding>(
     override fun bind() {}
 
     override fun listeners() {
-        setFragmentResultListener("operation_request") { requestKey, bundle ->
-            val operationResult = bundle.getString("operation_result")
+        setFragmentResultListener(REQUEST_OPERATION) { requestKey, bundle ->
+            val operationResult = bundle.getString(KEY_OPERATION_RESULT)
             showButtonsBasedOnOperation(operationResult)
         }
         uiInitialization()
@@ -56,7 +66,7 @@ class UserEditFragment : BaseFragment<FragmentUserEditBinding>(
             }
 
             val userItem = UserItem(firstName, lastName, age, email)
-            setFragmentResult("request_add", bundleOf("newUser" to userItem))
+            setFragmentResult(REQUEST_ADD_USER, bundleOf(KEY_NEW_USER to userItem))
             findNavController().popBackStack()
         }
     }
@@ -84,7 +94,7 @@ class UserEditFragment : BaseFragment<FragmentUserEditBinding>(
             val updatedUser = UserItem(
                 firstName = firstName, lastName = lastName, age = age, email = email
             )
-            setFragmentResult("updated_user_request", bundleOf("updated_user" to updatedUser))
+            setFragmentResult(REQUEST_UPDATED_USER, bundleOf(KEY_UPDATED_USER to updatedUser))
             findNavController().popBackStack()
         }
     }
@@ -92,14 +102,14 @@ class UserEditFragment : BaseFragment<FragmentUserEditBinding>(
     private fun removeUser() {
         binding.btnRemoveUser.setOnClickListener {
             val userEmail = binding.etEmail.toText()
-            setFragmentResult("remove_user_request", bundleOf("user_email_to_remove" to userEmail))
+            setFragmentResult(REQUEST_REMOVE_USER, bundleOf(KEY_USER_EMAIL_TO_REMOVE to userEmail))
             findNavController().popBackStack()
         }
     }
 
     private fun initializeUpdateFields() = with(binding) {
-        setFragmentResultListener("update_request") { requestKey, bundle ->
-            val user = bundle.getParcelable<UserItem>("userToUpdate")
+        setFragmentResultListener(REQUEST_USER_TO_UPDATE) { requestKey, bundle ->
+            val user = bundle.getParcelable<UserItem>(KEY_USER_TO_UPDATE)
 
             if (user != null) {
                 etFirstName.setText(user.firstName)
