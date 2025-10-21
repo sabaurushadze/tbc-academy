@@ -1,4 +1,4 @@
-package com.example.academy_tbc
+package com.example.academy_tbc.screen.user_list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,8 +12,7 @@ class UsersAdapter(
     inner class UserViewHolder(private val binding: UserItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind() = with(binding) {
-            val userItem = users[bindingAdapterPosition]
+        fun bind(userItem: UserItem) = with(binding) {
             tvFirstName.text = userItem.firstName
             tvLastName.text = userItem.lastName
             tvAge.text = userItem.age.toString()
@@ -37,7 +36,7 @@ class UsersAdapter(
     override fun onBindViewHolder(
         holder: UserViewHolder, position: Int
     ) {
-        holder.bind()
+        holder.bind(users[position])
     }
 
     override fun getItemCount() = users.size

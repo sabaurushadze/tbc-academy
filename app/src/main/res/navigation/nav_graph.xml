@@ -7,18 +7,18 @@
 
     <fragment
         android:id="@+id/userManagementFragment"
-        android:name="com.example.academy_tbc.UserManagementFragment"
+        android:name="com.example.academy_tbc.screen.user_list.UserListFragment"
         android:label="fragment_user_management"
-        tools:layout="@layout/fragment_user_management">
+        tools:layout="@layout/fragment_user_list">
         <action
             android:id="@+id/action_userManagementFragment_to_userDetailsFragment"
             app:destination="@id/userDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/userDetailsFragment"
-        android:name="com.example.academy_tbc.UserDetailsFragment"
+        android:name="com.example.academy_tbc.screen.user_edit.UserEditFragment"
         android:label="fragment_user_details"
-        tools:layout="@layout/fragment_user_details">
+        tools:layout="@layout/fragment_user_edit">
     </fragment>
 
 </navigation>

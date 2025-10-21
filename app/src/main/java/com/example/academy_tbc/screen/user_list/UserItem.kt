@@ -1,4 +1,4 @@
-package com.example.academy_tbc
+package com.example.academy_tbc.screen.user_list
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

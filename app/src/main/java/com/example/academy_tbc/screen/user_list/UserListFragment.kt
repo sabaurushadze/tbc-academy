@@ -1,4 +1,4 @@
-package com.example.academy_tbc
+package com.example.academy_tbc.screen.user_list
 
 import android.widget.TextView
 import androidx.core.os.bundleOf
@@ -6,13 +6,13 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.academy_tbc.R
 import com.example.academy_tbc.common.BaseFragment
-import com.example.academy_tbc.databinding.FragmentUserManagementBinding
-import com.example.academy_tbc.extensions.showSnackBar
+import com.example.academy_tbc.databinding.FragmentUserListBinding
+import com.example.academy_tbc.extension.showSnackBar
 
-
-class UserManagementFragment : BaseFragment<FragmentUserManagementBinding>(
-    FragmentUserManagementBinding::inflate
+class UserListFragment : BaseFragment<FragmentUserListBinding>(
+    FragmentUserListBinding::inflate
 ) {
     private val users = mutableListOf<UserItem>()
     private var usersRemoved = 0
@@ -125,7 +125,7 @@ class UserManagementFragment : BaseFragment<FragmentUserManagementBinding>(
         binding.btnAddUser.setOnClickListener {
             setFragmentResult("operation_request", bundleOf("operation_result" to OPERATION_ADD))
             findNavController().navigate(
-                UserManagementFragmentDirections.actionUserManagementFragmentToUserDetailsFragment()
+                UserListFragmentDirections.actionUserManagementFragmentToUserDetailsFragment()
             )
         }
     }
@@ -134,7 +134,7 @@ class UserManagementFragment : BaseFragment<FragmentUserManagementBinding>(
         setFragmentResult("operation_request", bundleOf("operation_result" to OPERATION_UPDATE))
         setFragmentResult("update_request", bundleOf("userToUpdate" to clickedUser))
         findNavController().navigate(
-            UserManagementFragmentDirections.actionUserManagementFragmentToUserDetailsFragment()
+            UserListFragmentDirections.actionUserManagementFragmentToUserDetailsFragment()
         )
     }
 

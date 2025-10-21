@@ -1,25 +1,22 @@
-package com.example.academy_tbc
+package com.example.academy_tbc.screen.user_edit
 
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
-import com.example.academy_tbc.UserManagementFragment.Companion.OPERATION_ADD
-import com.example.academy_tbc.UserManagementFragment.Companion.OPERATION_UPDATE
+import com.example.academy_tbc.R
 import com.example.academy_tbc.common.BaseFragment
-import com.example.academy_tbc.databinding.FragmentUserDetailsBinding
-import com.example.academy_tbc.extensions.toText
-import com.example.academy_tbc.utils.Validations.isValidEmail
-import com.example.academy_tbc.utils.Validations.isValidInput
+import com.example.academy_tbc.databinding.FragmentUserEditBinding
+import com.example.academy_tbc.extension.toText
+import com.example.academy_tbc.screen.user_list.UserItem
+import com.example.academy_tbc.screen.user_list.UserListFragment
+import com.example.academy_tbc.utils.Validations
 
-
-class UserDetailsFragment : BaseFragment<FragmentUserDetailsBinding>(
-    FragmentUserDetailsBinding::inflate
+class UserEditFragment : BaseFragment<FragmentUserEditBinding>(
+    FragmentUserEditBinding::inflate
 ) {
-    override fun bind() {
-
-    }
+    override fun bind() {}
 
     override fun listeners() {
         setFragmentResultListener("operation_request") { requestKey, bundle ->
@@ -43,9 +40,9 @@ class UserDetailsFragment : BaseFragment<FragmentUserDetailsBinding>(
             val age = etAge.text.toString().toIntOrNull()
             val email = etEmail.toText().lowercase()
 
-            if (!(isValidEmail(
+            if (!(Validations.isValidEmail(
                     context = requireContext(), etEmail = etEmail, email = email
-                ) && isValidInput(
+                ) && Validations.isValidInput(
                     context = requireContext(),
                     etFirstName = etFirstName,
                     etLastName = etLastName,
@@ -71,7 +68,7 @@ class UserDetailsFragment : BaseFragment<FragmentUserDetailsBinding>(
             val age = etAge.text.toString().toIntOrNull()
             val email = etEmail.toText()
 
-            if (!isValidInput(
+            if (!Validations.isValidInput(
                     context = requireContext(),
                     etFirstName = etFirstName,
                     etLastName = etLastName,
@@ -117,13 +114,13 @@ class UserDetailsFragment : BaseFragment<FragmentUserDetailsBinding>(
 
     private fun showButtonsBasedOnOperation(operation: String?) = with(binding) {
         when (operation) {
-            OPERATION_UPDATE -> {
+            UserListFragment.Companion.OPERATION_UPDATE -> {
                 btnAddUser.visibility = View.GONE
                 btnRemoveUser.visibility = View.VISIBLE
                 btnUpdateUser.visibility = View.VISIBLE
             }
 
-            OPERATION_ADD -> {
+            UserListFragment.Companion.OPERATION_ADD -> {
                 btnAddUser.visibility = View.VISIBLE
                 btnRemoveUser.visibility = View.GONE
                 btnUpdateUser.visibility = View.GONE
