@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.academy_tbc.databinding.UserItemLayoutBinding
 
 class UsersAdapter(
-    private val users: MutableList<UserItem>, private val onItemClick: (UserItem) -> Unit
+    private val users: MutableList<UserItem>,
+    private val onItemClick: (UserItem) -> Unit
 ) : RecyclerView.Adapter<UsersAdapter.UserViewHolder>() {
 
     inner class UserViewHolder(private val binding: UserItemLayoutBinding) :

@@ -19,15 +19,13 @@ import com.example.academy_tbc.screen.user_list.UserListFragment.Companion.KEY_U
 import com.example.academy_tbc.screen.user_list.UserListFragment.Companion.REQUEST_ADD_USER
 import com.example.academy_tbc.screen.user_list.UserListFragment.Companion.REQUEST_OPERATION
 import com.example.academy_tbc.screen.user_list.UserListFragment.Companion.REQUEST_REMOVE_USER
-import com.example.academy_tbc.screen.user_list.UserListFragment.Companion.REQUEST_USER_TO_UPDATE
 import com.example.academy_tbc.screen.user_list.UserListFragment.Companion.REQUEST_UPDATED_USER
+import com.example.academy_tbc.screen.user_list.UserListFragment.Companion.REQUEST_USER_TO_UPDATE
 import com.example.academy_tbc.utils.Validations
 
 class UserEditFragment : BaseFragment<FragmentUserEditBinding>(
     FragmentUserEditBinding::inflate
 ) {
-    override fun bind() {}
-
     override fun listeners() {
         setFragmentResultListener(REQUEST_OPERATION) { requestKey, bundle ->
             val operationResult = bundle.getString(KEY_OPERATION_RESULT)
