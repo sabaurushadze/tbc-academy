@@ -5,4 +5,3 @@ import kotlin.math.roundToInt
 
 fun Int.dpToPx(context: Context): Int =
     (this * context.resources.displayMetrics.density).roundToInt()
-

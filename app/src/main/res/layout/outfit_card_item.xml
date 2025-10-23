@@ -9,13 +9,12 @@
         android:id="@+id/cardOutfit"
         android:layout_width="match_parent"
         android:layout_height="210dp"
+        android:layout_marginBottom="23dp"
         android:backgroundTint="@color/imageContainer"
         app:cardCornerRadius="25dp"
-        app:strokeColor="@null"
-        android:layout_marginBottom="23dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </com.google.android.material.card.MaterialCardView>
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@null" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivPerson"
@@ -23,37 +22,37 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
         app:layout_constraintBottom_toBottomOf="@id/cardOutfit"
-        app:layout_constraintEnd_toEndOf="@id/cardOutfit"
-        />
+        app:layout_constraintEnd_toEndOf="@id/cardOutfit" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/ibHeart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/circle"
-        android:src="@drawable/heart"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="24dp"
-        app:layout_constraintStart_toStartOf="@id/cardOutfit"
+        android:background="@drawable/circle"
+        android:src="@drawable/heart"
         app:layout_constraintBottom_toBottomOf="@id/cardOutfit"
-        />
+        app:layout_constraintStart_toStartOf="@id/cardOutfit" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
-        app:layout_constraintTop_toBottomOf="@id/cardOutfit"
+        android:fontFamily="@font/sf_pro_display_regular"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        android:textSize="14sp" />
+        app:layout_constraintTop_toBottomOf="@id/cardOutfit" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        android:fontFamily="@font/sf_pro_display_bold"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        android:textSize="14sp" />
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

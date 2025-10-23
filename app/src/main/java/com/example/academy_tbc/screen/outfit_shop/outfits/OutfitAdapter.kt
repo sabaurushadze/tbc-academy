@@ -24,29 +24,31 @@ class OutfitAdapter() :
     }
 
     inner class OutfitsViewHolder(
-        val binding: OutfitCardItemBinding) :
+        val binding: OutfitCardItemBinding
+    ) :
         RecyclerView.ViewHolder(binding.root) {
-
 
         fun bind(outfitItem: OutfitItem) = with(binding) {
 
             ivPerson.setImageResource(outfitItem.image)
             tvTitle.text = outfitItem.title
-            tvPrice.text = "$${outfitItem.price}"
-
+            tvTitle.setTextColor(ContextCompat.getColorStateList(root.context, R.color.onSecondary))
+            tvPrice.setTextColor(ContextCompat.getColorStateList(root.context, R.color.white))
+            tvPrice.text = root.context.getString(R.string.price, outfitItem.price)
 
             ibHeart.setOnClickListener {
                 if (bindingAdapterPosition == RecyclerView.NO_POSITION) return@setOnClickListener
                 if (!ibHeart.isActivated) {
-                    ibHeart.imageTintList = ContextCompat.getColorStateList(root.context, R.color.heart)
+                    ibHeart.imageTintList =
+                        ContextCompat.getColorStateList(root.context, R.color.heart)
                 } else {
-                    ibHeart.imageTintList = ContextCompat.getColorStateList(root.context, R.color.disabled)
+                    ibHeart.imageTintList =
+                        ContextCompat.getColorStateList(root.context, R.color.disabled)
                 }
                 ibHeart.isActivated = !ibHeart.isActivated
             }
         }
     }
-
 }
 
 class OutfitDiffUtils() : DiffUtil.ItemCallback<OutfitItem>() {

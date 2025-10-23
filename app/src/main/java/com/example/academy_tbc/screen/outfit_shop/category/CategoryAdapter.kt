@@ -10,12 +10,11 @@ import com.example.academy_tbc.R
 import com.example.academy_tbc.databinding.CategoryButtonItemBinding
 
 class CategoryAdapter(
-    private val onCategoryClick: () -> Unit
+    private val onCategoryClick: (CategoryItem) -> Unit
 ) :
     ListAdapter<CategoryItem, CategoryAdapter.CategoryViewHolder>(CategoryDiffUtils()) {
 
     private var currentSelection = 0
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         return CategoryViewHolder(
@@ -29,30 +28,33 @@ class CategoryAdapter(
     }
 
     inner class CategoryViewHolder(
-        val binding: CategoryButtonItemBinding) :
+        val binding: CategoryButtonItemBinding
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
+        init {
+            binding.btnCategory.setOnClickListener {
+                if (bindingAdapterPosition == RecyclerView.NO_POSITION) return@setOnClickListener
+                val oldSelection = currentSelection
+                currentSelection = bindingAdapterPosition
+                notifyItemChanged(oldSelection)
+                notifyItemChanged(currentSelection)
+                onCategoryClick(getItem(bindingAdapterPosition))
+            }
+        }
 
         fun bind(categoryItem: CategoryItem) = with(binding) {
             btnCategory.text = categoryItem.title
 
-            val backgroundColor: Int = if (currentSelection == bindingAdapterPosition) R.color.primary else R.color.secondary
-            val textColor: Int = if (currentSelection == bindingAdapterPosition) R.color.white else R.color.onSecondary
+            val backgroundColor: Int =
+                if (currentSelection == bindingAdapterPosition) R.color.primary else R.color.secondary
+            val textColor: Int =
+                if (currentSelection == bindingAdapterPosition) R.color.white else R.color.onSecondary
 
             btnCategory.setBackgroundColor(ContextCompat.getColor(root.context, backgroundColor))
             btnCategory.setTextColor(ContextCompat.getColor(root.context, textColor))
-            btnCategory
-            btnCategory.setOnClickListener {
-                if (bindingAdapterPosition == RecyclerView.NO_POSITION) return@setOnClickListener
-                val oldSelection = currentSelection
-                currentSelection = bindingAdapterPosition
-//                notifyDataSetChanged()
-                notifyItemChanged(oldSelection)
-                notifyItemChanged(currentSelection)
-            }
         }
     }
-
 }
 
 class CategoryDiffUtils() : DiffUtil.ItemCallback<CategoryItem>() {

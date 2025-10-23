@@ -16,8 +16,8 @@ class OutfitsFragment : BaseFragment<OutfitsFragmentBinding>(
     OutfitsFragmentBinding::inflate
 ) {
     private val categoryAdapter by lazy {
-        CategoryAdapter() {
-            onCategoryClick()
+        CategoryAdapter { category ->
+            onCategoryClick(category)
         }
     }
 
@@ -30,53 +30,65 @@ class OutfitsFragment : BaseFragment<OutfitsFragmentBinding>(
         val outfits = mutableListOf<OutfitItem>(
             OutfitItem(
                 id = UUID.randomUUID(),
+                image = R.drawable.ryan_gosling,
+                title = "Gucci suit",
+                price = 795,
+                category = "Camping"
+            ),
+            OutfitItem(
+                id = UUID.randomUUID(),
                 image = R.drawable.woman1,
                 title = "Belt suit blazer",
                 price = 120,
+                category = "Party"
             ),
             OutfitItem(
                 id = UUID.randomUUID(),
                 image = R.drawable.woman2,
                 title = "Belt suit blazer",
                 price = 120,
+                category = "Category3"
+            ),
+            OutfitItem(
+                id = UUID.randomUUID(),
+                image = R.drawable.vin_diesel,
+                title = "Family special",
+                price = 999,
+                category = "Camping"
             ),
             OutfitItem(
                 id = UUID.randomUUID(),
                 image = R.drawable.woman3,
                 title = "Belt suit blazer",
                 price = 120,
+                category = "Category1"
             ),
             OutfitItem(
                 id = UUID.randomUUID(),
                 image = R.drawable.woman4,
                 title = "Belt suit blazer",
                 price = 120,
+                category = "Category2"
             ),
         )
         val categories = mutableListOf<CategoryItem>(
             CategoryItem(
-                id = UUID.randomUUID(),
-                title = "All"
+                id = UUID.randomUUID(), title = "All"
             ),
             CategoryItem(
-                id = UUID.randomUUID(),
-                title = "\uD83C\uDFD5   Party"
+                id = UUID.randomUUID(), title = "\uD83C\uDF89   Party"
             ),
             CategoryItem(
-                id = UUID.randomUUID(),
-                title = "Camping"
+                id = UUID.randomUUID(), title = "\uD83C\uDFD5   Camping"
             ),
             CategoryItem(
-                id = UUID.randomUUID(),
-                title = "Category1"
+                id = UUID.randomUUID(), title = "Category1"
             ),
             CategoryItem(
-                id = UUID.randomUUID(),
-                title = "Category2"
+                id = UUID.randomUUID(), title = "Category2"
             ),
             CategoryItem(
-                id = UUID.randomUUID(),
-                title = "Category3"
+                id = UUID.randomUUID(), title = "Category3"
             ),
         )
     }
@@ -97,16 +109,26 @@ class OutfitsFragment : BaseFragment<OutfitsFragmentBinding>(
         )
         outfitsAdapter.submitList(outfits.toList())
 
-        rvCategory.addItemDecoration(MarginItemDecoration(10.dpToPx(requireContext())))
+        rvCategory.addItemDecoration(
+            MarginItemDecoration(
+                defaultSpace = 10.dpToPx(
+                    requireContext()
+                ), lastItemSpace = 27.dpToPx(
+                    requireContext()
+                )
+            )
+        )
         categoryAdapter.submitList(categories.toList())
     }
 
-    private fun onCategoryClick() {
+    private fun onCategoryClick(category: CategoryItem) {
+        val filteredCategory =
+            category.title.filter { it.isLetterOrDigit() || it.isWhitespace() }.trimStart()
+        val filteredOutfits = if (filteredCategory == "All") {
+            outfits.toList()
+        } else {
+            outfits.filter { it.category == filteredCategory }
+        }
+        outfitsAdapter.submitList(filteredOutfits)
     }
-
-    override fun listeners() {
-
-    }
-
-
 }
