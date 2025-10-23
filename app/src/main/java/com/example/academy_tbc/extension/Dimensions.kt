@@ -1,0 +1,8 @@
+package com.example.academy_tbc.extension
+
+import android.content.Context
+import kotlin.math.roundToInt
+
+fun Int.dpToPx(context: Context): Int =
+    (this * context.resources.displayMetrics.density).roundToInt()
+

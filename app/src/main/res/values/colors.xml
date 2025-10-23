@@ -2,4 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <color name="primary">#3ED598</color>
+    <color name="secondary">#30444E</color>
+    <color name="onSecondary">#96A7AF</color>
+    <color name="imageContainer">#EDF1FA</color>
+    <color name="heart">#FF565E</color>
+    <color name="disabled">#6D6D6D</color>
+
+
+
 </resources>

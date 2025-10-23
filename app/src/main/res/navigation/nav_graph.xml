@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             android:id="@+id/nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/outfitsFragment">
 
+    <fragment
+        android:id="@+id/outfitsFragment"
+        android:name="com.example.academy_tbc.screen.outfit_shop.category.OutfitsFragment"
+        android:label="OutfitsFragment" />
 </navigation>
