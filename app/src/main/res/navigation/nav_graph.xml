@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             android:id="@+id/nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/addressFragment">
 
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.example.academy_tbc.screen.saved_addresses.AddressFragment"
+        android:label="AddressFragment">
+        <action
+            android:id="@+id/action_addressFragment_to_addressFormFragment"
+            app:destination="@id/addressFormFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addressFormFragment"
+        android:name="com.example.academy_tbc.screen.address_form.AddressFormFragment"
+        android:label="AddressFormFragment" />
 </navigation>
