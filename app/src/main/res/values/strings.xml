@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">academy-tbc</string>
+    <string name="tracking_number">Tracking number:\u0020</string>
+    <string name="quantity">"Quantity:\u0020"</string>
+    <string name="subtotal">Subtotal:\u0020 </string>
+    <string name="details">Details</string>
+    <string name="subtotal_amount">$%1$d</string>
+    <string name="order_name">Order name:</string>
+    <string name="order_date">Order date:</string>
+    <string name="tracking_number_details">Tracking number:</string>
+    <string name="quantity_details">Quantity:</string>
+    <string name="status">Status:</string>
+    <string name="subtotal_details">Subtotal</string>
+    <string name="total">Total:</string>
+    <string name="total_price">$%1$d</string>
+    <string name="subtotal_price">$%1s</string>
+    <string name="canceled">Canceled</string>
+    <string name="delivered">Delivered</string>
 </resources>

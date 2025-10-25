@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_name" />
+
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="30dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvOrderNameDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_date" />
+
+        <Space
+            android:layout_width="60dp"
+            android:layout_height="30dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvOrderDateDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tracking_number_details" />
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="30dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTrackingNumberDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/quantity_details" />
+
+        <Space
+            android:layout_width="74dp"
+            android:layout_height="30dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvQuantityDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/status" />
+
+        <Space
+            android:layout_width="86dp"
+            android:layout_height="30dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvStatusDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/subtotal_details" />
+
+        <Space
+            android:layout_width="77dp"
+            android:layout_height="50dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSubtotalDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ptsans_bold"
+            android:text="@string/total"
+            android:textSize="16sp" />
+
+        <Space
+            android:layout_width="77dp"
+            android:layout_height="80dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTotalDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ptsans_bold"
+            android:textSize="16sp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/btnDelivered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="@color/delivered"
+            android:fontFamily="@font/ptsans_bold"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/delivered"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:cornerRadius="30dp" />
+
+        <Space
+            android:layout_width="50dp"
+            android:layout_height="0dp" />
+
+        <com.google.android.material.button.MaterialButton xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/btbCanceled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="@color/canceled"
+            android:fontFamily="@font/ptsans_bold"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/canceled"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:cornerRadius="30dp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

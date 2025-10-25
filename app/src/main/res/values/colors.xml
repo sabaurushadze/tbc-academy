@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="primaryBlack">#141416</color>
+    <color name="neutralGray">#777E90</color>
+    <color name="container">#43484B</color>
+    <color name="pending">#CF6212</color>
+    <color name="delivered">#009254</color>
+    <color name="canceled">#C50000</color>
 </resources>
