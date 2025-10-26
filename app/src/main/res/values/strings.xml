@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">academy-tbc</string>
+    <string name="x_and_o">Iqsiki da noliki</string>
+    <string name="start">Start</string>
+    <string name="select_dimension">Select dimension</string>
+    <string name="please_select_board_size">Please select board size</string>
+    <string name="change_board_size">Change board size</string>
+    <string name="game_over">Game over</string>
+    <string name="play_again">Play again</string>
+    <string name="it_is_a_tie">It is a tie!</string>
+    <string name="cross_or_nought_won">%1$c Won!</string>
+    <string name="select_board_size">Select board size</string>
+
+
+    <string-array name="dimensions_array">
+        <item>3x3</item>
+        <item>4x4</item>
+        <item>5x5</item>
+    </string-array>
 </resources>

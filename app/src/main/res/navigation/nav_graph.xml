@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             android:id="@+id/nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/gameConfigFragment">
 
+    <fragment
+        android:id="@+id/gameConfigFragment"
+        android:name="com.example.academy_tbc.screen.game_config.GameConfigFragment"
+        android:label="GameConfigFragment">
+        <action
+            android:id="@+id/action_gameConfigFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.academy_tbc.screen.game.GameFragment"
+        android:label="GameFragment">
+
+        <argument
+            android:name="boardSize"
+            android:defaultValue="3"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_gameFragment_to_gameConfigFragment"
+            app:destination="@id/gameConfigFragment" />
+    </fragment>
 </navigation>
