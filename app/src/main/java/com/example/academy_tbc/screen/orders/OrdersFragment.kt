@@ -147,13 +147,6 @@ class OrdersFragment() : BaseFragment<FragmentOrdersBinding>(
             ordersList[index] = updatedItem
             updateFilteredOrders()
         }
-
-        val activeStatus = orderStatusList.find { it.isActivated }?.orderStatus
-        val filteredOrders = activeStatus?.let { status ->
-            ordersList.filter { it.status == status }
-        } ?: ordersList.toList()
-
-        ordersAdapter.submitList(filteredOrders.toList())
     }
 
     private fun updateFilteredOrders() {
