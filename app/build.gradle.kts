@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.fragment)
+    implementation(libs.kotlinx.datetime)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
     testImplementation(libs.junit)

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ibBack"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/circle_white"
+        android:elevation="8dp"
+        android:src="@drawable/ic_left_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/ic_profile"
+        app:layout_constraintStart_toEndOf="@id/ibBack"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/admin"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/ivProfile"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4sp"
+        android:text="@string/online"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/ivProfile"
+        app:layout_constraintTop_toBottomOf="@id/tvUser" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/ic_vertical_more"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="26dp"
+        app:dividerColor="@color/grayVariant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvStatus" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMessages"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/vRectangle"
+        app:layout_constraintTop_toBottomOf="@id/divider" />
+
+
+    <View
+        android:id="@+id/vRectangle"
+        android:layout_width="match_parent"
+        android:layout_height="103dp"
+        android:background="@color/neutralWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etMessageInput"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="39dp"
+        android:background="@drawable/bg_input_round"
+        android:hint="@string/type_your_messages_here"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/gray"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ibSend"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ibSend"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="39dp"
+        android:background="@drawable/circle_black"
+        android:src="@drawable/ic_send_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/etMessageInput" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
