@@ -63,7 +63,7 @@ class OrdersAdapter(
     }
 }
 
-class OrdersDiffUtils() : DiffUtil.ItemCallback<OrderItem>() {
+private class OrdersDiffUtils() : DiffUtil.ItemCallback<OrderItem>() {
     override fun areItemsTheSame(
         oldItem: OrderItem, newItem: OrderItem
     ): Boolean {
