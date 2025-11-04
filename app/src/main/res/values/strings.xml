@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">academy-tbc</string>
+    <string name="enter_a_review">Enter a review</string>
+    <string name="please_choose_at_least_one_star">Please choose at least one star</string>
+    <string name="please_enter_a_review">Please enter a review</string>
+    <string name="buy_again">Buy Again</string>
+    <string name="leave_review">Leave Review</string>
+    <string name="price">$%1$d</string>
+    <string name="track_order">Track Order</string>
+    <string name="quantity">Qty = %1$d</string>
+    <string name="my_orders">My Orders</string>
+    <string name="leave_a_review">Leave a Review</string>
+    <string name="divider">|</string>
+    <string name="how_is_your_order">How is your order?</string>
+    <string name="please_give_your_rating_also_your_review"><![CDATA[Please give your rating & also your review…]]></string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
 </resources>

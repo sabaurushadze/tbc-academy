@@ -2,4 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="background">#101218</color>
+    <color name="secondary">#2A2A2A</color>
+    <color name="etHint">#909090</color>
+    <color name="onSecondary">#444444</color>
+    <color name="dialog">#1f222a</color>
+    <color name="btnDark">#35383F</color>
+
 </resources>
