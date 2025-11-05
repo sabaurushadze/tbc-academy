@@ -14,7 +14,10 @@ class ChatAdapter() :
 
 
     override fun getItemViewType(position: Int): Int {
-        return if (position % 2 == 0) ITEM_THEIR_MESSAGE else ITEM_MY_MESSAGE
+        return when (getItem(position).messageType) {
+            MessageType.MY -> ITEM_MY_MESSAGE
+            else -> ITEM_THEIR_MESSAGE
+        }
     }
 
     override fun onCreateViewHolder(
@@ -28,7 +31,7 @@ class ChatAdapter() :
                 )
             )
         } else {
-            return TheirMessageViewHolder(
+            TheirMessageViewHolder(
                 TheirMessageItemBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
