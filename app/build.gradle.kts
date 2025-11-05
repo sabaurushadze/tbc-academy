@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.safeargs.kotlin)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.serialization)
 }
 
 android {
@@ -56,6 +57,8 @@ dependencies {
     implementation(libs.androidx.fragment)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
