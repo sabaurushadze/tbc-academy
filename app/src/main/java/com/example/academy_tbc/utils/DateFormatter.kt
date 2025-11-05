@@ -10,14 +10,12 @@ import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
-//ar chavawodot context garedan, vm, class.
-// objectshi unda iyos
 @OptIn(ExperimentalTime::class)
 fun formatMessageTime(context: Context, epochMillis: Long): String {
     val zone = TimeZone.currentSystemDefault()
     val now = Clock.System.now().toLocalDateTime(zone)
     val msgTime = Instant.fromEpochMilliseconds(epochMillis).toLocalDateTime(zone)
-    // unda iyos try catch negative long
+
     val dateLabel = when (msgTime.date) {
         now.date -> context.getString(R.string.today)
         now.date.minus(1, DateTimeUnit.DAY) -> context.getString(R.string.yesterday)
