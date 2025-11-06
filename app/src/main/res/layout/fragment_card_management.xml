@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ibBack"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/circle_white"
+        android:elevation="8dp"
+        android:src="@drawable/ic_left_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPayment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/payment"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCardManagement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/card_management"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ibBack" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAddNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="30dp"
+        android:text="@string/add_new"
+        android:textColor="@color/red"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPayment" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:layout_marginTop="41dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCardManagement" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCheckOutOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="58dp"
+        android:text="@string/or_check_out_with"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pager" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icPaypal"
+        android:layout_width="50dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="11dp"
+        android:src="@drawable/ic_paypal"
+        app:layout_constraintEnd_toStartOf="@id/icVisa"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCheckOutOptions" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icVisa"
+        android:layout_width="50dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="11dp"
+        android:src="@drawable/ic_visa"
+        app:layout_constraintEnd_toStartOf="@id/icMastercard"
+        app:layout_constraintStart_toEndOf="@id/icPaypal"
+        app:layout_constraintTop_toBottomOf="@id/tvCheckOutOptions" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icMastercard"
+        android:layout_width="50dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="11dp"
+        android:src="@drawable/ic_mastercard"
+        app:layout_constraintEnd_toStartOf="@id/icAlipay"
+        app:layout_constraintStart_toEndOf="@id/icVisa"
+        app:layout_constraintTop_toBottomOf="@id/tvCheckOutOptions" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icAlipay"
+        android:layout_width="50dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="11dp"
+        android:src="@drawable/ic_alipay"
+        app:layout_constraintEnd_toStartOf="@id/icAmex"
+        app:layout_constraintStart_toEndOf="@id/icMastercard"
+        app:layout_constraintTop_toBottomOf="@id/tvCheckOutOptions" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icAmex"
+        android:layout_width="50dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="37dp"
+        android:src="@drawable/ic_amex"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/icAlipay"
+        app:layout_constraintTop_toBottomOf="@id/tvCheckOutOptions" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

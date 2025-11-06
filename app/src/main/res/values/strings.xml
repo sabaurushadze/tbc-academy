@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">academy-tbc</string>
+    <string name="payment">Payment</string>
+    <string name="card_management">Card Management</string>
+    <string name="add_new">Add new+</string>
+    <string name="card_number_placeholder"><![CDATA[****  ****  ****  ****]]></string>
+    <string name="cardholder_name">CARDHOLDER NAME</string>
+    <string name="name">NAME</string>
+    <string name="valid_thru">VALID THRU</string>
+    <string name="mm_yy">MM/YY</string>
+    <string name="mastercard">MASTERCARD</string>
+    <string name="visa">VISA</string>
+    <string name="card_type">Card Type</string>
+    <string name="add_new_card">Add new card</string>
+    <string name="cardholder_name_input">Cardholder Name</string>
+    <string name="card_number_input">Card Number</string>
+    <string name="expires_input">Expires</string>
+    <string name="cvv_input">CVV</string>
+    <string name="add_card">Add card</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="delete_card">Delete card?</string>
+    <string name="cardholder_name_is_required">Cardholder name is required</string>
+    <string name="card_number_is_required">Card number is required</string>
+    <string name="card_number_must_be_16_digits">Card number must be 16 digits</string>
+    <string name="expiry_date_is_required">Expiry date is required</string>
+    <string name="expiry_date_must_be_in_mm_yy_format">Expiry date must be in MM/YY format</string>
+    <string name="ccv_must_be_3_or_4_digits">CCV must be 3 or 4 digits</string>
+    <string name="card_is_expired">Card expired</string>
+    <string name="ccv_is_required">CCV is required</string>
+    <string name="or_check_out_with">or check out with</string>
 </resources>
