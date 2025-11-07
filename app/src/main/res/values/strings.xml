@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">academy-tbc</string>
+    <string name="select_date">Select Date</string>
+    <string name="e_auth">E AUTH</string>
+    <string name="register">Register</string>
+    <string name="registered_succsessfully">Registered Succsessfully</string>
+    <string name="field_not_filled_in">Field not filled in %1$s</string>
+    <string name="dd_mm_yy">%1$d/%2$d/%3$d</string>
 </resources>
