@@ -23,8 +23,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
     }
 
     private fun observe() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.registerUiState.collect { uiState ->
                     when (uiState) {
                         is RegisterUiState.Success -> {

@@ -22,8 +22,8 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(
     }
 
     private fun observe() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.loginUiState.collect { uiState ->
                     when (uiState) {
                         is LogInUiState.Success -> {
