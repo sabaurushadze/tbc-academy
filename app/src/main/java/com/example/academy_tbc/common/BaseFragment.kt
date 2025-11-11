@@ -27,7 +27,7 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflate: (LayoutInflat
         listeners()
     }
 
-    protected abstract fun bind()
+    protected open fun bind() {}
     protected abstract fun listeners()
 
     override fun onDestroyView() {
