@@ -13,4 +13,14 @@
     <string name="invalid_user_name">Invalid User name</string>
     <string name="successfully_registered">Successfully registered</string>
     <string name="registration_failed">Registration failed</string>
+    <string name="home">Home</string>
+    <string name="log_out">Log out</string>
+    <string name="get_users">Get users</string>
+    <string name="error_fetching_users">Error fetching users</string>
+    <string name="no_internet_connection_please_try_again">No internet connection. Please try again.</string>
+    <string name="user_not_found">User not found</string>
+    <string name="something_went_wrong_please_try_again">Something went wrong. Please try again.</string>
+    <string name="ok">OK</string>
+    <string name="log_out_really">Log out?</string>
+    <string name="cancel">Cancel</string>
 </resources>

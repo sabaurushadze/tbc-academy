@@ -1,4 +1,4 @@
-package com.example.academy_tbc.screen.register
+package com.example.academy_tbc.presentation.screen.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -7,8 +7,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.academy_tbc.AuthApplication
-import com.example.academy_tbc.data.AuthRepository
-import com.example.academy_tbc.utils.Validations
+import com.example.academy_tbc.data.auth.AuthRepository
+import com.example.academy_tbc.data.auth.UserTokenRepository
+import com.example.academy_tbc.data.auth.register.RequestRegisterDto
+import com.example.academy_tbc.presentation.utils.Validations
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,12 +18,21 @@ import kotlinx.coroutines.launch
 import okio.IOException
 import retrofit2.HttpException
 
-class RegisterViewModel(private val networkAuthRepository: AuthRepository) : ViewModel() {
+class RegisterViewModel(
+    private val networkAuthRepository: AuthRepository,
+    private val userTokenRepository: UserTokenRepository
+) : ViewModel() {
     private val _registerState = MutableStateFlow<RegisterUiState>(RegisterUiState.Idle)
     val registerUiState: StateFlow<RegisterUiState> = _registerState.asStateFlow()
 
     fun resetState() {
         _registerState.value = RegisterUiState.Idle
+    }
+
+    private fun saveToken(token: String) {
+        viewModelScope.launch {
+            userTokenRepository.saveToken(token)
+        }
     }
 
     fun validateRegisterData(
@@ -44,16 +55,28 @@ class RegisterViewModel(private val networkAuthRepository: AuthRepository) : Vie
         return Pair(errors.isEmpty(), errors)
     }
 
-    fun register(user: RegisterDto) {
+    fun register(user: RequestRegisterDto) {
         viewModelScope.launch {
             _registerState.value = RegisterUiState.Loading
             try {
-                val result = networkAuthRepository.register(user)
-                _registerState.value = RegisterUiState.Success(result.token)
+                val response = networkAuthRepository.register(user)
+                val responseBody = response.body()
+                if (response.isSuccessful && responseBody != null) {
+                    saveToken(responseBody.token)
+                    _registerState.value = RegisterUiState.Success
+                } else if (response.code() == 400) {
+                    _registerState.value =
+                        RegisterUiState.Error(RegisterExceptionErrors.EXCEPTION_USER_NOT_FOUND)
+                }
             } catch (_: IOException) {
-                _registerState.value = RegisterUiState.Error
+                _registerState.value =
+                    RegisterUiState.Error(RegisterExceptionErrors.EXCEPTION_NETWORK)
             } catch (_: HttpException) {
-                _registerState.value = RegisterUiState.Error
+                _registerState.value =
+                    RegisterUiState.Error(RegisterExceptionErrors.EXCEPTION_CREDENTIALS)
+            } catch (_: Exception) {
+                _registerState.value =
+                    RegisterUiState.Error(RegisterExceptionErrors.EXCEPTION_UNKNOWN)
             }
         }
     }
@@ -63,15 +86,19 @@ class RegisterViewModel(private val networkAuthRepository: AuthRepository) : Vie
             initializer {
                 val application = (this[APPLICATION_KEY] as AuthApplication)
                 val authRepository = application.container.authRepository
-                RegisterViewModel(networkAuthRepository = authRepository)
+                val userTokenRepository = application.container.userTokenRepository
+                RegisterViewModel(
+                    networkAuthRepository = authRepository,
+                    userTokenRepository = userTokenRepository
+                )
             }
         }
     }
 }
 
 sealed interface RegisterUiState {
-    data class Success(val token: String) : RegisterUiState
-    object Error : RegisterUiState
+    object Success : RegisterUiState
+    data class Error(val message: RegisterExceptionErrors) : RegisterUiState
     object Loading : RegisterUiState
     object Idle : RegisterUiState
 }
