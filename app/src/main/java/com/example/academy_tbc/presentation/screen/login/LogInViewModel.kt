@@ -25,7 +25,6 @@ class LogInViewModel(
     private val _loginState = MutableStateFlow<LogInUiState>(LogInUiState.Idle)
     val loginUiState: StateFlow<LogInUiState> = _loginState.asStateFlow()
 
-
     fun resetState() {
         _loginState.value = LogInUiState.Idle
     }

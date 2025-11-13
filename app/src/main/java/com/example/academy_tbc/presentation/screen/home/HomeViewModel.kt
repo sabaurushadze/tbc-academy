@@ -22,21 +22,28 @@ class HomeViewModel(
     private val _homeState = MutableStateFlow<HomeUiState>(HomeUiState.Idle)
     val homeUiState: StateFlow<HomeUiState> = _homeState.asStateFlow()
 
+    fun resetState() {
+        _homeState.value = HomeUiState.Idle
+    }
 
     fun getUsers() {
         viewModelScope.launch {
+            _homeState.value = HomeUiState.Loading
             try {
-                _homeState.value = HomeUiState.Loading
                 val response = networkAuthRepository.getUsers()
-                if (response.isSuccessful && response.body() != null) {
-                    _homeState.value = HomeUiState.Success(response.body()!!.total)
-                } else {
-                    _homeState.value = HomeUiState.Error
+                val responseBody = response.body()
+                if (response.isSuccessful && responseBody != null) {
+                    _homeState.value = HomeUiState.Success(responseBody.total)
+                } else if (response.code() == 400) {
+                    _homeState.value =
+                        HomeUiState.Error(HomeExceptionErrors.EXCEPTION_USER_NOT_FOUND)
                 }
             } catch (_: IOException) {
-                _homeState.value = HomeUiState.Error
+                _homeState.value = HomeUiState.Error(HomeExceptionErrors.EXCEPTION_NETWORK)
             } catch (_: HttpException) {
-                _homeState.value = HomeUiState.Error
+                _homeState.value = HomeUiState.Error(HomeExceptionErrors.EXCEPTION_CREDENTIALS)
+            } catch (_: Exception) {
+                _homeState.value = HomeUiState.Error(HomeExceptionErrors.EXCEPTION_UNKNOWN)
             }
         }
     }
@@ -44,7 +51,6 @@ class HomeViewModel(
     suspend fun removeUserToken() {
         userTokenRepository.removeToken()
     }
-
 
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
@@ -62,9 +68,8 @@ class HomeViewModel(
 }
 
 sealed interface HomeUiState {
-    data class Success(val total: Int) : HomeUiState
-
-    object Error : HomeUiState
+    data class Success(val users: Int) : HomeUiState
+    data class Error(val message: HomeExceptionErrors) : HomeUiState
     object Loading : HomeUiState
     object Idle : HomeUiState
 }

@@ -70,8 +70,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
             }
 
             is RegisterUiState.Loading -> {
-                binding.progressBar.isVisible = true
                 viewModel.resetState()
+                binding.progressBar.isVisible = true
             }
 
             is RegisterUiState.Idle -> {}

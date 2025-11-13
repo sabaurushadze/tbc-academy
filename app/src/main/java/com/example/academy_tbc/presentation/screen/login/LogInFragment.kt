@@ -69,8 +69,8 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(
             }
 
             is LogInUiState.Loading -> {
-                progressBar.isVisible = true
                 viewModel.resetState()
+                progressBar.isVisible = true
             }
 
             is LogInUiState.Idle -> {}

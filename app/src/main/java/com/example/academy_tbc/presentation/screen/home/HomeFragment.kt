@@ -22,34 +22,58 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     private val viewModel: HomeViewModel by viewModels { HomeViewModel.Factory }
 
     override fun listeners() {
-        observe()
+        observeTotalUsers()
         getUsers()
         logOut()
     }
 
-    private fun observe() {
+    private fun observeTotalUsers() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.homeUiState.collect { uiState ->
-                    when (uiState) {
-                        is HomeUiState.Success -> {
-                            binding.tvTotalUsers.text = uiState.total.toString()
-                            binding.progressBar.isVisible = false
-                        }
-
-                        HomeUiState.Error -> {
-                            binding.root.showSnackBar(getString(R.string.error_fetching_users))
-                            binding.progressBar.isVisible = false
-                        }
-
-                        HomeUiState.Loading -> {
-                            binding.progressBar.isVisible = true
-                        }
-
-                        HomeUiState.Idle -> {}
-                    }
+                    homeErrorMessages(uiState)
                 }
             }
+        }
+    }
+
+    private fun homeErrorMessages(uiState: HomeUiState) = with(binding) {
+        when (uiState) {
+            is HomeUiState.Success -> {
+                viewModel.resetState()
+                binding.tvTotalUsers.text = uiState.users.toString()
+                binding.progressBar.isVisible = false
+            }
+
+            is HomeUiState.Error -> {
+                viewModel.resetState()
+                binding.progressBar.isVisible = false
+                when (uiState.message) {
+                    HomeExceptionErrors.EXCEPTION_NETWORK -> {
+                        root.showSnackBar(getString(R.string.no_internet_connection_please_try_again))
+                    }
+
+                    HomeExceptionErrors.EXCEPTION_CREDENTIALS -> {
+                        root.showSnackBar(getString(R.string.invalid_credentials))
+                    }
+
+                    HomeExceptionErrors.EXCEPTION_USER_NOT_FOUND -> {
+                        root.showSnackBar(getString(R.string.user_not_found))
+                    }
+
+                    HomeExceptionErrors.EXCEPTION_UNKNOWN -> {
+                        root.showSnackBar(getString(R.string.something_went_wrong_please_try_again))
+                    }
+                }
+                binding.root.showSnackBar(getString(R.string.error_fetching_users))
+            }
+
+            is HomeUiState.Loading -> {
+                viewModel.resetState()
+                binding.progressBar.isVisible = true
+            }
+
+            is HomeUiState.Idle -> {}
         }
     }
 
