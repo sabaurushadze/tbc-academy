@@ -6,13 +6,24 @@ import com.example.academy_tbc.data.auth.login.ResponseLoginDto
 import com.example.academy_tbc.data.auth.register.RequestRegisterDto
 import com.example.academy_tbc.data.auth.register.ResponseRegisterDto
 import com.example.academy_tbc.data.network.AuthApiService
+import com.example.academy_tbc.data.network.UsersApiService
 import retrofit2.Response
 
 interface AuthRepository {
-
     suspend fun register(user: RequestRegisterDto): Response<ResponseRegisterDto>
     suspend fun login(user: RequestLoginDto): Response<ResponseLoginDto>
+}
+
+interface UsersRepository {
     suspend fun getUsers(): Response<UsersDto>
+}
+
+class NetworkUsersRepository(
+    private val usersApiService: UsersApiService
+) : UsersRepository {
+    override suspend fun getUsers(): Response<UsersDto> {
+        return usersApiService.getUsers()
+    }
 }
 
 class NetworkAuthRepository(
@@ -24,9 +35,5 @@ class NetworkAuthRepository(
 
     override suspend fun login(user: RequestLoginDto): Response<ResponseLoginDto> {
         return authApiService.login(user)
-    }
-
-    override suspend fun getUsers(): Response<UsersDto> {
-        return authApiService.getUsers()
     }
 }

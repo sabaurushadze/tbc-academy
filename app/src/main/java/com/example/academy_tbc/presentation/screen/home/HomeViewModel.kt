@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.academy_tbc.AuthApplication
-import com.example.academy_tbc.data.auth.AuthRepository
 import com.example.academy_tbc.data.auth.UserTokenRepository
+import com.example.academy_tbc.data.auth.UsersRepository
 import com.example.academy_tbc.presentation.screen.home.state.HomeError
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,7 +17,8 @@ import kotlinx.coroutines.launch
 import okio.IOException
 
 class HomeViewModel(
-    private val networkAuthRepository: AuthRepository, val userTokenRepository: UserTokenRepository
+    private val networkUsersRepository: UsersRepository,
+    val userTokenRepository: UserTokenRepository
 ) : ViewModel() {
     private val _homeState = MutableStateFlow<HomeUiState?>(HomeUiState.Idle)
     val homeUiState: StateFlow<HomeUiState?> = _homeState.asStateFlow()
@@ -30,7 +31,7 @@ class HomeViewModel(
         viewModelScope.launch {
             _homeState.value = HomeUiState.Loading
             try {
-                val response = networkAuthRepository.getUsers()
+                val response = networkUsersRepository.getUsers()
                 val responseBody = response.body()
                 if (response.isSuccessful && responseBody != null) {
                     _homeState.value = HomeUiState.Success(responseBody.total)
@@ -56,10 +57,10 @@ class HomeViewModel(
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application = (this[APPLICATION_KEY] as AuthApplication)
-                val authRepository = application.container.authRepository
+                val usersRepository = application.container.usersRepository
                 val userTokenRepository = application.container.userTokenRepository
                 HomeViewModel(
-                    networkAuthRepository = authRepository,
+                    networkUsersRepository = usersRepository,
                     userTokenRepository = userTokenRepository
                 )
             }

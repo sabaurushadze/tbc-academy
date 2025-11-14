@@ -3,6 +3,7 @@ package com.example.academy_tbc.data.auth
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.example.academy_tbc.data.network.AuthApiService
+import com.example.academy_tbc.data.network.UsersApiService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -14,6 +15,7 @@ import retrofit2.Retrofit
 
 interface AppContainer {
     val authRepository: AuthRepository
+    val usersRepository: UsersRepository
     val userTokenRepository: UserTokenRepository
 }
 
@@ -25,14 +27,13 @@ class DefaultAppContainer(private val dataStore: DataStore<Preferences>) : AppCo
         }
 
         OkHttpClient.Builder().addInterceptor { chain ->
-                val token = runBlocking {
-                    userTokenRepository.getToken.first()
-                }
-                val newRequest =
-                    chain.request().newBuilder().addHeader("x-api-key", "reqres-free-v1")
-                        .addHeader("Authorization", "Bearer $token").build()
-                chain.proceed(newRequest)
-            }.addInterceptor(logging).build()
+            val token = runBlocking {
+                userTokenRepository.getToken.first()
+            }
+            val newRequest = chain.request().newBuilder().addHeader("x-api-key", "reqres-free-v1")
+                .addHeader("Authorization", "Bearer $token").build()
+            chain.proceed(newRequest)
+        }.addInterceptor(logging).build()
     }
 
     val json = Json { ignoreUnknownKeys = true }
@@ -44,9 +45,18 @@ class DefaultAppContainer(private val dataStore: DataStore<Preferences>) : AppCo
         retrofit.create(AuthApiService::class.java)
     }
 
+    private val usersApiService: UsersApiService by lazy {
+        retrofit.create(UsersApiService::class.java)
+    }
+
     override val authRepository: AuthRepository by lazy {
         NetworkAuthRepository(retrofitService)
     }
+
+    override val usersRepository: UsersRepository by lazy {
+        NetworkUsersRepository(usersApiService)
+    }
+
     override val userTokenRepository: UserTokenRepository by lazy {
         UserTokenRepository(dataStore)
     }
