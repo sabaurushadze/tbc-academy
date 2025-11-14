@@ -11,9 +11,8 @@ import com.example.academy_tbc.R
 import com.example.academy_tbc.databinding.FragmentHomeBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
 import com.example.academy_tbc.presentation.extension.showSnackBar
-import kotlinx.coroutines.Dispatchers
+import com.example.academy_tbc.presentation.screen.home.state.HomeError
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(
@@ -31,50 +30,43 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.homeUiState.collect { uiState ->
-                    homeErrorMessages(uiState)
+                    uiState?.let { handleHomeState(uiState) }
                 }
             }
         }
     }
 
-    private fun homeErrorMessages(uiState: HomeUiState) = with(binding) {
+    private fun handleHomeState(uiState: HomeUiState) = with(binding) {
         when (uiState) {
-            is HomeUiState.Success -> {
-                viewModel.resetState()
-                binding.tvTotalUsers.text = uiState.users.toString()
-                binding.progressBar.isVisible = false
-            }
-
-            is HomeUiState.Error -> {
-                viewModel.resetState()
-                binding.progressBar.isVisible = false
-                when (uiState.message) {
-                    HomeExceptionErrors.EXCEPTION_NETWORK -> {
-                        root.showSnackBar(getString(R.string.no_internet_connection_please_try_again))
-                    }
-
-                    HomeExceptionErrors.EXCEPTION_CREDENTIALS -> {
-                        root.showSnackBar(getString(R.string.invalid_credentials))
-                    }
-
-                    HomeExceptionErrors.EXCEPTION_USER_NOT_FOUND -> {
-                        root.showSnackBar(getString(R.string.user_not_found))
-                    }
-
-                    HomeExceptionErrors.EXCEPTION_UNKNOWN -> {
-                        root.showSnackBar(getString(R.string.something_went_wrong_please_try_again))
-                    }
-                }
-                binding.root.showSnackBar(getString(R.string.error_fetching_users))
-            }
-
-            is HomeUiState.Loading -> {
-                viewModel.resetState()
-                binding.progressBar.isVisible = true
-            }
-
+            is HomeUiState.Success -> handleSuccess(uiState)
+            is HomeUiState.Error -> handleError(uiState)
+            is HomeUiState.Loading -> showLoading()
             is HomeUiState.Idle -> {}
         }
+    }
+
+    private fun handleSuccess(uiState: HomeUiState.Success) = with(binding) {
+        viewModel.resetState()
+        binding.tvTotalUsers.text = uiState.users.toString()
+        binding.progressBar.isVisible = false
+
+    }
+
+    private fun handleError(uiState: HomeUiState.Error) = with(binding) {
+        viewModel.resetState()
+        progressBar.isVisible = false
+
+        val message = when (uiState.message) {
+            HomeError.EXCEPTION_NETWORK -> getString(R.string.no_internet_connection_please_try_again)
+            HomeError.EXCEPTION_USER_NOT_FOUND -> getString(R.string.user_not_found)
+            HomeError.EXCEPTION_UNKNOWN -> getString(R.string.something_went_wrong_please_try_again)
+        }
+        root.showSnackBar(message)
+    }
+
+
+    private fun showLoading() {
+        binding.progressBar.isVisible = true
     }
 
     private fun logOut() {
@@ -83,9 +75,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
                 onLogoutConfirmed = {
                     lifecycleScope.launch {
                         viewModel.removeUserToken()
-                        withContext(Dispatchers.Main) {
-                            navigateToOnBoarding()
-                        }
+                        navigateToOnBoarding()
                     }
                 }).show(
                 childFragmentManager, LogOutDialogFragment.TAG

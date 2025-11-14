@@ -9,21 +9,21 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.academy_tbc.AuthApplication
 import com.example.academy_tbc.data.auth.AuthRepository
 import com.example.academy_tbc.data.auth.UserTokenRepository
+import com.example.academy_tbc.presentation.screen.home.state.HomeError
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import okio.IOException
-import retrofit2.HttpException
 
 class HomeViewModel(
     private val networkAuthRepository: AuthRepository, val userTokenRepository: UserTokenRepository
 ) : ViewModel() {
-    private val _homeState = MutableStateFlow<HomeUiState>(HomeUiState.Idle)
-    val homeUiState: StateFlow<HomeUiState> = _homeState.asStateFlow()
+    private val _homeState = MutableStateFlow<HomeUiState?>(HomeUiState.Idle)
+    val homeUiState: StateFlow<HomeUiState?> = _homeState.asStateFlow()
 
     fun resetState() {
-        _homeState.value = HomeUiState.Idle
+        _homeState.value = null
     }
 
     fun getUsers() {
@@ -35,15 +35,15 @@ class HomeViewModel(
                 if (response.isSuccessful && responseBody != null) {
                     _homeState.value = HomeUiState.Success(responseBody.total)
                 } else if (response.code() == 400) {
-                    _homeState.value =
-                        HomeUiState.Error(HomeExceptionErrors.EXCEPTION_USER_NOT_FOUND)
+                    _homeState.value = HomeUiState.Error(HomeError.EXCEPTION_USER_NOT_FOUND)
                 }
-            } catch (_: IOException) {
-                _homeState.value = HomeUiState.Error(HomeExceptionErrors.EXCEPTION_NETWORK)
-            } catch (_: HttpException) {
-                _homeState.value = HomeUiState.Error(HomeExceptionErrors.EXCEPTION_CREDENTIALS)
-            } catch (_: Exception) {
-                _homeState.value = HomeUiState.Error(HomeExceptionErrors.EXCEPTION_UNKNOWN)
+            } catch (e: Exception) {
+                when (e) {
+                    is IOException -> _homeState.value =
+                        HomeUiState.Error(HomeError.EXCEPTION_NETWORK)
+
+                    else -> _homeState.value = HomeUiState.Error(HomeError.EXCEPTION_UNKNOWN)
+                }
             }
         }
     }
@@ -69,7 +69,7 @@ class HomeViewModel(
 
 sealed interface HomeUiState {
     data class Success(val users: Int) : HomeUiState
-    data class Error(val message: HomeExceptionErrors) : HomeUiState
+    data class Error(val message: HomeError) : HomeUiState
     object Loading : HomeUiState
     object Idle : HomeUiState
 }

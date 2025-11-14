@@ -11,6 +11,9 @@ import com.example.academy_tbc.data.auth.register.RequestRegisterDto
 import com.example.academy_tbc.databinding.FragmentRegisterBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
 import com.example.academy_tbc.presentation.extension.showSnackBar
+import com.example.academy_tbc.presentation.screen.register.state.RegisterField
+import com.example.academy_tbc.presentation.screen.register.state.RegisterFieldError
+import com.example.academy_tbc.presentation.screen.register.state.RegisterValidationError
 import kotlinx.coroutines.launch
 
 
@@ -28,55 +31,47 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.registerUiState.collect { uiState ->
-                    registerErrorMessages(uiState)
+                    uiState?.let { handleRegisterState(uiState) }
                 }
             }
         }
     }
 
-    private fun registerErrorMessages(uiState: RegisterUiState) = with(binding) {
+    private fun handleRegisterState(uiState: RegisterUiState) = with(binding) {
         when (uiState) {
-            is RegisterUiState.Success -> {
-                clearInputs()
-                viewModel.resetState()
-                binding.progressBar.isVisible = false
-                findNavController().navigate(
-                    RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
-                )
-            }
-
-            is RegisterUiState.Error -> {
-                clearInputs()
-                viewModel.resetState()
-                binding.progressBar.isVisible = false
-
-                when (uiState.message) {
-                    RegisterExceptionErrors.EXCEPTION_NETWORK -> {
-                        root.showSnackBar(getString(R.string.no_internet_connection_please_try_again))
-                    }
-
-                    RegisterExceptionErrors.EXCEPTION_CREDENTIALS -> {
-                        root.showSnackBar(getString(R.string.invalid_credentials))
-                    }
-
-                    RegisterExceptionErrors.EXCEPTION_USER_NOT_FOUND -> {
-                        root.showSnackBar(getString(R.string.user_not_found))
-                    }
-
-                    RegisterExceptionErrors.EXCEPTION_UNKNOWN -> {
-                        root.showSnackBar(getString(R.string.something_went_wrong_please_try_again))
-                    }
-                }
-            }
-
-            is RegisterUiState.Loading -> {
-                viewModel.resetState()
-                binding.progressBar.isVisible = true
-            }
-
-            is RegisterUiState.Idle -> {}
+            is RegisterUiState.Success -> handleSuccess()
+            is RegisterUiState.Error -> handleError(uiState)
+            is RegisterUiState.Loading -> showLoading()
+            is RegisterUiState.Idle -> clearInputs()
         }
     }
+
+    private fun handleSuccess() = with(binding) {
+        clearInputs()
+        viewModel.resetState()
+        progressBar.isVisible = false
+        findNavController().navigate(
+            RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
+        )
+    }
+
+    private fun handleError(uiState: RegisterUiState.Error) = with(binding) {
+        clearInputs()
+        viewModel.resetState()
+        progressBar.isVisible = false
+
+        val message = when (uiState.message) {
+            RegisterValidationError.EXCEPTION_NETWORK -> getString(R.string.no_internet_connection_please_try_again)
+            RegisterValidationError.EXCEPTION_USER_NOT_FOUND -> getString(R.string.user_not_found)
+            RegisterValidationError.EXCEPTION_UNKNOWN -> getString(R.string.something_went_wrong_please_try_again)
+        }
+        root.showSnackBar(message)
+    }
+
+    private fun showLoading() {
+        binding.progressBar.isVisible = true
+    }
+
 
     private fun onRegisterClick() = with(binding) {
         btnRegister.setOnClickListener {
@@ -98,9 +93,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
             } else {
                 errors.forEach { (field, error) ->
                     val message = when (error) {
-                        RegisterFieldErrors.INVALID_EMAIL -> getString(R.string.invalid_email)
-                        RegisterFieldErrors.INVALID_PASSWORD -> getString(R.string.invalid_password)
-                        RegisterFieldErrors.INVALID_USERNAME -> getString(R.string.invalid_user_name)
+                        RegisterFieldError.INVALID_EMAIL -> getString(R.string.invalid_email)
+                        RegisterFieldError.INVALID_PASSWORD -> getString(R.string.invalid_password)
+                        RegisterFieldError.INVALID_USERNAME -> getString(R.string.invalid_user_name)
                     }
 
                     when (field) {

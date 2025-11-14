@@ -11,6 +11,9 @@ import com.example.academy_tbc.data.auth.login.RequestLoginDto
 import com.example.academy_tbc.databinding.FragmentLogInBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
 import com.example.academy_tbc.presentation.extension.showSnackBar
+import com.example.academy_tbc.presentation.screen.login.state.LogInField
+import com.example.academy_tbc.presentation.screen.login.state.LogInFieldError
+import com.example.academy_tbc.presentation.screen.login.state.LogInValidationError
 import kotlinx.coroutines.launch
 
 class LogInFragment : BaseFragment<FragmentLogInBinding>(
@@ -27,55 +30,47 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.loginUiState.collect { uiState ->
-                    loginErrorMessages(uiState)
+                    uiState?.let { handleLoginState(it) }
                 }
             }
         }
     }
 
-    private fun loginErrorMessages(uiState: LogInUiState) = with(binding) {
+    private fun handleLoginState(uiState: LogInUiState) = with(binding) {
         when (uiState) {
-            is LogInUiState.Success -> {
-                clearInputs()
-                viewModel.resetState()
-                progressBar.isVisible = false
-                findNavController().navigate(
-                    LogInFragmentDirections.actionLogInFragmentToHomeFragment()
-                )
-            }
-
-            is LogInUiState.Error -> {
-                clearInputs()
-                viewModel.resetState()
-                progressBar.isVisible = false
-
-                when (uiState.message) {
-                    LogInExceptionErrors.EXCEPTION_NETWORK -> {
-                        root.showSnackBar(getString(R.string.no_internet_connection_please_try_again))
-                    }
-
-                    LogInExceptionErrors.EXCEPTION_CREDENTIALS -> {
-                        root.showSnackBar(getString(R.string.invalid_credentials))
-                    }
-
-                    LogInExceptionErrors.EXCEPTION_USER_NOT_FOUND -> {
-                        root.showSnackBar(getString(R.string.user_not_found))
-                    }
-
-                    LogInExceptionErrors.EXCEPTION_UNKNOWN -> {
-                        root.showSnackBar(getString(R.string.something_went_wrong_please_try_again))
-                    }
-                }
-            }
-
-            is LogInUiState.Loading -> {
-                viewModel.resetState()
-                progressBar.isVisible = true
-            }
-
-            is LogInUiState.Idle -> {}
+            is LogInUiState.Success -> handleSuccess()
+            is LogInUiState.Error -> handleError(uiState)
+            is LogInUiState.Loading -> showLoading()
+            is LogInUiState.Idle -> clearInputs()
         }
     }
+
+    private fun handleSuccess() = with(binding) {
+        clearInputs()
+        viewModel.resetState()
+        progressBar.isVisible = false
+        findNavController().navigate(
+            LogInFragmentDirections.actionLogInFragmentToHomeFragment()
+        )
+    }
+
+    private fun handleError(uiState: LogInUiState.Error) = with(binding) {
+        clearInputs()
+        viewModel.resetState()
+        progressBar.isVisible = false
+
+        val message = when (uiState.message) {
+            LogInValidationError.EXCEPTION_NETWORK -> getString(R.string.no_internet_connection_please_try_again)
+            LogInValidationError.EXCEPTION_USER_NOT_FOUND -> getString(R.string.user_not_found)
+            LogInValidationError.EXCEPTION_UNKNOWN -> getString(R.string.something_went_wrong_please_try_again)
+        }
+        root.showSnackBar(message)
+    }
+
+    private fun showLoading() {
+        binding.progressBar.isVisible = true
+    }
+
 
     private fun onLoginClick() = with(binding) {
         btnLogin.setOnClickListener {
@@ -94,8 +89,8 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(
             } else {
                 errors.forEach { (field, error) ->
                     val message = when (error) {
-                        LogInFieldErrors.INVALID_EMAIL -> getString(R.string.invalid_email)
-                        LogInFieldErrors.INVALID_PASSWORD -> getString(R.string.invalid_password)
+                        LogInFieldError.INVALID_EMAIL -> getString(R.string.invalid_email)
+                        LogInFieldError.INVALID_PASSWORD -> getString(R.string.invalid_password)
                     }
 
                     when (field) {

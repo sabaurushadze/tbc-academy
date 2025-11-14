@@ -10,42 +10,42 @@ import com.example.academy_tbc.AuthApplication
 import com.example.academy_tbc.data.auth.AuthRepository
 import com.example.academy_tbc.data.auth.UserTokenRepository
 import com.example.academy_tbc.data.auth.login.RequestLoginDto
+import com.example.academy_tbc.presentation.screen.login.state.LogInField
+import com.example.academy_tbc.presentation.screen.login.state.LogInFieldError
+import com.example.academy_tbc.presentation.screen.login.state.LogInValidationError
 import com.example.academy_tbc.presentation.utils.Validations
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import okio.IOException
-import retrofit2.HttpException
 
 class LogInViewModel(
     private val networkAuthRepository: AuthRepository,
     private val userTokenRepository: UserTokenRepository
 ) : ViewModel() {
-    private val _loginState = MutableStateFlow<LogInUiState>(LogInUiState.Idle)
-    val loginUiState: StateFlow<LogInUiState> = _loginState.asStateFlow()
+    private val _loginState = MutableStateFlow<LogInUiState?>(LogInUiState.Idle)
+    val loginUiState: StateFlow<LogInUiState?> = _loginState.asStateFlow()
 
     fun resetState() {
-        _loginState.value = LogInUiState.Idle
+        _loginState.value = null
     }
 
-    private fun saveToken(token: String) {
-        viewModelScope.launch {
-            userTokenRepository.saveToken(token)
-        }
+    private suspend fun saveToken(token: String) {
+        userTokenRepository.saveToken(token)
     }
 
     fun validateLogInData(
         email: String, password: String
-    ): Pair<Boolean, Map<LogInField, LogInFieldErrors>> {
-        val errors = mutableMapOf<LogInField, LogInFieldErrors>()
+    ): Pair<Boolean, Map<LogInField, LogInFieldError>> {
+        val errors = mutableMapOf<LogInField, LogInFieldError>()
 
         if (!Validations.validateEmail(email)) {
-            errors[LogInField.EMAIL] = LogInFieldErrors.INVALID_EMAIL
+            errors[LogInField.EMAIL] = LogInFieldError.INVALID_EMAIL
         }
 
         if (!Validations.validatePassword(password)) {
-            errors[LogInField.PASSWORD] = LogInFieldErrors.INVALID_PASSWORD
+            errors[LogInField.PASSWORD] = LogInFieldError.INVALID_PASSWORD
         }
         return Pair(errors.isEmpty(), errors)
     }
@@ -61,15 +61,19 @@ class LogInViewModel(
                     _loginState.value = LogInUiState.Success
                 } else if (response.code() == 400) {
                     _loginState.value =
-                        LogInUiState.Error(LogInExceptionErrors.EXCEPTION_USER_NOT_FOUND)
+                        LogInUiState.Error(LogInValidationError.EXCEPTION_USER_NOT_FOUND)
                 }
-            } catch (_: IOException) {
-                _loginState.value = LogInUiState.Error(LogInExceptionErrors.EXCEPTION_NETWORK)
-            } catch (_: HttpException) {
-                _loginState.value = LogInUiState.Error(LogInExceptionErrors.EXCEPTION_CREDENTIALS)
-            } catch (_: Exception) {
-                _loginState.value = LogInUiState.Error(LogInExceptionErrors.EXCEPTION_UNKNOWN)
+            } catch (e: Exception) {
+                when (e) {
+                    is IOException -> _loginState.value =
+                        LogInUiState.Error(LogInValidationError.EXCEPTION_NETWORK)
+
+                    else -> _loginState.value =
+                        LogInUiState.Error(LogInValidationError.EXCEPTION_UNKNOWN)
+
+                }
             }
+
         }
     }
 
@@ -90,7 +94,7 @@ class LogInViewModel(
 
 sealed interface LogInUiState {
     object Success : LogInUiState
-    data class Error(val message: LogInExceptionErrors) : LogInUiState
+    data class Error(val message: LogInValidationError) : LogInUiState
     object Loading : LogInUiState
     object Idle : LogInUiState
 }

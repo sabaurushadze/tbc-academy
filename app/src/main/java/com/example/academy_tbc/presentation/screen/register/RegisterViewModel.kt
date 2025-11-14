@@ -10,46 +10,46 @@ import com.example.academy_tbc.AuthApplication
 import com.example.academy_tbc.data.auth.AuthRepository
 import com.example.academy_tbc.data.auth.UserTokenRepository
 import com.example.academy_tbc.data.auth.register.RequestRegisterDto
+import com.example.academy_tbc.presentation.screen.register.state.RegisterField
+import com.example.academy_tbc.presentation.screen.register.state.RegisterFieldError
+import com.example.academy_tbc.presentation.screen.register.state.RegisterValidationError
 import com.example.academy_tbc.presentation.utils.Validations
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import okio.IOException
-import retrofit2.HttpException
 
 class RegisterViewModel(
     private val networkAuthRepository: AuthRepository,
     private val userTokenRepository: UserTokenRepository
 ) : ViewModel() {
-    private val _registerState = MutableStateFlow<RegisterUiState>(RegisterUiState.Idle)
-    val registerUiState: StateFlow<RegisterUiState> = _registerState.asStateFlow()
+    private val _registerState = MutableStateFlow<RegisterUiState?>(RegisterUiState.Idle)
+    val registerUiState: StateFlow<RegisterUiState?> = _registerState.asStateFlow()
 
     fun resetState() {
-        _registerState.value = RegisterUiState.Idle
+        _registerState.value = null
     }
 
-    private fun saveToken(token: String) {
-        viewModelScope.launch {
-            userTokenRepository.saveToken(token)
-        }
+    private suspend fun saveToken(token: String) {
+        userTokenRepository.saveToken(token)
     }
 
     fun validateRegisterData(
         email: String, password: String, userName: String
-    ): Pair<Boolean, Map<RegisterField, RegisterFieldErrors>> {
-        val errors = mutableMapOf<RegisterField, RegisterFieldErrors>()
+    ): Pair<Boolean, Map<RegisterField, RegisterFieldError>> {
+        val errors = mutableMapOf<RegisterField, RegisterFieldError>()
 
         if (!Validations.validateEmail(email)) {
-            errors[RegisterField.EMAIL] = RegisterFieldErrors.INVALID_EMAIL
+            errors[RegisterField.EMAIL] = RegisterFieldError.INVALID_EMAIL
         }
 
         if (!Validations.validatePassword(password)) {
-            errors[RegisterField.PASSWORD] = RegisterFieldErrors.INVALID_PASSWORD
+            errors[RegisterField.PASSWORD] = RegisterFieldError.INVALID_PASSWORD
         }
 
         if (!Validations.validateUserName(userName)) {
-            errors[RegisterField.USERNAME] = RegisterFieldErrors.INVALID_USERNAME
+            errors[RegisterField.USERNAME] = RegisterFieldError.INVALID_USERNAME
         }
 
         return Pair(errors.isEmpty(), errors)
@@ -66,17 +66,18 @@ class RegisterViewModel(
                     _registerState.value = RegisterUiState.Success
                 } else if (response.code() == 400) {
                     _registerState.value =
-                        RegisterUiState.Error(RegisterExceptionErrors.EXCEPTION_USER_NOT_FOUND)
+                        RegisterUiState.Error(RegisterValidationError.EXCEPTION_USER_NOT_FOUND)
                 }
-            } catch (_: IOException) {
-                _registerState.value =
-                    RegisterUiState.Error(RegisterExceptionErrors.EXCEPTION_NETWORK)
-            } catch (_: HttpException) {
-                _registerState.value =
-                    RegisterUiState.Error(RegisterExceptionErrors.EXCEPTION_CREDENTIALS)
-            } catch (_: Exception) {
-                _registerState.value =
-                    RegisterUiState.Error(RegisterExceptionErrors.EXCEPTION_UNKNOWN)
+            } catch (e: Exception) {
+                when (e) {
+                    is IOException -> _registerState.value = RegisterUiState.Error(
+                        RegisterValidationError.EXCEPTION_NETWORK
+                    )
+
+                    else -> _registerState.value =
+                        RegisterUiState.Error(RegisterValidationError.EXCEPTION_UNKNOWN)
+
+                }
             }
         }
     }
@@ -98,7 +99,7 @@ class RegisterViewModel(
 
 sealed interface RegisterUiState {
     object Success : RegisterUiState
-    data class Error(val message: RegisterExceptionErrors) : RegisterUiState
+    data class Error(val message: RegisterValidationError) : RegisterUiState
     object Loading : RegisterUiState
     object Idle : RegisterUiState
 }
