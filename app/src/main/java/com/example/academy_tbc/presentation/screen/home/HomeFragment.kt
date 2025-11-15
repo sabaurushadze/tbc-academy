@@ -7,9 +7,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import com.example.academy_tbc.AuthApplication
 import com.example.academy_tbc.R
 import com.example.academy_tbc.databinding.FragmentHomeBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
+import com.example.academy_tbc.presentation.common.ViewModelFactory
 import com.example.academy_tbc.presentation.extension.showSnackBar
 import com.example.academy_tbc.presentation.screen.home.state.HomeError
 import kotlinx.coroutines.launch
@@ -18,7 +20,15 @@ import kotlinx.coroutines.launch
 class HomeFragment : BaseFragment<FragmentHomeBinding>(
     FragmentHomeBinding::inflate
 ) {
-    private val viewModel: HomeViewModel by viewModels { HomeViewModel.Factory }
+    private val viewModel: HomeViewModel by viewModels {
+        ViewModelFactory {
+            val application = requireActivity().application as AuthApplication
+            HomeViewModel(
+                networkUsersRepository = application.container.usersRepository,
+                userTokenRepository = application.container.userTokenRepository
+            )
+        }
+    }
 
     override fun listeners() {
         observeTotalUsers()
@@ -30,40 +40,40 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.homeUiState.collect { uiState ->
-                    uiState?.let { handleHomeState(uiState) }
+                    if (uiState.isLoading) {
+                        showLoading()
+                    }
+
+                    uiState.error?.let { error ->
+                        handleError(error)
+                    }
+
+                    uiState.userCount?.let { userCount ->
+                        handleSuccess(userCount)
+                    }
                 }
             }
         }
     }
 
-    private fun handleHomeState(uiState: HomeUiState) = with(binding) {
-        when (uiState) {
-            is HomeUiState.Success -> handleSuccess(uiState)
-            is HomeUiState.Error -> handleError(uiState)
-            is HomeUiState.Loading -> showLoading()
-            is HomeUiState.Idle -> {}
-        }
-    }
-
-    private fun handleSuccess(uiState: HomeUiState.Success) = with(binding) {
+    private fun handleSuccess(userCount: Int) = with(binding) {
         viewModel.resetState()
-        binding.tvTotalUsers.text = uiState.users.toString()
+        binding.tvTotalUsers.text = userCount.toString()
         binding.progressBar.isVisible = false
 
     }
 
-    private fun handleError(uiState: HomeUiState.Error) = with(binding) {
+    private fun handleError(error: HomeError) = with(binding) {
         viewModel.resetState()
         progressBar.isVisible = false
 
-        val message = when (uiState.message) {
+        val message = when (error) {
             HomeError.EXCEPTION_NETWORK -> getString(R.string.no_internet_connection_please_try_again)
             HomeError.EXCEPTION_USER_NOT_FOUND -> getString(R.string.user_not_found)
             HomeError.EXCEPTION_UNKNOWN -> getString(R.string.something_went_wrong_please_try_again)
         }
         root.showSnackBar(message)
     }
-
 
     private fun showLoading() {
         binding.progressBar.isVisible = true
@@ -91,7 +101,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     }
 
     private fun navigateToOnBoarding() {
-        val directions = HomeFragmentDirections.actionHomeFragmentToOnboardingFragment(true)
+        val directions = HomeFragmentDirections.actionHomeFragmentToOnboardingFragment()
         val options = navOptions {
             popUpTo(R.id.nav_graph) {
                 inclusive = true

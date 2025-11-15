@@ -6,21 +6,30 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.example.academy_tbc.AuthApplication
 import com.example.academy_tbc.R
 import com.example.academy_tbc.data.auth.register.RequestRegisterDto
 import com.example.academy_tbc.databinding.FragmentRegisterBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
+import com.example.academy_tbc.presentation.common.ViewModelFactory
 import com.example.academy_tbc.presentation.extension.showSnackBar
 import com.example.academy_tbc.presentation.screen.register.state.RegisterField
 import com.example.academy_tbc.presentation.screen.register.state.RegisterFieldError
 import com.example.academy_tbc.presentation.screen.register.state.RegisterValidationError
 import kotlinx.coroutines.launch
 
-
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
     FragmentRegisterBinding::inflate
 ) {
-    private val viewModel: RegisterViewModel by viewModels { RegisterViewModel.Factory }
+    private val viewModel: RegisterViewModel by viewModels {
+        ViewModelFactory {
+            val application = requireActivity().application as AuthApplication
+            RegisterViewModel(
+                networkAuthRepository = application.container.authRepository,
+                userTokenRepository = application.container.userTokenRepository
+            )
+        }
+    }
 
     override fun listeners() {
         observe()
@@ -31,38 +40,42 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.registerUiState.collect { uiState ->
-                    uiState?.let { handleRegisterState(uiState) }
+                    if (uiState.isLoading) {
+                        showLoading()
+                    }
+
+                    uiState.error?.let { error ->
+                        handleError(error)
+                    }
+
+                    uiState.isRegistered?.let { registered ->
+                        if (registered) {
+                            handleSuccess()
+                        }
+                    }
                 }
             }
         }
     }
 
-    private fun handleRegisterState(uiState: RegisterUiState) = with(binding) {
-        when (uiState) {
-            is RegisterUiState.Success -> handleSuccess()
-            is RegisterUiState.Error -> handleError(uiState)
-            is RegisterUiState.Loading -> showLoading()
-            is RegisterUiState.Idle -> clearInputs()
-        }
-    }
-
     private fun handleSuccess() = with(binding) {
-        clearInputs()
+        btnRegister.isEnabled = false
         viewModel.resetState()
+        clearInputs()
         progressBar.isVisible = false
         findNavController().navigate(
             RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
         )
     }
 
-    private fun handleError(uiState: RegisterUiState.Error) = with(binding) {
-        clearInputs()
+    private fun handleError(error: RegisterValidationError) = with(binding) {
         viewModel.resetState()
+        clearInputs()
         progressBar.isVisible = false
 
-        val message = when (uiState.message) {
+        val message = when (error) {
             RegisterValidationError.EXCEPTION_NETWORK -> getString(R.string.no_internet_connection_please_try_again)
-            RegisterValidationError.EXCEPTION_USER_NOT_FOUND -> getString(R.string.user_not_found)
+            RegisterValidationError.EXCEPTION_USER_NOT_FOUND -> getString(R.string.user_with_this_email_cannot_be_registered)
             RegisterValidationError.EXCEPTION_UNKNOWN -> getString(R.string.something_went_wrong_please_try_again)
         }
         root.showSnackBar(message)

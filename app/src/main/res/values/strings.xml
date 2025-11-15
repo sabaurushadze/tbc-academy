@@ -23,4 +23,5 @@
     <string name="ok">OK</string>
     <string name="log_out_really">Log out?</string>
     <string name="cancel">Cancel</string>
+    <string name="user_with_this_email_cannot_be_registered">User with this email cannot be registered</string>
 </resources>

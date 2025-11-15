@@ -1,50 +1,55 @@
 package com.example.academy_tbc.presentation.screen.home
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.academy_tbc.AuthApplication
 import com.example.academy_tbc.data.auth.UserTokenRepository
 import com.example.academy_tbc.data.auth.UsersRepository
 import com.example.academy_tbc.presentation.screen.home.state.HomeError
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import okio.IOException
 
 class HomeViewModel(
     private val networkUsersRepository: UsersRepository,
-    val userTokenRepository: UserTokenRepository
+    private val userTokenRepository: UserTokenRepository
 ) : ViewModel() {
-    private val _homeState = MutableStateFlow<HomeUiState?>(HomeUiState.Idle)
-    val homeUiState: StateFlow<HomeUiState?> = _homeState.asStateFlow()
+    private val _homeState = MutableStateFlow(HomeUiState())
+    val homeUiState: StateFlow<HomeUiState> = _homeState.asStateFlow()
 
     fun resetState() {
-        _homeState.value = null
+        _homeState.update { it.copy(isLoading = false, userCount = null, error = null) }
     }
 
+    private var homeJob: Job? = null
     fun getUsers() {
-        viewModelScope.launch {
-            _homeState.value = HomeUiState.Loading
+        if (homeJob != null) return
+
+        homeJob = viewModelScope.launch {
             try {
+                _homeState.update { it.copy(isLoading = true) }
                 val response = networkUsersRepository.getUsers()
                 val responseBody = response.body()
                 if (response.isSuccessful && responseBody != null) {
-                    _homeState.value = HomeUiState.Success(responseBody.total)
+                    _homeState.update { it.copy(userCount = responseBody.total) }
                 } else if (response.code() == 400) {
-                    _homeState.value = HomeUiState.Error(HomeError.EXCEPTION_USER_NOT_FOUND)
+                    _homeState.update { it.copy(error = HomeError.EXCEPTION_USER_NOT_FOUND) }
                 }
             } catch (e: Exception) {
                 when (e) {
-                    is IOException -> _homeState.value =
-                        HomeUiState.Error(HomeError.EXCEPTION_NETWORK)
+                    is IOException -> _homeState.update {
+                        it.copy(error = HomeError.EXCEPTION_NETWORK)
+                    }
 
-                    else -> _homeState.value = HomeUiState.Error(HomeError.EXCEPTION_UNKNOWN)
+                    else -> _homeState.update {
+                        it.copy(error = HomeError.EXCEPTION_UNKNOWN)
+                    }
                 }
+            } finally {
+                homeJob = null
             }
         }
     }
@@ -52,25 +57,8 @@ class HomeViewModel(
     suspend fun removeUserToken() {
         userTokenRepository.removeToken()
     }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = (this[APPLICATION_KEY] as AuthApplication)
-                val usersRepository = application.container.usersRepository
-                val userTokenRepository = application.container.userTokenRepository
-                HomeViewModel(
-                    networkUsersRepository = usersRepository,
-                    userTokenRepository = userTokenRepository
-                )
-            }
-        }
-    }
 }
 
-sealed interface HomeUiState {
-    data class Success(val users: Int) : HomeUiState
-    data class Error(val message: HomeError) : HomeUiState
-    object Loading : HomeUiState
-    object Idle : HomeUiState
-}
+data class HomeUiState(
+    val isLoading: Boolean = false, val error: HomeError? = null, val userCount: Int? = null
+)
