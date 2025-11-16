@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.screen.register.state
+package com.example.academy_tbc.presentation.screen.register
 
 enum class RegisterValidationError {
     EXCEPTION_NETWORK,

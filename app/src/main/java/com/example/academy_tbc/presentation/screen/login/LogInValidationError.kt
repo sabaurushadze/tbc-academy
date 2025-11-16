@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.screen.login.state
+package com.example.academy_tbc.presentation.screen.login
 
 enum class LogInValidationError {
     EXCEPTION_NETWORK,

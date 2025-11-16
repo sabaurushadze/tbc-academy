@@ -1,6 +1,6 @@
 package com.example.academy_tbc.data.auth
 
-import com.example.academy_tbc.data.auth.home.UsersDto
+import com.example.academy_tbc.data.auth.home.ResponseUsersDto
 import com.example.academy_tbc.data.auth.login.RequestLoginDto
 import com.example.academy_tbc.data.auth.login.ResponseLoginDto
 import com.example.academy_tbc.data.auth.register.RequestRegisterDto
@@ -15,13 +15,13 @@ interface AuthRepository {
 }
 
 interface UsersRepository {
-    suspend fun getUsers(): Response<UsersDto>
+    suspend fun getUsers(): Response<ResponseUsersDto>
 }
 
 class NetworkUsersRepository(
     private val usersApiService: UsersApiService
 ) : UsersRepository {
-    override suspend fun getUsers(): Response<UsersDto> {
+    override suspend fun getUsers(): Response<ResponseUsersDto> {
         return usersApiService.getUsers()
     }
 }

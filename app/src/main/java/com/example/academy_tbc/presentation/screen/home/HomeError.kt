@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.screen.home.state
+package com.example.academy_tbc.presentation.screen.home
 
 enum class HomeError {
     EXCEPTION_NETWORK,

@@ -6,13 +6,6 @@
     <string name="email">Email</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="invalid_email">Invalid email</string>
-    <string name="invalid_password">Invalid password</string>
-    <string name="successfully_logged_in">Successfully logged in!</string>
-    <string name="invalid_credentials">Invalid credentials</string>
-    <string name="invalid_user_name">Invalid User name</string>
-    <string name="successfully_registered">Successfully registered</string>
-    <string name="registration_failed">Registration failed</string>
     <string name="home">Home</string>
     <string name="log_out">Log out</string>
     <string name="get_users">Get users</string>
@@ -24,4 +17,8 @@
     <string name="log_out_really">Log out?</string>
     <string name="cancel">Cancel</string>
     <string name="user_with_this_email_cannot_be_registered">User with this email cannot be registered</string>
+    <string name="remember_me">Remember me</string>
+    <string name="full_name">%1$s %2$s</string>
+    <string name="profile">Profile</string>
+    <string name="repeat_password">Repeat password</string>
 </resources>

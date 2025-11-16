@@ -3,53 +3,36 @@ package com.example.academy_tbc.presentation.screen.register
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.academy_tbc.data.auth.AuthRepository
-import com.example.academy_tbc.data.auth.UserTokenRepository
 import com.example.academy_tbc.data.auth.register.RequestRegisterDto
-import com.example.academy_tbc.presentation.screen.register.state.RegisterField
-import com.example.academy_tbc.presentation.screen.register.state.RegisterFieldError
-import com.example.academy_tbc.presentation.screen.register.state.RegisterValidationError
-import com.example.academy_tbc.presentation.utils.Validations
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import okio.IOException
 
 class RegisterViewModel(
     private val networkAuthRepository: AuthRepository,
-    private val userTokenRepository: UserTokenRepository
 ) : ViewModel() {
-    private val _registerState = MutableStateFlow(RegisterUiState())
+    private val _registerState = MutableStateFlow<RegisterUiState>(RegisterUiState.Success(false))
     val registerUiState: StateFlow<RegisterUiState> = _registerState.asStateFlow()
 
-    fun resetState() {
-        _registerState.update { it.copy(isLoading = false, isRegistered = null, error = null) }
-    }
+    private val _navigationEvent = MutableSharedFlow<RegisterNavigationEvent>(replay = 0)
+    val navigationEvent = _navigationEvent.asSharedFlow()
 
-    private suspend fun saveToken(token: String) {
-        userTokenRepository.saveToken(token)
+    fun resetState() {
+        _registerState.value = RegisterUiState.Success(false)
     }
 
     fun validateRegisterData(
-        email: String, password: String, userName: String
-    ): Pair<Boolean, Map<RegisterField, RegisterFieldError>> {
-        val errors = mutableMapOf<RegisterField, RegisterFieldError>()
+        email: String, password: String
+    ): Boolean {
+        val isValidEmail = RegisterValidations.validateEmail(email)
+        val isValidPassword = RegisterValidations.validatePassword(password)
 
-        if (!Validations.validateEmail(email)) {
-            errors[RegisterField.EMAIL] = RegisterFieldError.INVALID_EMAIL
-        }
-
-        if (!Validations.validatePassword(password)) {
-            errors[RegisterField.PASSWORD] = RegisterFieldError.INVALID_PASSWORD
-        }
-
-        if (!Validations.validateUserName(userName)) {
-            errors[RegisterField.USERNAME] = RegisterFieldError.INVALID_USERNAME
-        }
-
-        return Pair(errors.isEmpty(), errors)
+        return isValidEmail && isValidPassword
     }
 
     private var registerJob: Job? = null
@@ -59,28 +42,25 @@ class RegisterViewModel(
 
         registerJob = viewModelScope.launch {
             try {
-                _registerState.update { it.copy(isLoading = true) }
+                _registerState.value = RegisterUiState.Loading
                 val response = networkAuthRepository.register(user)
                 val responseBody = response.body()
 
                 if (response.isSuccessful && responseBody != null) {
-                    saveToken(responseBody.token)
-                    _registerState.update { it.copy(isRegistered = true) }
+
+                    _navigationEvent.emit(RegisterNavigationEvent.NavigateToLogin)
+                    _registerState.value = RegisterUiState.Success(true)
                 } else if (response.code() == 400) {
-                    _registerState.update {
-                        it.copy(error = RegisterValidationError.EXCEPTION_USER_NOT_FOUND)
-                    }
+                    _registerState.value =
+                        RegisterUiState.Error(RegisterValidationError.EXCEPTION_USER_NOT_FOUND)
                 }
             } catch (e: Exception) {
                 when (e) {
-                    is IOException -> _registerState.update {
-                        it.copy(error = RegisterValidationError.EXCEPTION_NETWORK)
+                    is IOException -> _registerState.value =
+                        RegisterUiState.Error(RegisterValidationError.EXCEPTION_NETWORK)
 
-                    }
-
-                    else -> _registerState.update {
-                        it.copy(error = RegisterValidationError.EXCEPTION_UNKNOWN)
-                    }
+                    else -> _registerState.value =
+                        RegisterUiState.Error(RegisterValidationError.EXCEPTION_UNKNOWN)
                 }
             } finally {
                 registerJob = null
@@ -89,8 +69,12 @@ class RegisterViewModel(
     }
 }
 
-data class RegisterUiState(
-    val isLoading: Boolean = false,
-    val error: RegisterValidationError? = null,
-    val isRegistered: Boolean? = null
-)
+sealed class RegisterUiState {
+    data class Success(val isRegistered: Boolean) : RegisterUiState()
+    data class Error(val error: RegisterValidationError) : RegisterUiState()
+    object Loading : RegisterUiState()
+}
+
+sealed class RegisterNavigationEvent {
+    object NavigateToLogin : RegisterNavigationEvent()
+}

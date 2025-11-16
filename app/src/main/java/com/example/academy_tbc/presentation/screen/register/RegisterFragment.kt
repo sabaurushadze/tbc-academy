@@ -1,6 +1,11 @@
 package com.example.academy_tbc.presentation.screen.register
 
+import android.widget.EditText
+import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -13,9 +18,6 @@ import com.example.academy_tbc.databinding.FragmentRegisterBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
 import com.example.academy_tbc.presentation.common.ViewModelFactory
 import com.example.academy_tbc.presentation.extension.showSnackBar
-import com.example.academy_tbc.presentation.screen.register.state.RegisterField
-import com.example.academy_tbc.presentation.screen.register.state.RegisterFieldError
-import com.example.academy_tbc.presentation.screen.register.state.RegisterValidationError
 import kotlinx.coroutines.launch
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
@@ -24,33 +26,27 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
     private val viewModel: RegisterViewModel by viewModels {
         ViewModelFactory {
             val application = requireActivity().application as AuthApplication
-            RegisterViewModel(
-                networkAuthRepository = application.container.authRepository,
-                userTokenRepository = application.container.userTokenRepository
-            )
+            RegisterViewModel(networkAuthRepository = application.container.authRepository)
         }
     }
 
     override fun listeners() {
         observe()
+        observeNavigation()
+        validateFieldsAndEnableButton()
         onRegisterClick()
+        onBackPressed()
     }
 
-    private fun observe() {
+    private fun observeNavigation() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.registerUiState.collect { uiState ->
-                    if (uiState.isLoading) {
-                        showLoading()
-                    }
-
-                    uiState.error?.let { error ->
-                        handleError(error)
-                    }
-
-                    uiState.isRegistered?.let { registered ->
-                        if (registered) {
-                            handleSuccess()
+                viewModel.navigationEvent.collect { event ->
+                    when (event) {
+                        RegisterNavigationEvent.NavigateToLogin -> {
+                            findNavController().navigate(
+                                RegisterFragmentDirections.actionRegisterFragmentToLogInFragment()
+                            )
                         }
                     }
                 }
@@ -58,14 +54,35 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
         }
     }
 
+    private fun observe() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.registerUiState.collect { uiState ->
+                    when (uiState) {
+                        is RegisterUiState.Success -> {
+                            if (uiState.isRegistered) {
+                                handleSuccess()
+                            }
+                        }
+
+                        is RegisterUiState.Error -> handleError(uiState.error)
+                        is RegisterUiState.Loading -> showLoading()
+                    }
+                }
+            }
+        }
+    }
+
     private fun handleSuccess() = with(binding) {
-        btnRegister.isEnabled = false
         viewModel.resetState()
-        clearInputs()
         progressBar.isVisible = false
-        findNavController().navigate(
-            RegisterFragmentDirections.actionRegisterFragmentToHomeFragment()
-        )
+
+        val email = etEmail.text.toString()
+        val password = etPassword.text.toString()
+
+        setFragmentResult(REQ_KEY_EMAIL, bundleOf(BUNDLE_KEY_EMAIL to email))
+        setFragmentResult(REQ_KEY_PASSWORD, bundleOf(BUNDLE_KEY_PASSWORD to password))
+        clearInputs()
     }
 
     private fun handleError(error: RegisterValidationError) = with(binding) {
@@ -85,45 +102,60 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
         binding.progressBar.isVisible = true
     }
 
+    private fun validateFieldsAndEnableButton() = with(binding) {
+        btnRegister.isEnabled = false
+        afterTextFieldChanged(etEmail)
+        afterTextFieldChanged(etPassword)
+        afterTextFieldChanged(etRepeatPassword)
+    }
 
-    private fun onRegisterClick() = with(binding) {
-        btnRegister.setOnClickListener {
+    private fun afterTextFieldChanged(
+        etRegisterField: EditText,
+    ) = with(binding) {
+        etRegisterField.doAfterTextChanged {
             val email = etEmail.text.toString()
-            val userName = etUsername.text.toString()
             val password = etPassword.text.toString()
+            val repeatPassword = etRepeatPassword.text.toString()
+            val isValidEmailAndPassword = viewModel.validateRegisterData(email, password)
 
-            val validateLogInData = viewModel.validateRegisterData(
-                email = email, password = password, userName = userName
-            )
-            val isValidData = validateLogInData.first
-            val errors = validateLogInData.second
-
-            if (isValidData) {
-                val requestRegisterDto = RequestRegisterDto(
-                    email = email, password = password
-                )
-                viewModel.register(requestRegisterDto)
+            if (isValidEmailAndPassword && password == repeatPassword) {
+                btnRegister.isEnabled = true
+                btnRegister.backgroundTintList =
+                    ContextCompat.getColorStateList(requireContext(), R.color.primary)
             } else {
-                errors.forEach { (field, error) ->
-                    val message = when (error) {
-                        RegisterFieldError.INVALID_EMAIL -> getString(R.string.invalid_email)
-                        RegisterFieldError.INVALID_PASSWORD -> getString(R.string.invalid_password)
-                        RegisterFieldError.INVALID_USERNAME -> getString(R.string.invalid_user_name)
-                    }
-
-                    when (field) {
-                        RegisterField.EMAIL -> etEmail.error = message
-                        RegisterField.PASSWORD -> etPassword.error = message
-                        RegisterField.USERNAME -> etUsername.error = message
-                    }
-                }
+                btnRegister.isEnabled = false
+                btnRegister.backgroundTintList =
+                    ContextCompat.getColorStateList(requireContext(), R.color.primaryDisabled)
             }
         }
     }
 
+    private fun onRegisterClick() = with(binding) {
+        btnRegister.setOnClickListener {
+            val email = etEmail.text.toString()
+            val password = etPassword.text.toString()
+
+            val requestRegisterDto = RequestRegisterDto(email = email, password = password)
+            viewModel.register(user = requestRegisterDto)
+        }
+    }
+
+    private fun onBackPressed() {
+        binding.ibBack.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+    }
+
     private fun clearInputs() = with(binding) {
-        etUsername.text?.clear()
         etEmail.text?.clear()
         etPassword.text?.clear()
+        etRepeatPassword.text?.clear()
+    }
+
+    companion object {
+        const val REQ_KEY_EMAIL = "reqKeyEmail"
+        const val REQ_KEY_PASSWORD = "reqKeyPassword"
+        const val BUNDLE_KEY_EMAIL = "bundleKeyEmail"
+        const val BUNDLE_KEY_PASSWORD = "bundleKeyPassword"
     }
 }

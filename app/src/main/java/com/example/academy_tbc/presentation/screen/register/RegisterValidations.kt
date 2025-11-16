@@ -1,17 +1,13 @@
-package com.example.academy_tbc.presentation.utils
+package com.example.academy_tbc.presentation.screen.register
 
 import android.util.Patterns
 
-object Validations {
+object RegisterValidations {
     fun validateEmail(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches() && email.isNotBlank()
     }
 
     fun validatePassword(password: String): Boolean {
         return password.isNotBlank()
-    }
-
-    fun validateUserName(userName: String): Boolean {
-        return userName.isNotBlank()
     }
 }

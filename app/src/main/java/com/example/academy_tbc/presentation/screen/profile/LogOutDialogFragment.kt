@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.screen.home
+package com.example.academy_tbc.presentation.screen.profile
 
 import android.app.Dialog
 import android.os.Bundle

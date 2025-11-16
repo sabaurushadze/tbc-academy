@@ -1,6 +1,11 @@
 package com.example.academy_tbc.presentation.screen.login
 
+import android.os.Bundle
+import android.widget.EditText
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -13,9 +18,10 @@ import com.example.academy_tbc.databinding.FragmentLogInBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
 import com.example.academy_tbc.presentation.common.ViewModelFactory
 import com.example.academy_tbc.presentation.extension.showSnackBar
-import com.example.academy_tbc.presentation.screen.login.state.LogInField
-import com.example.academy_tbc.presentation.screen.login.state.LogInFieldError
-import com.example.academy_tbc.presentation.screen.login.state.LogInValidationError
+import com.example.academy_tbc.presentation.screen.register.RegisterFragment.Companion.BUNDLE_KEY_EMAIL
+import com.example.academy_tbc.presentation.screen.register.RegisterFragment.Companion.BUNDLE_KEY_PASSWORD
+import com.example.academy_tbc.presentation.screen.register.RegisterFragment.Companion.REQ_KEY_EMAIL
+import com.example.academy_tbc.presentation.screen.register.RegisterFragment.Companion.REQ_KEY_PASSWORD
 import kotlinx.coroutines.launch
 
 class LogInFragment : BaseFragment<FragmentLogInBinding>(
@@ -31,26 +37,39 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setFragmentResultListener(REQ_KEY_EMAIL) { requestKey, bundle ->
+            val email = bundle.getString(BUNDLE_KEY_EMAIL)
+            email?.let {
+                binding.etEmail.setText(it)
+            }
+        }
+
+        setFragmentResultListener(REQ_KEY_PASSWORD) { requestKey, bundle ->
+            val password = bundle.getString(BUNDLE_KEY_PASSWORD)
+            password?.let {
+                binding.etPassword.setText(it)
+            }
+        }
+    }
+
     override fun listeners() {
         observe()
+        observeNavigation()
+        validateFieldsAndEnableButton()
         onLoginClick()
     }
 
-    private fun observe() {
+    private fun observeNavigation() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.loginUiState.collect { uiState ->
-                    if (uiState.isLoading) {
-                        showLoading()
-                    }
-
-                    uiState.error?.let { error ->
-                        handleError(error)
-                    }
-
-                    uiState.isLoggedIn?.let { loggedIn ->
-                        if (loggedIn) {
-                            handleSuccess()
+                viewModel.navigationEvent.collect { event ->
+                    when (event) {
+                        LogInNavigationEvent.NavigateToHome -> {
+                            findNavController().navigate(
+                                LogInFragmentDirections.actionLogInFragmentToHomeFragment()
+                            )
                         }
                     }
                 }
@@ -58,14 +77,29 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(
         }
     }
 
+    private fun observe() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.loginUiState.collect { uiState ->
+                    when (uiState) {
+                        is LogInUiState.Success -> {
+                            if (uiState.isLoggedIn) {
+                                handleSuccess()
+                            }
+                        }
+
+                        is LogInUiState.Error -> handleError(uiState.error)
+                        is LogInUiState.Loading -> showLoading()
+                    }
+                }
+            }
+        }
+    }
+
     private fun handleSuccess() = with(binding) {
-        btnLogin.isEnabled = false
         viewModel.resetState()
-        clearInputs()
         progressBar.isVisible = false
-        findNavController().navigate(
-            LogInFragmentDirections.actionLogInFragmentToHomeFragment()
-        )
+        clearInputs()
     }
 
     private fun handleError(error: LogInValidationError) = with(binding) {
@@ -85,34 +119,43 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(
         binding.progressBar.isVisible = true
     }
 
+    private fun validateFieldsAndEnableButton() = with(binding) {
+        btnLogin.isEnabled = false
+        afterTextFieldChanged(etEmail)
+        afterTextFieldChanged(etPassword)
+    }
+
+    private fun afterTextFieldChanged(
+        etRegisterField: EditText,
+    ) = with(binding) {
+        etRegisterField.doAfterTextChanged {
+            val email = etEmail.text.toString()
+            val password = etPassword.text.toString()
+            val isValidEmailAndPassword = viewModel.validateLogInData(email, password)
+
+            if (isValidEmailAndPassword) {
+                btnLogin.isEnabled = true
+                btnLogin.backgroundTintList =
+                    ContextCompat.getColorStateList(requireContext(), R.color.primary)
+            } else {
+                btnLogin.isEnabled = false
+                btnLogin.backgroundTintList =
+                    ContextCompat.getColorStateList(requireContext(), R.color.primaryDisabled)
+            }
+        }
+    }
 
     private fun onLoginClick() = with(binding) {
         btnLogin.setOnClickListener {
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
+            val isRemembered = cbRememberMe.isChecked
 
-            val validateLogInData = viewModel.validateLogInData(email = email, password = password)
-            val isValidData = validateLogInData.first
-            val errors = validateLogInData.second
+            val requestLoginDto = RequestLoginDto(email = email, password = password)
+            viewModel.login(
+                user = requestLoginDto, isRemembered = isRemembered, email = email
+            )
 
-            if (isValidData) {
-                val requestLoginDto = RequestLoginDto(
-                    email = email, password = password
-                )
-                viewModel.login(requestLoginDto)
-            } else {
-                errors.forEach { (field, error) ->
-                    val message = when (error) {
-                        LogInFieldError.INVALID_EMAIL -> getString(R.string.invalid_email)
-                        LogInFieldError.INVALID_PASSWORD -> getString(R.string.invalid_password)
-                    }
-
-                    when (field) {
-                        LogInField.EMAIL -> etEmail.error = message
-                        LogInField.PASSWORD -> etPassword.error = message
-                    }
-                }
-            }
         }
     }
 
