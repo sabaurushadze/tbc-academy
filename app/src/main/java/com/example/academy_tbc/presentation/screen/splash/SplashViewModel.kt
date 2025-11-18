@@ -2,32 +2,40 @@ package com.example.academy_tbc.presentation.screen.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.academy_tbc.data.auth.UserTokenRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import com.example.academy_tbc.data.local.UserDataStore
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SplashViewModel(
-    private val userTokenRepository: UserTokenRepository
+    private val userDataStore: UserDataStore
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(SplashUiState())
-    val uiState: StateFlow<SplashUiState> = _uiState.asStateFlow()
+    private val _sideEffect = MutableSharedFlow<SplashSideEffect>()
+    val sideEffect = _sideEffect.asSharedFlow()
 
-    init {
-        observeLoginState()
-    }
+    private var splashJob: Job? = null
 
-    private fun observeLoginState() {
-        viewModelScope.launch {
-            val userToken = userTokenRepository.getToken.first()
-            _uiState.update { it.copy(isLoggedIn = userToken.isNotEmpty()) }
+    fun onEvent(event: SplashEvent) {
+        when (event) {
+            SplashEvent.OnStartSplash -> onStartSplash()
+            SplashEvent.OnStopSplash -> onStopSplash()
         }
     }
-}
 
-data class SplashUiState(
-    val isLoggedIn: Boolean? = null
-)
+    private fun onStartSplash() {
+        splashJob = viewModelScope.launch {
+            val userToken = userDataStore.getToken.first()
+            if (userToken.isNotEmpty()) {
+                _sideEffect.emit(SplashSideEffect.NavigateToHome)
+            } else {
+                _sideEffect.emit(SplashSideEffect.NavigateToOnboarding)
+            }
+        }
+    }
+
+    private fun onStopSplash() {
+        splashJob?.cancel()
+    }
+}

@@ -2,95 +2,72 @@ package com.example.academy_tbc.presentation.screen.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.academy_tbc.data.auth.AuthRepository
-import com.example.academy_tbc.data.auth.UserTokenRepository
-import com.example.academy_tbc.data.auth.login.RequestLoginDto
-import kotlinx.coroutines.Job
+import com.example.academy_tbc.data.common.Result
+import com.example.academy_tbc.data.local.UserDataStore
+import com.example.academy_tbc.data.repository.LogInRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import okio.IOException
 
-class LogInViewModel(
-    private val networkAuthRepository: AuthRepository,
-    private val userTokenRepository: UserTokenRepository
-) : ViewModel() {
-    private val _loginState = MutableStateFlow<LogInUiState>(LogInUiState.Success(false))
-    val loginUiState: StateFlow<LogInUiState> = _loginState.asStateFlow()
+class LogInViewModel(private val userDataStore: UserDataStore) : ViewModel() {
+    private val _state = MutableStateFlow(LogInState())
+    val state: StateFlow<LogInState> = _state.asStateFlow()
 
-    private val _navigationEvent = MutableSharedFlow<LogInNavigationEvent>(replay = 0)
-    val navigationEvent = _navigationEvent.asSharedFlow()
+    private val _sideEffect = MutableSharedFlow<LogInSideEffect>()
+    val sideEffect = _sideEffect.asSharedFlow()
 
-    fun resetState() {
-        _loginState.value = LogInUiState.Success(false)
+    fun onEvent(event: LogInEvent) {
+        when (event) {
+            is LogInEvent.LogIn -> logIn(
+                email = event.email, password = event.password, isRemembered = event.isRemembered
+            )
+            is LogInEvent.EmailChanged -> updateEmail(event.email)
+            is LogInEvent.PasswordChanged -> updatePassword(event.password)
+            is LogInEvent.RememberMeChanged -> updateRememberMe(event.isRemembered)
+        }
     }
 
-    private suspend fun saveToken(token: String) {
-        userTokenRepository.saveToken(token)
+    private fun updateEmail(email: String) {
+        _state.update { current ->
+            val isLoginEnabled = validateInputs(email = email, password = current.password)
+            current.copy(email = email, isLoginEnabled = isLoginEnabled)
+        }
     }
 
-    private suspend fun saveEmail(email: String) {
-        userTokenRepository.saveEmail(email)
+    private fun updatePassword(password: String) {
+        _state.update { current ->
+            val isLoginEnabled = validateInputs(email = current.email, password = password)
+            current.copy(password = password, isLoginEnabled = isLoginEnabled)
+        }
     }
 
-    fun validateLogInData(
-        email: String, password: String
-    ): Boolean {
-        val isValidEmail = LogInValidations.validateEmail(email)
-        val isValidPassword = LogInValidations.validatePassword(password)
-
-        return isValidEmail && isValidPassword
+    private fun updateRememberMe(isRemembered: Boolean) {
+        _state.update { it.copy(isRemembered = isRemembered) }
     }
 
-    private var loginJob: Job? = null
+    private fun validateInputs(email: String, password: String) =
+        LogInValidations.validateEmail(email) && LogInValidations.validatePassword(password)
 
-    fun login(
-        user: RequestLoginDto, isRemembered: Boolean, email: String
+    private fun logIn(
+        email: String, password: String, isRemembered: Boolean
     ) {
-        if (loginJob != null) return
-
-        loginJob = viewModelScope.launch {
-            try {
-                _loginState.value = LogInUiState.Loading
-                val response = networkAuthRepository.login(user)
-                val responseBody = response.body()
-
-                if (response.isSuccessful && responseBody != null) {
-                    if (isRemembered) {
-                        saveToken(responseBody.token)
+        viewModelScope.launch {
+            LogInRepository.logIn(email = email, password = password).collect { result ->
+                when (result) {
+                    is Result.Loading -> _state.update { it.copy(isLoading = result.isLoading) }
+                    is Result.Success -> {
+                        if (isRemembered) userDataStore.saveToken(result.data.token)
+                        userDataStore.saveEmail(email)
+                        _sideEffect.emit(LogInSideEffect.NavigateToHome)
                     }
-                    saveEmail(email)
 
-                    _navigationEvent.emit(LogInNavigationEvent.NavigateToHome)
-                    _loginState.value = LogInUiState.Success(true)
-                } else if (response.code() == 400) {
-                    _loginState.value =
-                        LogInUiState.Error(LogInValidationError.EXCEPTION_USER_NOT_FOUND)
+                    is Result.Error -> _sideEffect.emit(LogInSideEffect.ShowError(result.errorMessage))
                 }
-            } catch (e: Exception) {
-                when (e) {
-                    is IOException -> _loginState.value =
-                        LogInUiState.Error(LogInValidationError.EXCEPTION_NETWORK)
-
-                    else -> _loginState.value =
-                        LogInUiState.Error(LogInValidationError.EXCEPTION_UNKNOWN)
-                }
-            } finally {
-                loginJob = null
             }
         }
     }
-}
-
-sealed class LogInUiState {
-    data class Success(val isLoggedIn: Boolean) : LogInUiState()
-    data class Error(val error: LogInValidationError) : LogInUiState()
-    object Loading : LogInUiState()
-}
-
-sealed class LogInNavigationEvent {
-    object NavigateToHome : LogInNavigationEvent()
 }

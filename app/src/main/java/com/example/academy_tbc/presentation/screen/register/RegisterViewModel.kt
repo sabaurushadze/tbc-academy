@@ -2,79 +2,84 @@ package com.example.academy_tbc.presentation.screen.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.academy_tbc.data.auth.AuthRepository
-import com.example.academy_tbc.data.auth.register.RequestRegisterDto
-import kotlinx.coroutines.Job
+import com.example.academy_tbc.data.common.Result
+import com.example.academy_tbc.data.repository.RegisterRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import okio.IOException
 
-class RegisterViewModel(
-    private val networkAuthRepository: AuthRepository,
-) : ViewModel() {
-    private val _registerState = MutableStateFlow<RegisterUiState>(RegisterUiState.Success(false))
-    val registerUiState: StateFlow<RegisterUiState> = _registerState.asStateFlow()
+class RegisterViewModel() : ViewModel() {
+    private val _state = MutableStateFlow(RegisterState())
+    val state: StateFlow<RegisterState> = _state.asStateFlow()
 
-    private val _navigationEvent = MutableSharedFlow<RegisterNavigationEvent>(replay = 0)
-    val navigationEvent = _navigationEvent.asSharedFlow()
+    private val _sideEffect = MutableSharedFlow<RegisterSideEffect>()
+    val sideEffect = _sideEffect.asSharedFlow()
 
-    fun resetState() {
-        _registerState.value = RegisterUiState.Success(false)
-    }
+    fun onEvent(event: RegisterEvent) {
+        when (event) {
+            is RegisterEvent.Register -> register(
+                email = event.email, password = event.password
+            )
 
-    fun validateRegisterData(
-        email: String, password: String
-    ): Boolean {
-        val isValidEmail = RegisterValidations.validateEmail(email)
-        val isValidPassword = RegisterValidations.validatePassword(password)
-
-        return isValidEmail && isValidPassword
-    }
-
-    private var registerJob: Job? = null
-
-    fun register(user: RequestRegisterDto) {
-        if (registerJob != null) return
-
-        registerJob = viewModelScope.launch {
-            try {
-                _registerState.value = RegisterUiState.Loading
-                val response = networkAuthRepository.register(user)
-                val responseBody = response.body()
-
-                if (response.isSuccessful && responseBody != null) {
-
-                    _navigationEvent.emit(RegisterNavigationEvent.NavigateToLogin)
-                    _registerState.value = RegisterUiState.Success(true)
-                } else if (response.code() == 400) {
-                    _registerState.value =
-                        RegisterUiState.Error(RegisterValidationError.EXCEPTION_USER_NOT_FOUND)
-                }
-            } catch (e: Exception) {
-                when (e) {
-                    is IOException -> _registerState.value =
-                        RegisterUiState.Error(RegisterValidationError.EXCEPTION_NETWORK)
-
-                    else -> _registerState.value =
-                        RegisterUiState.Error(RegisterValidationError.EXCEPTION_UNKNOWN)
-                }
-            } finally {
-                registerJob = null
+            is RegisterEvent.EmailChanged -> updateEmail(event.email)
+            is RegisterEvent.PasswordChanged -> updatePassword(event.password)
+            is RegisterEvent.RepeatPasswordChanged -> updateRepeatPassword(event.repeatPassword)
+            RegisterEvent.BackPressed -> viewModelScope.launch {
+                _sideEffect.emit(RegisterSideEffect.NavigateBack)
             }
         }
     }
-}
 
-sealed class RegisterUiState {
-    data class Success(val isRegistered: Boolean) : RegisterUiState()
-    data class Error(val error: RegisterValidationError) : RegisterUiState()
-    object Loading : RegisterUiState()
-}
+    private fun updateEmail(email: String) {
+        _state.update { current ->
+            val isRegisterEnabled = validateInputs(
+                email = email, password = current.password
+            ) && current.password == current.repeatPassword
+            current.copy(email = email, isRegisterEnabled = isRegisterEnabled)
+        }
+    }
 
-sealed class RegisterNavigationEvent {
-    object NavigateToLogin : RegisterNavigationEvent()
+    private fun updatePassword(password: String) {
+        _state.update { current ->
+            val isRegisterEnabled = validateInputs(
+                email = current.password, password = password
+            ) && password == current.repeatPassword
+            current.copy(password = password, isRegisterEnabled = isRegisterEnabled)
+        }
+    }
+
+    private fun updateRepeatPassword(repeatPassword: String) {
+        _state.update { current ->
+            val isRegisterEnabled = validateInputs(
+                email = current.email, password = repeatPassword
+            ) && current.password == repeatPassword
+            current.copy(repeatPassword = repeatPassword, isRegisterEnabled = isRegisterEnabled)
+        }
+    }
+
+    private fun validateInputs(email: String, password: String) =
+        RegisterValidations.validateEmail(email) && RegisterValidations.validatePassword(password)
+
+    fun register(email: String, password: String) {
+        viewModelScope.launch {
+            RegisterRepository.register(email = email, password = password).collect { result ->
+                when (result) {
+                    is Result.Success -> {
+                        _sideEffect.emit(
+                            RegisterSideEffect.NavigateToLogin(
+                                email = email, password = password
+                            )
+                        )
+                    }
+
+                    is Result.Error -> _sideEffect.emit(RegisterSideEffect.ShowError(result.errorMessage))
+                    is Result.Loading -> _state.update { it.copy(isLoading = result.isLoading) }
+                }
+            }
+        }
+    }
 }

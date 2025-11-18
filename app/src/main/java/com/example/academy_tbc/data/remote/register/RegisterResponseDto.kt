@@ -1,9 +1,9 @@
-package com.example.academy_tbc.data.auth.register
+package com.example.academy_tbc.data.remote.register
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResponseRegisterDto(
+data class RegisterResponseDto(
     val id: Int,
     val token: String
 )

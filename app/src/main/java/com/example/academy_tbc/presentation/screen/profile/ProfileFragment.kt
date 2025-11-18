@@ -5,9 +5,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navOptions
 import com.example.academy_tbc.AuthApplication
-import com.example.academy_tbc.R
 import com.example.academy_tbc.databinding.FragmentProfileBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
 import com.example.academy_tbc.presentation.common.ViewModelFactory
@@ -19,24 +17,40 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
 ) {
     private val viewModel: ProfileViewModel by viewModels {
         ViewModelFactory {
-            val application = requireActivity().application as AuthApplication
-            ProfileViewModel(
-                userTokenRepository = application.container.userTokenRepository
-            )
+            val app = requireActivity().application as AuthApplication
+            ProfileViewModel(app.container.userDataStore)
         }
     }
 
-
     override fun listeners() {
         logOut()
-        observe()
+        observeState()
+        observeSideEffect()
     }
 
-    private fun observe() {
+    override fun bind() {
+        viewModel.onEvent(ProfileEvent.GetUserEmail)
+    }
+
+    private fun observeState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.profileUiState.collect { uiState ->
+                viewModel.state.collect { uiState ->
                     binding.tvEmail.text = uiState.email
+                }
+            }
+        }
+    }
+
+    private fun observeSideEffect() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.sideEffect.collect { effect ->
+                    when (effect) {
+                        ProfileSideEffect.NavigateToLogIn -> findNavController().navigate(
+                            ProfileFragmentDirections.actionProfileFragmentToLogInFragment()
+                        )
+                    }
                 }
             }
         }
@@ -46,24 +60,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
         binding.btnLogOut.setOnClickListener {
             LogOutDialogFragment(
                 onLogoutConfirmed = {
-                    lifecycleScope.launch {
-                        viewModel.removeUserToken()
-                        navigateToOnBoarding()
-                    }
+                    viewModel.onEvent(ProfileEvent.RemoveUserToken)
                 }).show(
                 childFragmentManager, LogOutDialogFragment.TAG
             )
         }
-    }
-
-    private fun navigateToOnBoarding() {
-        val directions = ProfileFragmentDirections.actionProfileFragmentToLogInFragment()
-        val options = navOptions {
-            popUpTo(R.id.nav_graph) {
-                inclusive = true
-            }
-            launchSingleTop = true
-        }
-        findNavController().navigate(directions.actionId, null, options)
     }
 }

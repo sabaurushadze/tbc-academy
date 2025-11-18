@@ -1,8 +1,8 @@
-package com.example.academy_tbc.data.auth.login
+package com.example.academy_tbc.data.remote.login
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RequestLoginDto(
+data class LoginRequestDto(
     val email: String, val password: String
 )

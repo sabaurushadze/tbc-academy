@@ -10,10 +10,11 @@ import coil3.request.crossfade
 import coil3.request.error
 import coil3.request.placeholder
 import com.example.academy_tbc.R
-import com.example.academy_tbc.data.auth.home.ResponseUserDto
+import com.example.academy_tbc.data.remote.home.UsersResponseDto
 import com.example.academy_tbc.databinding.ItemUserBinding
 
-class UsersAdapter() : ListAdapter<ResponseUserDto, UsersAdapter.UserViewHolder>(UserDiffUtil()) {
+class UsersAdapter() :
+    ListAdapter<UsersResponseDto.User, UsersAdapter.UserViewHolder>(UserDiffUtil()) {
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int
     ): UserViewHolder {
@@ -30,7 +31,7 @@ class UsersAdapter() : ListAdapter<ResponseUserDto, UsersAdapter.UserViewHolder>
 
     inner class UserViewHolder(private val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: ResponseUserDto) = with(binding) {
+        fun bind(user: UsersResponseDto.User) = with(binding) {
             ivUser.load(user.avatar) {
                 placeholder(R.drawable.user)
                 error(R.drawable.user)
@@ -43,15 +44,15 @@ class UsersAdapter() : ListAdapter<ResponseUserDto, UsersAdapter.UserViewHolder>
     }
 }
 
-class UserDiffUtil : DiffUtil.ItemCallback<ResponseUserDto>() {
+class UserDiffUtil : DiffUtil.ItemCallback<UsersResponseDto.User>() {
     override fun areItemsTheSame(
-        oldItem: ResponseUserDto, newItem: ResponseUserDto
+        oldItem: UsersResponseDto.User, newItem: UsersResponseDto.User
     ): Boolean {
         return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(
-        oldItem: ResponseUserDto, newItem: ResponseUserDto
+        oldItem: UsersResponseDto.User, newItem: UsersResponseDto.User
     ): Boolean {
         return oldItem == newItem
     }
