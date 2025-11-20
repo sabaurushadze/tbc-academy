@@ -1,4 +1,4 @@
-package com.example.academy_tbc.common
+package com.example.academy_tbc.presentation.common
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.example.academy_tbc.extension
+package com.example.academy_tbc.presentation.extension
 
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
