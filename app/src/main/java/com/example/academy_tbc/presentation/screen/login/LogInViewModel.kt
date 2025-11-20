@@ -2,9 +2,11 @@ package com.example.academy_tbc.presentation.screen.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.academy_tbc.data.common.Result
-import com.example.academy_tbc.data.local.UserDataStore
+import com.example.academy_tbc.data.common.Resource
 import com.example.academy_tbc.data.repository.LogInRepository
+import com.example.academy_tbc.data.repository.UserDataStoreRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +15,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class LogInViewModel(private val userDataStore: UserDataStore) : ViewModel() {
+@HiltViewModel
+class LogInViewModel @Inject constructor(
+    private val userDataStoreRepository: UserDataStoreRepository,
+    private val logInRepository: LogInRepository
+) : ViewModel() {
     private val _state = MutableStateFlow(LogInState())
     val state: StateFlow<LogInState> = _state.asStateFlow()
 
@@ -56,16 +62,16 @@ class LogInViewModel(private val userDataStore: UserDataStore) : ViewModel() {
         email: String, password: String, isRemembered: Boolean
     ) {
         viewModelScope.launch {
-            LogInRepository.logIn(email = email, password = password).collect { result ->
+            logInRepository.logIn(email = email, password = password).collect { result ->
                 when (result) {
-                    is Result.Loading -> _state.update { it.copy(isLoading = result.isLoading) }
-                    is Result.Success -> {
-                        if (isRemembered) userDataStore.saveToken(result.data.token)
-                        userDataStore.saveEmail(email)
+                    is Resource.Loading -> _state.update { it.copy(isLoading = result.isLoading) }
+                    is Resource.Success -> {
+                        if (isRemembered) userDataStoreRepository.saveToken(result.data.token)
+                        userDataStoreRepository.saveEmail(email)
                         _sideEffect.emit(LogInSideEffect.NavigateToHome)
                     }
 
-                    is Result.Error -> _sideEffect.emit(LogInSideEffect.ShowError(result.errorMessage))
+                    is Resource.Error -> _sideEffect.emit(LogInSideEffect.ShowError(result.errorMessage))
                 }
             }
         }

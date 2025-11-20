@@ -1,37 +1,40 @@
 package com.example.academy_tbc.data.common
 
+import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.serialization.json.Json
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
-object ResponseHandler {
+class ResponseHandler @Inject constructor() {
     fun <T : Any> safeApiCall(call: suspend () -> Response<T>) = flow {
-        emit(Result.Loading(isLoading = true))
+        emit(Resource.Loading(isLoading = true))
 
         try {
             val response = call()
 
             if (response.isSuccessful) {
                 response.body()?.let {
-                    emit(Result.Success(it))
-                } ?: emit(Result.Error("Empty body"))
+                    emit(Resource.Success(data = it))
+                }
             } else {
-                val errorMsg = response.errorBody()?.string().orEmpty()
-                emit(Result.Error(errorMessage = errorMsg))
+                val errorMsgJson = response.errorBody()?.string().orEmpty()
+                val errorMsg = Json.decodeFromString<ErrorMessage>(errorMsgJson)
+                emit(Resource.Error(errorMessage = errorMsg.error))
             }
 
         } catch (e: IOException) {
-            emit(Result.Error(errorMessage = e.message ?: ""))
+            emit(Resource.Error(errorMessage = e.message.orEmpty()))
         } catch (e: HttpException) {
-            emit(Result.Error(errorMessage = e.message ?: ""))
+            emit(Resource.Error(errorMessage = e.message.orEmpty()))
         } catch (e: IllegalStateException) {
-            emit(Result.Error(errorMessage = e.message ?: ""))
+            emit(Resource.Error(errorMessage = e.message.orEmpty()))
         } catch (e: Throwable) {
-            emit(Result.Error(errorMessage = e.message ?: ""))
+            emit(Resource.Error(errorMessage = e.message.orEmpty()))
         }
-        emit(Result.Loading(isLoading = false))
+        emit(Resource.Loading(isLoading = false))
     }.flowOn(Dispatchers.IO)
 }

@@ -2,8 +2,10 @@ package com.example.academy_tbc.presentation.screen.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.academy_tbc.data.common.Result
+import com.example.academy_tbc.data.common.Resource
 import com.example.academy_tbc.data.repository.RegisterRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,7 +14,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class RegisterViewModel() : ViewModel() {
+@HiltViewModel
+class RegisterViewModel @Inject constructor(
+    private val registerRepository: RegisterRepository
+) : ViewModel() {
     private val _state = MutableStateFlow(RegisterState())
     val state: StateFlow<RegisterState> = _state.asStateFlow()
 
@@ -28,9 +33,6 @@ class RegisterViewModel() : ViewModel() {
             is RegisterEvent.EmailChanged -> updateEmail(event.email)
             is RegisterEvent.PasswordChanged -> updatePassword(event.password)
             is RegisterEvent.RepeatPasswordChanged -> updateRepeatPassword(event.repeatPassword)
-            RegisterEvent.BackPressed -> viewModelScope.launch {
-                _sideEffect.emit(RegisterSideEffect.NavigateBack)
-            }
         }
     }
 
@@ -46,7 +48,7 @@ class RegisterViewModel() : ViewModel() {
     private fun updatePassword(password: String) {
         _state.update { current ->
             val isRegisterEnabled = validateInputs(
-                email = current.password, password = password
+                email = current.email, password = password
             ) && password == current.repeatPassword
             current.copy(password = password, isRegisterEnabled = isRegisterEnabled)
         }
@@ -55,7 +57,7 @@ class RegisterViewModel() : ViewModel() {
     private fun updateRepeatPassword(repeatPassword: String) {
         _state.update { current ->
             val isRegisterEnabled = validateInputs(
-                email = current.email, password = repeatPassword
+                email = current.email, password = current.password
             ) && current.password == repeatPassword
             current.copy(repeatPassword = repeatPassword, isRegisterEnabled = isRegisterEnabled)
         }
@@ -66,9 +68,9 @@ class RegisterViewModel() : ViewModel() {
 
     fun register(email: String, password: String) {
         viewModelScope.launch {
-            RegisterRepository.register(email = email, password = password).collect { result ->
+            registerRepository.register(email = email, password = password).collect { result ->
                 when (result) {
-                    is Result.Success -> {
+                    is Resource.Success -> {
                         _sideEffect.emit(
                             RegisterSideEffect.NavigateToLogin(
                                 email = email, password = password
@@ -76,8 +78,8 @@ class RegisterViewModel() : ViewModel() {
                         )
                     }
 
-                    is Result.Error -> _sideEffect.emit(RegisterSideEffect.ShowError(result.errorMessage))
-                    is Result.Loading -> _state.update { it.copy(isLoading = result.isLoading) }
+                    is Resource.Error -> _sideEffect.emit(RegisterSideEffect.ShowError(result.errorMessage))
+                    is Resource.Loading -> _state.update { it.copy(isLoading = result.isLoading) }
                 }
             }
         }

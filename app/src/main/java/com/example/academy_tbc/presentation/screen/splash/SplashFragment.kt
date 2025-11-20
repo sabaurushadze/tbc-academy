@@ -5,21 +5,16 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.academy_tbc.AuthApplication
 import com.example.academy_tbc.databinding.FragmentSplashBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
-import com.example.academy_tbc.presentation.common.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class SplashFragment : BaseFragment<FragmentSplashBinding>(
     FragmentSplashBinding::inflate
 ) {
-    private val viewModel: SplashViewModel by viewModels {
-        ViewModelFactory {
-            val app = requireActivity().application as AuthApplication
-            SplashViewModel(app.container.userDataStore)
-        }
-    }
+    private val viewModel: SplashViewModel by viewModels()
 
     override fun bind() {
         viewModel.onEvent(SplashEvent.OnStartSplash)

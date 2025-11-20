@@ -5,22 +5,17 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.academy_tbc.AuthApplication
 import com.example.academy_tbc.databinding.FragmentProfileBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
-import com.example.academy_tbc.presentation.common.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     FragmentProfileBinding::inflate
 ) {
-    private val viewModel: ProfileViewModel by viewModels {
-        ViewModelFactory {
-            val app = requireActivity().application as AuthApplication
-            ProfileViewModel(app.container.userDataStore)
-        }
-    }
+    private val viewModel: ProfileViewModel by viewModels()
 
     override fun listeners() {
         logOut()

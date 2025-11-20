@@ -15,8 +15,10 @@ import com.example.academy_tbc.databinding.FragmentRegisterBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
 import com.example.academy_tbc.presentation.extension.setTextIfDifferent
 import com.example.academy_tbc.presentation.extension.showSnackBar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
     FragmentRegisterBinding::inflate
 ) {
@@ -46,7 +48,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
                         }
 
                         is RegisterSideEffect.ShowError -> binding.root.showSnackBar(it.message)
-                        RegisterSideEffect.NavigateBack -> requireActivity().onBackPressedDispatcher.onBackPressed()
                     }
                 }
             }
@@ -99,7 +100,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
 
     private fun setupBackButton() {
         binding.ibBack.setOnClickListener {
-            viewModel.onEvent(RegisterEvent.BackPressed)
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
 

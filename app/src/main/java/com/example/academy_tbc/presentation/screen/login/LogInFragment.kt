@@ -10,28 +10,23 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.academy_tbc.AuthApplication
 import com.example.academy_tbc.R
 import com.example.academy_tbc.databinding.FragmentLogInBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
-import com.example.academy_tbc.presentation.common.ViewModelFactory
 import com.example.academy_tbc.presentation.extension.setTextIfDifferent
 import com.example.academy_tbc.presentation.extension.showSnackBar
 import com.example.academy_tbc.presentation.screen.register.RegisterFragment.Companion.BUNDLE_KEY_EMAIL
 import com.example.academy_tbc.presentation.screen.register.RegisterFragment.Companion.BUNDLE_KEY_PASSWORD
 import com.example.academy_tbc.presentation.screen.register.RegisterFragment.Companion.REQ_KEY_EMAIL
 import com.example.academy_tbc.presentation.screen.register.RegisterFragment.Companion.REQ_KEY_PASSWORD
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class LogInFragment : BaseFragment<FragmentLogInBinding>(
     FragmentLogInBinding::inflate
 ) {
-    private val viewModel: LogInViewModel by viewModels {
-        ViewModelFactory {
-            val app = requireActivity().application as AuthApplication
-            LogInViewModel(app.container.userDataStore)
-        }
-    }
+    private val viewModel: LogInViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
