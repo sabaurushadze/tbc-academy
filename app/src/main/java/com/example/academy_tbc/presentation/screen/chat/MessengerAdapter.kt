@@ -6,7 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import coil3.load
+import coil3.request.crossfade
+import coil3.request.error
+import coil3.request.placeholder
 import com.example.academy_tbc.R
 import com.example.academy_tbc.databinding.ItemMessageBinding
 
@@ -34,9 +37,10 @@ class MessengerAdapter() :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(message: MessageItem) = with(binding) {
-            ivProfilePicture.apply {
-                Glide.with(context).load(message.image.takeIf { !it.isNullOrEmpty() })
-                    .placeholder(R.drawable.img).into(this)
+            ivProfilePicture.load(message.image) {
+                placeholder(R.drawable.img)
+                error(R.drawable.img_error)
+                crossfade(true)
             }
             tvOwner.text = message.owner
             tvLastMessage.text = message.lastMessage

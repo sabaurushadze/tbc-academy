@@ -5,4 +5,5 @@
     <color name="gray">#96A7AF</color>
     <color name="grayVariant">#B8C2C0</color>
     <color name="primary">#40DF9F</color>
+    <color name="error">#E70A6E</color>
 </resources>
