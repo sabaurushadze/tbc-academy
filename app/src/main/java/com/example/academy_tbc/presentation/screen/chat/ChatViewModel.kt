@@ -4,39 +4,40 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.academy_tbc.data.common.Resource
 import com.example.academy_tbc.data.repository.ChatRepository
-import com.example.academy_tbc.presentation.common.NetworkObserver
+import com.example.academy_tbc.presentation.common.ConnectivityObserver
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(
     private val chatRepository: ChatRepository,
-    private val networkObserver: NetworkObserver,
+    connectivityObserver: ConnectivityObserver,
 ) : ViewModel() {
 
-    val isConnected = networkObserver.isConnectedFlow
+    val isConnected = connectivityObserver.isConnected.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000L),
+        false
+    )
 
-    init {
-        observeNetwork()
-    }
-
-    private fun observeNetwork() {
+    private fun observeConnectivityAndGetUsers() {
         viewModelScope.launch {
-            isConnected.collect { online ->
-                if (online) {
-                    onEvent(ChatEvent.GetUsers)
+            isConnected.collect { connected ->
+                if (connected) {
+                    getUsers()
                 }
             }
         }
     }
-
 
     private val _state = MutableStateFlow(ChatState())
     val state: StateFlow<ChatState> = _state.asStateFlow()
@@ -47,7 +48,7 @@ class ChatViewModel @Inject constructor(
 
     fun onEvent(event: ChatEvent) {
         when (event) {
-            is ChatEvent.GetUsers -> getUsers()
+            is ChatEvent.GetUsers -> observeConnectivityAndGetUsers()
             is ChatEvent.FilterChat -> filterChats(query = event.query)
         }
     }

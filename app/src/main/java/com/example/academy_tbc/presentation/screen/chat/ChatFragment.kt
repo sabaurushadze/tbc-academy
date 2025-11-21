@@ -15,7 +15,6 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(
     FragmentChatBinding::inflate
 ) {
     private val chatAdapter by lazy { MessengerAdapter() }
-
     private val viewModel: ChatViewModel by activityViewModels()
 
     override fun bind() {
@@ -29,7 +28,19 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(
         onSearchButtonClick()
         observeState()
         observeSideEffects()
+        observeConnectivity()
     }
+
+    private fun observeConnectivity() {
+        lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isConnected.collect { connected ->
+                    binding.tvNoInternet.isVisible = !connected
+                }
+            }
+        }
+    }
+
 
     private fun observeState() {
         lifecycleScope.launch {
