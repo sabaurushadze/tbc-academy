@@ -1,4 +1,4 @@
-package com.example.academy_tbc.data.common
+package com.example.academy_tbc.common
 
 import kotlinx.serialization.Serializable
 @Serializable

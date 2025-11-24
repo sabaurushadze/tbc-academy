@@ -1,9 +1,7 @@
-package com.example.academy_tbc.data.common
+package com.example.academy_tbc.common
 
 import jakarta.inject.Inject
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.serialization.json.Json
 import retrofit2.HttpException
 import retrofit2.Response
@@ -26,15 +24,16 @@ class ResponseHandler @Inject constructor() {
                 emit(Resource.Error(errorMessage = errorMsg.error))
             }
 
-        } catch (e: IOException) {
-            emit(Resource.Error(errorMessage = e.message.orEmpty()))
-        } catch (e: HttpException) {
-            emit(Resource.Error(errorMessage = e.message.orEmpty()))
-        } catch (e: IllegalStateException) {
-            emit(Resource.Error(errorMessage = e.message.orEmpty()))
         } catch (e: Throwable) {
-            emit(Resource.Error(errorMessage = e.message.orEmpty()))
+            val message = when (e) {
+                is IOException -> e.message
+                is HttpException -> e.message
+                is IllegalStateException -> e.message
+                else -> e.message
+            }
+            emit(Resource.Error(errorMessage = message.orEmpty()))
+        } finally {
+            emit(Resource.Loading(isLoading = false))
         }
-        emit(Resource.Loading(isLoading = false))
-    }.flowOn(Dispatchers.IO)
+    }
 }
