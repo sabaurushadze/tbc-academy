@@ -8,6 +8,6 @@ import retrofit2.http.Query
 interface UsersApiService {
     @GET("users")
     suspend fun getUsers(
-        @Query("page") page: Int = 1
+        @Query("page") page: Int
     ): Response<UsersResponseDto>
 }

@@ -6,13 +6,13 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.academy_tbc.R
+import com.example.academy_tbc.common.toMessageRes
 import com.example.academy_tbc.databinding.FragmentLogInBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
+import com.example.academy_tbc.presentation.extension.lifecycleCollect
+import com.example.academy_tbc.presentation.extension.lifecycleCollectLatest
 import com.example.academy_tbc.presentation.extension.setTextIfDifferent
 import com.example.academy_tbc.presentation.extension.showSnackBar
 import com.example.academy_tbc.presentation.screen.register.RegisterFragment.Companion.BUNDLE_KEY_EMAIL
@@ -20,7 +20,6 @@ import com.example.academy_tbc.presentation.screen.register.RegisterFragment.Com
 import com.example.academy_tbc.presentation.screen.register.RegisterFragment.Companion.REQ_KEY_EMAIL
 import com.example.academy_tbc.presentation.screen.register.RegisterFragment.Companion.REQ_KEY_PASSWORD
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LogInFragment : BaseFragment<FragmentLogInBinding>(
@@ -49,40 +48,34 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(
     }
 
     private fun observeSideEffects() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.sideEffect.collect { effect ->
-                    when (effect) {
-                        LogInSideEffect.NavigateToHome -> {
-                            findNavController().navigate(
-                                LogInFragmentDirections.actionLogInFragmentToHomeFragment()
-                            )
-                        }
+        lifecycleCollectLatest(viewModel.sideEffect) { effect ->
+            when (effect) {
+                LogInSideEffect.NavigateToHome -> {
+                    findNavController().navigate(
+                        LogInFragmentDirections.actionLogInFragmentToHomeFragment()
+                    )
+                }
 
-                        is LogInSideEffect.ShowError -> binding.root.showSnackBar(effect.message)
-                    }
+                is LogInSideEffect.ShowError -> {
+                    val messageRes = effect.exception.toMessageRes()
+                    binding.root.showSnackBar(getString(messageRes))
                 }
             }
         }
     }
 
-    private fun observeState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect { state ->
-                    binding.apply {
-                        etEmail.setTextIfDifferent(state.email)
-                        etPassword.setTextIfDifferent(state.password)
-                        cbRememberMe.isChecked = state.isRemembered
-                        btnLogin.isEnabled = state.isLoginEnabled && !state.isLoading
-                        progressBar.isVisible = state.isLoading
-                        btnLogin.backgroundTintList = ContextCompat.getColorStateList(
-                            requireContext(),
-                            if (btnLogin.isEnabled) R.color.primary else R.color.primaryDisabled
-                        )
-                    }
-                }
-            }
+    private fun observeState() = with(binding) {
+        lifecycleCollect(viewModel.state) { state ->
+            etEmail.setTextIfDifferent(state.email)
+            etPassword.setTextIfDifferent(state.password)
+            cbRememberMe.isChecked = state.isRemembered
+            btnLogin.isEnabled = true
+            btnLogin.isEnabled = state.isLoginEnabled && !state.isLoading
+            progressBar.isVisible = state.isLoading
+            btnLogin.backgroundTintList = ContextCompat.getColorStateList(
+                requireContext(),
+                if (btnLogin.isEnabled) R.color.primary else R.color.primaryDisabled
+            )
         }
     }
 

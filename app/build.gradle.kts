@@ -47,6 +47,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    kotlinOptions {
+        freeCompilerArgs = listOf("-XXLanguage:+PropertyParamAnnotationDefaultTargetMode")
+    }
 }
 
 dependencies {
@@ -57,6 +60,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.fragment)
+    implementation(libs.androidx.paging.runtime)
     implementation(libs.coil)
     implementation(libs.coil.network.okhttp)
     implementation(libs.okhttp)

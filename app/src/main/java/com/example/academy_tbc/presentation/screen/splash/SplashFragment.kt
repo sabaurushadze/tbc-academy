@@ -1,14 +1,11 @@
 package com.example.academy_tbc.presentation.screen.splash
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.academy_tbc.databinding.FragmentSplashBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
+import com.example.academy_tbc.presentation.extension.lifecycleCollectLatest
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SplashFragment : BaseFragment<FragmentSplashBinding>(
@@ -25,19 +22,15 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(
     }
 
     private fun observeSideEffects() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.sideEffect.collect {
-                    when (it) {
-                        SplashSideEffect.NavigateToHome -> findNavController().navigate(
-                            SplashFragmentDirections.actionSplashFragmentToHomeFragment()
-                        )
+        lifecycleCollectLatest(viewModel.sideEffect) { effect ->
+            when (effect) {
+                SplashSideEffect.NavigateToHome -> findNavController().navigate(
+                    SplashFragmentDirections.actionSplashFragmentToHomeFragment()
+                )
 
-                        SplashSideEffect.NavigateToOnboarding -> findNavController().navigate(
-                            SplashFragmentDirections.actionSplashFragmentToOnboardingFragment()
-                        )
-                    }
-                }
+                SplashSideEffect.NavigateToOnboarding -> findNavController().navigate(
+                    SplashFragmentDirections.actionSplashFragmentToOnboardingFragment()
+                )
             }
         }
     }

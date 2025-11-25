@@ -2,49 +2,29 @@ package com.example.academy_tbc.presentation.screen.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.academy_tbc.data.common.Resource
+import androidx.paging.cachedIn
+import com.example.academy_tbc.data.manager.ConnectivityObserver
 import com.example.academy_tbc.data.repository.UsersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val usersRepository: UsersRepository
+    usersRepository: UsersRepository,
+    connectivityObserver: ConnectivityObserver,
 ) : ViewModel() {
-    private val _state = MutableStateFlow(HomeState())
-    val state: StateFlow<HomeState> = _state.asStateFlow()
+    val usersPager = usersRepository.getUsersPager()
+        .flow
+        .cachedIn(viewModelScope)
 
-    fun onEvent(event: HomeEvent) {
-        when (event) {
-            is HomeEvent.GetUsers -> getUsers()
-        }
-    }
-
-    private fun getUsers() {
-        viewModelScope.launch {
-            _state.update { it.copy(isLoading = true, error = "") }
-
-            usersRepository.getUsers().collect { result ->
-                when (result) {
-                    is Resource.Success -> _state.update {
-                        it.copy(
-                            users = result.data.data, error = ""
-                        )
-                    }
-
-                    is Resource.Loading -> _state.update { it.copy(isLoading = result.isLoading) }
-                    is Resource.Error -> _state.update {
-                        it.copy(
-                            users = emptyList(), error = result.errorMessage
-                        )
-                    }
-                }
-            }
-        }
-    }
+    val isConnected = connectivityObserver.isConnected
+        .distinctUntilChanged()
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000L),
+            false
+        )
 }

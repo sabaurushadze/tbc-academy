@@ -6,17 +6,16 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.academy_tbc.R
+import com.example.academy_tbc.common.toMessageRes
 import com.example.academy_tbc.databinding.FragmentRegisterBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
+import com.example.academy_tbc.presentation.extension.lifecycleCollect
+import com.example.academy_tbc.presentation.extension.lifecycleCollectLatest
 import com.example.academy_tbc.presentation.extension.setTextIfDifferent
 import com.example.academy_tbc.presentation.extension.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
@@ -33,44 +32,37 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
     }
 
     private fun observeSideEffects() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.sideEffect.collect {
-                    when (it) {
-                        is RegisterSideEffect.NavigateToLogin -> {
-                            setFragmentResult(REQ_KEY_EMAIL, bundleOf(BUNDLE_KEY_EMAIL to it.email))
-                            setFragmentResult(
-                                REQ_KEY_PASSWORD, bundleOf(BUNDLE_KEY_PASSWORD to it.password)
-                            )
-                            findNavController().navigate(
-                                RegisterFragmentDirections.actionRegisterFragmentToLogInFragment()
-                            )
-                        }
+        lifecycleCollectLatest(viewModel.sideEffect) { effect ->
+            when (effect) {
+                is RegisterSideEffect.NavigateToLogin -> {
+                    setFragmentResult(REQ_KEY_EMAIL, bundleOf(BUNDLE_KEY_EMAIL to effect.email))
+                    setFragmentResult(
+                        REQ_KEY_PASSWORD, bundleOf(BUNDLE_KEY_PASSWORD to effect.password)
+                    )
+                    findNavController().navigate(
+                        RegisterFragmentDirections.actionRegisterFragmentToLogInFragment()
+                    )
+                }
 
-                        is RegisterSideEffect.ShowError -> binding.root.showSnackBar(it.message)
-                    }
+                is RegisterSideEffect.ShowError -> {
+                    val messageRes = effect.exception.toMessageRes()
+                    binding.root.showSnackBar(getString(messageRes))
                 }
             }
         }
     }
 
-    private fun observeState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect { state ->
-                    binding.apply {
-                        etEmail.setTextIfDifferent(state.email)
-                        etPassword.setTextIfDifferent(state.password)
-                        etRepeatPassword.setTextIfDifferent(state.repeatPassword)
-                        btnRegister.isEnabled = state.isRegisterEnabled && !state.isLoading
-                        progressBar.isVisible = state.isLoading
-                        btnRegister.backgroundTintList = ContextCompat.getColorStateList(
-                            requireContext(),
-                            if (btnRegister.isEnabled) R.color.primary else R.color.primaryDisabled
-                        )
-                    }
-                }
-            }
+    private fun observeState() = with(binding) {
+        lifecycleCollect(viewModel.state) { state ->
+            etEmail.setTextIfDifferent(state.email)
+            etPassword.setTextIfDifferent(state.password)
+            etRepeatPassword.setTextIfDifferent(state.repeatPassword)
+            btnRegister.isEnabled = state.isRegisterEnabled && !state.isLoading
+            progressBar.isVisible = state.isLoading
+            btnRegister.backgroundTintList = ContextCompat.getColorStateList(
+                requireContext(),
+                if (btnRegister.isEnabled) R.color.primary else R.color.primaryDisabled
+            )
         }
     }
 

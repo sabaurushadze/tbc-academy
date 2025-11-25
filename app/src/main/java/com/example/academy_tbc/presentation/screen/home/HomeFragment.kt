@@ -2,16 +2,14 @@ package com.example.academy_tbc.presentation.screen.home
 
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.academy_tbc.databinding.FragmentHomeBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
+import com.example.academy_tbc.presentation.extension.lifecycleCollect
+import com.example.academy_tbc.presentation.extension.lifecycleCollectLatest
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(
@@ -23,37 +21,37 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
     override fun bind() {
         binding.rvUsers.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.rvUsers.adapter = usersAdapter
-        viewModel.onEvent(HomeEvent.GetUsers)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.rvUsers.adapter = usersAdapter.withLoadStateFooter(
+            footer = UsersLoadStateAdapter { usersAdapter.retry() })
     }
 
     override fun listeners() {
-        observeState()
+        observeUsersPaging()
         navigateToProfile()
-        setupRetryClick()
+        observeNetwork()
+        observeLoadState()
     }
 
-    private fun observeState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect { state ->
-                    binding.apply {
-                        renderState(state)
-                    }
-                }
-            }
+
+    private fun observeUsersPaging() = with(binding) {
+        lifecycleCollect(viewModel.usersPager) { pagingData ->
+            usersAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
         }
     }
 
-    private fun renderState(state: HomeState) = binding.apply {
-        progressBar.isVisible = state.isLoading
+    private fun observeLoadState() = with(binding) {
+        lifecycleCollectLatest(usersAdapter.loadStateFlow) { loadStates ->
+            progressBar.isVisible = loadStates.refresh is LoadState.Loading
+        }
+    }
 
-        val hasError = state.error.isNotEmpty()
-        groupError.isVisible = hasError
-        tvErrorMessage.text = state.error
-        if (usersAdapter.currentList != state.users) {
-            usersAdapter.submitList(state.users)
+    private fun observeNetwork() {
+        lifecycleCollectLatest(viewModel.isConnected) { isOnline ->
+            binding.tvNoInternet.isVisible = !isOnline
+            if (isOnline) {
+                usersAdapter.retry()
+            }
         }
     }
 
@@ -62,12 +60,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToProfileFragment()
             )
-        }
-    }
-
-    private fun setupRetryClick() {
-        binding.btnRetry.setOnClickListener {
-            viewModel.onEvent(HomeEvent.GetUsers)
         }
     }
 }

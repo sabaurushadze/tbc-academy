@@ -11,7 +11,6 @@
     <string name="get_users">Get users</string>
     <string name="error_fetching_users">Error fetching users</string>
     <string name="no_internet_connection_please_try_again">No internet connection. Please try again.</string>
-    <string name="user_not_found">User not found</string>
     <string name="something_went_wrong_please_try_again">Something went wrong. Please try again.</string>
     <string name="ok">OK</string>
     <string name="log_out_really">Log out?</string>
@@ -22,4 +21,10 @@
     <string name="profile">Profile</string>
     <string name="repeat_password">Repeat password</string>
     <string name="retry">Retry</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="timeout">It is taking a while! Please try again</string>
+    <string name="user_not_found">User not found</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="try_again">Try again</string>
+    <string name="something_went_wrong">Something went wrong!</string>
 </resources>

@@ -2,7 +2,7 @@ package com.example.academy_tbc.presentation.screen.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.academy_tbc.data.common.Resource
+import com.example.academy_tbc.common.Resource
 import com.example.academy_tbc.data.repository.RegisterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
@@ -78,7 +78,9 @@ class RegisterViewModel @Inject constructor(
                         )
                     }
 
-                    is Resource.Error -> _sideEffect.emit(RegisterSideEffect.ShowError(result.errorMessage))
+                    is Resource.Error -> _sideEffect.emit(RegisterSideEffect.ShowError(
+                        result.exception
+                    ))
                     is Resource.Loading -> _state.update { it.copy(isLoading = result.isLoading) }
                 }
             }

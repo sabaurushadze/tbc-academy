@@ -2,7 +2,7 @@ package com.example.academy_tbc.presentation.screen.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.academy_tbc.data.common.Resource
+import com.example.academy_tbc.common.Resource
 import com.example.academy_tbc.data.repository.LogInRepository
 import com.example.academy_tbc.data.repository.UserDataStoreRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -71,7 +71,9 @@ class LogInViewModel @Inject constructor(
                         _sideEffect.emit(LogInSideEffect.NavigateToHome)
                     }
 
-                    is Resource.Error -> _sideEffect.emit(LogInSideEffect.ShowError(result.errorMessage))
+                    is Resource.Error -> _sideEffect.emit(LogInSideEffect.ShowError(
+                        result.exception
+                    ))
                 }
             }
         }

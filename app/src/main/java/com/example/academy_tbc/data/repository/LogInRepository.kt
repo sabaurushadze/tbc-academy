@@ -1,6 +1,6 @@
 package com.example.academy_tbc.data.repository
 
-import com.example.academy_tbc.data.common.ResponseHandler
+import com.example.academy_tbc.common.ResponseHandler
 import com.example.academy_tbc.data.remote.login.LoginRequestDto
 import com.example.academy_tbc.data.remote.retrofit.LogInApiService
 import jakarta.inject.Inject

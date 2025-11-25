@@ -2,8 +2,8 @@ package com.example.academy_tbc.presentation.screen.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil3.load
 import coil3.request.crossfade
@@ -14,9 +14,9 @@ import com.example.academy_tbc.data.remote.home.UsersResponseDto
 import com.example.academy_tbc.databinding.ItemUserBinding
 
 class UsersAdapter() :
-    ListAdapter<UsersResponseDto.User, UsersAdapter.UserViewHolder>(UserDiffUtil()) {
+    PagingDataAdapter<UsersResponseDto.User, UsersAdapter.UserViewHolder>(UserDiffUtil()) {
     override fun onCreateViewHolder(
-        parent: ViewGroup, viewType: Int
+        parent: ViewGroup, viewType: Int,
     ): UserViewHolder {
         return UserViewHolder(
             ItemUserBinding.inflate(
@@ -26,7 +26,10 @@ class UsersAdapter() :
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val user = getItem(position)
+        user?.let {
+            holder.bind(user)
+        }
     }
 
     inner class UserViewHolder(private val binding: ItemUserBinding) :
@@ -46,13 +49,13 @@ class UsersAdapter() :
 
 class UserDiffUtil : DiffUtil.ItemCallback<UsersResponseDto.User>() {
     override fun areItemsTheSame(
-        oldItem: UsersResponseDto.User, newItem: UsersResponseDto.User
+        oldItem: UsersResponseDto.User, newItem: UsersResponseDto.User,
     ): Boolean {
         return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(
-        oldItem: UsersResponseDto.User, newItem: UsersResponseDto.User
+        oldItem: UsersResponseDto.User, newItem: UsersResponseDto.User,
     ): Boolean {
         return oldItem == newItem
     }
