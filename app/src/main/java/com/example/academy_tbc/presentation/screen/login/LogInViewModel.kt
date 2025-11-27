@@ -2,9 +2,10 @@ package com.example.academy_tbc.presentation.screen.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.academy_tbc.common.Resource
-import com.example.academy_tbc.data.repository.LogInRepository
-import com.example.academy_tbc.data.repository.UserDataStoreRepository
+import com.example.academy_tbc.data.common.Resource
+import com.example.academy_tbc.data.local.preferences.PreferenceKeys
+import com.example.academy_tbc.data.local.repository.DataStoreRepository
+import com.example.academy_tbc.data.remote.login.repository.LogInRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,8 +18,8 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class LogInViewModel @Inject constructor(
-    private val userDataStoreRepository: UserDataStoreRepository,
-    private val logInRepository: LogInRepository
+    private val dataStoreRepository: DataStoreRepository,
+    private val logInRepository: LogInRepository,
 ) : ViewModel() {
     private val _state = MutableStateFlow(LogInState())
     val state: StateFlow<LogInState> = _state.asStateFlow()
@@ -31,6 +32,7 @@ class LogInViewModel @Inject constructor(
             is LogInEvent.LogIn -> logIn(
                 email = event.email, password = event.password, isRemembered = event.isRemembered
             )
+
             is LogInEvent.EmailChanged -> updateEmail(event.email)
             is LogInEvent.PasswordChanged -> updatePassword(event.password)
             is LogInEvent.RememberMeChanged -> updateRememberMe(event.isRemembered)
@@ -59,21 +61,34 @@ class LogInViewModel @Inject constructor(
         LogInValidations.validateEmail(email) && LogInValidations.validatePassword(password)
 
     private fun logIn(
-        email: String, password: String, isRemembered: Boolean
+        email: String, password: String, isRemembered: Boolean,
     ) {
         viewModelScope.launch {
             logInRepository.logIn(email = email, password = password).collect { result ->
                 when (result) {
                     is Resource.Loading -> _state.update { it.copy(isLoading = result.isLoading) }
                     is Resource.Success -> {
-                        if (isRemembered) userDataStoreRepository.saveToken(result.data.token)
-                        userDataStoreRepository.saveEmail(email)
+                        if (isRemembered) {
+                            dataStoreRepository.putPreference(
+                                value = result.data.token,
+                                key = PreferenceKeys.USER_TOKEN
+                            )
+                        }
+                        dataStoreRepository.putPreference(PreferenceKeys.USER_EMAIL, email)
+
                         _sideEffect.emit(LogInSideEffect.NavigateToHome)
                     }
 
-                    is Resource.Error -> _sideEffect.emit(LogInSideEffect.ShowError(
-                        result.exception
-                    ))
+                    is Resource.Error -> _sideEffect.emit(
+                        LogInSideEffect.ShowError(
+                            result.errorRes
+                        )
+                    )
+                    is Resource.ServerError -> _sideEffect.emit(
+                        LogInSideEffect.ShowServerError(
+                            result.errorCode
+                        )
+                    )
                 }
             }
         }

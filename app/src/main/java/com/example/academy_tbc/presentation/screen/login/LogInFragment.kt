@@ -8,13 +8,12 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.academy_tbc.R
-import com.example.academy_tbc.common.toMessageRes
 import com.example.academy_tbc.databinding.FragmentLogInBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
-import com.example.academy_tbc.presentation.extension.lifecycleCollect
-import com.example.academy_tbc.presentation.extension.lifecycleCollectLatest
-import com.example.academy_tbc.presentation.extension.setTextIfDifferent
-import com.example.academy_tbc.presentation.extension.showSnackBar
+import com.example.academy_tbc.presentation.extension.lifecycle.lifecycleCollect
+import com.example.academy_tbc.presentation.extension.lifecycle.lifecycleCollectLatest
+import com.example.academy_tbc.presentation.extension.view.setTextIfDifferent
+import com.example.academy_tbc.presentation.extension.view.showSnackBar
 import com.example.academy_tbc.presentation.screen.register.RegisterFragment.Companion.BUNDLE_KEY_EMAIL
 import com.example.academy_tbc.presentation.screen.register.RegisterFragment.Companion.BUNDLE_KEY_PASSWORD
 import com.example.academy_tbc.presentation.screen.register.RegisterFragment.Companion.REQ_KEY_EMAIL
@@ -57,7 +56,15 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(
                 }
 
                 is LogInSideEffect.ShowError -> {
-                    val messageRes = effect.exception.toMessageRes()
+                    val messageRes = effect.errorRes
+                    binding.root.showSnackBar(getString(messageRes))
+                }
+
+                is LogInSideEffect.ShowServerError -> {
+                    val messageRes = when (effect.errorCode) {
+                        400 -> R.string.user_with_this_email_cannot_be_registered
+                        else -> R.string.something_went_wrong
+                    }
                     binding.root.showSnackBar(getString(messageRes))
                 }
             }

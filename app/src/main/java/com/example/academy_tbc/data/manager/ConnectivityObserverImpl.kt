@@ -12,8 +12,8 @@ import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 
 class ConnectivityObserverImpl @Inject constructor(
-    @ApplicationContext private val context: Context
-): ConnectivityObserver {
+    @ApplicationContext private val context: Context,
+) : ConnectivityObserver {
 
     private val connectivityManager = context.getSystemService<ConnectivityManager>()!!
 
@@ -28,7 +28,7 @@ class ConnectivityObserverImpl @Inject constructor(
             val callback = object : ConnectivityManager.NetworkCallback() {
                 override fun onCapabilitiesChanged(
                     network: Network,
-                    networkCapabilities: NetworkCapabilities
+                    networkCapabilities: NetworkCapabilities,
                 ) {
                     super.onCapabilitiesChanged(network, networkCapabilities)
                     val connected = networkCapabilities.hasCapability(

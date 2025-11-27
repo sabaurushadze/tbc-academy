@@ -2,18 +2,18 @@ package com.example.academy_tbc.presentation.screen.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.academy_tbc.data.repository.UserDataStoreRepository
+import com.example.academy_tbc.data.local.preferences.PreferenceKeys
+import com.example.academy_tbc.data.local.repository.DataStoreRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val userDataStoreRepository: UserDataStoreRepository,
+    private val dataStoreRepository: DataStoreRepository,
 
     ) : ViewModel() {
     private val _sideEffect = MutableSharedFlow<SplashSideEffect>()
@@ -30,11 +30,11 @@ class SplashViewModel @Inject constructor(
 
     private fun onStartSplash() {
         splashJob = viewModelScope.launch {
-            val userToken = userDataStoreRepository.getToken.first()
-            if (userToken.isNotEmpty()) {
-                _sideEffect.emit(SplashSideEffect.NavigateToHome)
-            } else {
+            val userToken = dataStoreRepository.getFirstPreference(PreferenceKeys.USER_TOKEN, "")
+            if (userToken.isEmpty()) {
                 _sideEffect.emit(SplashSideEffect.NavigateToOnboarding)
+            } else {
+                _sideEffect.emit(SplashSideEffect.NavigateToHome)
             }
         }
     }

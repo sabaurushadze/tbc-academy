@@ -7,8 +7,10 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.academy_tbc.databinding.FragmentHomeBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
-import com.example.academy_tbc.presentation.extension.lifecycleCollect
-import com.example.academy_tbc.presentation.extension.lifecycleCollectLatest
+import com.example.academy_tbc.presentation.extension.lifecycle.lifecycleCollect
+import com.example.academy_tbc.presentation.extension.lifecycle.lifecycleCollectLatest
+import com.example.academy_tbc.presentation.screen.home.adapter.UsersAdapter
+import com.example.academy_tbc.presentation.screen.home.adapter.UsersLoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,7 +37,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
 
     private fun observeUsersPaging() = with(binding) {
-        lifecycleCollect(viewModel.usersPager) { pagingData ->
+        lifecycleCollectLatest(viewModel.usersPager) { pagingData ->
             usersAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
         }
     }
@@ -47,9 +49,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     }
 
     private fun observeNetwork() {
-        lifecycleCollectLatest(viewModel.isConnected) { isOnline ->
-            binding.tvNoInternet.isVisible = !isOnline
-            if (isOnline) {
+        lifecycleCollect(viewModel.isConnected) { isConnected ->
+            binding.tvNoInternet.isVisible = !isConnected
+            if (isConnected) {
                 usersAdapter.retry()
             }
         }

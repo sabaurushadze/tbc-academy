@@ -4,7 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.academy_tbc.databinding.FragmentSplashBinding
 import com.example.academy_tbc.presentation.common.BaseFragment
-import com.example.academy_tbc.presentation.extension.lifecycleCollectLatest
+import com.example.academy_tbc.presentation.extension.lifecycle.lifecycleCollectLatest
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
