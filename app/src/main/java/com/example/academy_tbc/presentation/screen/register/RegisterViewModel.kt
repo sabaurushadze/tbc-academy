@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     private val registerRepository: RegisterRepository,
+    private val registerValidations: RegisterValidations
 ) : ViewModel() {
     private val _state = MutableStateFlow(RegisterState())
     val state: StateFlow<RegisterState> = _state.asStateFlow()
@@ -67,7 +68,7 @@ class RegisterViewModel @Inject constructor(
     }
 
     private fun validateInputs(email: String, password: String) =
-        RegisterValidations.validateEmail(email) && RegisterValidations.validatePassword(password)
+        registerValidations.validateEmail(email) && registerValidations.validatePassword(password)
 
     fun register(email: String, password: String) {
         viewModelScope.launch {

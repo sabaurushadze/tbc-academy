@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
 class LogInViewModel @Inject constructor(
     private val dataStoreRepository: DataStoreRepository,
     private val logInRepository: LogInRepository,
+    private val logInValidations: LogInValidations,
 ) : ViewModel() {
     private val _state = MutableStateFlow(LogInState())
     val state: StateFlow<LogInState> = _state.asStateFlow()
@@ -58,7 +59,7 @@ class LogInViewModel @Inject constructor(
     }
 
     private fun validateInputs(email: String, password: String) =
-        LogInValidations.validateEmail(email) && LogInValidations.validatePassword(password)
+        logInValidations.validateEmail(email) && logInValidations.validatePassword(password)
 
     private fun logIn(
         email: String, password: String, isRemembered: Boolean,
