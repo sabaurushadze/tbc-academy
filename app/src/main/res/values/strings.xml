@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">academy-tbc</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="save">Save</string>
+    <string name="read">Read</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="email">Email</string>
+    <string name="please_fill_all_fields">Please fill all fields</string>
+    <string name="settings_saved_successfully">Settings saved successfully</string>
 </resources>
