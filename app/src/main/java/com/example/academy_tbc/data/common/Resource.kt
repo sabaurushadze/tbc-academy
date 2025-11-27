@@ -1,4 +1,4 @@
-package com.example.academy_tbc.common
+package com.example.academy_tbc.data.common
 
 sealed class Resource<out T> {
     data class Success<out T>(val data: T) : Resource<T>()

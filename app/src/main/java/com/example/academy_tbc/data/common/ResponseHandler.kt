@@ -1,4 +1,4 @@
-package com.example.academy_tbc.common
+package com.example.academy_tbc.data.common
 
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.flow
