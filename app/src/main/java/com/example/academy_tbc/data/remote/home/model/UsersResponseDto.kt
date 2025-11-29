@@ -9,10 +9,10 @@ data class UsersResponseDto(
     @SerialName("per_page") val perPage: Int,
     val total: Int,
     @SerialName("total_pages") val totalPages: Int,
-    val data: List<User>
+    val data: List<UserModelDto>
 ) {
     @Serializable
-    data class User(
+    data class UserModelDto(
         val id: Int,
         val email: String,
         @SerialName("first_name")

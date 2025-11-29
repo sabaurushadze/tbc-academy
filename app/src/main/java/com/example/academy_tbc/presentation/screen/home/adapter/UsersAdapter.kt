@@ -11,7 +11,7 @@ import com.example.academy_tbc.databinding.ItemUserBinding
 import com.example.academy_tbc.presentation.extension.view.loadImage
 
 class UsersAdapter() :
-    PagingDataAdapter<UsersResponseDto.User, UsersAdapter.UserViewHolder>(UserDiffUtil()) {
+    PagingDataAdapter<UsersResponseDto.UserModelDto, UsersAdapter.UserViewHolder>(UserDiffUtil()) {
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int,
     ): UserViewHolder {
@@ -31,7 +31,7 @@ class UsersAdapter() :
 
     inner class UserViewHolder(private val binding: ItemUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: UsersResponseDto.User) = with(binding) {
+        fun bind(user: UsersResponseDto.UserModelDto) = with(binding) {
             ivUser.loadImage(user.avatar)
             tvEmail.text = user.email
             tvFullName.text =
@@ -40,15 +40,15 @@ class UsersAdapter() :
     }
 }
 
-class UserDiffUtil : DiffUtil.ItemCallback<UsersResponseDto.User>() {
+class UserDiffUtil : DiffUtil.ItemCallback<UsersResponseDto.UserModelDto>() {
     override fun areItemsTheSame(
-        oldItem: UsersResponseDto.User, newItem: UsersResponseDto.User,
+        oldItem: UsersResponseDto.UserModelDto, newItem: UsersResponseDto.UserModelDto,
     ): Boolean {
         return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(
-        oldItem: UsersResponseDto.User, newItem: UsersResponseDto.User,
+        oldItem: UsersResponseDto.UserModelDto, newItem: UsersResponseDto.UserModelDto,
     ): Boolean {
         return oldItem == newItem
     }

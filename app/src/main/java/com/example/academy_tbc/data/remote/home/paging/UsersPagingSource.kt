@@ -11,9 +11,9 @@ import java.net.SocketTimeoutException
 
 class UsersPagingSource(
     private val usersRepository: UsersRepository,
-) : PagingSource<Int, UsersResponseDto.User>() {
+) : PagingSource<Int, UsersResponseDto.UserModelDto>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UsersResponseDto.User> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UsersResponseDto.UserModelDto> {
         return try {
             val currentPage = params.key ?: 1
             val response = usersRepository.getUsers(currentPage)
@@ -40,7 +40,7 @@ class UsersPagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, UsersResponseDto.User>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, UsersResponseDto.UserModelDto>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
