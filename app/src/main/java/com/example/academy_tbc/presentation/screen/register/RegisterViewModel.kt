@@ -2,11 +2,12 @@ package com.example.academy_tbc.presentation.screen.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.academy_tbc.data.common.Resource
-import com.example.academy_tbc.data.remote.register.repository.RegisterRepository
+import com.example.academy_tbc.domain.resource.Resource
+import com.example.academy_tbc.domain.usecase.register.RegisterUseCase
+import com.example.academy_tbc.domain.usecase.validations.EmailValidationUseCase
+import com.example.academy_tbc.domain.usecase.validations.PasswordValidationUseCase
 import com.example.academy_tbc.presentation.screen.register.RegisterSideEffect.NavigateToLogin
-import com.example.academy_tbc.presentation.screen.register.RegisterSideEffect.ShowError
-import com.example.academy_tbc.presentation.screen.register.RegisterSideEffect.ShowServerError
+import com.example.academy_tbc.presentation.common.mapper.toMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -19,8 +20,9 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val registerRepository: RegisterRepository,
-    private val registerValidations: RegisterValidations
+    private val registerUseCase: RegisterUseCase,
+    private val emailValidationUseCase: EmailValidationUseCase,
+    private val passwordValidationUseCase: PasswordValidationUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(RegisterState())
     val state: StateFlow<RegisterState> = _state.asStateFlow()
@@ -68,11 +70,11 @@ class RegisterViewModel @Inject constructor(
     }
 
     private fun validateInputs(email: String, password: String) =
-        registerValidations.validateEmail(email) && registerValidations.validatePassword(password)
+        emailValidationUseCase(email) && passwordValidationUseCase(password)
 
     fun register(email: String, password: String) {
         viewModelScope.launch {
-            registerRepository.register(email = email, password = password).collect { result ->
+            registerUseCase(email = email, password = password).collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         _sideEffect.emit(
@@ -81,22 +83,15 @@ class RegisterViewModel @Inject constructor(
                             )
                         )
                     }
+                    is Resource.Loading -> _state.update { it.copy(isLoading = result.isLoading) }
 
                     is Resource.Error -> _sideEffect.emit(
-                        ShowError(
-                            result.errorRes
-                        )
+                        RegisterSideEffect.ShowError(result.error.toMessage())
                     )
 
-                    is Resource.ServerError -> _sideEffect.emit(
-                        ShowServerError(
-                            result.errorCode
-                        )
-                    )
-
-                    is Resource.Loading -> _state.update { it.copy(isLoading = result.isLoading) }
                 }
             }
         }
     }
 }
+

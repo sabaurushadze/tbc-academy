@@ -2,7 +2,7 @@ package com.example.academy_tbc.presentation.screen.onboarding
 
 import androidx.navigation.fragment.findNavController
 import com.example.academy_tbc.databinding.FragmentOnboardingBinding
-import com.example.academy_tbc.presentation.common.BaseFragment
+import com.example.academy_tbc.presentation.common.view.BaseFragment
 
 
 class OnboardingFragment : BaseFragment<FragmentOnboardingBinding>(

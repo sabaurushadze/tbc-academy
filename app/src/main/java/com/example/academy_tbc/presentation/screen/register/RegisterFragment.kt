@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.academy_tbc.R
 import com.example.academy_tbc.databinding.FragmentRegisterBinding
-import com.example.academy_tbc.presentation.common.BaseFragment
+import com.example.academy_tbc.presentation.common.view.BaseFragment
 import com.example.academy_tbc.presentation.extension.lifecycle.lifecycleCollect
 import com.example.academy_tbc.presentation.extension.lifecycle.lifecycleCollectLatest
 import com.example.academy_tbc.presentation.extension.view.setTextIfDifferent
@@ -26,10 +26,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
         observeState()
         observeSideEffects()
         setupRegisterClick()
-        setupBackButton()
+        navigateBackToOnboarding()
         setupInputs()
     }
-
     private fun observeSideEffects() {
         lifecycleCollectLatest(viewModel.sideEffect) { effect ->
             when (effect) {
@@ -44,16 +43,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
                 }
 
                 is RegisterSideEffect.ShowError -> {
-                    val messageRes = effect.errorRes
-                    binding.root.showSnackBar(getString(messageRes))
-                }
-
-                is RegisterSideEffect.ShowServerError -> {
-                    val messageRes = when (effect.errorCode) {
-                        400 -> R.string.user_with_this_email_cannot_be_registered
-                        else -> R.string.something_went_wrong
-                    }
-                    binding.root.showSnackBar(getString(messageRes))
+                    binding.root.showSnackBar(getString(effect.error))
                 }
             }
         }
@@ -97,7 +87,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
         }
     }
 
-    private fun setupBackButton() {
+    private fun navigateBackToOnboarding() {
         binding.ibBack.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }

@@ -3,7 +3,7 @@ package com.example.academy_tbc.presentation.screen.profile
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.academy_tbc.databinding.FragmentProfileBinding
-import com.example.academy_tbc.presentation.common.BaseFragment
+import com.example.academy_tbc.presentation.common.view.BaseFragment
 import com.example.academy_tbc.presentation.extension.lifecycle.lifecycleCollect
 import com.example.academy_tbc.presentation.extension.lifecycle.lifecycleCollectLatest
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,6 +19,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
         logOut()
         observeState()
         observeSideEffect()
+        navigateBackToHome()
     }
 
     override fun bind() {
@@ -49,6 +50,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
                 }).show(
                 childFragmentManager, LogOutDialogFragment.TAG
             )
+        }
+    }
+
+    private fun navigateBackToHome() {
+        binding.ibBack.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
 }

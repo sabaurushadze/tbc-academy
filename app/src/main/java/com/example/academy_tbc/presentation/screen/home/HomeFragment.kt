@@ -6,7 +6,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.academy_tbc.databinding.FragmentHomeBinding
-import com.example.academy_tbc.presentation.common.BaseFragment
+import com.example.academy_tbc.presentation.common.view.BaseFragment
 import com.example.academy_tbc.presentation.extension.lifecycle.lifecycleCollect
 import com.example.academy_tbc.presentation.extension.lifecycle.lifecycleCollectLatest
 import com.example.academy_tbc.presentation.screen.home.adapter.UsersAdapter
@@ -37,8 +37,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
 
     private fun observeUsersPaging() = with(binding) {
-        lifecycleCollectLatest(viewModel.usersPager) { pagingData ->
-            usersAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
+        lifecycleCollectLatest(viewModel.usersFlow) { pagingData ->
+            usersAdapter.submitData(
+                lifecycle = viewLifecycleOwner.lifecycle, pagingData = pagingData
+            )
         }
     }
 

@@ -2,8 +2,8 @@ package com.example.academy_tbc.presentation.screen.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.academy_tbc.data.local.preferences.PreferenceKeys
-import com.example.academy_tbc.data.local.repository.DataStoreRepository
+import com.example.academy_tbc.domain.usecase.datastore.ClearPreferencesUseCase
+import com.example.academy_tbc.domain.usecase.datastore.GetEmailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -15,8 +15,9 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val dataStoreRepository: DataStoreRepository,
-    ) : ViewModel() {
+    private val getEmailUseCase: GetEmailUseCase,
+    private val clearPreferencesUseCase: ClearPreferencesUseCase,
+) : ViewModel() {
 
     private val _state = MutableStateFlow(ProfileState())
     val state = _state.asStateFlow()
@@ -33,16 +34,15 @@ class ProfileViewModel @Inject constructor(
 
     private fun getUserEmail() {
         viewModelScope.launch {
-            val userEmail = dataStoreRepository.getFirstPreference(PreferenceKeys.USER_EMAIL, "")
             _state.update {
-                it.copy(email = userEmail)
+                it.copy(email = getEmailUseCase())
             }
         }
     }
 
     private fun removeUserToken() {
         viewModelScope.launch {
-            dataStoreRepository.clearAll()
+            clearPreferencesUseCase()
             _sideEffect.emit(ProfileSideEffect.NavigateToLogIn)
         }
     }

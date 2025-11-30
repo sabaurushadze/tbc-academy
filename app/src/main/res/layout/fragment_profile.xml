@@ -6,18 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".presentation.screen.profile.ProfileFragment">
 
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ibBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/circle"
+        android:backgroundTint="@color/secondaryLight"
+        android:src="@drawable/outline_arrow_back_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
         android:text="@string/profile"
         android:textColor="@color/primary"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/ibBack"
+        app:layout_constraintTop_toTopOf="@id/ibBack" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogOut"
@@ -41,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@id/tvProfile"
-        app:layout_constraintTop_toBottomOf="@id/tvProfile" />
+        app:layout_constraintStart_toStartOf="@id/ibBack"
+        app:layout_constraintTop_toBottomOf="@id/ibBack" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

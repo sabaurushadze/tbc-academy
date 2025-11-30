@@ -1,8 +1,8 @@
 package com.example.academy_tbc.di
 
-import com.example.academy_tbc.data.remote.login.service.LogInApiService
-import com.example.academy_tbc.data.remote.register.service.RegisterApiService
-import com.example.academy_tbc.data.remote.home.service.UsersApiService
+import com.example.academy_tbc.data.service.login.LogInApiService
+import com.example.academy_tbc.data.service.register.RegisterApiService
+import com.example.academy_tbc.data.service.users.UsersApiService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides

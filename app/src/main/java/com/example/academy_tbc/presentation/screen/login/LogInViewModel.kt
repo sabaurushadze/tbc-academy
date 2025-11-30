@@ -2,10 +2,11 @@ package com.example.academy_tbc.presentation.screen.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.academy_tbc.data.common.Resource
-import com.example.academy_tbc.data.local.preferences.PreferenceKeys
-import com.example.academy_tbc.data.local.repository.DataStoreRepository
-import com.example.academy_tbc.data.remote.login.repository.LogInRepository
+import com.example.academy_tbc.domain.resource.Resource
+import com.example.academy_tbc.domain.usecase.login.LogInUseCase
+import com.example.academy_tbc.domain.usecase.validations.EmailValidationUseCase
+import com.example.academy_tbc.domain.usecase.validations.PasswordValidationUseCase
+import com.example.academy_tbc.presentation.common.mapper.toMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -13,14 +14,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class LogInViewModel @Inject constructor(
-    private val dataStoreRepository: DataStoreRepository,
-    private val logInRepository: LogInRepository,
-    private val logInValidations: LogInValidations,
+    private val logInUseCase: LogInUseCase,
+    private val emailValidationUseCase: EmailValidationUseCase,
+    private val passwordValidationUseCase: PasswordValidationUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(LogInState())
     val state: StateFlow<LogInState> = _state.asStateFlow()
@@ -59,36 +61,23 @@ class LogInViewModel @Inject constructor(
     }
 
     private fun validateInputs(email: String, password: String) =
-        logInValidations.validateEmail(email) && logInValidations.validatePassword(password)
+        emailValidationUseCase(email) && passwordValidationUseCase(password)
 
     private fun logIn(
         email: String, password: String, isRemembered: Boolean,
     ) {
         viewModelScope.launch {
-            logInRepository.logIn(email = email, password = password).collect { result ->
+            logInUseCase(
+                email = email, password = password, rememberMe = isRemembered
+            ).collectLatest { result ->
                 when (result) {
                     is Resource.Loading -> _state.update { it.copy(isLoading = result.isLoading) }
                     is Resource.Success -> {
-                        if (isRemembered) {
-                            dataStoreRepository.putPreference(
-                                value = result.data.token,
-                                key = PreferenceKeys.USER_TOKEN
-                            )
-                        }
-                        dataStoreRepository.putPreference(PreferenceKeys.USER_EMAIL, email)
-
                         _sideEffect.emit(LogInSideEffect.NavigateToHome)
                     }
 
                     is Resource.Error -> _sideEffect.emit(
-                        LogInSideEffect.ShowError(
-                            result.errorRes
-                        )
-                    )
-                    is Resource.ServerError -> _sideEffect.emit(
-                        LogInSideEffect.ShowServerError(
-                            result.errorCode
-                        )
+                        LogInSideEffect.ShowError(result.error.toMessage())
                     )
                 }
             }

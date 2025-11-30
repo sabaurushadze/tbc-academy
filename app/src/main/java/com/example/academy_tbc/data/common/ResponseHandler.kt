@@ -1,6 +1,7 @@
 package com.example.academy_tbc.data.common
 
-import com.example.academy_tbc.R
+import com.example.academy_tbc.domain.common.AppError
+import com.example.academy_tbc.domain.resource.Resource
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
@@ -20,19 +21,19 @@ class ResponseHandler @Inject constructor() {
                 }
             } else {
                 emit(
-                    Resource.ServerError(
-                        errorCode = response.code()
+                    Resource.Error(
+                        error = AppError.Server(code = response.code())
                     )
                 )
             }
 
         } catch (e: Throwable) {
-            val errorRes = when (e) {
-                is SocketTimeoutException -> R.string.timeout
-                is IOException -> R.string.no_internet_connection_please_try_again
-                else -> R.string.something_went_wrong_please_try_again
+            val appError = when (e) {
+                is SocketTimeoutException -> AppError.Network
+                is IOException -> AppError.Network
+                else -> AppError.Unknown
             }
-            emit(Resource.Error(errorRes = errorRes))
+            emit(Resource.Error(error = appError))
         } finally {
             emit(Resource.Loading(isLoading = false))
         }

@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.academy_tbc.R
 import com.example.academy_tbc.databinding.FragmentLogInBinding
-import com.example.academy_tbc.presentation.common.BaseFragment
+import com.example.academy_tbc.presentation.common.view.BaseFragment
 import com.example.academy_tbc.presentation.extension.lifecycle.lifecycleCollect
 import com.example.academy_tbc.presentation.extension.lifecycle.lifecycleCollectLatest
 import com.example.academy_tbc.presentation.extension.view.setTextIfDifferent
@@ -56,16 +56,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(
                 }
 
                 is LogInSideEffect.ShowError -> {
-                    val messageRes = effect.errorRes
-                    binding.root.showSnackBar(getString(messageRes))
-                }
-
-                is LogInSideEffect.ShowServerError -> {
-                    val messageRes = when (effect.errorCode) {
-                        400 -> R.string.user_with_this_email_cannot_be_registered
-                        else -> R.string.something_went_wrong
-                    }
-                    binding.root.showSnackBar(getString(messageRes))
+                    binding.root.showSnackBar(getString(effect.error))
                 }
             }
         }
