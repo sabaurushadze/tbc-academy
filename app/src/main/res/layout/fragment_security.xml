@@ -1,0 +1,280 @@
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/whiteVariant"
+        tools:context=".presentation.screen.security.SecurityFragment">
+
+        <View
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_marginStart="-85dp"
+            android:layout_marginTop="-9dp"
+            android:background="@drawable/circle_radial_yellow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_marginStart="-70dp"
+            android:layout_marginBottom="-70dp"
+            android:background="@drawable/circle_radial_red"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_marginEnd="-85dp"
+            android:layout_marginBottom="150dp"
+            android:background="@drawable/circle_radial_green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="@string/security_screen"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="@string/enter_your_passcode"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivCode1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/empty_passcode"
+            app:layout_constraintEnd_toStartOf="@id/ivCode2"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSubtitle" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivCode2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/empty_passcode"
+            app:layout_constraintEnd_toStartOf="@id/ivCode3"
+            app:layout_constraintStart_toEndOf="@id/ivCode1"
+            app:layout_constraintTop_toBottomOf="@id/tvSubtitle" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivCode3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/empty_passcode"
+            app:layout_constraintEnd_toStartOf="@id/ivCode4"
+            app:layout_constraintStart_toEndOf="@id/ivCode2"
+            app:layout_constraintTop_toBottomOf="@id/tvSubtitle" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivCode4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/empty_passcode"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivCode3"
+            app:layout_constraintTop_toBottomOf="@id/tvSubtitle" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn1"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="43dp"
+            android:background="@drawable/circle"
+            android:text="@string/_1"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toStartOf="@id/btn2"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivCode1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn2"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="43dp"
+            android:background="@drawable/circle"
+            android:text="@string/_2"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toStartOf="@id/btn3"
+            app:layout_constraintStart_toEndOf="@id/btn1"
+            app:layout_constraintTop_toBottomOf="@id/ivCode1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn3"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/circle"
+            android:text="@string/_3"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn2"
+            app:layout_constraintTop_toBottomOf="@id/ivCode1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn4"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="43dp"
+            android:background="@drawable/circle"
+            android:text="@string/_4"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toStartOf="@id/btn5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn5"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="43dp"
+            android:background="@drawable/circle"
+            android:text="@string/_5"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toStartOf="@id/btn6"
+            app:layout_constraintStart_toEndOf="@id/btn4"
+            app:layout_constraintTop_toBottomOf="@id/btn1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn6"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle"
+            android:text="@string/_6"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn5"
+            app:layout_constraintTop_toBottomOf="@id/btn1" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn7"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="43dp"
+            android:background="@drawable/circle"
+            android:text="@string/_7"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toStartOf="@id/btn8"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn4" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn8"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="43dp"
+            android:background="@drawable/circle"
+            android:text="@string/_8"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toStartOf="@id/btn9"
+            app:layout_constraintStart_toEndOf="@id/btn7"
+            app:layout_constraintTop_toBottomOf="@id/btn4" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn9"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle"
+            android:text="@string/_9"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn8"
+            app:layout_constraintTop_toBottomOf="@id/btn4" />
+
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnTouchId"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="43dp"
+            android:background="@drawable/circle"
+            android:src="@drawable/ic_touch_id"
+            app:layout_constraintEnd_toStartOf="@id/btn0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn7" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn0"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="43dp"
+            android:background="@drawable/circle"
+            android:text="@string/_0"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toStartOf="@id/btnBackspace"
+            app:layout_constraintStart_toEndOf="@id/btnTouchId"
+            app:layout_constraintTop_toBottomOf="@id/btn7" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnBackspace"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circle"
+            android:src="@drawable/ic_backspace"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn0"
+            app:layout_constraintTop_toBottomOf="@id/btn7" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvForgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:layout_marginBottom="32dp"
+            android:text="@string/forgot_password"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>

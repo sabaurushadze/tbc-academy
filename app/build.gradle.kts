@@ -38,23 +38,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    buildTypes {
-        debug {
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                "\"https://reqres.in/api/\""
-            )
-        }
-        release {
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                "\"https://reqres.in/api/\""
-            )
-        }
-    }
-
     kotlin {
         compilerOptions {
             jvmTarget = JvmTarget.JVM_11
@@ -63,7 +46,6 @@ android {
 
     buildFeatures {
         viewBinding = true
-        buildConfig = true
     }
 }
 
@@ -75,14 +57,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.fragment)
-    implementation(libs.androidx.paging.runtime)
-    implementation(libs.coil)
-    implementation(libs.coil.network.okhttp)
-    implementation(libs.okhttp)
-    implementation(libs.okhttp.logging.interceptor)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit2.kotlinx.serialization.converter)
-    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.biometric.ktx)
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.navigation.fragment)
