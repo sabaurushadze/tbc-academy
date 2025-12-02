@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.screen.login
+package com.example.academy_tbc.presentation.screen.login.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.academy_tbc.databinding.ItemUserBinding
+import com.example.academy_tbc.presentation.screen.login.User
 
 class UsersAdapter() :
     ListAdapter<User, UsersAdapter.UserViewHolder>(UserDiffUtil()) {

@@ -6,8 +6,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.academy_tbc.databinding.FragmentLogInBinding
-import com.example.academy_tbc.presentation.common.BaseFragment
+import com.example.academy_tbc.presentation.common.view.BaseFragment
 import com.example.academy_tbc.presentation.extension.showSnackBar
+import com.example.academy_tbc.presentation.screen.login.adapter.UsersAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -30,12 +31,12 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(
     private fun observeSideEffects() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.sideEffect.collect { effect ->
+                viewModel.effect.collect { effect ->
                     when (effect) {
                         LogInSideEffect.NavigateToHome -> {
                         }
 
-                        is LogInSideEffect.ShowError -> binding.root.showSnackBar(effect.message)
+                        is LogInSideEffect.ShowError -> binding.root.showSnackBar(getString(effect.error))
                     }
                 }
             }

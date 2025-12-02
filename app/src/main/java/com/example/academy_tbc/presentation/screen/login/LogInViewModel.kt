@@ -1,52 +1,41 @@
 package com.example.academy_tbc.presentation.screen.login
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.academy_tbc.data.common.Resource
-import com.example.academy_tbc.data.repository.LogInRepository
-import com.example.academy_tbc.data.repository.UserDataStoreRepository
+import com.example.academy_tbc.domain.resource.Resource
+import com.example.academy_tbc.domain.usecase.login.LogInUseCase
+import com.example.academy_tbc.presentation.common.view.BaseViewModel
+import com.example.academy_tbc.presentation.common.mapper.toMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jakarta.inject.Inject
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class LogInViewModel @Inject constructor(
-    private val userDataStoreRepository: UserDataStoreRepository,
-    private val logInRepository: LogInRepository
-) : ViewModel() {
-    private val _state = MutableStateFlow(LogInState())
-    val state: StateFlow<LogInState> = _state.asStateFlow()
+    private val logInUseCase: LogInUseCase,
+) : BaseViewModel<LogInState, LogInSideEffect, LogInEvent>(LogInState()) {
 
-    private val _sideEffect = MutableSharedFlow<LogInSideEffect>()
-    val sideEffect = _sideEffect.asSharedFlow()
 
-    fun onEvent(event: LogInEvent) {
+    override fun onEvent(event: LogInEvent) {
         when (event) {
             is LogInEvent.LogIn -> logIn(
                 email = event.email, password = event.password
             )
+
         }
     }
 
     private fun logIn(
-        email: String, password: String
+        email: String, password: String,
     ) {
         viewModelScope.launch {
-            logInRepository.logIn(email = email, password = password).collect { result ->
+            logInUseCase(
+                email = email, password = password
+            ).collectLatest { result ->
                 when (result) {
-                    is Resource.Loading -> _state.update { it.copy(isLoading = result.isLoading) }
-                    is Resource.Success -> {
-                        userDataStoreRepository.saveToken(result.data.token)
-                        _sideEffect.emit(LogInSideEffect.NavigateToHome)
-                    }
-
-                    is Resource.Error -> _sideEffect.emit(LogInSideEffect.ShowError(result.errorMessage))
+                    is Resource.Loading -> updateState { copy(isLoading = result.isLoading) }
+                    is Resource.Success -> sendEffect(LogInSideEffect.NavigateToHome)
+                    is Resource.Error -> sendEffect(LogInSideEffect.ShowError(result.error.toMessage()))
                 }
             }
         }

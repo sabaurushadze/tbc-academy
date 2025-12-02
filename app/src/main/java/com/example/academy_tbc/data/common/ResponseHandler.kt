@@ -1,11 +1,12 @@
 package com.example.academy_tbc.data.common
 
-import jakarta.inject.Inject
+import com.example.academy_tbc.domain.common.AppError
+import com.example.academy_tbc.domain.resource.Resource
+import javax.inject.Inject
 import kotlinx.coroutines.flow.flow
-import kotlinx.serialization.json.Json
-import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
+import java.net.SocketTimeoutException
 
 class ResponseHandler @Inject constructor() {
     fun <T : Any> safeApiCall(call: suspend () -> Response<T>) = flow {
@@ -19,19 +20,20 @@ class ResponseHandler @Inject constructor() {
                     emit(Resource.Success(data = it))
                 }
             } else {
-                val errorMsgJson = response.errorBody()?.string().orEmpty()
-                val errorMsg = Json.decodeFromString<ErrorMessage>(errorMsgJson)
-                emit(Resource.Error(errorMessage = errorMsg.error))
+                emit(
+                    Resource.Error(
+                        error = AppError.Server(code = response.code())
+                    )
+                )
             }
 
         } catch (e: Throwable) {
-            val message = when (e) {
-                is IOException -> e.message
-                is HttpException -> e.message
-                is IllegalStateException -> e.message
-                else -> e.message
+            val appError = when (e) {
+                is SocketTimeoutException -> AppError.Network
+                is IOException -> AppError.Network
+                else -> AppError.Unknown
             }
-            emit(Resource.Error(errorMessage = message.orEmpty()))
+            emit(Resource.Error(error = appError))
         } finally {
             emit(Resource.Loading(isLoading = false))
         }

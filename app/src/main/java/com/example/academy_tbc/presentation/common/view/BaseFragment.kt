@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.common
+package com.example.academy_tbc.presentation.common.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -27,7 +27,7 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflate: (LayoutInflat
         listeners()
     }
 
-    protected abstract fun bind()
+    protected open fun bind() {}
     protected abstract fun listeners()
 
     override fun onDestroyView() {
