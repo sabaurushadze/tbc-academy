@@ -1,4 +1,4 @@
-package com.example.academy_tbc.data.service.common
+package com.example.academy_tbc.data.service.util
 
 import com.example.academy_tbc.domain.repository.datastore.DataStoreRepository
 import okhttp3.Interceptor
