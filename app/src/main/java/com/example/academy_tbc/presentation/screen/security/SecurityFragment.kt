@@ -108,9 +108,9 @@ class SecurityFragment : BaseFragment<FragmentSecurityBinding>(
 
         indicators.forEachIndexed { index, image ->
             if (index < code.length) {
-                image.setImageResource(R.drawable.filled_passcode)
+                image.setImageResource(R.drawable.ic_filled_passcode)
             } else {
-                image.setImageResource(R.drawable.empty_passcode)
+                image.setImageResource(R.drawable.ic_empty_passcode)
             }
         }
     }

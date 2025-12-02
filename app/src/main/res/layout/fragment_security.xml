@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:src="@drawable/empty_passcode"
+            android:src="@drawable/ic_empty_passcode"
             app:layout_constraintEnd_toStartOf="@id/ivCode2"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="11dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/empty_passcode"
+            android:src="@drawable/ic_empty_passcode"
             app:layout_constraintEnd_toStartOf="@id/ivCode3"
             app:layout_constraintStart_toEndOf="@id/ivCode1"
             app:layout_constraintTop_toBottomOf="@id/tvSubtitle" />
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="11dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/empty_passcode"
+            android:src="@drawable/ic_empty_passcode"
             app:layout_constraintEnd_toStartOf="@id/ivCode4"
             app:layout_constraintStart_toEndOf="@id/ivCode2"
             app:layout_constraintTop_toBottomOf="@id/tvSubtitle" />
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="11dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/empty_passcode"
+            android:src="@drawable/ic_empty_passcode"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/ivCode3"
             app:layout_constraintTop_toBottomOf="@id/tvSubtitle" />
