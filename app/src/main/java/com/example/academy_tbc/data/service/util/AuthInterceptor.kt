@@ -1,4 +1,4 @@
-package com.example.academy_tbc.data.service
+package com.example.academy_tbc.data.service.util
 
 import com.example.academy_tbc.data.preferences.PreferenceKeys
 import com.example.academy_tbc.domain.repository.datastore.DataStoreRepository
@@ -6,7 +6,6 @@ import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
-
 
 class AuthInterceptor @Inject constructor(
     private val dataStoreRepository: DataStoreRepository

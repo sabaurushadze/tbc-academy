@@ -1,7 +1,7 @@
 package com.example.academy_tbc.di
 
 import com.example.academy_tbc.BuildConfig
-import com.example.academy_tbc.data.service.AuthInterceptor
+import com.example.academy_tbc.data.service.util.AuthInterceptor
 import com.example.academy_tbc.domain.repository.datastore.DataStoreRepository
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
