@@ -9,7 +9,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import jakarta.inject.Singleton
+import javax.inject.Singleton
 
 private const val PREFERENCES_NAME = "user_prefs"
 val Context.dataStore by preferencesDataStore(name = PREFERENCES_NAME)

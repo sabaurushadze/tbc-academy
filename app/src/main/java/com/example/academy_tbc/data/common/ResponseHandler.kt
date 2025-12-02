@@ -2,7 +2,7 @@ package com.example.academy_tbc.data.common
 
 import com.example.academy_tbc.domain.common.AppError
 import com.example.academy_tbc.domain.resource.Resource
-import jakarta.inject.Inject
+import javax.inject.Inject
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
 import java.io.IOException

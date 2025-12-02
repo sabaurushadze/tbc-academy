@@ -1,15 +1,15 @@
 package com.example.academy_tbc.data.repository.login
 
 import com.example.academy_tbc.data.common.ResponseHandler
-import com.example.academy_tbc.data.mapper.resource.asResource
+import com.example.academy_tbc.data.common.asResource
 import com.example.academy_tbc.data.mapper.network.toDomain
 import com.example.academy_tbc.data.model.request.login.LogInRequestDto
 import com.example.academy_tbc.data.service.login.LogInApiService
 import com.example.academy_tbc.domain.model.login.LogInResponse
 import com.example.academy_tbc.domain.repository.login.LogInRepository
 import com.example.academy_tbc.domain.resource.Resource
-import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 class LogInRepositoryImpl @Inject constructor(
     private val responseHandler: ResponseHandler,

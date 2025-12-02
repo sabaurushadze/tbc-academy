@@ -22,7 +22,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(
     }
 
     private fun observeSideEffects() {
-        lifecycleCollectLatest(viewModel.sideEffect) { effect ->
+        lifecycleCollectLatest(viewModel.effect) { effect ->
             when (effect) {
                 SplashSideEffect.NavigateToHome -> findNavController().navigate(
                     SplashFragmentDirections.actionSplashFragmentToHomeFragment()

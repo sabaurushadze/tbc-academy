@@ -1,25 +1,21 @@
 package com.example.academy_tbc.presentation.screen.splash
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.academy_tbc.domain.usecase.datastore.GetTokenUseCase
+import com.example.academy_tbc.data.preferences.PreferenceKeys
+import com.example.academy_tbc.domain.repository.datastore.DataStoreRepository
+import com.example.academy_tbc.presentation.common.view.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jakarta.inject.Inject
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val getTokenUseCase: GetTokenUseCase,
-) : ViewModel() {
-    private val _sideEffect = MutableSharedFlow<SplashSideEffect>()
-    val sideEffect = _sideEffect.asSharedFlow()
-
+    private val dataStoreRepository: DataStoreRepository,
+) : BaseViewModel<Unit, SplashSideEffect, SplashEvent>(Unit) {
     private var splashJob: Job? = null
 
-    fun onEvent(event: SplashEvent) {
+    override fun onEvent(event: SplashEvent) {
         when (event) {
             SplashEvent.OnStartSplash -> onStartSplash()
             SplashEvent.OnStopSplash -> onStopSplash()
@@ -28,10 +24,11 @@ class SplashViewModel @Inject constructor(
 
     private fun onStartSplash() {
         splashJob = viewModelScope.launch {
-            if (getTokenUseCase().isEmpty()) {
-                _sideEffect.emit(SplashSideEffect.NavigateToOnboarding)
+            val token = dataStoreRepository.getOnce(PreferenceKeys.USER_TOKEN, "")
+            if (token.isEmpty()) {
+                sendEffect(SplashSideEffect.NavigateToOnboarding)
             } else {
-                _sideEffect.emit(SplashSideEffect.NavigateToHome)
+                sendEffect(SplashSideEffect.NavigateToHome)
             }
         }
     }

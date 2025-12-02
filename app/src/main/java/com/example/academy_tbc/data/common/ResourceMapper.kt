@@ -1,4 +1,4 @@
-package com.example.academy_tbc.data.mapper.resource
+package com.example.academy_tbc.data.common
 
 import com.example.academy_tbc.domain.resource.Resource
 import kotlinx.coroutines.flow.Flow

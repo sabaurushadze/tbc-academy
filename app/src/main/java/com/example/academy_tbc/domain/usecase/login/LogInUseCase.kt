@@ -20,10 +20,10 @@ class LogInUseCase @Inject constructor(
             email = email, password = password, rememberMe = rememberMe
         ).onEach { result ->
             if (result is Resource.Success) {
-                dataStoreRepository.putPreference(PreferenceKeys.USER_EMAIL, email)
+                dataStoreRepository.put(PreferenceKeys.USER_EMAIL, email)
 
                 if (rememberMe) {
-                    dataStoreRepository.putPreference(PreferenceKeys.USER_TOKEN, result.data.token)
+                    dataStoreRepository.put(PreferenceKeys.USER_TOKEN, result.data.token)
                 }
             }
         }

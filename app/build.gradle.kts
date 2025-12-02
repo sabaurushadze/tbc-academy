@@ -44,11 +44,26 @@ android {
         }
     }
 
+    buildTypes {
+        debug {
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"https://reqres.in/api/\""
+            )
+        }
+        release {
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"https://reqres.in/api/\""
+            )
+        }
+    }
+
     buildFeatures {
         viewBinding = true
-    }
-    kotlinOptions {
-        freeCompilerArgs = listOf("-XXLanguage:+PropertyParamAnnotationDefaultTargetMode")
+        buildConfig = true
     }
 }
 

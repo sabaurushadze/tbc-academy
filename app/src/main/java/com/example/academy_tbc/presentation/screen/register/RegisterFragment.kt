@@ -30,7 +30,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(
         setupInputs()
     }
     private fun observeSideEffects() {
-        lifecycleCollectLatest(viewModel.sideEffect) { effect ->
+        lifecycleCollectLatest(viewModel.effect) { effect ->
             when (effect) {
                 is RegisterSideEffect.NavigateToLogin -> {
                     setFragmentResult(REQ_KEY_EMAIL, bundleOf(BUNDLE_KEY_EMAIL to effect.email))

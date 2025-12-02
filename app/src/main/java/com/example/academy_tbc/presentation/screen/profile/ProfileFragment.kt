@@ -33,7 +33,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     }
 
     private fun observeSideEffect() {
-        lifecycleCollectLatest(viewModel.sideEffect) { effect ->
+        lifecycleCollectLatest(viewModel.effect) { effect ->
             when (effect) {
                 ProfileSideEffect.NavigateToLogIn -> findNavController().navigate(
                     ProfileFragmentDirections.actionProfileFragmentToLogInFragment()

@@ -15,7 +15,7 @@ class DataStoreRepositoryImpl @Inject constructor(
     private val dataStore: DataStore<Preferences>,
 ) : DataStoreRepository {
 
-    override suspend fun <T> putPreference(
+    override suspend fun <T> put(
         key: PreferenceKey<T>,
         value: T,
     ) {
@@ -24,14 +24,14 @@ class DataStoreRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun <T> getFirstPreference(
+    override suspend fun <T> getOnce(
         key: PreferenceKey<T>,
         defaultValue: T,
     ): T {
         return dataStore.data.first()[key.toDataStoreKey()] ?: defaultValue
     }
 
-    override fun <T> getPreference(
+    override fun <T> get(
         key: PreferenceKey<T>,
         defaultValue: T,
     ): Flow<T> {
@@ -40,13 +40,13 @@ class DataStoreRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun <T> removePreference(key: PreferenceKey<T>) {
+    override suspend fun <T> remove(key: PreferenceKey<T>) {
         dataStore.edit { preferences ->
             preferences.remove(key.toDataStoreKey())
         }
     }
 
-    override suspend fun clearAll() {
+    override suspend fun clear() {
         dataStore.edit { it.clear() }
     }
 }

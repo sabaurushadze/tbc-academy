@@ -1,26 +1,27 @@
 package com.example.academy_tbc.data.repository.users
 
-import com.example.academy_tbc.domain.common.AppError
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.example.academy_tbc.data.mapper.network.toDomain
-import com.example.academy_tbc.data.paging.users.PagingException
+import com.example.academy_tbc.data.paging.users.UsersPagingSource
 import com.example.academy_tbc.data.service.users.UsersApiService
 import com.example.academy_tbc.domain.model.users.GetUsers
 import com.example.academy_tbc.domain.repository.users.UsersRepository
-import jakarta.inject.Inject
+import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class UsersRepositoryImpl @Inject constructor(
-    private val authService: UsersApiService,
+    private val apiService: UsersApiService,
 ) : UsersRepository {
-    override suspend fun getUsers(page: Int): GetUsers {
-        val response = authService.getUsers(page)
-        return if (response.isSuccessful) {
-            response.body()?.toDomain() ?: throw PagingException(
-                appError = AppError.Server(response.code())
-            )
-        } else {
-            throw PagingException(
-                appError = AppError.Server(response.code())
-            )
+    override fun getUsers(config: PagingConfig): Flow<PagingData<GetUsers.GetUser>> {
+        return Pager(
+            config = config,
+            pagingSourceFactory = { UsersPagingSource(apiService) }
+        ).flow.map { pagingData ->
+            pagingData.map { it.toDomain() }
         }
     }
 }
