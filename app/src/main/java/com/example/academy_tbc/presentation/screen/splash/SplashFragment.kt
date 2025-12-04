@@ -13,10 +13,6 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(
 ) {
     private val viewModel: SplashViewModel by viewModels()
 
-    override fun bind() {
-        viewModel.onEvent(SplashEvent.OnStartSplash)
-    }
-
     override fun listeners() {
         observeSideEffects()
     }
@@ -34,6 +30,12 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(
             }
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.onEvent(SplashEvent.OnStartSplash)
+    }
+
 
     override fun onPause() {
         super.onPause()
