@@ -3,7 +3,7 @@ package com.example.academy_tbc.data.repository.datastore
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import com.example.academy_tbc.data.mapper.datastore.toDataStoreKey
+import com.example.academy_tbc.data.local.preferences.toDataStoreKey
 import com.example.academy_tbc.domain.common.PreferenceKey
 import com.example.academy_tbc.domain.repository.datastore.DataStoreRepository
 import kotlinx.coroutines.flow.Flow

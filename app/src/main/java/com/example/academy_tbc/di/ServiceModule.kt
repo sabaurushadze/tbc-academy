@@ -1,6 +1,6 @@
 package com.example.academy_tbc.di
 
-import com.example.academy_tbc.data.service.login.LogInApiService
+import com.example.academy_tbc.data.remote.service.users.UsersApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +13,7 @@ import javax.inject.Singleton
 object ServiceModule {
     @Provides
     @Singleton
-    fun provideLogInService(retrofit: Retrofit): LogInApiService {
-        return retrofit.create(LogInApiService::class.java)
+    fun provideUsersService(retrofit: Retrofit): UsersApiService {
+        return retrofit.create(UsersApiService::class.java)
     }
 }

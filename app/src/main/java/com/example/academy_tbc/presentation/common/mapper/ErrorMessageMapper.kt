@@ -9,7 +9,7 @@ fun AppError.toMessage(): Int {
     return when (this) {
         is AppError.Network -> R.string.no_internet_connection_please_try_again
         is AppError.Server -> when (code) {
-            400 -> R.string.user_with_this_email_cannot_be_registered
+            404 -> R.string.service_is_currently_unavailable
             else -> R.string.something_went_wrong_please_try_again
         }
 

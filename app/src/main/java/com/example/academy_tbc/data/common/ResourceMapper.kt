@@ -1,6 +1,6 @@
 package com.example.academy_tbc.data.common
 
-import com.example.academy_tbc.domain.resource.Resource
+import com.example.academy_tbc.domain.common.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

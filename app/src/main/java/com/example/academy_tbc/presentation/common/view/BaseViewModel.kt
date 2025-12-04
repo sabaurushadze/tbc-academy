@@ -29,5 +29,5 @@ abstract class BaseViewModel<STATE, EFFECT, EVENT>(
         }
     }
 
-    abstract fun onEvent(event: EVENT)
+    open fun onEvent(event: EVENT) {}
 }

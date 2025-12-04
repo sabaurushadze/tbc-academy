@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/logInFragment">
-
+    app:startDestination="@id/usersFragment">
     <fragment
-        android:id="@+id/logInFragment"
-        android:name="com.example.academy_tbc.presentation.screen.login.LogInFragment"
-        android:label="fragment_log_in"
-        tools:layout="@layout/fragment_log_in" />
+        android:id="@+id/usersFragment"
+        android:name="com.example.academy_tbc.presentation.screen.users.UsersFragment"
+        android:label="fragment_users"
+        tools:layout="@layout/fragment_users" />
 </navigation>

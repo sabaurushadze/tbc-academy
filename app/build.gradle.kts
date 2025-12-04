@@ -43,14 +43,14 @@ android {
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"https://reqres.in/api/\""
+                "\"https://mocki.io/v1/\""
             )
         }
         release {
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"https://reqres.in/api/\""
+                "\"https://mocki.io/v1/\""
             )
         }
     }
@@ -85,6 +85,9 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
     implementation(libs.kotlinx.serialization.json)
