@@ -1,10 +1,10 @@
-package com.example.academy_tbc.data.mapper.network
+package com.example.academy_tbc.presentation.screen.home.mapper
 
-import com.example.academy_tbc.data.model.response.stats.StatsResponseDto
 import com.example.academy_tbc.domain.model.stats.StatsResponse
+import com.example.academy_tbc.presentation.screen.home.StatsUi
 
-fun StatsResponseDto.toDomain(): StatsResponse {
-    return StatsResponse(
+fun StatsResponse.toPresentation(): StatsUi {
+    return StatsUi(
         location = location,
         altitudeM = altitudeM,
         title = title,

@@ -43,14 +43,14 @@ android {
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"https://reqres.in/api/\""
+                "\"https://mocki.io/v1/\""
             )
         }
         release {
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"https://reqres.in/api/\""
+                "\"https://mocki.io/v1/\""
             )
         }
     }
@@ -64,6 +64,9 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+    }
+    kotlinOptions {
+        freeCompilerArgs = listOf("-XXLanguage:+PropertyParamAnnotationDefaultTargetMode")
     }
 }
 
@@ -81,6 +84,7 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
     implementation(libs.retrofit)
+    implementation(libs.androidx.viewpager2)
     implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.hilt.android)
