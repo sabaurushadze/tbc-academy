@@ -2,17 +2,15 @@ package com.example.academy_tbc.presentation.screen.home
 
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.example.academy_tbc.databinding.FragmentHomeBinding
 import com.example.academy_tbc.presentation.common.view.BaseFragment
+import com.example.academy_tbc.presentation.extension.lifecycleCollect
+import com.example.academy_tbc.presentation.extension.lifecycleCollectLatest
 import com.example.academy_tbc.presentation.extension.showSnackBar
 import com.example.academy_tbc.presentation.screen.home.adapter.StatsAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 @AndroidEntryPoint
@@ -25,6 +23,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     override fun bind() {
         viewModel.onEvent(HomeEvent.LoadStats)
     }
+
     override fun listeners() {
         setupViewPager()
         observeSideEffects()
@@ -53,29 +52,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     }
 
     private fun observeSideEffects() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.effect.collect { effect ->
-                    when (effect) {
-
-
-                        is HomeSideEffect.ShowError -> binding.root.showSnackBar(getString(effect.error))
-                    }
-                }
+        lifecycleCollectLatest(viewModel.effect) { effect ->
+            when (effect) {
+                is HomeSideEffect.ShowError -> binding.root.showSnackBar(getString(effect.error))
             }
         }
     }
 
     private fun observeState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect { state ->
-                    binding.progressBar.isVisible = state.isLoading
+        lifecycleCollect(viewModel.state) { state ->
+            binding.progressBar.isVisible = state.isLoading
 
-                    if (state.stats != null) {
-                        statisticsAdapter.submitList(state.stats)
-                    }
-                }
+            if (state.stats != null) {
+                statisticsAdapter.submitList(state.stats)
             }
         }
     }
