@@ -9,8 +9,8 @@ import com.example.academy_tbc.R
 
 fun ImageView.loadImage(
     url: String?,
-    placeholderRes: Int = R.drawable.img_ryan,
-    errorRes: Int = R.drawable.ic_placeholder,
+    placeholderRes: Int = R.drawable.ic_placeholder,
+    errorRes: Int = R.drawable.img_ryan,
     enableCrossfade: Boolean = true,
 ) {
     this.load(url) {
