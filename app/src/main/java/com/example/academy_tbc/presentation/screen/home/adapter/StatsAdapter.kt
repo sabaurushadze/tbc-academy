@@ -41,7 +41,7 @@ class UserDiffUtil : DiffUtil.ItemCallback<StatsUi>() {
     override fun areItemsTheSame(
         oldItem: StatsUi, newItem: StatsUi
     ): Boolean {
-        return oldItem.location == newItem.location
+        return oldItem.title == newItem.title
     }
 
     override fun areContentsTheSame(
