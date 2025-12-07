@@ -1,9 +1,11 @@
 package com.example.academy_tbc.di
 
 import com.example.academy_tbc.data.repository.datastore.DataStoreRepositoryImpl
-import com.example.academy_tbc.data.repository.login.LogInRepositoryImpl
+import com.example.academy_tbc.data.repository.pc_parts.GetPcPartsRepositoryImpl
+import com.example.academy_tbc.data.repository.pc_parts.SearchPcPartsRepositoryImpl
 import com.example.academy_tbc.domain.repository.datastore.DataStoreRepository
-import com.example.academy_tbc.domain.repository.login.LogInRepository
+import com.example.academy_tbc.domain.repository.pc_parts.GetPcPartsRepository
+import com.example.academy_tbc.domain.repository.pc_parts.SearchPcPartsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -23,7 +25,14 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindLogInRepository(
-        impl: LogInRepositoryImpl,
-    ): LogInRepository
+    abstract fun bindGetPcPartsRepository(
+        impl: GetPcPartsRepositoryImpl,
+    ): GetPcPartsRepository
+
+
+    @Binds
+    @Singleton
+    abstract fun bindSearchPcPartsRepository(
+        impl: SearchPcPartsRepositoryImpl,
+    ): SearchPcPartsRepository
 }

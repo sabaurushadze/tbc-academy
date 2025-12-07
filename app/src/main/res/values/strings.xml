@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">academy-tbc</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="web_client_id">211635306572-mjrj77hs623hiar3qf8rhhn42u8i6hi6.apps.googleusercontent.com</string>
     <string name="no_internet_connection_please_try_again">No internet connection. Please try again</string>
     <string name="user_with_this_email_cannot_be_registered">User with this email cannot be registered</string>
     <string name="something_went_wrong_please_try_again">Something went wrong, please try again</string>
+    <string name="price">$%1$s</string>
+    <string name="price_before">$%1$s</string>
+    <string name="condition_new">New</string>
+    <string name="condition_open_box">Open box</string>
+    <string name="condition_pre_owned">Pre-owned</string>
+    <string name="filter">Filter</string>
+    <string name="sort">Sort</string>
+    <string name="search">Search</string>
 </resources>

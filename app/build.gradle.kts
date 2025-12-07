@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.dagger.hilt.android)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -38,19 +39,41 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
+    flavorDimensions += "mode"
+
+    productFlavors {
+        create("emulator") {
+            dimension = "mode"
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"http://10.0.2.2:3000/\""
+            )
+        }
+
+        create("device") {
+            dimension = "mode"
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"http://192.168.1.103:3000/\""
+            )
+        }
+    }
+
     buildTypes {
         debug {
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"https://reqres.in/api/\""
+                "\"http://192.168.1.103:3000/\""
             )
         }
         release {
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"https://reqres.in/api/\""
+                "\"http://192.168.1.103:3000/\""
             )
         }
     }
@@ -84,6 +107,11 @@ dependencies {
     implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.hilt.android)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.androidx.credentials.v130)
+    implementation(libs.androidx.credentials.play.services.auth.v130)
+    implementation(libs.googleid.v110)
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
