@@ -2,6 +2,7 @@ package com.example.academy_tbc.presentation.screen.home
 
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.academy_tbc.databinding.FragmentHomeBinding
@@ -35,15 +36,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     }
 
     override fun listeners() {
+        viewModel.onEvent(HomeEvent.GetParts)
         observeSideEffects()
         observeState()
         search()
+        signOut()
     }
 
     private fun observeSideEffects() {
         lifecycleCollectLatest(viewModel.effect) { effect ->
             when (effect) {
-                is HomeSideEffect.ShowError -> binding.root.showSnackBar(getString(effect.error))
+                is HomeSideEffect.ShowError -> binding.root.showSnackBar(effect.message)
+                HomeSideEffect.NavigateToSignIn -> findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToSignInFragment()
+                )
             }
         }
     }
@@ -52,6 +58,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         lifecycleCollect(viewModel.state) { state ->
             pcPartsAdapter.submitList(state.pcParts)
 
+        }
+    }
+
+    private fun signOut() {
+        binding.btnSort.setOnClickListener {
+            viewModel.onEvent(HomeEvent.SignOut)
         }
     }
 

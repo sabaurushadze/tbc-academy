@@ -1,8 +1,6 @@
 package com.example.academy_tbc.presentation.screen.home
 
-import androidx.annotation.StringRes
-
 sealed interface HomeSideEffect {
-    data class ShowError(@param:StringRes val error: Int) : HomeSideEffect
-
+    data class ShowError(val message: String) : HomeSideEffect
+    data object NavigateToSignIn : HomeSideEffect
 }

@@ -6,4 +6,6 @@
     <color name="ripple">#D7D7D7</color>
     <color name="gray">#707070</color>
     <color name="primary">#085FE3</color>
+    <color name="google_btn_text">#1F1F1F</color>
+    <color name="google_btn_background">#F2F2F2</color>
 </resources>

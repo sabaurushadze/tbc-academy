@@ -32,7 +32,21 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"http://192.168.1.104:3000/\""
+            )
         }
+        debug {
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"http://192.168.1.104:3000/\""
+            )
+        }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -56,24 +70,7 @@ android {
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"http://192.168.1.103:3000/\""
-            )
-        }
-    }
-
-    buildTypes {
-        debug {
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                "\"http://192.168.1.103:3000/\""
-            )
-        }
-        release {
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                "\"http://192.168.1.103:3000/\""
+                "\"http://192.168.1.104:3000/\""
             )
         }
     }
@@ -109,6 +106,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
     implementation(libs.androidx.credentials.v130)
     implementation(libs.androidx.credentials.play.services.auth.v130)
     implementation(libs.googleid.v110)
