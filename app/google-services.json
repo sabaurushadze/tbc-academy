@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "211635306572",
+    "project_id": "midtermpcshop",
+    "storage_bucket": "midtermpcshop.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:211635306572:android:5adae56520b94caeb874e9",
+        "android_client_info": {
+          "package_name": "com.example.academy_tbc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "211635306572-qhtqcqg4sjimhdh12dro7j2st76fccr9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.academy_tbc",
+            "certificate_hash": "691c9863cf7f3617085e6b1fe754c2b0b5c8e45a"
+          }
+        },
+        {
+          "client_id": "211635306572-mjrj77hs623hiar3qf8rhhn42u8i6hi6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfCaCtHlOnq-xVil3Vamo-1QhmyZSvgsU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "211635306572-mjrj77hs623hiar3qf8rhhn42u8i6hi6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
