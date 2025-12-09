@@ -1,6 +1,6 @@
 package com.example.academy_tbc.data.service.home
 
-import com.example.academy_tbc.data.model.response.home.LocationResponseDto
+import com.example.academy_tbc.data.model.response.home.location.LocationResponseDto
 import retrofit2.Response
 import retrofit2.http.GET
 

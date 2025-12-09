@@ -1,4 +1,4 @@
-package com.example.academy_tbc.data.model.response.home
+package com.example.academy_tbc.data.model.response.home.location
 
 import kotlinx.serialization.Serializable
 

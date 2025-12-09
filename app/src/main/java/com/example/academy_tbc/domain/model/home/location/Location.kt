@@ -1,4 +1,4 @@
-package com.example.academy_tbc.domain.model.location
+package com.example.academy_tbc.domain.model.home.location
 
 data class Location(
     val title: String,

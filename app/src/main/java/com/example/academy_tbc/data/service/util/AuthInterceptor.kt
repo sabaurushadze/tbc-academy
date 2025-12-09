@@ -1,28 +1,14 @@
 package com.example.academy_tbc.data.service.util
 
-import com.example.academy_tbc.domain.repository.datastore.DataStoreRepository
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
-class AuthInterceptor @Inject constructor(
-    private val dataStoreRepository: DataStoreRepository,
-) : Interceptor {
+class AuthInterceptor @Inject constructor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-//        val token = runBlocking {
-//            dataStoreRepository.getOnce(
-//                key = PreferenceKeys.USER_TOKEN,
-//                defaultValue = ""
-//            )
-//        }
 
         val newRequest = chain.request().newBuilder()
             .addHeader("x-api-key", "reqres_ee9cba06994043309236e823d4968682")
-            .apply {
-//                if (token.isNotEmpty()) {
-//                    Request.Builder.addHeader("Authorization", "Bearer $token")
-//                }
-            }
             .build()
 
         return chain.proceed(newRequest)

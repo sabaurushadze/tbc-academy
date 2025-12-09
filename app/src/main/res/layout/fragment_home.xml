@@ -4,22 +4,55 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvLocations"
+        android:id="@+id/rvHomeFeed"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        style="@style/CustomBottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_top_rectangle"
+        app:itemBackground="@drawable/nav_item_background"
+        app:itemIconTint="@drawable/nav_item_icon_selector"
+        app:itemTextColor="@color/gray"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
+
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:visibility="gone"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:indeterminateTint="@color/white"
-        android:layout_marginTop="44dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btnRetry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="@color/primary"
+        android:paddingHorizontal="20dp"
+        android:text="@string/retry"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

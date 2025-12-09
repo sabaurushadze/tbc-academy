@@ -10,22 +10,22 @@ import com.example.academy_tbc.presentation.extension.loadImage
 import com.example.academy_tbc.presentation.screen.home.model.LocationUi
 
 class LocationAdapter() :
-    ListAdapter<LocationUi, LocationAdapter.UserViewHolder>(UserDiffUtil()) {
+    ListAdapter<LocationUi, LocationAdapter.LocationViewHolder>(LocationDiffUtil()) {
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int,
-    ): UserViewHolder {
-        return UserViewHolder(
+    ): LocationViewHolder {
+        return LocationViewHolder(
             ItemLocationBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
     }
 
-    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    inner class UserViewHolder(private val binding: ItemLocationBinding) :
+    inner class LocationViewHolder(private val binding: ItemLocationBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(location: LocationUi) = with(binding) {
             ivLocation.loadImage(location.cover)
@@ -34,7 +34,7 @@ class LocationAdapter() :
     }
 }
 
-class UserDiffUtil : DiffUtil.ItemCallback<LocationUi>() {
+class LocationDiffUtil : DiffUtil.ItemCallback<LocationUi>() {
     override fun areItemsTheSame(
         oldItem: LocationUi, newItem: LocationUi,
     ): Boolean {
