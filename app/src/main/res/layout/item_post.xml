@@ -1,0 +1,146 @@
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:backgroundTint="@color/backgroundSecondary"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="8dp"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="19dp"
+        android:layout_marginTop="24dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivPostAuthorPfp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/mountain"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/CircleProfileImageView" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPostAuthor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:text="Alice Smith"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivPostAuthorPfp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCreatedAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="2dp"
+            android:text="20 April at 4:20 PM"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/ivPostAuthorPfp"
+            app:layout_constraintTop_toBottomOf="@id/tvPostAuthor" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:text="We’re interested in your ideas and would be glad to build something bigger out of it. "
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivPostAuthorPfp" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv1"
+            android:layout_width="0dp"
+            android:layout_height="154dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/mountain"
+            app:layout_constraintBottom_toBottomOf="@id/iv3"
+            app:layout_constraintEnd_toStartOf="@id/iv2"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDescription"
+            app:shapeAppearanceOverlay="@style/RoundImageView" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background"
+            android:visibility="visible"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toTopOf="@+id/iv3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv1"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:shapeAppearanceOverlay="@style/RoundImageView" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv3"
+            android:layout_width="0dp"
+            android:layout_height="71dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/mountain"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv1"
+            app:layout_constraintTop_toBottomOf="@+id/iv2"
+            app:shapeAppearanceOverlay="@style/RoundImageView" />
+
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="18dp"
+            app:dividerColor="@color/graySecondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv1" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:src="@drawable/ic_message"
+            app:layout_constraintEnd_toStartOf=""
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCommentAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7 Comments"
+            android:textColor="@color/gray"
+            app:layout_constraintStart_toEndOf="@id/icMessage"
+            app:layout_constraintTop_toBottomOf="@id/divider1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
+

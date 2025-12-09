@@ -31,28 +31,23 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"https://mocki.io/v1/\""
+            )
+        }
+        debug {
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"https://mocki.io/v1/\""
+            )
         }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    buildTypes {
-        debug {
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                "\"https://reqres.in/api/\""
-            )
-        }
-        release {
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                "\"https://reqres.in/api/\""
-            )
-        }
     }
 
     kotlin {
