@@ -6,6 +6,7 @@ import com.example.academy_tbc.presentation.util.DateFormatter.toPostDateString
 
 fun Post.toUi(): PostUi {
     return PostUi(
+        id = id,
         avatar = avatar,
         postDate = postDate.toPostDateString(),
         firstName = firstName,

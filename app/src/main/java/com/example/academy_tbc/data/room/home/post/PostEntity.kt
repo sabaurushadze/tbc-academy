@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class PostEntity(
-    @PrimaryKey val postDate: Long,
+    @PrimaryKey(autoGenerate = true) val id: Int,
+    val postDate: Long,
     val avatar: String,
     val firstName: String,
     val lastName: String,

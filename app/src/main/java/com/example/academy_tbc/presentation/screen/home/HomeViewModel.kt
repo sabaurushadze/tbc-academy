@@ -6,7 +6,9 @@ import com.example.academy_tbc.data.room.home.location.mapper.toDomain
 import com.example.academy_tbc.data.room.home.post.PostDao
 import com.example.academy_tbc.data.room.home.post.mapper.toDomain
 import com.example.academy_tbc.domain.resource.Resource
+import com.example.academy_tbc.domain.usecase.home.location.GetCachedLocationsUseCase
 import com.example.academy_tbc.domain.usecase.home.location.GetLocationsUseCase
+import com.example.academy_tbc.domain.usecase.home.post.GetCachedPostsUseCase
 import com.example.academy_tbc.domain.usecase.home.post.GetPostsUseCase
 import com.example.academy_tbc.presentation.common.mapper.toMessage
 import com.example.academy_tbc.presentation.common.view.BaseViewModel
@@ -21,10 +23,9 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getLocationsUseCase: GetLocationsUseCase,
     private val getPostsUseCase: GetPostsUseCase,
-    private val locationDao: LocationDao,
-    private val postDao: PostDao,
+    private val getCachedLocationsUseCase: GetCachedLocationsUseCase,
+    private val getCachedPostsUseCase: GetCachedPostsUseCase
 ) : BaseViewModel<HomeState, HomeSideEffect, HomeEvent>(HomeState()) {
-
 
     init {
         loadCachedData()
@@ -35,15 +36,13 @@ class HomeViewModel @Inject constructor(
 
     private fun loadCachedData() {
         viewModelScope.launch {
-            val cachedLocations = locationDao.getAll()
-                .map { list -> list.map { it.toDomain().toUi() } }
-                .firstOrNull() ?: emptyList()
-            val cachedPosts = postDao.getAll()
-                .map { list -> list.map { it.toDomain().toUi() } }
-                .firstOrNull() ?: emptyList()
+            getCachedPostsUseCase().collect { posts ->
+                updateState { copy(posts = posts.map { it.toUi() }) }
+            }
+            getCachedLocationsUseCase().collect { locations ->
+                updateState { copy(locations = locations.map { it.toUi() }) }
+            }
 
-            updateState { copy(locations = cachedLocations) }
-            updateState { copy(posts = cachedPosts) }
         }
     }
 

@@ -1,6 +1,5 @@
 package com.example.academy_tbc.presentation.screen.home
 
-import android.util.Log.d
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,10 +19,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     private val homeFeedAdapter by lazy { HomeFeedAdapter() }
 
     override fun bind() {
-        setUpHomeFeedAdapter()
-    }
-
-    private fun setUpHomeFeedAdapter() {
         binding.rvHomeFeed.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = homeFeedAdapter
@@ -55,20 +50,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
     private fun observeState() {
         lifecycleCollect(viewModel.state) { state ->
-            d("asdd", "Locations size: ${state.locations.size}, Posts size: ${state.posts.size}")
             binding.progressBar.isVisible = state.isLoading
             binding.btnRetry.isVisible = state.showRetryButton
+
             val items = mutableListOf<HomeFeedItem>()
-
-            if (state.locations.isNotEmpty()) {
-                items.add(HomeFeedItem.Locations(state.locations))
-            }
-
-            state.posts.forEach { post ->
-                items.add(HomeFeedItem.Post(post))
-            }
-
+            if (state.locations.isNotEmpty()) items.add(HomeFeedItem.Locations(state.locations))
+            if (state.posts.isNotEmpty()) items.add(HomeFeedItem.Posts(state.posts))
             homeFeedAdapter.submitList(items)
+
         }
     }
 }

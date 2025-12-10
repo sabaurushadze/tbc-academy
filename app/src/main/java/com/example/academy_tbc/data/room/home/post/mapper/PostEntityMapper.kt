@@ -5,6 +5,7 @@ import com.example.academy_tbc.domain.model.home.post.Post
 
 fun PostEntity.toDomain(): Post =
     Post(
+        id = id,
         avatar = avatar,
         postDate = postDate,
         firstName = firstName,

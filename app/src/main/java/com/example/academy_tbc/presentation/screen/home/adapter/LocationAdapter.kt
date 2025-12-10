@@ -38,7 +38,7 @@ class LocationDiffUtil : DiffUtil.ItemCallback<LocationUi>() {
     override fun areItemsTheSame(
         oldItem: LocationUi, newItem: LocationUi,
     ): Boolean {
-        return oldItem.title == newItem.title
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(

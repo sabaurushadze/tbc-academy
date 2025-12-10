@@ -2,6 +2,7 @@ package com.example.academy_tbc.data.common
 
 import com.example.academy_tbc.domain.common.AppError
 import com.example.academy_tbc.domain.resource.Resource
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
@@ -9,22 +10,17 @@ import java.io.IOException
 import java.net.SocketTimeoutException
 
 class ResponseHandler @Inject constructor() {
-    fun <T : Any> safeApiCall(call: suspend () -> Response<T>) = flow {
+    fun <T : Any> safeApiCall(call: suspend () -> Response<T>): Flow<Resource<T>> = flow {
         emit(Resource.Loading(isLoading = true))
-
         try {
             val response = call()
 
             if (response.isSuccessful) {
                 response.body()?.let {
-                    emit(Resource.Success(data = it))
+                    emit(Resource.Success(it))
                 }
             } else {
-                emit(
-                    Resource.Error(
-                        error = AppError.Server(code = response.code())
-                    )
-                )
+                emit(Resource.Error(AppError.Server(response.code())))
             }
 
         } catch (e: Throwable) {

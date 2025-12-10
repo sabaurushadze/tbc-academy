@@ -1,6 +1,7 @@
 package com.example.academy_tbc.domain.model.home.post
 
 data class Post(
+    val id: Int,
     val avatar: String,
     val postDate: Long,
     val firstName: String,

@@ -1,7 +1,7 @@
 package com.example.academy_tbc.di
 
-import com.example.academy_tbc.data.manager.ConnectivityObserverImpl
 import com.example.academy_tbc.domain.observer.ConnectivityObserver
+import com.example.academy_tbc.presentation.manager.ConnectivityObserverImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

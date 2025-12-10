@@ -1,6 +1,7 @@
 package com.example.academy_tbc.presentation.screen.home.model
 
 data class PostUi(
+    val id: Int,
     val avatar: String,
     val postDate: String,
     val firstName: String,

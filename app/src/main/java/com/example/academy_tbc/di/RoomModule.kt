@@ -2,8 +2,7 @@ package com.example.academy_tbc.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.academy_tbc.data.room.home.location.LocationDatabase
-import com.example.academy_tbc.data.room.home.post.PostDatabase
+import com.example.academy_tbc.data.room.home.common.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,31 +13,19 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
-
     @Provides
     @Singleton
-    fun provideLocationDatabase(@ApplicationContext context: Context): LocationDatabase {
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(
             context.applicationContext,
-            LocationDatabase::class.java,
+            AppDatabase::class.java,
             "location_database"
         ).build()
     }
 
     @Provides
-    fun provideLocationDao(db: LocationDatabase) = db.locationDao()
-
-
-    @Provides
-    @Singleton
-    fun providePostDatabase(@ApplicationContext context: Context): PostDatabase {
-        return Room.databaseBuilder(
-            context.applicationContext,
-            PostDatabase::class.java,
-            "post_database"
-        ).build()
-    }
+    fun provideLocationDao(db: AppDatabase) = db.locationDao()
 
     @Provides
-    fun providePostDao(db: PostDatabase) = db.postDao()
+    fun providePostDao(db: AppDatabase) = db.postDao()
 }

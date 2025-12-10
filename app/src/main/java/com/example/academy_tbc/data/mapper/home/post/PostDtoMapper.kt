@@ -14,6 +14,7 @@ fun PostResponseDto.toDomain(): Post {
         likesCount = likesCount,
         postDesc = postDesc,
         canComment = canComment,
-        canPostPhoto = canPostPhoto
+        canPostPhoto = canPostPhoto,
+        id = 0,
     )
 }

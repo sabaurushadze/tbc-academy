@@ -1,4 +1,4 @@
-package com.example.academy_tbc.data.manager
+package com.example.academy_tbc.presentation.manager
 
 import android.content.Context
 import android.net.ConnectivityManager

@@ -7,3 +7,6 @@ sealed class Resource<out T> {
     data class Error(val error: AppError) : Resource<Nothing>()
     data class Loading(val isLoading: Boolean) : Resource<Nothing>()
 }
+
+// data class iyo chashslili sub class hqondes
+//

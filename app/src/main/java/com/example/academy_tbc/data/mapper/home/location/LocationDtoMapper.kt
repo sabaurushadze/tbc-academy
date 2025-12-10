@@ -5,6 +5,7 @@ import com.example.academy_tbc.domain.model.home.location.Location
 
 fun LocationResponseDto.toDomain(): Location {
     return Location(
+        id = 0,
         title = title,
         cover = cover
     )
