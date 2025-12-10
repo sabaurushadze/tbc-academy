@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface PostRepository {
     fun getPosts(): Flow<Resource<List<Post>>>
+    fun getCachedPosts(): Flow<List<Post>>
 }
