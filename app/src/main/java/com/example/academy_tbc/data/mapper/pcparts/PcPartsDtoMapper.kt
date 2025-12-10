@@ -1,4 +1,4 @@
-package com.example.academy_tbc.data.mapper.network
+package com.example.academy_tbc.data.mapper.pcparts
 
 import com.example.academy_tbc.data.model.response.pc_parts.PcPartsResponseDto
 import com.example.academy_tbc.domain.model.pc_parts.Condition

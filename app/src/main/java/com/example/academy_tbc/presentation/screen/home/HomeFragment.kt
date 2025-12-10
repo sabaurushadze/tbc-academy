@@ -25,14 +25,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         PcPartsAdapter(onClick = {})
     }
 
-    override fun bind() = with(binding) {
-        rvParts.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        rvParts.adapter = pcPartsAdapter
-
-        val divider = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-        rvParts.addItemDecoration(divider)
-        rvParts.addItemDecoration(VerticalSpaceDecoration(4.dp))
+    override fun bind() {
+        setUpPcPartsAdapter()
     }
 
     override fun listeners() {
@@ -41,6 +35,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         observeState()
         search()
         signOut()
+    }
+
+    private fun setUpPcPartsAdapter() {
+        binding.rvParts.apply {
+            adapter = pcPartsAdapter
+            layoutManager = LinearLayoutManager(context)
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    DividerItemDecoration.VERTICAL
+                )
+            )
+            addItemDecoration(VerticalSpaceDecoration(4.dp))
+        }
     }
 
     private fun observeSideEffects() {

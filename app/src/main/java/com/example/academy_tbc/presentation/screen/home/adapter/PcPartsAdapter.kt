@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.academy_tbc.R
 import com.example.academy_tbc.databinding.ItemPcPartBinding
 import com.example.academy_tbc.presentation.extension.loadImage
-import com.example.academy_tbc.presentation.screen.home.PcPartUi
+import com.example.academy_tbc.presentation.screen.home.model.PcPartUi
 
 class PcPartsAdapter(
     val onClick: (PcPartUi) -> Unit
 ) :
-    ListAdapter<PcPartUi, PcPartsAdapter.UserViewHolder>(UserDiffUtil()) {
+    ListAdapter<PcPartUi, PcPartsAdapter.UserViewHolder>(PcPartsDiffUtil()) {
     override fun onCreateViewHolder(
         parent: ViewGroup, viewType: Int,
     ): UserViewHolder {
@@ -50,7 +50,7 @@ class PcPartsAdapter(
     }
 }
 
-class UserDiffUtil : DiffUtil.ItemCallback<PcPartUi>() {
+class PcPartsDiffUtil : DiffUtil.ItemCallback<PcPartUi>() {
     override fun areItemsTheSame(
         oldItem: PcPartUi, newItem: PcPartUi,
     ): Boolean {

@@ -19,4 +19,16 @@
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="sign_up">Sign up</string>
     <string name="dont_have_an_account">Dont have an account?</string>
+    <string name="gpu">GPU</string>
+    <string name="cpu">CPU</string>
+    <string name="motherboard">Motherboard</string>
+    <string name="ram">RAM</string>
+    <string name="ssd">SSD</string>
+    <string name="hdd">HDD</string>
+    <string name="cpu_cooler">CPU Cooler</string>
+    <string name="psu">PSU</string>
+    <string name="case_cooler">Case cooler</string>
+    <string name="pc_case">Case</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
 </resources>

@@ -238,5 +238,57 @@
       "memory": "16GB GDDR7",
       "powerDraw": "320W"
     }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "category": 1,
+      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5090/rtx_5090_24gb_1.png"
+    },
+    {
+      "id": 2,
+      "category": 2,
+      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/cpu/intel_i7.png"
+    },
+    {
+      "id": 3,
+      "category": 3,
+      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/motherboard/motherboard.png"
+    },
+    {
+      "id": 4,
+      "category": 4,
+      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/ram/ramfurybeast.png"
+    },
+    {
+      "id": 5,
+      "category": 5,
+      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/ssd/ssd990pro.png"
+    },
+    {
+      "id": 6,
+      "category": 6,
+      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/psu/psucorsair850.png"
+    },
+    {
+      "id": 7,
+      "category": 7,
+      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/cpu_cooler/cpucooler.png"
+    },
+    {
+      "id": 8,
+      "category": 8,
+      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/hdd/hdd_wd.png"
+    },
+    {
+      "id": 9,
+      "category": 9,
+      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/case_cooler/case_cooler.png"
+    },
+    {
+      "id": 10,
+      "category": 10,
+      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/case/lianlicase.png"
+    }
   ]
 }

@@ -54,4 +54,8 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/splashFragment"/>
     </fragment>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.academy_tbc.presentation.screen.category.CategoryFragment"
+        android:label="CategoryFragment" />
 </navigation>

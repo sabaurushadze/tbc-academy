@@ -1,7 +1,7 @@
 package com.example.academy_tbc.presentation.screen.home.mapper
 
 import com.example.academy_tbc.domain.model.pc_parts.PcPart
-import com.example.academy_tbc.presentation.screen.home.PcPartUi
+import com.example.academy_tbc.presentation.screen.home.model.PcPartUi
 
 fun PcPart.toUi(finalPrice: Float): PcPartUi {
     return PcPartUi(

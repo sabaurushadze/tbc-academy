@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.screen.home
+package com.example.academy_tbc.presentation.screen.home.model
 
 import androidx.annotation.StringRes
 
@@ -11,4 +11,3 @@ data class PcPartUi(
     val image: String,
     val hasDiscount: Boolean,
 )
-

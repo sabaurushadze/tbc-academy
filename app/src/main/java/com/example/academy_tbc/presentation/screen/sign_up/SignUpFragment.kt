@@ -19,6 +19,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
         observeSideEffects()
         signUpWithEmailAndPassword()
         observeState()
+        goBackToSignIn()
     }
 
     private fun observeState() {
@@ -50,7 +51,12 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
                 )
             )
         }
+    }
 
+    private fun goBackToSignIn() {
+        binding.btnBackToSignIn.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
     }
 
 

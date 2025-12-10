@@ -1,10 +1,12 @@
 package com.example.academy_tbc.di
 
 import com.example.academy_tbc.data.repository.auth.FirebaseAuthRepositoryImpl
+import com.example.academy_tbc.data.repository.category.CategoryRepositoryImpl
 import com.example.academy_tbc.data.repository.datastore.DataStoreRepositoryImpl
 import com.example.academy_tbc.data.repository.pc_parts.GetPcPartsRepositoryImpl
 import com.example.academy_tbc.data.repository.pc_parts.SearchPcPartsRepositoryImpl
 import com.example.academy_tbc.domain.repository.auth.AuthRepository
+import com.example.academy_tbc.domain.repository.category.CategoryRepository
 import com.example.academy_tbc.domain.repository.datastore.DataStoreRepository
 import com.example.academy_tbc.domain.repository.pc_parts.GetPcPartsRepository
 import com.example.academy_tbc.domain.repository.pc_parts.SearchPcPartsRepository
@@ -38,10 +40,18 @@ abstract class RepositoryModule {
         impl: SearchPcPartsRepositoryImpl,
     ): SearchPcPartsRepository
 
+    @Binds
+    @Singleton
+    abstract fun bindCategoryRepository(
+        impl: CategoryRepositoryImpl,
+    ): CategoryRepository
+
 
     @Binds
     @Singleton
     abstract fun bindAuthRepository(
         impl: FirebaseAuthRepositoryImpl,
     ): AuthRepository
+
+
 }
