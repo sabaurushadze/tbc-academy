@@ -6,11 +6,10 @@ import com.example.academy_tbc.domain.resource.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-//class SearchPcPartsUseCase @Inject constructor(
+//class GetPartsByCategoryUseCase @Inject constructor(
 //    private val searchPcPartsRepository: PcPartsRepository,
 //) {
 //    operator fun invoke(query: String): Flow<Resource<List<PcPart>>> {
-//        return searchPcPartsRepository.search(query)
+//        return searchPcPartsRepository.getPartsByCategory(query)
 //    }
-//
 //}

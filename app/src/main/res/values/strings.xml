@@ -31,4 +31,7 @@
     <string name="pc_case">Case</string>
     <string name="home">Home</string>
     <string name="profile">Profile</string>
+    <string name="parts">Parts</string>
+    <string name="highest_price">Highest Price</string>
+    <string name="lowest_price">Lowest Price</string>
 </resources>

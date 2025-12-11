@@ -30,7 +30,7 @@ class CategoryAdapter(
     inner class UserViewHolder(private val binding: ItemCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(pcPartUi: CategoryUi) = with(binding) {
-            tvCategory.text = root.context.getString(pcPartUi.category)
+            tvCategory.text = root.context.getString(pcPartUi.categoryRes)
             ivCategory.loadImage(pcPartUi.image)
 
             binding.root.setOnClickListener {

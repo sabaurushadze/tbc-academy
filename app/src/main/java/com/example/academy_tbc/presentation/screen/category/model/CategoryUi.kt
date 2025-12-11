@@ -5,5 +5,6 @@ import androidx.annotation.StringRes
 data class CategoryUi(
     val id: Int,
     val image: String,
-    @param:StringRes val category: Int,
+    val category: Int,
+    @param:StringRes val categoryRes: Int,
 )

@@ -2,11 +2,13 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+        android:id="@+id/appBarWithTitle"
         android:layout_width="match_parent"
+        android:backgroundTint="@color/white"
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -18,70 +20,52 @@
             app:statusBarScrim="@android:color/transparent">
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/searchContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/searchContainer"
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etSearch"
                     android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="44dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_edittext"
+                    android:backgroundTint="@color/whiteVariant"
+                    android:drawableStart="@drawable/ic_search"
+                    android:drawablePadding="16dp"
+                    android:hint="@string/search"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="@color/black" />
 
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/etSearch"
-                        android:layout_width="0dp"
-                        android:layout_height="44dp"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/rounded_edittext"
-                        android:backgroundTint="@color/whiteVariant"
-                        android:hint="@string/search"
-                        android:drawablePadding="16dp"
-                        android:drawableStart="@drawable/ic_search"
-                        android:imeOptions="actionSearch"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:paddingHorizontal="16dp"
-                        android:textColor="@color/black" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btnSort"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/small_ripple"
+                    android:backgroundTint="@color/whiteVariant"
+                    android:fontFamily="@font/roboto_bold"
+                    android:src="@drawable/ic_sort"
+                    android:text="@string/sort"
+                    android:textColor="@color/primary" />
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/filterSortContainer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_gravity="end"
-                    android:orientation="horizontal">
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnSort"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ripple_button"
-                        android:drawableEnd="@drawable/ic_sort"
-                        android:fontFamily="@font/roboto_bold"
-                        android:includeFontPadding="false"
-                        android:paddingHorizontal="8dp"
-                        android:text="@string/sort"
-                        android:textColor="@color/primary" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnFilter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/ripple_button"
-                        android:drawableEnd="@drawable/ic_filter"
-                        android:fontFamily="@font/roboto_bold"
-                        android:paddingHorizontal="8dp"
-                        android:text="@string/filter"
-                        android:textColor="@color/primary" />
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btnFilter"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/small_ripple"
+                    android:fontFamily="@font/roboto_bold"
+                    android:src="@drawable/ic_filter"
+                    android:text="@string/filter"
+                    android:textColor="@color/primary" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
