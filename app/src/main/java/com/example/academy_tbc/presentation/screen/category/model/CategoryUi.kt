@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 
 data class CategoryUi(
     val id: Int,
-    val image: String,
     val category: Int,
+    val selected: Boolean = false,
     @param:StringRes val categoryRes: Int,
 )

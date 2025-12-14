@@ -1,12 +1,13 @@
 package com.example.academy_tbc.presentation.screen.category.adapter
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.academy_tbc.R
 import com.example.academy_tbc.databinding.ItemCategoryBinding
-import com.example.academy_tbc.presentation.extension.loadImage
 import com.example.academy_tbc.presentation.screen.category.model.CategoryUi
 
 class CategoryAdapter(
@@ -29,12 +30,18 @@ class CategoryAdapter(
 
     inner class UserViewHolder(private val binding: ItemCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(pcPartUi: CategoryUi) = with(binding) {
-            tvCategory.text = root.context.getString(pcPartUi.categoryRes)
-            ivCategory.loadImage(pcPartUi.image)
+        fun bind(category: CategoryUi) = with(binding) {
+            tvCategory.text = root.context.getString(category.categoryRes)
 
-            binding.root.setOnClickListener {
-                onClick(pcPartUi)
+            if (category.selected) {
+                tvCategory.backgroundTintList = ColorStateList.valueOf(root.context.getColor(R.color.primary))
+                tvCategory.setTextColor(root.context.getColor(R.color.white))
+            } else {
+                tvCategory.backgroundTintList = ColorStateList.valueOf(root.context.getColor(R.color.white))
+                tvCategory.setTextColor(root.context.getColor(R.color.black))
+            }
+            binding.tvCategory.setOnClickListener {
+                onClick(category)
             }
         }
     }

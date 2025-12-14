@@ -5,15 +5,18 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isVisible
-import androidx.navigation.findNavController
+import androidx.navigation.NavController
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.academy_tbc.databinding.ActivityMainBinding
+import com.example.academy_tbc.presentation.extension.visibleIf
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,18 +29,52 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        initBottomNavigation()
+    }
 
-        val navController = findNavController(R.id.nav_host_fragment)
+    private fun initBottomNavigation() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+        navController.graph = navController.navInflater.inflate(R.navigation.nav_graph)
+
         binding.bottomNavigationView.setupWithNavController(navController)
+        binding.bottomNavigationView.setOnApplyWindowInsetsListener(null)
 
+        binding.bottomNavigationView.setOnItemReselectedListener { }
 
+        binding.bottomNavigationView.setOnItemSelectedListener { item ->
+            navController.navigate(
+                item.itemId,
+                null,
+                NavOptions.Builder()
+                    .setLaunchSingleTop(true)
+                    .setPopUpTo(
+                        R.id.homeFragment,
+                        inclusive = false,
+                        saveState = false
+                    )
+                    .setRestoreState(true)
+                    .build()
+            )
+            true
+        }
+        setBottomNavBarVisibility()
+    }
+
+    private fun getVisibleNavFragmentIds(): List<Int> {
+        return listOf(
+            R.id.homeFragment,
+        )
+    }
+
+    private fun setBottomNavBarVisibility() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.splashFragment,
-                R.id.signInFragment,
-                R.id.signUpFragment -> binding.bottomNavigationView.isVisible = false
-                else -> binding.bottomNavigationView.isVisible = true
-            }
+            binding.bottomNavigationView.visibleIf(
+                destination.id in getVisibleNavFragmentIds()
+            )
         }
     }
+
+
 }

@@ -1,6 +1,6 @@
-package com.example.academy_tbc.domain.model.pc_parts
+package com.example.academy_tbc.presentation.screen.home.model
 
-data class PcPartsQuery(
+data class PcPartsQueryUi(
     val titleLike: String = "",
     val category: Int? = null,
     val minPrice: Float? = null,

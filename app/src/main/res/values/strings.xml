@@ -34,4 +34,21 @@
     <string name="parts">Parts</string>
     <string name="highest_price">Highest Price</string>
     <string name="lowest_price">Lowest Price</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="invalid_credentials">Invalid credentials</string>
+    <string name="network_error">No internet connection</string>
+    <string name="user_already_exists">User already exists</string>
+    <string name="invalid_email_format">Invalid email format</string>
+    <string name="price_range">Price range</string>
+    <string name="min_price">Min price</string>
+    <string name="max_price">Max price</string>
+    <string name="condition">Condition</string>
+    <string name="open_box">Open box</string>
+    <string name="pre_owned">Pre-owned</string>
+    <string name="apply_filters">Apply filters</string>
+    <string name="please_enter_valid_numbers_for_price">Please enter valid numbers for price</string>
+    <string name="price_cannot_be_negative">Price cannot be negative</string>
+    <string name="min_price_cannot_be_greater_than_max_price">Min price cannot be greater than max price</string>
+    <string name="error_loading_data">Error loading data</string>
+    <string name="retry">Retry</string>
 </resources>

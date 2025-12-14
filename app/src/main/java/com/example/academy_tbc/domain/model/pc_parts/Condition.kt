@@ -1,9 +1,9 @@
 package com.example.academy_tbc.domain.model.pc_parts
 
-enum class Condition {
-    NEW,
-    OPEN_BOX,
-    PRE_OWNED;
+enum class Condition(val apiValue: String) {
+    NEW("new"),
+    OPEN_BOX("open box"),
+    PRE_OWNED("pre owned");
 
     companion object {
         fun fromString(value: String): Condition =

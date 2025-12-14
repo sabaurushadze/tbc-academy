@@ -10,22 +10,24 @@ import javax.inject.Inject
 
 class PcPartsPagingSource @Inject constructor(
     private val service: PcPartsService,
-    private val query: PcPartsQuery
+    private val query: PcPartsQuery,
 ) : PagingSource<Int, PcPart>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PcPart> {
         return try {
             val page = params.key ?: 1
+
             val response = service.search(
                 query = query.titleLike,
                 category = query.category,
                 minPrice = query.minPrice,
                 maxPrice = query.maxPrice,
+                brand = query.brand,
                 condition = query.condition,
                 sortBy = query.sortBy,
-                sortOrder = if (query.sortDescending) "desc" else "asc",
+                sortOrder = if (query.sortDescending) DESCENDING else ASCENDING,
                 page = page,
-                perPage = params.loadSize
+                perPage = PER_PAGE_COUNT
             )
 
             if (response.isSuccessful) {
@@ -48,6 +50,12 @@ class PcPartsPagingSource @Inject constructor(
             val page = state.closestPageToPosition(anchor)
             page?.prevKey?.plus(1) ?: page?.nextKey?.minus(1)
         }
+    }
+
+    companion object {
+        const val DESCENDING = "desc"
+        const val ASCENDING = "asc"
+        const val PER_PAGE_COUNT = 10
     }
 
 }

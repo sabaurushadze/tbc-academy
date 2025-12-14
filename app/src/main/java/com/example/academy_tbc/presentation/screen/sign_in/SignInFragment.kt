@@ -58,7 +58,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(
                 )
 
                 is SignInSideEffect.ShowError -> {
-                    binding.root.showSnackBar(effect.message)
+                    binding.root.showSnackBar(effect.error.getString(requireContext()))
                 }
             }
         }
@@ -111,7 +111,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(
                     request = request
                 )
                 handleSignIn(result.credential)
-            } catch (e: GetCredentialCancellationException) {
+            } catch (_: GetCredentialCancellationException) {
                 d("asdd", "User cancelled credential selection")
             } catch (e: GetCredentialException) {
                 d("asdd", "Credential error: ${e.message}")

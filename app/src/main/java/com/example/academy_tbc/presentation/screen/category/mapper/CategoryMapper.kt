@@ -9,6 +9,5 @@ fun Category.toUi(): CategoryUi {
         id = id,
         category = category,
         categoryRes = PcPartCategory.fromInt(category).toUiTextRes(),
-        image = image,
     )
 }

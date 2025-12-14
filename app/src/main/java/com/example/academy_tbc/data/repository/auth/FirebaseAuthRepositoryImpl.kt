@@ -2,6 +2,8 @@ package com.example.academy_tbc.data.repository.auth
 
 import com.example.academy_tbc.data.common.FirebaseResponseHandler
 import com.example.academy_tbc.data.mapper.auth.toDomainUser
+import com.example.academy_tbc.domain.common.AuthError
+import com.example.academy_tbc.domain.common.Resource
 import com.example.academy_tbc.domain.model.auth.User
 import com.example.academy_tbc.domain.repository.auth.AuthRepository
 import com.google.firebase.Firebase
@@ -39,35 +41,36 @@ class FirebaseAuthRepositoryImpl @Inject constructor(
         return Firebase.auth.currentUser?.toDomainUser()
     }
 
-    override fun signInWithGoogle(idToken: String) =
-        firebaseHandler.safeFirebaseCall {
+    override fun signInWithGoogle(idToken: String): Flow<Resource<Unit, AuthError>> {
+        return firebaseHandler.safeCall {
             val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
             Firebase.auth.signInWithCredential(firebaseCredential).await()
-            Unit
         }
+    }
 
-    override fun signIn(email: String, password: String) =
-        firebaseHandler.safeFirebaseCall {
+    override fun signIn(email: String, password: String): Flow<Resource<Unit, AuthError>> {
+        return firebaseHandler.safeCall {
             Firebase.auth.signInWithEmailAndPassword(email, password).await()
-            Unit
         }
+    }
 
 
-    override fun signUp(email: String, password: String) =
-        firebaseHandler.safeFirebaseCall {
+    override fun signUp(email: String, password: String): Flow<Resource<Unit, AuthError>> {
+        return firebaseHandler.safeCall {
             Firebase.auth.createUserWithEmailAndPassword(email, password).await()
-            Unit
         }
+    }
 
-    override fun signOut() =
-        firebaseHandler.safeFirebaseCall {
+    override fun signOut(): Flow<Resource<Unit, AuthError>> {
+        return firebaseHandler.safeCall {
             Firebase.auth.signOut()
         }
+    }
 
 
-    override fun deleteAccount() =
-        firebaseHandler.safeFirebaseCall {
+    override fun deleteAccount(): Flow<Resource<Unit, AuthError>> {
+        return firebaseHandler.safeCall {
             Firebase.auth.currentUser!!.delete().await()
-            Unit
         }
+    }
 }

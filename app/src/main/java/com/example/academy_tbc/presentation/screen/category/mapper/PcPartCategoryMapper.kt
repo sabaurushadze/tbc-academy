@@ -15,3 +15,4 @@ fun PcPartCategory.toUiTextRes(): Int = when (this) {
     PcPartCategory.CASE_COOLER -> R.string.case_cooler
     PcPartCategory.CASE -> R.string.pc_case
 }
+

@@ -1,10 +1,10 @@
 package com.example.academy_tbc.presentation.screen.home
 
-import com.example.academy_tbc.domain.model.pc_parts.PcPartsQuery
+import com.example.academy_tbc.presentation.screen.home.model.PcPartsQueryUi
 
 sealed class HomeEvent {
     data object GetParts : HomeEvent()
-    data class Search(val query: PcPartsQuery) : HomeEvent()
-    data class GetPartsByCategory(val query: PcPartsQuery) : HomeEvent()
-//    data object SignOut : HomeEvent()
+    data class Search(val query: PcPartsQueryUi) : HomeEvent()
+    data class GetPartsByCategory(val query: PcPartsQueryUi) : HomeEvent()
+    data class SaveCategory(val category: Int) : HomeEvent()
 }

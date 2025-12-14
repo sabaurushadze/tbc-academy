@@ -1,7 +1,8 @@
 package com.example.academy_tbc.domain.repository.auth
 
+import com.example.academy_tbc.domain.common.AuthError
 import com.example.academy_tbc.domain.model.auth.User
-import com.example.academy_tbc.domain.resource.Resource
+import com.example.academy_tbc.domain.common.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
@@ -10,9 +11,9 @@ interface AuthRepository {
     fun hasUser(): Boolean
     fun getUserProfile(): User?
 
-    fun signInWithGoogle(idToken: String): Flow<Resource<Unit>>
-    fun signIn(email: String, password: String): Flow<Resource<Unit>>
-    fun signUp(email: String, password: String): Flow<Resource<Unit>>
-    fun signOut(): Flow<Resource<Unit>>
-    fun deleteAccount(): Flow<Resource<Unit>>
+    fun signInWithGoogle(idToken: String): Flow<Resource<Unit, AuthError>>
+    fun signIn(email: String, password: String): Flow<Resource<Unit, AuthError>>
+    fun signUp(email: String, password: String): Flow<Resource<Unit, AuthError>>
+    fun signOut(): Flow<Resource<Unit, AuthError>>
+    fun deleteAccount(): Flow<Resource<Unit, AuthError>>
 }

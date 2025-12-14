@@ -1,38 +1,66 @@
 package com.example.academy_tbc.data.common
 
-import com.example.academy_tbc.domain.common.AppError
-import com.example.academy_tbc.domain.resource.Resource
+import com.example.academy_tbc.domain.common.ApiError
+import com.example.academy_tbc.domain.common.Resource
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import retrofit2.Response
-import java.io.IOException
-import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import javax.inject.Inject
+import kotlin.coroutines.cancellation.CancellationException
 
 class ResponseHandler @Inject constructor() {
-    fun <T : Any> safeApiCall(call: suspend () -> Response<T>) = flow {
-        emit(Resource.Loading(isLoading = true))
-
-        try {
-            val response = call()
-
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    emit(Resource.Success(data = it))
-                }
-            } else {
-                emit(
-                    Resource.Error(error = "")
-                )
-            }
-
-        } catch (e: Throwable) {
-            val appError = when (e) {
-                is SocketTimeoutException -> AppError.Network
-                is IOException -> AppError.Network
-                else -> AppError.Unknown
-            }
-//            emit(Resource.Error(error = appError))
+    fun <T> safeCall(call: suspend () -> Response<T>): Flow<Resource<T, ApiError>> {
+        return flow {
+            emit(Resource.Loading)
+            emit(safeCallNoLoading(call = call))
         }
-        emit(Resource.Loading(isLoading = false))
+
+    }
+
+    suspend fun <T> safeCallNoLoading(call: suspend () -> Response<T>): Resource<T, ApiError> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = call()
+                if (response.isSuccessful) {
+                    val body = response.body()
+                    if (body != null) {
+                        Resource.Success(body)
+                    } else {
+                        Resource.Error(ApiError.UNKNOWN)
+                    }
+                } else {
+                    val errorBodyString = response.errorBody()?.string()
+                    if (errorBodyString.isNullOrEmpty()) {
+                        Resource.Error(ApiError.UNKNOWN)
+                    } else {
+                        Resource.Error(
+                            ApiError.valueOf(
+                                ApiError.UNKNOWN.name
+                            )
+                        )
+
+                    }
+                }
+            } catch (e: Exception) {
+                when (e) {
+                    is CancellationException -> {
+                        throw e
+                    }
+
+                    is UnknownHostException -> {
+                        Resource.Error(ApiError.NETWORK_ERROR)
+                    }
+
+                    else -> {
+                        Resource.Error(ApiError.UNKNOWN)
+                    }
+                }
+
+            }
+
+        }
     }
 }

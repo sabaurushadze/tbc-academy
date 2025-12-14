@@ -16,7 +16,7 @@
         android:label="SignInFragment" >
         <action
             android:id="@+id/action_signInFragment_to_homeFragment"
-            app:destination="@id/categoryFragment"
+            app:destination="@id/homeFragment"
             app:popUpToInclusive="true"
             app:popUpTo="@id/signInFragment"/>
         <action
@@ -29,7 +29,7 @@
         android:label="SignUpFragment" >
         <action
             android:id="@+id/action_signUpFragment_to_homeFragment"
-            app:destination="@id/categoryFragment"
+            app:destination="@id/homeFragment"
             app:popUpToInclusive="true"
             app:popUpTo="@id/signInFragment"/>
     </fragment>
@@ -40,7 +40,7 @@
 
         <action
             android:id="@+id/action_splashFragment_to_homeFragment"
-            app:destination="@id/categoryFragment"
+            app:destination="@id/homeFragment"
             app:popUpToInclusive="true"
             app:popUpTo="@id/splashFragment"/>
         <action
@@ -48,16 +48,5 @@
             app:destination="@id/signInFragment"
             app:popUpToInclusive="true"
             app:popUpTo="@id/splashFragment"/>
-    </fragment>
-    <fragment
-        android:id="@+id/categoryFragment"
-        android:name="com.example.academy_tbc.presentation.screen.category.CategoryFragment"
-        android:label="CategoryFragment" >
-        <action
-            android:id="@+id/action_categoryFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/categoryFragment">
-        </action>
     </fragment>
 </navigation>

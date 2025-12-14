@@ -7,6 +7,7 @@
     <color name="ripple">#D7D7D7</color>
     <color name="gray">#707070</color>
     <color name="primary">#085FE3</color>
+    <color name="primarySecond">#5b9af9</color>
     <color name="primaryLight">#d6e6fe</color>
     <color name="colorSelected">#085FE3</color>
     <color name="colorUnselected">#484848</color>

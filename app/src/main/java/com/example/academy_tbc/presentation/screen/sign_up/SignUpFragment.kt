@@ -35,7 +35,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
                     SignUpFragmentDirections.actionSignUpFragmentToHomeFragment()
                 )
 
-                is SignUpSideEffect.ShowError -> binding.root.showSnackBar(effect.message)
+                is SignUpSideEffect.ShowError -> binding.root.showSnackBar(effect.error.getString(requireContext()))
             }
         }
     }

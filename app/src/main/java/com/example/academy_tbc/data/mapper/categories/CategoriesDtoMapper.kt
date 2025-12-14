@@ -10,3 +10,7 @@ fun CategoriesResponseDto.toDomain(): Category {
         image = image
     )
 }
+
+fun List<CategoriesResponseDto>.toDomain(): List<Category> {
+    return map { it.toDomain() }
+}
