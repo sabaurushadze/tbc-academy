@@ -1,8 +1,10 @@
 package com.example.academy_tbc.data.service.pc_parts
 
+import com.example.academy_tbc.data.model.response.part_details.PartDetailResponseDto
 import com.example.academy_tbc.data.model.response.pc_parts.PcPartsResponseDto
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface PcPartsService {
@@ -19,6 +21,12 @@ interface PcPartsService {
         @Query("_page") page: Int,
         @Query("_per_page") perPage: Int,
     ): Response<List<PcPartsResponseDto>>
+
+    @GET("pc_parts/{id}")
+    suspend fun getDetails(
+        @Path("id") id: Int
+    ): Response<PartDetailResponseDto>
+
 
     companion object {
         private const val ENDPOINT_PC_PARTS = "pc_parts"

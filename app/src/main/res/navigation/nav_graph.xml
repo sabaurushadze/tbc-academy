@@ -9,6 +9,9 @@
         android:name="com.example.academy_tbc.presentation.screen.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_partDetailFragment"
+            app:destination="@id/partDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
@@ -49,4 +52,19 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/splashFragment"/>
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.academy_tbc.presentation.screen.profile.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_signInFragment"
+            app:destination="@id/signInFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/partDetailFragment"
+        android:name="com.example.academy_tbc.presentation.screen.part_detail.PartDetailFragment"
+        android:label="PartDetailFragment" />
 </navigation>

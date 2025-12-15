@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.academy_tbc.R
 import com.example.academy_tbc.databinding.FragmentSignInBinding
 import com.example.academy_tbc.presentation.common.view.BaseFragment
+import com.example.academy_tbc.presentation.extension.hideKeyboard
 import com.example.academy_tbc.presentation.extension.lifecycleCollect
 import com.example.academy_tbc.presentation.extension.showSnackBar
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
@@ -72,6 +73,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(
 
     private fun signInWithEmailAndPassword() = with(binding) {
         btnSignIn.setOnClickListener {
+            root.hideKeyboard()
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
 

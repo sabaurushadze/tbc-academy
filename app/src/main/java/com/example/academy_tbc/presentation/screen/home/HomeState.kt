@@ -1,6 +1,6 @@
 package com.example.academy_tbc.presentation.screen.home
 
-import com.example.academy_tbc.presentation.screen.category.model.CategoryUi
+import com.example.academy_tbc.presentation.screen.home.category.model.CategoryUi
 import com.example.academy_tbc.presentation.screen.home.model.PcPartUi
 import com.example.academy_tbc.presentation.screen.home.model.PcPartsQueryUi
 

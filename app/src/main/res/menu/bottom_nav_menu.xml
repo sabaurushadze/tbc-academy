@@ -5,7 +5,7 @@
         android:title="@string/parts" />
 
     <item
-        android:id="@+id/signInFragment"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/ic_profile"
         android:title="@string/profile" />
 

@@ -8,14 +8,16 @@
       "price": 1105.99,
       "discount": 0,
       "quantity": 5,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 2,
@@ -25,14 +27,16 @@
       "price": 2599.45,
       "discount": 10,
       "quantity": 2,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4080super/rtx_4080super_16gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 3,
@@ -42,14 +46,16 @@
       "price": 1099.49,
       "discount": 0,
       "quantity": 1,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 4,
@@ -59,14 +65,16 @@
       "price": 2689.23,
       "discount": 5,
       "quantity": 5,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5070ti/rtx_5070ti_16gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 5,
@@ -76,14 +84,16 @@
       "price": 3499.99,
       "discount": 0,
       "quantity": 2,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5090/rtx_5090_24gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 6,
@@ -93,14 +103,16 @@
       "price": 1954,
       "discount": 0,
       "quantity": 1,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4070ti/rtx_4070ti_12gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 7,
@@ -110,14 +122,16 @@
       "price": 1785.23,
       "discount": 5,
       "quantity": 5,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4070/rtx_4070_12gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 8,
@@ -127,14 +141,16 @@
       "price": 1490,
       "discount": 0,
       "quantity": 2,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060ti/rtx_4060ti_8gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 9,
@@ -144,14 +160,16 @@
       "price": 1730,
       "discount": 0,
       "quantity": 1,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/3090/rtx_3090_24gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 10,
@@ -161,14 +179,16 @@
       "price": 1590,
       "discount": 20,
       "quantity": 5,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/3080ti/rtx_3080ti_12gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 11,
@@ -178,14 +198,16 @@
       "price": 1300,
       "discount": 0,
       "quantity": 2,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/3080/rtx_3080_10gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 12,
@@ -195,14 +217,16 @@
       "price": 1250,
       "discount": 0,
       "quantity": 1,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/3070ti/rtx_3070ti_8gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 13,
@@ -212,14 +236,16 @@
       "price": 1200,
       "discount": 0,
       "quantity": 1,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/3070/rtx_3070_8gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 14,
@@ -229,14 +255,16 @@
       "price": 900,
       "discount": 0,
       "quantity": 1,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/3060/rtx_3060_12gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 15,
@@ -246,14 +274,16 @@
       "price": 1105.99,
       "discount": 0,
       "quantity": 5,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 16,
@@ -263,14 +293,16 @@
       "price": 2599.45,
       "discount": 10,
       "quantity": 2,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4080super/rtx_4080super_16gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 17,
@@ -280,14 +312,16 @@
       "price": 1099.49,
       "discount": 0,
       "quantity": 1,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 18,
@@ -297,14 +331,16 @@
       "price": 2689.23,
       "discount": 5,
       "quantity": 5,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5070ti/rtx_5070ti_16gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 19,
@@ -314,14 +350,16 @@
       "price": 3499.99,
       "discount": 0,
       "quantity": 2,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5090/rtx_5090_24gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 20,
@@ -331,14 +369,16 @@
       "price": 1105.99,
       "discount": 0,
       "quantity": 5,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 21,
@@ -348,14 +388,16 @@
       "price": 2599.45,
       "discount": 10,
       "quantity": 2,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4080super/rtx_4080super_16gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 22,
@@ -365,14 +407,16 @@
       "price": 1099.49,
       "discount": 0,
       "quantity": 1,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 23,
@@ -382,14 +426,16 @@
       "price": 2689.23,
       "discount": 5,
       "quantity": 5,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5070ti/rtx_5070ti_16gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 24,
@@ -399,14 +445,16 @@
       "price": 3499.99,
       "discount": 0,
       "quantity": 2,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5090/rtx_5090_24gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 25,
@@ -416,14 +464,16 @@
       "price": 1954,
       "discount": 0,
       "quantity": 1,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4070ti/rtx_4070ti_12gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 26,
@@ -433,14 +483,16 @@
       "price": 1785.23,
       "discount": 5,
       "quantity": 5,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4070/rtx_4070_12gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 27,
@@ -450,14 +502,16 @@
       "price": 1490,
       "discount": 0,
       "quantity": 2,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060ti/rtx_4060ti_8gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 28,
@@ -467,14 +521,16 @@
       "price": 1730,
       "discount": 0,
       "quantity": 1,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/3090/rtx_3090_24gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 29,
@@ -484,14 +540,16 @@
       "price": 1590,
       "discount": 20,
       "quantity": 5,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/3080ti/rtx_3080ti_12gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 30,
@@ -501,14 +559,16 @@
       "price": 1300,
       "discount": 0,
       "quantity": 2,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/3080/rtx_3080_10gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 31,
@@ -518,14 +578,16 @@
       "price": 1250,
       "discount": 0,
       "quantity": 1,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/3070ti/rtx_3070ti_8gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 32,
@@ -535,14 +597,16 @@
       "price": 1200,
       "discount": 0,
       "quantity": 1,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/3070/rtx_3070_8gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 33,
@@ -552,14 +616,16 @@
       "price": 900,
       "discount": 0,
       "quantity": 1,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/3060/rtx_3060_12gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 34,
@@ -569,14 +635,16 @@
       "price": 1105.99,
       "discount": 0,
       "quantity": 5,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 35,
@@ -586,14 +654,16 @@
       "price": 2599.45,
       "discount": 10,
       "quantity": 2,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4080super/rtx_4080super_16gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 36,
@@ -603,14 +673,16 @@
       "price": 1099.49,
       "discount": 0,
       "quantity": 1,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 37,
@@ -620,14 +692,16 @@
       "price": 2689.23,
       "discount": 5,
       "quantity": 5,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5070ti/rtx_5070ti_16gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     },
     {
       "id": 38,
@@ -637,66 +711,58 @@
       "price": 3499.99,
       "discount": 0,
       "quantity": 2,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5090/rtx_5090_24gb_1.png",
+      "images": [
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png",
+        "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5060/rtx_5060_8gb_1.png"
+      ],
       "description": "A high-end next-gen GPU designed for 4K and AI workloads.",
-      "uploadDate": "2024-12-06",
       "brand": "MSI",
-      "model": "RTX 5080 Gaming Trio OC",
-      "clockSpeed": "2.58 GHz",
-      "memory": "16GB GDDR7",
-      "powerDraw": "320W"
+      "warranty": 3,
+      "model": "RTX 5080",
+      "memorySize": "16GB GDDR7"
     }
   ],
   "categories": [
     {
       "id": 1,
-      "category": 1,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/5090/rtx_5090_24gb_1.png"
+      "category": 1
     },
     {
       "id": 2,
-      "category": 2,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/cpu/intel_i7.png"
+      "category": 2
     },
     {
       "id": 3,
-      "category": 3,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/motherboard/motherboard.png"
+      "category": 3
     },
     {
       "id": 4,
-      "category": 4,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/ram/ramfurybeast.png"
+      "category": 4
     },
     {
       "id": 5,
-      "category": 5,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/ssd/ssd990pro.png"
+      "category": 5
     },
     {
       "id": 6,
-      "category": 6,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/psu/psucorsair850.png"
+      "category": 6
     },
     {
       "id": 7,
-      "category": 7,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/cpu_cooler/cpucooler.png"
+      "category": 7
     },
     {
       "id": 8,
-      "category": 8,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/hdd/hdd_wd.png"
+      "category": 8
     },
     {
       "id": 9,
-      "category": 9,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/case_cooler/case_cooler.png"
+      "category": 9
     },
     {
       "id": 10,
-      "category": 10,
-      "image": "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/case/lianlicase.png"
+      "category": 10
     }
   ]
 }

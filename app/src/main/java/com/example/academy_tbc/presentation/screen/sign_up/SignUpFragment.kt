@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.academy_tbc.databinding.FragmentSignUpBinding
 import com.example.academy_tbc.presentation.common.view.BaseFragment
+import com.example.academy_tbc.presentation.extension.hideKeyboard
 import com.example.academy_tbc.presentation.extension.lifecycleCollect
 import com.example.academy_tbc.presentation.extension.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,9 +43,9 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
 
     private fun signUpWithEmailAndPassword() = with(binding) {
         btnSignUp.setOnClickListener {
+            root.hideKeyboard()
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
-
             viewModel.onEvent(
                 SignUpEvent.SignUpWithEmailAndPassword(
                     email = email, password = password

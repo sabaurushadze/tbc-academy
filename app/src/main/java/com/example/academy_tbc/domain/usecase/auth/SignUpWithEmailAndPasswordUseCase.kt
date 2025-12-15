@@ -1,6 +1,6 @@
 package com.example.academy_tbc.domain.usecase.auth
 
-import com.example.academy_tbc.domain.common.AuthError
+import com.example.academy_tbc.domain.model.auth.AuthError
 import com.example.academy_tbc.domain.common.Resource
 import com.example.academy_tbc.domain.repository.auth.AuthRepository
 import kotlinx.coroutines.flow.Flow

@@ -2,7 +2,7 @@ package com.example.academy_tbc.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.academy_tbc.data.mapper.pcparts.toDomain
+import com.example.academy_tbc.data.mapper.pc_parts.toDomain
 import com.example.academy_tbc.data.service.pc_parts.PcPartsService
 import com.example.academy_tbc.domain.model.pc_parts.PcPart
 import com.example.academy_tbc.domain.model.pc_parts.PcPartsQuery

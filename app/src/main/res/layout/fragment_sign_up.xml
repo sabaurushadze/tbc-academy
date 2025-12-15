@@ -27,6 +27,7 @@
         android:backgroundTint="@color/whiteVariant"
         android:hint="@string/email"
         android:maxLines="1"
+        android:inputType="text"
         android:paddingHorizontal="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,6 +41,7 @@
         android:background="@drawable/rounded_edittext"
         android:backgroundTint="@color/whiteVariant"
         android:hint="@string/password"
+        android:inputType="textPassword"
         android:maxLines="1"
         android:paddingHorizontal="24dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,8 +73,7 @@
         android:backgroundTint="@color/whiteVariant"
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar"

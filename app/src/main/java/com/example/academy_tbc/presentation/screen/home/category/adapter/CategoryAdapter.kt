@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.screen.category.adapter
+package com.example.academy_tbc.presentation.screen.home.category.adapter
 
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.academy_tbc.R
 import com.example.academy_tbc.databinding.ItemCategoryBinding
-import com.example.academy_tbc.presentation.screen.category.model.CategoryUi
+import com.example.academy_tbc.presentation.screen.home.category.model.CategoryUi
 
 class CategoryAdapter(
     val onClick: (CategoryUi) -> Unit,

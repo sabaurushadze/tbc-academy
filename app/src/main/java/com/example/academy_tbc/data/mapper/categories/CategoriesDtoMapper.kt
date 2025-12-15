@@ -7,7 +7,6 @@ fun CategoriesResponseDto.toDomain(): Category {
     return Category(
         id = id,
         category = category,
-        image = image
     )
 }
 

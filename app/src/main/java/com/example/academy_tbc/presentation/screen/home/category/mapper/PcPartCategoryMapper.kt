@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.screen.category.mapper
+package com.example.academy_tbc.presentation.screen.home.category.mapper
 
 import com.example.academy_tbc.R
 import com.example.academy_tbc.domain.model.categories.PcPartCategory

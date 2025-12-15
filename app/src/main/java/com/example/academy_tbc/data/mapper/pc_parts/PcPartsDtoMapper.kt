@@ -1,4 +1,4 @@
-package com.example.academy_tbc.data.mapper.pcparts
+package com.example.academy_tbc.data.mapper.pc_parts
 
 import com.example.academy_tbc.data.model.response.pc_parts.PcPartsResponseDto
 import com.example.academy_tbc.domain.model.pc_parts.Condition
@@ -11,6 +11,6 @@ fun PcPartsResponseDto.toDomain(): PcPart {
         condition = Condition.fromString(condition),
         price = price,
         discount = discount,
-        image = image
+        images = images
     )
 }

@@ -8,6 +8,6 @@ data class PcPartUi(
     @param:StringRes val conditionTextRes: Int,
     val price: String,
     val priceBefore: String,
-    val image: String,
+    val images: List<String>,
     val hasDiscount: Boolean,
 )

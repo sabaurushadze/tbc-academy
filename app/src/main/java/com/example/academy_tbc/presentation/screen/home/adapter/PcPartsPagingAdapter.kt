@@ -32,7 +32,10 @@ class PcPartsPagingAdapter(
     inner class UserViewHolder(private val binding: ItemPcPartBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(pcPartUi: PcPartUi) = with(binding) {
-            ivPcPart.loadImage(pcPartUi.image)
+            ivPcPart.loadImage(
+                url = pcPartUi.images.first(),
+                placeholderRes = R.drawable.generic_placeholder
+            )
             tvTitle.text = pcPartUi.title
             tvPrice.text = root.context.getString(R.string.price, pcPartUi.price)
             tvPriceBefore.isVisible = pcPartUi.hasDiscount

@@ -1,7 +1,7 @@
 package com.example.academy_tbc.presentation.screen.sign_in.mapper
 
 import com.example.academy_tbc.R
-import com.example.academy_tbc.domain.common.AuthError
+import com.example.academy_tbc.domain.model.auth.AuthError
 import com.example.academy_tbc.presentation.common.message.GenericString
 
 fun AuthError.toGenericString(): GenericString {

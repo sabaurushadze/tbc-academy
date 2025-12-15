@@ -6,5 +6,4 @@ import kotlinx.serialization.Serializable
 data class CategoriesResponseDto(
     val id: Int,
     val category: Int,
-    val image: String,
 )

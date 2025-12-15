@@ -13,8 +13,8 @@ import com.google.android.material.snackbar.Snackbar
 
 fun ImageView.loadImage(
     url: String?,
-    placeholderRes: Int = R.color.whiteVariant,
-    errorRes: Int = R.color.whiteVariant,
+    placeholderRes: Int = R.drawable.generic_placeholder,
+    errorRes: Int = R.drawable.generic_placeholder,
     enableCrossfade: Boolean = true,
 ) {
     this.load(url) {

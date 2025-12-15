@@ -8,10 +8,10 @@ import com.example.academy_tbc.domain.common.Resource
 import com.example.academy_tbc.domain.common.isLoading
 import com.example.academy_tbc.domain.usecase.categories.GetCategoriesUseCase
 import com.example.academy_tbc.domain.usecase.pc_parts.CalculateSalePriceUseCase
-import com.example.academy_tbc.domain.usecase.pc_parts.paging.GetPcPartsPagingUseCase
+import com.example.academy_tbc.domain.usecase.pc_parts.GetPcPartsPagingUseCase
 import com.example.academy_tbc.presentation.common.view.BaseViewModel
-import com.example.academy_tbc.presentation.screen.category.mapper.toGenericString
-import com.example.academy_tbc.presentation.screen.category.mapper.toUi
+import com.example.academy_tbc.presentation.screen.home.category.mapper.toGenericString
+import com.example.academy_tbc.presentation.screen.home.category.mapper.toUi
 import com.example.academy_tbc.presentation.screen.home.mapper.toDomain
 import com.example.academy_tbc.presentation.screen.home.mapper.toUi
 import com.example.academy_tbc.presentation.screen.home.model.PcPartUi

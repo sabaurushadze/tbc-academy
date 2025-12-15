@@ -6,5 +6,5 @@ data class PcPart(
     val condition: Condition,
     val price: Float,
     val discount: Int,
-    val image: String,
+    val images: List<String>,
 )

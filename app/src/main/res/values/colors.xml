@@ -6,6 +6,7 @@
     <color name="whiteVariant">#f2f2f2</color>
     <color name="ripple">#D7D7D7</color>
     <color name="gray">#707070</color>
+    <color name="grayLight">#c3c3c3</color>
     <color name="primary">#085FE3</color>
     <color name="primarySecond">#5b9af9</color>
     <color name="primaryLight">#d6e6fe</color>

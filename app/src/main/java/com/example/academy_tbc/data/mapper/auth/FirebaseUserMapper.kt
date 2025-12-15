@@ -8,5 +8,6 @@ fun FirebaseUser?.toDomainUser(): User {
         id = this.uid,
         email = this.email.orEmpty(),
         displayName = this.displayName.orEmpty(),
+        photoUrl = photoUrl.toString()
     )
 }

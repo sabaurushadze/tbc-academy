@@ -51,4 +51,19 @@
     <string name="min_price_cannot_be_greater_than_max_price">Min price cannot be greater than max price</string>
     <string name="error_loading_data">Error loading data</string>
     <string name="retry">Retry</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="username_cannot_be_empty">Username cannot be empty</string>
+    <string name="username_cannot_exceed_22_characters">Username cannot exceed 22 characters</string>
+    <string name="username_must_be_at_least_3_characters">Username must be at least 3 characters</string>
+    <string name="username_changed">Username changed!</string>
+    <string name="email_is_empty">Email is empty</string>
+    <string name="password_is_empty">Password is empty</string>
+    <string name="wrong_email_format">Wrong email format</string>
+    <string name="email_must_be_at_least_6_characters">Email must be at least 6 characters</string>
+    <string name="password_must_be_at_least_6_characters">Password must be at least 6 characters</string>
+    <string name="email_must_be_less_than_28_characters">Email must be less than 28 characters</string>
+    <string name="password_must_be_less_than_28_characters">Password must be less than 28 characters</string>
+    <string name="current_image_position">%1$d of %2$d</string>
+    <string name="username">Username:</string>
+    <string name="item">Item</string>
 </resources>

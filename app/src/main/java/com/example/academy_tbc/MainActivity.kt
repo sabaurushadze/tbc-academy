@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
     private fun getVisibleNavFragmentIds(): List<Int> {
         return listOf(
             R.id.homeFragment,
+            R.id.profileFragment
         )
     }
 

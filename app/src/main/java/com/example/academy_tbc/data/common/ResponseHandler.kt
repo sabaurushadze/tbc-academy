@@ -1,5 +1,6 @@
 package com.example.academy_tbc.data.common
 
+import android.util.Log.d
 import com.example.academy_tbc.domain.common.ApiError
 import com.example.academy_tbc.domain.common.Resource
 import kotlinx.coroutines.Dispatchers
@@ -29,13 +30,17 @@ class ResponseHandler @Inject constructor() {
                     if (body != null) {
                         Resource.Success(body)
                     } else {
+                        d("asdd", "called in first")
                         Resource.Error(ApiError.UNKNOWN)
                     }
                 } else {
                     val errorBodyString = response.errorBody()?.string()
                     if (errorBodyString.isNullOrEmpty()) {
+                        d("asdd", "called in second")
                         Resource.Error(ApiError.UNKNOWN)
+
                     } else {
+                        d("asdd", "called in third")
                         Resource.Error(
                             ApiError.valueOf(
                                 ApiError.UNKNOWN.name
@@ -55,6 +60,8 @@ class ResponseHandler @Inject constructor() {
                     }
 
                     else -> {
+
+                        d("asdd", "${e.localizedMessage}")
                         Resource.Error(ApiError.UNKNOWN)
                     }
                 }

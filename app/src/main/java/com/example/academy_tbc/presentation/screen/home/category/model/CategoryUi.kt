@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.screen.category.model
+package com.example.academy_tbc.presentation.screen.home.category.model
 
 import androidx.annotation.StringRes
 

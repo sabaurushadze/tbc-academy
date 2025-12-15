@@ -10,7 +10,7 @@ fun PcPart.toUi(finalPrice: Float): PcPartUi {
         conditionTextRes = condition.toUiTextRes(),
         price = "%.2f".format(finalPrice),
         priceBefore = "%.2f".format(price),
-        image = image,
+        images = images,
         hasDiscount = discount > 0
     )
 }

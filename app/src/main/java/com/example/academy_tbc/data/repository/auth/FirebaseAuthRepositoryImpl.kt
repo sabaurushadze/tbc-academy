@@ -2,14 +2,15 @@ package com.example.academy_tbc.data.repository.auth
 
 import com.example.academy_tbc.data.common.FirebaseResponseHandler
 import com.example.academy_tbc.data.mapper.auth.toDomainUser
-import com.example.academy_tbc.domain.common.AuthError
 import com.example.academy_tbc.domain.common.Resource
+import com.example.academy_tbc.domain.model.auth.AuthError
 import com.example.academy_tbc.domain.model.auth.User
 import com.example.academy_tbc.domain.repository.auth.AuthRepository
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
+import com.google.firebase.auth.userProfileChangeRequest
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -58,6 +59,19 @@ class FirebaseAuthRepositoryImpl @Inject constructor(
     override fun signUp(email: String, password: String): Flow<Resource<Unit, AuthError>> {
         return firebaseHandler.safeCall {
             Firebase.auth.createUserWithEmailAndPassword(email, password).await()
+        }
+    }
+
+    override fun updateProfile(
+        displayName: String,
+    ): Flow<Resource<Unit, AuthError>> {
+        return firebaseHandler.safeCall {
+            val user = Firebase.auth.currentUser
+
+            val request = userProfileChangeRequest {
+                displayName.let { this.displayName = it }
+            }
+            user?.updateProfile(request)?.await()
         }
     }
 

@@ -9,5 +9,5 @@ data class PcPartsResponseDto(
     val condition: String,
     val price: Float,
     val discount: Int,
-    val image: String,
+    val images: List<String>,
 )

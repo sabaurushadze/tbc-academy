@@ -5,11 +5,11 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface CategoriesService {
-    @GET(ENDPOINT_CATEGOIRES)
+    @GET(ENDPOINT_CATEGORIES)
     suspend fun getCategories(): Response<List<CategoriesResponseDto>>
 
     companion object {
-        private const val ENDPOINT_CATEGOIRES = "categories"
+        private const val ENDPOINT_CATEGORIES = "categories"
 
     }
 }

@@ -1,4 +1,4 @@
-package com.example.academy_tbc.domain.usecase.pc_parts.paging
+package com.example.academy_tbc.domain.usecase.pc_parts
 
 import androidx.paging.PagingData
 import com.example.academy_tbc.domain.model.pc_parts.PcPart

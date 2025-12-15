@@ -4,5 +4,4 @@ import com.example.academy_tbc.presentation.common.message.GenericString
 
 sealed interface HomeSideEffect {
     data class ShowError(val error: GenericString) : HomeSideEffect
-//    data object NavigateToSignIn : HomeSideEffect
 }

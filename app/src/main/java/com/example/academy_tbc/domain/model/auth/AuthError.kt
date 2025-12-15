@@ -1,4 +1,6 @@
-package com.example.academy_tbc.domain.common
+package com.example.academy_tbc.domain.model.auth
+
+import com.example.academy_tbc.domain.common.ResourceError
 
 enum class AuthError : ResourceError {
     UNKNOWN,

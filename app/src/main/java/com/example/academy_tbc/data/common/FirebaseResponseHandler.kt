@@ -1,6 +1,6 @@
 package com.example.academy_tbc.data.common
 
-import com.example.academy_tbc.domain.common.AuthError
+import com.example.academy_tbc.domain.model.auth.AuthError
 import com.example.academy_tbc.domain.common.Resource
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException

@@ -2,8 +2,11 @@ package com.example.academy_tbc.presentation.screen.home
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.academy_tbc.R
@@ -13,7 +16,6 @@ import com.example.academy_tbc.presentation.extension.dp
 import com.example.academy_tbc.presentation.extension.hideKeyboard
 import com.example.academy_tbc.presentation.extension.lifecycleCollectLatest
 import com.example.academy_tbc.presentation.extension.showSnackBar
-import com.example.academy_tbc.presentation.screen.category.adapter.CategoryAdapter
 import com.example.academy_tbc.presentation.screen.home.FilterBottomSheet.Companion.BUNDLE_KEY_CONDITION
 import com.example.academy_tbc.presentation.screen.home.FilterBottomSheet.Companion.BUNDLE_KEY_MAX_PRICE
 import com.example.academy_tbc.presentation.screen.home.FilterBottomSheet.Companion.BUNDLE_KEY_MIN_PRICE
@@ -23,6 +25,7 @@ import com.example.academy_tbc.presentation.screen.home.SortBottomSheet.Companio
 import com.example.academy_tbc.presentation.screen.home.adapter.PcPartsLoadStateAdapter
 import com.example.academy_tbc.presentation.screen.home.adapter.PcPartsPagingAdapter
 import com.example.academy_tbc.presentation.screen.home.adapter.VerticalSpaceDecoration
+import com.example.academy_tbc.presentation.screen.home.category.adapter.CategoryAdapter
 import com.example.academy_tbc.presentation.screen.home.model.PcPartsQueryUi
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,7 +36,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     private val viewModel: HomeViewModel by viewModels()
     private val pcPartsPagingAdapter by lazy {
         PcPartsPagingAdapter(
-            onClick = {}
+            onClick = { pcPart ->
+                setFragmentResult(REQUEST_KEY_ID, bundleOf(BUNDLE_KEY_ID to pcPart.id))
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPartDetailFragment())
+            }
         )
     }
 
@@ -173,5 +179,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
         private const val BOTTOM_SHEET_SORT_TAG = "sheet_sort"
         private const val BOTTOM_SHEET_FILTER_TAG = "sheet_filter"
+
+        const val REQUEST_KEY_ID = "request_key_id"
+        const val BUNDLE_KEY_ID = "bundle_key_id"
     }
 }
