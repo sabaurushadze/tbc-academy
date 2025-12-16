@@ -63,7 +63,7 @@
             app:popUpToInclusive="true"
             />
     </fragment>
-    <fragment
+    <dialog
         android:id="@+id/partDetailFragment"
         android:name="com.example.academy_tbc.presentation.screen.part_detail.PartDetailFragment"
         android:label="PartDetailFragment" />

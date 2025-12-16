@@ -21,7 +21,9 @@ class PcPartsRepositoryImpl @Inject constructor(
         return Pager(
             config = PagingConfig(
                 pageSize = pageSize,
-                enablePlaceholders = false
+                enablePlaceholders = true,
+                initialLoadSize = pageSize * 2,
+                prefetchDistance = pageSize / 2
             ),
             pagingSourceFactory = { PcPartsPagingSource(query = query, service = service) }
         ).flow

@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.screen.home.adapter
+package com.example.academy_tbc.presentation.screen.home.adapter.decoration
 
 import android.graphics.Rect
 import android.view.View

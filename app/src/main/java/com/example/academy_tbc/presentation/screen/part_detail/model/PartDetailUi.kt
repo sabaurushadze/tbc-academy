@@ -1,10 +1,12 @@
 package com.example.academy_tbc.presentation.screen.part_detail.model
 
+import androidx.annotation.StringRes
+
 data class PartDetailUi(
     val id: Int,
     val title: String,
     val category: Int,
-    val condition: String,
+    @param:StringRes val condition: Int,
     val price: Float,
     val discount: Int,
     val images: List<String>,

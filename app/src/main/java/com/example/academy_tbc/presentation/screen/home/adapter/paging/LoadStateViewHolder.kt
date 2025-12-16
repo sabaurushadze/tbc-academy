@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.screen.home.adapter
+package com.example.academy_tbc.presentation.screen.home.adapter.paging
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

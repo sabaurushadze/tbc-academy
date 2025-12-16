@@ -326,7 +326,7 @@
     {
       "id": 18,
       "title": "GeForce RTX 5070Ti 16GB",
-      "category": 2,
+      "category": 3,
       "condition": "pre owned",
       "price": 2689.23,
       "discount": 5,
@@ -345,7 +345,7 @@
     {
       "id": 19,
       "title": "GeForce RTX 5090 24GB",
-      "category": 2,
+      "category": 3,
       "condition": "open box",
       "price": 3499.99,
       "discount": 0,
@@ -364,7 +364,7 @@
     {
       "id": 20,
       "title": "GeForce RTX 4060 8GB",
-      "category": 1,
+      "category": 3,
       "condition": "new",
       "price": 1105.99,
       "discount": 0,
@@ -383,7 +383,7 @@
     {
       "id": 21,
       "title": "GeForce RTX 4080 SUPER 16GB",
-      "category": 1,
+      "category": 4,
       "condition": "open box",
       "price": 2599.45,
       "discount": 10,
@@ -402,7 +402,7 @@
     {
       "id": 22,
       "title": "GeForce RTX 5060 8GB",
-      "category": 1,
+      "category": 4,
       "condition": "pre owned",
       "price": 1099.49,
       "discount": 0,
@@ -421,7 +421,7 @@
     {
       "id": 23,
       "title": "GeForce RTX 5070Ti 16GB",
-      "category": 1,
+      "category": 5,
       "condition": "pre owned",
       "price": 2689.23,
       "discount": 5,
@@ -440,7 +440,7 @@
     {
       "id": 24,
       "title": "GeForce RTX 5090 24GB",
-      "category": 1,
+      "category": 6,
       "condition": "open box",
       "price": 3499.99,
       "discount": 0,
@@ -459,7 +459,7 @@
     {
       "id": 25,
       "title": "GeForce RTX 4070Ti 12GB",
-      "category": 1,
+      "category": 7,
       "condition": "new",
       "price": 1954,
       "discount": 0,
@@ -478,7 +478,7 @@
     {
       "id": 26,
       "title": "GeForce RTX 4070 12GB",
-      "category": 1,
+      "category": 8,
       "condition": "pre owned",
       "price": 1785.23,
       "discount": 5,
@@ -497,7 +497,7 @@
     {
       "id": 27,
       "title": "GeForce RTX 4060Ti 8GB",
-      "category": 1,
+      "category": 10,
       "condition": "open box",
       "price": 1490,
       "discount": 0,
@@ -516,7 +516,7 @@
     {
       "id": 28,
       "title": "GeForce RTX 3090 24GB",
-      "category": 1,
+      "category": 9,
       "condition": "open box",
       "price": 1730,
       "discount": 0,
@@ -535,7 +535,7 @@
     {
       "id": 29,
       "title": "GeForce RTX 3080Ti 12GB",
-      "category": 1,
+      "category": 10,
       "condition": "pre owned",
       "price": 1590,
       "discount": 20,

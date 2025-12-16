@@ -22,9 +22,9 @@ import com.example.academy_tbc.presentation.screen.home.FilterBottomSheet.Compan
 import com.example.academy_tbc.presentation.screen.home.FilterBottomSheet.Companion.REQUEST_KEY_FILTER
 import com.example.academy_tbc.presentation.screen.home.SortBottomSheet.Companion.BUNDLE_KEY_CHECKED_ID
 import com.example.academy_tbc.presentation.screen.home.SortBottomSheet.Companion.REQUEST_KEY_SORT
-import com.example.academy_tbc.presentation.screen.home.adapter.PcPartsLoadStateAdapter
-import com.example.academy_tbc.presentation.screen.home.adapter.PcPartsPagingAdapter
-import com.example.academy_tbc.presentation.screen.home.adapter.VerticalSpaceDecoration
+import com.example.academy_tbc.presentation.screen.home.adapter.paging.PcPartsLoadStateAdapter
+import com.example.academy_tbc.presentation.screen.home.adapter.paging.PcPartsPagingAdapter
+import com.example.academy_tbc.presentation.screen.home.adapter.decoration.VerticalSpaceDecoration
 import com.example.academy_tbc.presentation.screen.home.category.adapter.CategoryAdapter
 import com.example.academy_tbc.presentation.screen.home.model.PcPartsQueryUi
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,7 +48,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             PcPartsLoadStateAdapter { pcPartsPagingAdapter.retry() }
         )
     }
-
 
     private val categoriesAdapter by lazy {
         CategoryAdapter(
@@ -105,21 +104,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
     private fun setUpCategoriesAdapter() {
         binding.rvCategories.apply {
+            itemAnimator = null
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = categoriesAdapter
             setPadding(12.dp, 0, 12.dp, 0)
         }
     }
 
-    private fun onFilterClick() {
-        binding.btnFilter.setOnClickListener {
-            val filterBottomSheet = FilterBottomSheet()
-            filterBottomSheet.show(parentFragmentManager, BOTTOM_SHEET_FILTER_TAG)
-        }
-    }
 
     private fun setUpPcPartsAdapter() {
         binding.rvParts.apply {
+            itemAnimator = null
             adapter = pcPartsAdapterWithFooter
             layoutManager = LinearLayoutManager(context)
             addItemDecoration(
@@ -156,6 +151,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         }
     }
 
+    private fun onFilterClick() {
+        binding.btnFilter.setOnClickListener {
+            val categoryId = viewModel.state.value.category
+            setFragmentResult(REQUEST_KEY_ID_FILTER, bundleOf(BUNDLE_KEY_ID_FILTER to categoryId))
+            val filterBottomSheet = FilterBottomSheet()
+            filterBottomSheet.show(parentFragmentManager, BOTTOM_SHEET_FILTER_TAG)
+        }
+    }
+
     private fun onSortClick() {
         binding.btnSort.setOnClickListener {
             val sheet = SortBottomSheet()
@@ -181,6 +185,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         private const val BOTTOM_SHEET_FILTER_TAG = "sheet_filter"
 
         const val REQUEST_KEY_ID = "request_key_id"
+        const val REQUEST_KEY_ID_FILTER = "request_key_id_filter"
         const val BUNDLE_KEY_ID = "bundle_key_id"
+        const val BUNDLE_KEY_ID_FILTER = "bundle_key_id_filter"
     }
 }
