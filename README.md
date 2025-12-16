@@ -25,3 +25,4 @@ Users will always have categories on sight, so they can quickly change each comp
 - Safe Args
 - Jetpack navigation
 - Fragments
+- Fragment Result API
