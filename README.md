@@ -1,7 +1,7 @@
 # Android TBC Midterm Project
 
 
-##Why this app?##
+## Why this app? ##
 
 After I've been notified that I was accepted on this course, I began searching for Computer parts to build a new computer.
 Most of the time I searched on my phone and I really had a bad experience. Almost all PC shop websites in Georgia have an awful mobile design. I would not have wasted so much time, if only it was more user friendly. So I decided to give it a try and see Is it really that challenging? Can I do it?
