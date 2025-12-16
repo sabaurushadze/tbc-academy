@@ -9,5 +9,5 @@ data class HomeState(
     val pcParts: List<PcPartUi> = emptyList(),
     val categories: List<CategoryUi> = listOf(),
     val category: Int = 1,
-    val query: PcPartsQueryUi = PcPartsQueryUi(),
+    val query: PcPartsQueryUi = PcPartsQueryUi(category = 1),
 )

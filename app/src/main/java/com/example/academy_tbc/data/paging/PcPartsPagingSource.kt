@@ -4,6 +4,12 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.academy_tbc.data.mapper.pc_parts.toDomain
 import com.example.academy_tbc.data.service.pc_parts.PcPartsService
+import com.example.academy_tbc.domain.common.Constants.ASCENDING
+import com.example.academy_tbc.domain.common.Constants.BRAND
+import com.example.academy_tbc.domain.common.Constants.CONDITION
+import com.example.academy_tbc.domain.common.Constants.DESCENDING
+import com.example.academy_tbc.domain.common.Constants.MODEL
+import com.example.academy_tbc.domain.common.Constants.PER_PAGE_COUNT
 import com.example.academy_tbc.domain.model.pc_parts.PcPart
 import com.example.academy_tbc.domain.model.pc_parts.PcPartsQuery
 import javax.inject.Inject
@@ -22,12 +28,13 @@ class PcPartsPagingSource @Inject constructor(
                 category = query.category,
                 minPrice = query.minPrice,
                 maxPrice = query.maxPrice,
-                brand = query.brand,
-                condition = query.condition,
+                brand = query.filters[BRAND],
+                model = query.filters[MODEL],
+                condition = query.filters[CONDITION],
                 sortBy = query.sortBy,
                 sortOrder = if (query.sortDescending) DESCENDING else ASCENDING,
                 page = page,
-                perPage = PER_PAGE_COUNT
+                perPage = PER_PAGE_COUNT,
             )
 
             if (response.isSuccessful) {
@@ -50,12 +57,6 @@ class PcPartsPagingSource @Inject constructor(
             val page = state.closestPageToPosition(anchor)
             page?.prevKey?.plus(1) ?: page?.nextKey?.minus(1)
         }
-    }
-
-    companion object {
-        const val DESCENDING = "desc"
-        const val ASCENDING = "asc"
-        const val PER_PAGE_COUNT = 10
     }
 
 }

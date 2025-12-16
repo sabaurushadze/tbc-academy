@@ -2,12 +2,10 @@ package com.example.academy_tbc.di
 
 import com.example.academy_tbc.data.repository.auth.FirebaseAuthRepositoryImpl
 import com.example.academy_tbc.data.repository.category.CategoryRepositoryImpl
-import com.example.academy_tbc.data.repository.datastore.DataStoreRepositoryImpl
 import com.example.academy_tbc.data.repository.part_details.PartDetailsRepositoryImpl
 import com.example.academy_tbc.data.repository.pc_parts.PcPartsRepositoryImpl
 import com.example.academy_tbc.domain.repository.auth.AuthRepository
 import com.example.academy_tbc.domain.repository.category.CategoryRepository
-import com.example.academy_tbc.domain.repository.datastore.DataStoreRepository
 import com.example.academy_tbc.domain.repository.part_details.PartDetailsRepository
 import com.example.academy_tbc.domain.repository.pc_parts.PcPartsRepository
 import dagger.Binds
@@ -20,12 +18,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
-
-    @Binds
-    @Singleton
-    abstract fun bindDataStoreRepository(
-        impl: DataStoreRepositoryImpl,
-    ): DataStoreRepository
 
     @Binds
     @Singleton

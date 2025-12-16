@@ -2,7 +2,7 @@ package com.example.academy_tbc.presentation.screen.sign_up.mapper
 
 import com.example.academy_tbc.R
 import com.example.academy_tbc.domain.model.auth.AuthValidationError
-import com.example.academy_tbc.presentation.common.message.GenericString
+import com.example.academy_tbc.presentation.common.text.GenericString
 
 fun AuthValidationError.toGenericString(): GenericString {
     val stringRes = when (this) {

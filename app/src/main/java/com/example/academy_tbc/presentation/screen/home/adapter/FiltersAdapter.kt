@@ -2,17 +2,22 @@ package com.example.academy_tbc.presentation.screen.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.CheckBox
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.academy_tbc.databinding.ItemFilterCheckboxGroupBinding
 import com.example.academy_tbc.databinding.ItemFilterPriceRangeBinding
+import com.example.academy_tbc.presentation.extension.hideKeyboard
 import com.example.academy_tbc.presentation.screen.home.model.FilterUi
+import com.example.academy_tbc.presentation.screen.home.model.SelectedFilters
 
 
-
-class FiltersAdapter :
+class FiltersAdapter(
+    private val onFilterChanged: (SelectedFilters) -> Unit,
+) :
     ListAdapter<FilterUi, RecyclerView.ViewHolder>(ItemFilterDiffUtil()) {
 
     companion object {
@@ -35,12 +40,11 @@ class FiltersAdapter :
                     ItemFilterCheckboxGroupBinding.inflate(inflater, parent, false)
                 )
 
-            TYPE_PRICE_RANGE ->
+            else ->
                 PriceRangeViewHolder(
                     ItemFilterPriceRangeBinding.inflate(inflater, parent, false)
                 )
 
-            else -> error("Unknown viewType")
         }
     }
 
@@ -53,36 +57,93 @@ class FiltersAdapter :
                 (holder as PriceRangeViewHolder).bind(item)
         }
     }
-    class CheckboxGroupViewHolder(
-        private val binding: ItemFilterCheckboxGroupBinding
+
+    inner class CheckboxGroupViewHolder(
+        private val binding: ItemFilterCheckboxGroupBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: FilterUi.CheckboxGroup) {
-            binding.tvTitle.text = item.title
-
-            binding.container.removeAllViews()
+        fun bind(item: FilterUi.CheckboxGroup) = with(binding) {
+            tvTitle.text = item.titleRes?.let { root.context.getString(it) }
+            container.removeAllViews()
 
             item.options.forEach { option ->
-                val checkBox = CheckBox(binding.root.context).apply {
-                    text = option.label
+                val checkBox = CheckBox(root.context).apply {
+                    text = option.labelRes?.let { root.context.getString(it) } ?: option.label
                     isChecked = option.isChecked
+
+                    setOnCheckedChangeListener { _, checked ->
+                        option.isChecked = checked
+                        onFilterChanged(getCurrentFilters())
+                    }
                 }
-                binding.container.addView(checkBox)
+                container.addView(checkBox)
             }
         }
     }
 
-    class PriceRangeViewHolder(
-        private val binding: ItemFilterPriceRangeBinding
+    inner class PriceRangeViewHolder(
+        private val binding: ItemFilterPriceRangeBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: FilterUi.PriceRange) {
-            binding.etMin.setText(item.minPrice.orEmpty())
-            binding.etMax.setText(item.maxPrice.orEmpty())
+        fun bind(item: FilterUi.PriceRange) = with(binding) {
+            etMin.setText(item.minPrice.orEmpty())
+            etMax.setText(item.maxPrice.orEmpty())
+
+            etMin.isFocusableInTouchMode = true
+            etMin.imeOptions = EditorInfo.IME_ACTION_DONE
+            etMax.isFocusableInTouchMode = true
+            etMax.imeOptions = EditorInfo.IME_ACTION_DONE
+
+            etMin.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    etMin.clearFocus()
+                    root.hideKeyboard()
+                    true
+                } else false
+            }
+            etMax.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    etMax.clearFocus()
+                    root.hideKeyboard()
+                    true
+                } else false
+            }
+
+            etMin.addTextChangedListener {
+                item.minPrice = it?.toString()
+                onFilterChanged(getCurrentFilters())
+            }
+
+            etMax.addTextChangedListener {
+                item.maxPrice = it?.toString()
+                onFilterChanged(getCurrentFilters())
+            }
         }
     }
 
+    private fun getCurrentFilters(): SelectedFilters {
+        var minPrice: Float? = null
+        var maxPrice: Float? = null
+        val selectedOptions = mutableMapOf<String, List<String>>()
 
+        currentList.forEach { filter ->
+            when (filter) {
+                is FilterUi.PriceRange -> {
+                    minPrice = filter.minPrice?.toFloatOrNull()
+                    maxPrice = filter.maxPrice?.toFloatOrNull()
+                }
+
+                is FilterUi.CheckboxGroup -> {
+                    val checkedIds = filter.options
+                        .filter { it.isChecked }
+                        .map { it.id }
+                    if (checkedIds.isNotEmpty()) selectedOptions[filter.filterKey] = checkedIds
+                }
+            }
+        }
+
+        return SelectedFilters(minPrice, maxPrice, selectedOptions)
+    }
 }
 
 class ItemFilterDiffUtil : DiffUtil.ItemCallback<FilterUi>() {
@@ -97,5 +158,4 @@ class ItemFilterDiffUtil : DiffUtil.ItemCallback<FilterUi>() {
     ): Boolean {
         return oldItem == newItem
     }
-
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">academy-tbc</string>
+    <string name="app_name">EzTech</string>
     <string name="web_client_id">211635306572-mjrj77hs623hiar3qf8rhhn42u8i6hi6.apps.googleusercontent.com</string>
     <string name="no_internet_connection_please_try_again">No internet connection. Please try again</string>
     <string name="user_with_this_email_cannot_be_registered">User with this email cannot be registered</string>
@@ -67,4 +67,14 @@
     <string name="username">Username:</string>
     <string name="item">Item</string>
     <string name="buy_it_now">Buy It Now</string>
+    <string name="about_this_item">About this item</string>
+    <string name="months">%1$d months</string>
+    <string name="brand">Brand</string>
+    <string name="memory_size">Memory Size</string>
+    <string name="model">Model</string>
+    <string name="warranty">Warranty</string>
+    <string name="cores">Cores</string>
+    <string name="used">Used</string>
+    <string name="min">Min</string>
+    <string name="max">Max</string>
 </resources>

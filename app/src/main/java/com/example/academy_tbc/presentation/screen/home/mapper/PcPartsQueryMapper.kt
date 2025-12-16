@@ -11,6 +11,7 @@ fun PcPartsQueryUi.toDomain(): PcPartsQuery {
         minPrice = minPrice,
         maxPrice = maxPrice,
         brand = brand,
+        filters = filters,
         condition = condition,
         sortBy = sortBy,
         sortDescending = sortDescending

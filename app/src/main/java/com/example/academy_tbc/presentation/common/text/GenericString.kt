@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.common.message
+package com.example.academy_tbc.presentation.common.text
 
 import android.content.Context
 import androidx.annotation.StringRes

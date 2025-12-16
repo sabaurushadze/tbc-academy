@@ -67,8 +67,6 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto_bold"
-            android:lineHeight="26sp"
-            android:text="RTX 5090 SUPER DUPER MAGARI VIDEO KARTA 16GB GDDR6 GRAPHICS CARD"
             android:textColor="@color/black"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +81,6 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto_bold"
-            android:text="$699.00"
             android:textColor="@color/black"
             android:textSize="24sp"
             app:fontFamily="@font/roboto_bold"
@@ -98,12 +95,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/roboto_regular"
-            android:text="Condition"
-            app:layout_constraintHorizontal_weight="1"
+            android:text="@string/condition"
             android:textColor="@color/gray"
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@id/tvCondition"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvPrice" />
 
@@ -114,12 +111,11 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto_medium"
-            app:layout_constraintHorizontal_weight="2"
-            android:text="New"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:fontFamily="@font/roboto_bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="2"
             app:layout_constraintStart_toEndOf="@id/tvConditionTitle"
             app:layout_constraintTop_toBottomOf="@id/tvPrice" />
 
@@ -128,45 +124,42 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/btn_round_google"
             android:backgroundTint="@color/primary"
             android:text="@string/buy_it_now"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:layout_marginTop="32dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvCondition"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCondition" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvDescriptionTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:text="About this item"
-            android:textSize="22sp"
-            android:textColor="@color/black"
             android:layout_marginTop="24dp"
+            android:text="@string/about_this_item"
+            android:textColor="@color/black"
+            android:textSize="22sp"
             app:fontFamily="@font/roboto_bold"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnBuyNow"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnBuyNow" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvItemDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="96dp"
-            android:layout_marginHorizontal="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDescriptionTitle"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDescriptionTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

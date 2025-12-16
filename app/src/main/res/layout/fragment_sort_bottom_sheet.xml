@@ -45,8 +45,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:paddingHorizontal="16dp"
         android:orientation="vertical"
+        android:paddingHorizontal="16dp"
         app:layout_constraintEnd_toEndOf="@id/bottomSheetCard"
         app:layout_constraintStart_toStartOf="@id/bottomSheetCard"
         app:layout_constraintTop_toBottomOf="@id/tvTitle">
@@ -59,9 +59,9 @@
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center_vertical"
-            android:paddingStart="16dp"
-            app:buttonTint="@color/radio_button_color"
-            android:text="@string/lowest_price" />
+            android:paddingHorizontal="16dp"
+            android:text="@string/lowest_price"
+            app:buttonTint="@color/radio_button_color" />
 
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rbHighestPrice"
@@ -71,10 +71,9 @@
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center_vertical"
-            android:paddingStart="16dp"
+            android:paddingHorizontal="16dp"
             android:text="@string/highest_price"
-            app:buttonTint="@color/radio_button_color"
-            />
+            app:buttonTint="@color/radio_button_color" />
 
     </RadioGroup>
 

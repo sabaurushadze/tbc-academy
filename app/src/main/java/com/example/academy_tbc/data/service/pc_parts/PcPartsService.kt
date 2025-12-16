@@ -10,25 +10,37 @@ import retrofit2.http.Query
 interface PcPartsService {
     @GET(ENDPOINT_PC_PARTS)
     suspend fun search(
-        @Query("title_like") query: String? = null,
-        @Query("category") category: Int? = null,
-        @Query("price_gte") minPrice: Float? = null,
-        @Query("price_lte") maxPrice: Float? = null,
-        @Query("condition") condition: String? = null,
-        @Query("brand") brand: String? = null,
-        @Query("_sort") sortBy: String? = null,
-        @Query("_order") sortOrder: String? = null,
-        @Query("_page") page: Int,
-        @Query("_per_page") perPage: Int,
+        @Query(TITLE_LIKE) query: String? = null,
+        @Query(CATEGORY) category: Int? = null,
+        @Query(PRICE_GREATER_THAN) minPrice: Float? = null,
+        @Query(PRICE_LESS_THAN) maxPrice: Float? = null,
+        @Query(CONDITION) condition: List<String>? = null,
+        @Query(BRAND) brand: List<String>? = null,
+        @Query(MODEL) model: List<String>? = null,
+        @Query(SORT) sortBy: String? = null,
+        @Query(ORDER) sortOrder: String? = null,
+        @Query(PAGE) page: Int,
+        @Query(PER_PAGE) perPage: Int,
     ): Response<List<PcPartsResponseDto>>
 
     @GET("pc_parts/{id}")
     suspend fun getDetails(
-        @Path("id") id: Int
+        @Path("id") id: Int,
     ): Response<PartDetailResponseDto>
-
 
     companion object {
         private const val ENDPOINT_PC_PARTS = "pc_parts"
+        private const val TITLE_LIKE = "title_like"
+        private const val CATEGORY = "category"
+        private const val PRICE_GREATER_THAN = "price_gte"
+        private const val PRICE_LESS_THAN = "price_lte"
+        private const val CONDITION = "condition"
+        private const val BRAND = "brand"
+        private const val MODEL = "model"
+        private const val SORT = "_sort"
+        private const val ORDER = "_order"
+        private const val PAGE = "_page"
+        private const val PER_PAGE = "_per_page"
+
     }
 }

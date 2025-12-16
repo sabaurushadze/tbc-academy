@@ -5,7 +5,6 @@
     android:layout_height="match_parent">
 
 
-
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
@@ -31,28 +30,27 @@
         android:id="@+id/tvUserNameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/roboto_semibold"
         android:text="@string/username"
-        android:layout_marginTop="32dp"
-        android:layout_marginStart="16dp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivProfilePicture"
-        />
+        app:layout_constraintTop_toBottomOf="@id/ivProfilePicture" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etUsername"
         android:layout_width="0dp"
         android:layout_height="55dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="64dp"
         android:background="@drawable/rounded_outlined_edittext"
+        android:inputType="text"
         android:maxLines="1"
         android:paddingHorizontal="16dp"
-        android:layout_marginStart="16dp"
         android:textSize="16sp"
-        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="64dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvUserNameTitle" />
 
@@ -64,21 +62,20 @@
         android:src="@drawable/ic_edit"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/etUsername"
-        app:layout_constraintStart_toEndOf="@id/etUsername"/>
+        app:layout_constraintStart_toEndOf="@id/etUsername"
+        app:layout_constraintTop_toTopOf="@id/etUsername" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivApply"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:src="@drawable/ic_check"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_check"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/etUsername"
         app:layout_constraintStart_toEndOf="@id/etUsername"
-        />
+        app:layout_constraintTop_toTopOf="@id/etUsername" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSignOut"

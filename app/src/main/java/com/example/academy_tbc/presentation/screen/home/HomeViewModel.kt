@@ -48,6 +48,7 @@ class HomeViewModel @Inject constructor(
             is HomeEvent.Search -> search(event.query)
             is HomeEvent.GetPartsByCategory -> search(event.query)
             is HomeEvent.SaveCategory -> saveCategory(event.category)
+            is HomeEvent.GetCategories -> getCategories()
         }
     }
 

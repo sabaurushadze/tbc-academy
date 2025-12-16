@@ -2,6 +2,8 @@ package com.example.academy_tbc.di
 
 import com.example.academy_tbc.BuildConfig
 import com.example.academy_tbc.data.service.util.AuthInterceptor
+import com.example.academy_tbc.data.service.util.NetworkConnectionInterceptor
+import com.example.academy_tbc.domain.observer.ConnectivityObserver
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -21,6 +23,20 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideAuthInterceptor(): AuthInterceptor {
+        return AuthInterceptor()
+    }
+
+    @Provides
+    @Singleton
+    fun provideNetworkConnectionInterceptor(
+        connectivityObserver: ConnectivityObserver,
+    ): NetworkConnectionInterceptor {
+        return NetworkConnectionInterceptor(connectivityObserver)
+    }
+
+    @Provides
+    @Singleton
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
@@ -32,10 +48,13 @@ object AppModule {
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
         authInterceptor: AuthInterceptor,
+        networkInterceptor: NetworkConnectionInterceptor,
     ): OkHttpClient {
         return OkHttpClient.Builder().apply {
             if (BuildConfig.DEBUG) addInterceptor(loggingInterceptor)
-        }.addInterceptor(authInterceptor).build()
+            addInterceptor(authInterceptor)
+            addInterceptor(networkInterceptor)
+        }.build()
     }
 
     @Provides

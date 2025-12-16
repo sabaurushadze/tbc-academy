@@ -15,5 +15,6 @@ data class PartDetailResponseDto(
     val brand: String,
     val warranty: Int,
     val model: String,
-    val memorySize: String
+    val memorySize: String? = null,
+    val cores: String? = null,
 )

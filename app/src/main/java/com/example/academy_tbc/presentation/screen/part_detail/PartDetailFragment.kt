@@ -16,8 +16,8 @@ import com.example.academy_tbc.presentation.screen.home.HomeFragment.Companion.B
 import com.example.academy_tbc.presentation.screen.home.HomeFragment.Companion.REQUEST_KEY_ID
 import com.example.academy_tbc.presentation.screen.part_detail.adapter.ItemDetailsAdapter
 import com.example.academy_tbc.presentation.screen.part_detail.adapter.PartDetailsAdapter
-import com.example.academy_tbc.presentation.screen.part_detail.model.ImageUi
 import com.example.academy_tbc.presentation.screen.part_detail.mapper.getItemDetailsByCategory
+import com.example.academy_tbc.presentation.screen.part_detail.model.ImageUi
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -125,8 +125,4 @@ class PartDetailFragment : BaseDialogFragment<FragmentPartDetailBinding>(
             dismiss()
         }
     }
-
-
-
-
 }

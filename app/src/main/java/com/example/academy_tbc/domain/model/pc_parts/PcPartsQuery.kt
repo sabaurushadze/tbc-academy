@@ -9,4 +9,5 @@ data class PcPartsQuery(
     val condition: String? = null,
     val sortBy: String? = null,
     val sortDescending: Boolean = false,
+    val filters: Map<String, List<String>> = emptyMap()
 )

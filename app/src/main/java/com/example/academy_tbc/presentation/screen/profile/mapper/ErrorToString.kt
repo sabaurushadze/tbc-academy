@@ -2,7 +2,7 @@ package com.example.academy_tbc.presentation.screen.profile.mapper
 
 import com.example.academy_tbc.R
 import com.example.academy_tbc.domain.model.profile.ValidationError
-import com.example.academy_tbc.presentation.common.message.GenericString
+import com.example.academy_tbc.presentation.common.text.GenericString
 
 fun ValidationError.toGenericString(): GenericString {
     val stringRes = when (this) {

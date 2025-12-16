@@ -7,4 +7,6 @@ sealed class HomeEvent {
     data class Search(val query: PcPartsQueryUi) : HomeEvent()
     data class GetPartsByCategory(val query: PcPartsQueryUi) : HomeEvent()
     data class SaveCategory(val category: Int) : HomeEvent()
+    data object GetCategories : HomeEvent()
+
 }

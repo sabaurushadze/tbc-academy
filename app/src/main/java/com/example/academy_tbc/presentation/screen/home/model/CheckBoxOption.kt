@@ -1,7 +1,10 @@
 package com.example.academy_tbc.presentation.screen.home.model
 
+import androidx.annotation.StringRes
+
 data class CheckboxOption(
     val id: String,
-    val label: String,
-    val isChecked: Boolean
+    @param:StringRes val labelRes: Int? = null,
+    val label: String? = null,
+    var isChecked: Boolean = false
 )

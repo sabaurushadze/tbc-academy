@@ -2,7 +2,7 @@ package com.example.academy_tbc.presentation.screen.sign_in.mapper
 
 import com.example.academy_tbc.R
 import com.example.academy_tbc.domain.model.auth.AuthError
-import com.example.academy_tbc.presentation.common.message.GenericString
+import com.example.academy_tbc.presentation.common.text.GenericString
 
 fun AuthError.toGenericString(): GenericString {
     val stringRes = when (this) {

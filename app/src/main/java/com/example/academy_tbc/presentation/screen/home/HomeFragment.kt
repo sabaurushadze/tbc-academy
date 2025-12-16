@@ -16,15 +16,15 @@ import com.example.academy_tbc.presentation.extension.dp
 import com.example.academy_tbc.presentation.extension.hideKeyboard
 import com.example.academy_tbc.presentation.extension.lifecycleCollectLatest
 import com.example.academy_tbc.presentation.extension.showSnackBar
-import com.example.academy_tbc.presentation.screen.home.FilterBottomSheet.Companion.BUNDLE_KEY_CONDITION
 import com.example.academy_tbc.presentation.screen.home.FilterBottomSheet.Companion.BUNDLE_KEY_MAX_PRICE
 import com.example.academy_tbc.presentation.screen.home.FilterBottomSheet.Companion.BUNDLE_KEY_MIN_PRICE
+import com.example.academy_tbc.presentation.screen.home.FilterBottomSheet.Companion.BUNDLE_KEY_SELECTED_OPTIONS
 import com.example.academy_tbc.presentation.screen.home.FilterBottomSheet.Companion.REQUEST_KEY_FILTER
 import com.example.academy_tbc.presentation.screen.home.SortBottomSheet.Companion.BUNDLE_KEY_CHECKED_ID
 import com.example.academy_tbc.presentation.screen.home.SortBottomSheet.Companion.REQUEST_KEY_SORT
+import com.example.academy_tbc.presentation.screen.home.adapter.decoration.VerticalSpaceDecoration
 import com.example.academy_tbc.presentation.screen.home.adapter.paging.PcPartsLoadStateAdapter
 import com.example.academy_tbc.presentation.screen.home.adapter.paging.PcPartsPagingAdapter
-import com.example.academy_tbc.presentation.screen.home.adapter.decoration.VerticalSpaceDecoration
 import com.example.academy_tbc.presentation.screen.home.category.adapter.CategoryAdapter
 import com.example.academy_tbc.presentation.screen.home.model.PcPartsQueryUi
 import dagger.hilt.android.AndroidEntryPoint
@@ -66,7 +66,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             val newQuery = currentQuery.copy(
                 minPrice = bundle.getFloat(BUNDLE_KEY_MIN_PRICE),
                 maxPrice = bundle.getFloat(BUNDLE_KEY_MAX_PRICE),
-                condition = bundle.getString(BUNDLE_KEY_CONDITION)
             )
             viewModel.onEvent(HomeEvent.Search(newQuery))
         }
@@ -86,6 +85,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             )
             viewModel.onEvent(HomeEvent.Search(newQuery))
         }
+
+        setFragmentResultListener(REQUEST_KEY_FILTER) { _, bundle ->
+            val currentQuery = viewModel.state.value.query
+
+            val minPrice = bundle.getFloat(BUNDLE_KEY_MIN_PRICE).takeIf { it != 0f }
+            val maxPrice = bundle.getFloat(BUNDLE_KEY_MAX_PRICE).takeIf { it != 0f }
+
+            @Suppress("DEPRECATION")
+            val selectedOptions = bundle.getSerializable(BUNDLE_KEY_SELECTED_OPTIONS)
+                    as? Map<String, List<String>> ?: emptyMap()
+
+            val newQuery = currentQuery.copy(
+                minPrice = minPrice,
+                maxPrice = maxPrice,
+                filters = selectedOptions
+            )
+            viewModel.onEvent(HomeEvent.Search(newQuery))
+        }
     }
 
     override fun bind() {
@@ -100,7 +117,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         observePagingData()
         search()
         onSortClick()
+        refreshOnSwipe()
     }
+
+    private fun refreshOnSwipe() {
+        binding.swipeRefresh.setOnRefreshListener {
+            pcPartsPagingAdapter.refresh()
+            viewModel.onEvent(HomeEvent.GetCategories)
+        }
+    }
+
 
     private fun setUpCategoriesAdapter() {
         binding.rvCategories.apply {
@@ -142,12 +168,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     private fun observePagingData() {
         lifecycleCollectLatest(viewModel.partsPagingFlow) { pagingData ->
             pcPartsPagingAdapter.submitData(pagingData)
+            binding.swipeRefresh.isRefreshing = false
         }
     }
 
     private fun observeState() {
         lifecycleCollectLatest(viewModel.state) { state ->
             categoriesAdapter.submitList(state.categories)
+            binding.swipeRefresh.isRefreshing = false
         }
     }
 

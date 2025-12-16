@@ -1,7 +1,7 @@
 package com.example.academy_tbc.data.common
 
-import com.example.academy_tbc.domain.model.auth.AuthError
 import com.example.academy_tbc.domain.common.Resource
+import com.example.academy_tbc.domain.model.auth.AuthError
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -19,7 +19,6 @@ class FirebaseResponseHandler @Inject constructor() {
             emit(Resource.Loading)
             emit(safeCallNoLoading(call = call))
         }
-
     }
 
     suspend fun <T> safeCallNoLoading(call: suspend () -> T): Resource<T, AuthError> {

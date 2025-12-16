@@ -14,5 +14,6 @@ data class PartDetail(
     val brand: String,
     val warranty: Int,
     val model: String,
-    val memorySize: String
+    val memorySize: String?,
+    val cores: String?,
 )

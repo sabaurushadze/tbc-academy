@@ -27,8 +27,13 @@ class ItemDetailsAdapter() :
     class ItemDetailViewHolder(private val binding: ItemDetailRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ItemDetailUi) = with(binding) {
-            tvKey.text = item.title
-            tvValue.text = item.value
+            tvKey.text = root.context.getString(item.titleRes)
+
+            tvValue.text = if (item.valueRes != null && item.valueInt != null) {
+                root.context.getString(item.valueRes, item.valueInt)
+            } else {
+                item.value
+            }
         }
     }
 }

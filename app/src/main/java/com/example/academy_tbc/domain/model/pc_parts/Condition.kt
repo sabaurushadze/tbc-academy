@@ -1,17 +1,21 @@
 package com.example.academy_tbc.domain.model.pc_parts
 
-enum class Condition(val apiValue: String) {
-    NEW("new"),
-    OPEN_BOX("open box"),
-    PRE_OWNED("pre owned");
+import com.example.academy_tbc.domain.common.Constants.NEW
+import com.example.academy_tbc.domain.common.Constants.OPEN_BOX
+import com.example.academy_tbc.domain.common.Constants.PRE_OWNED
+
+enum class Condition() {
+    CONDITION_NEW,
+    CONDITION_OPEN_BOX,
+    CONDITION_PRE_OWNED;
 
     companion object {
         fun fromString(value: String): Condition =
             when (value.lowercase()) {
-                "new" -> NEW
-                "open box" -> OPEN_BOX
-                "pre owned" -> PRE_OWNED
-                else -> NEW
+                NEW -> CONDITION_NEW
+                OPEN_BOX -> CONDITION_OPEN_BOX
+                PRE_OWNED -> CONDITION_PRE_OWNED
+                else -> CONDITION_NEW
             }
     }
 }

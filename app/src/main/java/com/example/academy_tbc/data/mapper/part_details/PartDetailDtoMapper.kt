@@ -17,6 +17,7 @@ fun PartDetailResponseDto.toDomain(): PartDetail {
         brand = brand,
         warranty = warranty,
         model = model,
-        memorySize = memorySize
+        memorySize = memorySize,
+        cores = cores
     )
 }
