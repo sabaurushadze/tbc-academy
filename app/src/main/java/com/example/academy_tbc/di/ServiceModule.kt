@@ -1,6 +1,6 @@
 package com.example.academy_tbc.di
 
-import com.example.academy_tbc.data.service.login.LogInApiService
+import com.example.academy_tbc.data.remote.service.login.LogInApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

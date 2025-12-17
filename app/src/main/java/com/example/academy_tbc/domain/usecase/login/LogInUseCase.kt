@@ -1,8 +1,9 @@
 package com.example.academy_tbc.domain.usecase.login
 
+import com.example.academy_tbc.domain.common.ApiError
 import com.example.academy_tbc.domain.model.login.LogInResponse
 import com.example.academy_tbc.domain.repository.login.LogInRepository
-import com.example.academy_tbc.domain.resource.Resource
+import com.example.academy_tbc.domain.common.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -11,9 +12,7 @@ class LogInUseCase @Inject constructor(
 ) {
     operator fun invoke(
         email: String, password: String
-    ): Flow<Resource<LogInResponse>> {
-        return logInRepository.logIn(
-            email = email, password = password
-        )
+    ): Flow<Resource<LogInResponse, ApiError>> {
+        return logInRepository.logIn()
     }
 }

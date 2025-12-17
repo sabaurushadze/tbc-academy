@@ -1,16 +1,13 @@
 package com.example.academy_tbc.presentation.screen.login
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.academy_tbc.databinding.FragmentLogInBinding
 import com.example.academy_tbc.presentation.common.view.BaseFragment
+import com.example.academy_tbc.presentation.extension.lifecycleCollectLatest
 import com.example.academy_tbc.presentation.extension.showSnackBar
 import com.example.academy_tbc.presentation.screen.login.adapter.UsersAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LogInFragment : BaseFragment<FragmentLogInBinding>(
@@ -26,29 +23,25 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(
     }
 
     override fun listeners() {
+        observeState()
+        observeSideEffects()
     }
 
     private fun observeSideEffects() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.effect.collect { effect ->
-                    when (effect) {
-                        LogInSideEffect.NavigateToHome -> {
-                        }
-
-                        is LogInSideEffect.ShowError -> binding.root.showSnackBar(getString(effect.error))
-                    }
+        lifecycleCollectLatest(viewModel.effect) { effect ->
+            when (effect) {
+                LogInSideEffect.NavigateToHome -> {
                 }
+
+                is LogInSideEffect.ShowError ->
+                    binding.root.showSnackBar(effect.error.getString(requireContext()))
             }
         }
     }
 
     private fun observeState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect { state ->
-                }
-            }
+        lifecycleCollectLatest(viewModel.state) { state ->
+
         }
     }
 }

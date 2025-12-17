@@ -1,8 +1,8 @@
 package com.example.academy_tbc.di
 
-import com.example.academy_tbc.data.repository.datastore.DataStoreRepositoryImpl
+import com.example.academy_tbc.data.local.datastore.DataStoreManager
 import com.example.academy_tbc.data.repository.login.LogInRepositoryImpl
-import com.example.academy_tbc.domain.repository.datastore.DataStoreRepository
+import com.example.academy_tbc.domain.repository.datastore.CacheManager
 import com.example.academy_tbc.domain.repository.login.LogInRepository
 import dagger.Binds
 import dagger.Module
@@ -17,9 +17,7 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindDataStoreRepository(
-        impl: DataStoreRepositoryImpl,
-    ): DataStoreRepository
+    abstract fun bindDatastore(dataStoreManager: DataStoreManager): CacheManager
 
     @Binds
     @Singleton
