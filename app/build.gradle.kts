@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.dagger.hilt.android)
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
 
 android {
@@ -25,40 +26,29 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"https://mocki.io/v1/\""
+            )
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"https://mocki.io/v1/\""
+            )
         }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    buildTypes {
-        debug {
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                "\"https://reqres.in/api/\""
-            )
-        }
-        release {
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                "\"https://reqres.in/api/\""
-            )
-        }
-    }
-
-    kotlin {
-        compilerOptions {
-            jvmTarget = JvmTarget.JVM_11
-        }
     }
 
     buildFeatures {
@@ -68,10 +58,15 @@ android {
     kotlinOptions {
         freeCompilerArgs = listOf("-XXLanguage:+PropertyParamAnnotationDefaultTargetMode")
     }
+
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_11
+        }
+    }
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -87,6 +82,12 @@ dependencies {
     implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.hilt.android)
+    implementation(libs.play.services.maps)
+    implementation(libs.play.services.location)
+    implementation(libs.android.maps.utils)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.work.runtime.ktx)
+    ksp(libs.androidx.room.compiler)
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)

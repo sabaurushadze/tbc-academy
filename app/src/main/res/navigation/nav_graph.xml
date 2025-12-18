@@ -3,11 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/logInFragment">
-
+    app:startDestination="@id/mapFragment">
     <fragment
-        android:id="@+id/logInFragment"
-        android:name="com.example.academy_tbc.presentation.screen.login.LogInFragment"
-        android:label="fragment_log_in"
-        tools:layout="@layout/fragment_log_in" />
+        android:id="@+id/mapFragment"
+        android:name="com.example.academy_tbc.presentation.screen.location.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_to_markerBottomSheetFragment"
+            app:destination="@id/markerBottomSheetFragment" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/markerBottomSheetFragment"
+        android:name="com.example.academy_tbc.presentation.screen.location.MarkerBottomSheetFragment"
+        android:label="MarkerBottomSheetFragment" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="address"
+            app:argType="string" />
+        <argument
+            android:name="image"
+            app:argType="string" />
+    </dialog>
 </navigation>
