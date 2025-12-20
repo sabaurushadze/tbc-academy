@@ -1,9 +1,7 @@
 package com.example.academy_tbc.di
 
-import com.example.academy_tbc.data.local.datastore.DataStoreManager
-import com.example.academy_tbc.data.repository.login.LogInRepositoryImpl
-import com.example.academy_tbc.domain.repository.datastore.CacheManager
-import com.example.academy_tbc.domain.repository.login.LogInRepository
+import com.example.academy_tbc.data.repository.datastore.DataStoreManagerImpl
+import com.example.academy_tbc.domain.repository.datastore.DataStoreManager
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,13 +13,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
 
-    @Binds
-    @Singleton
-    abstract fun bindDatastore(dataStoreManager: DataStoreManager): CacheManager
 
     @Binds
     @Singleton
-    abstract fun bindLogInRepository(
-        impl: LogInRepositoryImpl,
-    ): LogInRepository
+    abstract fun bindDatastore(dataStoreManager: DataStoreManagerImpl): DataStoreManager
 }
