@@ -6,7 +6,7 @@
     app:startDestination="@id/signInFragment">
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.academy_tbc.presentation.screen.sign_in.SignInFragment"
+        android:name="com.example.academy_tbc.presentation.screen.auth.sign_in.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" >
         <action
@@ -15,6 +15,10 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.academy_tbc.presentation.screen.sign_up.SignUpFragment"
-        android:label="SignUpFragment" />
+        android:name="com.example.academy_tbc.presentation.screen.auth.sign_up.SignUpFragment"
+        android:label="SignUpFragment" >
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
 </navigation>

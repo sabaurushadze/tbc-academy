@@ -1,7 +1,7 @@
 package com.example.academy_tbc.di
 
 import com.example.academy_tbc.BuildConfig
-import com.example.academy_tbc.data.remote.network.NoInternetInterceptor
+import com.example.academy_tbc.data.network.NoInternetInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides

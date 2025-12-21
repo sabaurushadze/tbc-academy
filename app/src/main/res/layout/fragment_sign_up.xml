@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="56dp"
         android:layout_marginBottom="72dp"
-        tools:context=".presentation.screen.sign_in.SignInFragment">
-
+        android:orientation="vertical"
+        tools:context=".presentation.screen.auth.sign_in.SignInFragment">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvSignIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create Account"
+            android:text="@string/create_account"
             android:textColor="@color/black"
             android:textSize="30sp"
             app:fontFamily="@font/roboto_medium"
@@ -32,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Enter your details to gert started."
+            android:text="@string/enter_your_details_to_gert_started"
             android:textColor="@color/gray"
             android:textSize="16sp"
             app:fontFamily="@font/roboto_regular"
@@ -46,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="26dp"
             android:layout_marginTop="40dp"
-            android:text="First Name"
+            android:text="@string/first_name"
             android:textColor="@color/black3"
             app:fontFamily="@font/roboto_regular"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,10 +57,10 @@
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_marginStart="26dp"
-            android:inputType="text"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:hint="John"
+            android:hint="@string/john"
+            android:inputType="text"
             app:fontFamily="@font/roboto_regular"
             app:layout_constraintEnd_toStartOf="@id/etLastName"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="Last Name"
+            android:text="@string/last_name"
             android:textColor="@color/black3"
             android:visibility="visible"
             app:fontFamily="@font/roboto_regular"
@@ -86,8 +85,8 @@
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_marginEnd="26dp"
+            android:hint="@string/doe"
             android:inputType="text"
-            android:hint="Doe"
             android:visibility="visible"
             app:fontFamily="@font/roboto_regular"
             app:layout_constraintBottom_toBottomOf="@id/etFirstName"
@@ -116,8 +115,8 @@
             android:layout_marginStart="26dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="26dp"
-            android:inputType="text"
             android:hint="@string/john_doe_company_com"
+            android:inputType="text"
             app:fontFamily="@font/roboto_regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -142,9 +141,10 @@
             android:layout_height="44dp"
             android:layout_marginStart="26dp"
             android:layout_marginTop="8dp"
-            android:inputType="text"
             android:layout_marginEnd="8dp"
-            android:hint="+995 (000) 000-000"
+            android:hint="@string/_995_000_000_000"
+            android:inputType="text"
+            android:maxLength="13"
             app:fontFamily="@font/roboto_regular"
             app:layout_constraintEnd_toStartOf="@id/btnSendOtp"
             app:layout_constraintStart_toStartOf="parent"
@@ -157,7 +157,7 @@
             android:layout_height="44dp"
             android:layout_marginEnd="26dp"
             android:backgroundTint="@color/secondary"
-            android:text="Send OTP"
+            android:text="@string/send_otp"
             app:fontFamily="@font/roboto_regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/etPhoneNumber"
@@ -168,8 +168,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="tvOtpTitle,etOtp,tvCodeExpirationTimer,tvResendCode"
-            />
+            app:constraint_referenced_ids="tvOtpTitle,etOtp,tvCodeExpirationTimer,tvResendCode,btnValidate" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvOtpTitle"
@@ -179,7 +178,7 @@
             android:layout_marginTop="16dp"
             android:drawableStart="@drawable/security"
             android:drawablePadding="8dp"
-            android:text="Enter OTP Code"
+            android:text="@string/enter_otp_code"
             android:textColor="@color/black3"
             app:fontFamily="@font/roboto_regular"
             app:layout_constraintStart_toStartOf="parent"
@@ -191,14 +190,47 @@
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_marginStart="26dp"
-            android:maxLength="6"
             android:layout_marginTop="8dp"
+            app:layout_constraintHorizontal_weight="3"
+            android:layout_marginEnd="8dp"
             android:inputType="number"
-            android:layout_marginEnd="26dp"
+            android:maxLength="6"
             app:fontFamily="@font/roboto_regular"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnValidate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvOtpTitle" />
+
+<!--        <androidx.appcompat.widget.AppCompatEditText-->
+<!--            android:id="@+id/etOtp"-->
+<!--            style="@style/EditTextOutlined"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="44dp"-->
+<!--            android:layout_marginStart="26dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginEnd="26dp"-->
+<!--            android:inputType="number"-->
+<!--            android:maxLength="6"-->
+<!--            app:fontFamily="@font/roboto_regular"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tvOtpTitle" />-->
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnValidate"
+            style="@style/ButtonOutlined"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            app:layout_constraintHorizontal_weight="1"
+            android:layout_marginEnd="26dp"
+            android:backgroundTint="@color/secondary"
+            android:text="@string/validate"
+            app:fontFamily="@font/roboto_regular"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/etOtp"
+            app:layout_constraintTop_toTopOf="@id/etOtp" />
+
+
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvCodeExpirationTimer"
@@ -206,7 +238,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="26dp"
             android:layout_marginTop="8dp"
-            android:text="Code expires in 00:50"
+            android:text="@string/code_expires_in"
             android:textColor="@color/gray"
             app:fontFamily="@font/roboto_regular"
             app:layout_constraintStart_toStartOf="parent"
@@ -217,10 +249,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="26dp"
-            android:padding="8dp"
             android:clickable="true"
             android:focusable="true"
-            android:text="Resend Code"
+            android:padding="8dp"
+            android:text="@string/resend_code"
             android:textColor="@color/black2"
             app:fontFamily="@font/roboto_medium"
             app:layout_constraintEnd_toEndOf="parent"
@@ -232,12 +264,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="26dp"
             android:layout_marginTop="48dp"
-            android:text="Department"
-            app:layout_goneMarginTop="20dp"
+            android:text="@string/department"
             android:textColor="@color/black3"
             app:fontFamily="@font/roboto_regular"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etOtp" />
+            app:layout_constraintTop_toBottomOf="@id/etOtp"
+            app:layout_goneMarginTop="20dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/dropdownDepartment"
@@ -260,9 +292,9 @@
                 android:layout_marginStart="26dp"
                 android:layout_marginEnd="26dp"
                 android:hint="@string/select_department"
-                android:textColorHint="@color/black2"
                 android:inputType="none"
                 android:textColor="@color/black3"
+                android:textColorHint="@color/black2"
                 app:fontFamily="@font/roboto_regular" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -286,8 +318,8 @@
             android:layout_marginStart="26dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="26dp"
-            android:inputType="text"
             android:hint="@string/create_password"
+            android:inputType="textPassword"
             app:fontFamily="@font/roboto_regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -313,7 +345,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="26dp"
             android:hint="@string/confirm_password_2"
-            android:inputType="text"
+            android:inputType="textPassword"
             app:fontFamily="@font/roboto_regular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -326,11 +358,11 @@
             android:layout_height="44dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="12dp"
-            app:buttonTint="@color/primary"
-            android:checked="false"
             android:backgroundTint="@color/gray"
+            android:checked="false"
             android:textColor="@color/black"
             android:textSize="14sp"
+            app:buttonTint="@color/primary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etConfirmPassword" />
 
@@ -368,9 +400,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="4dp"
-            android:text="Already have an account?"
-            app:fontFamily="@font/roboto_regular"
+            android:text="@string/already_have_an_account"
             android:textSize="14sp"
+            app:fontFamily="@font/roboto_regular"
             app:layout_constraintEnd_toStartOf="@id/tvBtnSignIn"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@id/btnCreateAccount"
@@ -381,12 +413,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:padding="8dp"
             android:clickable="true"
             android:focusable="true"
-            android:textSize="14sp"
-            android:text="Sign In"
+            android:padding="8dp"
+            android:text="@string/sign_in"
             android:textColor="@color/black2"
+            android:textSize="14sp"
             app:fontFamily="@font/roboto_medium"
             app:layout_constraintEnd_toEndOf="@id/btnCreateAccount"
             app:layout_constraintStart_toEndOf="@id/tvHaveAnAccount"

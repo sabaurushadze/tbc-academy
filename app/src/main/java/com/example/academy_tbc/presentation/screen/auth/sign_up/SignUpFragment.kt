@@ -1,0 +1,172 @@
+package com.example.academy_tbc.presentation.screen.auth.sign_up
+
+import android.widget.ArrayAdapter
+import androidx.core.text.HtmlCompat
+import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.example.academy_tbc.R
+import com.example.academy_tbc.databinding.FragmentSignUpBinding
+import com.example.academy_tbc.presentation.common.view.BaseFragment
+import com.example.academy_tbc.presentation.extension.gone
+import com.example.academy_tbc.presentation.extension.lifecycleCollect
+import com.example.academy_tbc.presentation.extension.lifecycleCollectLatest
+import com.example.academy_tbc.presentation.extension.showSnackBar
+import dagger.hilt.android.AndroidEntryPoint
+
+
+@AndroidEntryPoint
+class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
+    FragmentSignUpBinding::inflate
+) {
+    private val viewModel: SignUpViewModel by viewModels()
+
+    override fun bind() {
+        applyTosTextColors()
+        setupDepartmentDropdown()
+    }
+
+    override fun listeners() {
+        observeState()
+        observeSideEffects()
+        onSendOtpClick()
+        setupResendCode()
+        onSignInClick()
+        signUp()
+        validateOtpCode()
+    }
+
+    private fun observeSideEffects() = with(binding) {
+        lifecycleCollectLatest(viewModel.effect) { effect ->
+            when (effect) {
+                is SignUpSideEffect.ShowError ->
+                    root.showSnackBar(effect.error.getString(requireContext()))
+
+                is SignUpSideEffect.OtpExpired -> {}
+                is SignUpSideEffect.ShowConfirmPasswordError -> {
+                    etConfirmPassword.error = effect.error.getString(requireContext())
+                }
+                is SignUpSideEffect.ShowEmailError -> {
+                    etEmail.error = effect.error.getString(requireContext())
+                }
+                is SignUpSideEffect.ShowFirstNameError -> {
+                    etFirstName.error = effect.error.getString(requireContext())
+                }
+                is SignUpSideEffect.ShowLastNameError -> {
+                    etLastName.error = effect.error.getString(requireContext())
+                }
+                is SignUpSideEffect.ShowPasswordError -> {
+                    etPassword.error = effect.error.getString(requireContext())
+                }
+
+                is SignUpSideEffect.ShowPhoneNumberError -> {
+                    etPhoneNumber.error = effect.error.getString(requireContext())
+                }
+
+                SignUpSideEffect.OtpCodeValid -> {
+                    groupOtp.gone()
+                    etPhoneNumber.text?.clear()
+
+                }
+                is SignUpSideEffect.ShowOtpCodeError -> {
+                    etOtp.error = effect.error.getString(requireContext())
+                }
+            }
+        }
+    }
+
+    private fun observeState() {
+        lifecycleCollect(viewModel.state) { state ->
+            binding.tvCodeExpirationTimer.isVisible = state.isOtpVisible
+            binding.groupOtp.isVisible = state.isOtpVisible
+
+            val seconds = state.elapsedTime / 1000
+            binding.tvCodeExpirationTimer.text =
+                getString(R.string.code_expires_in_02d_02d).format(seconds / 60, seconds % 60)
+        }
+    }
+
+    private fun applyTosTextColors() {
+        binding.tvAgreeTos.text = HtmlCompat.fromHtml(
+            getString(R.string.i_agree_to_the_terms_of_service_and_privacy_policy),
+            HtmlCompat.FROM_HTML_MODE_COMPACT
+        )
+    }
+
+    private fun signUp() = with(binding) {
+        btnCreateAccount.setOnClickListener {
+            val firstName = etFirstName.text.toString().trim()
+            val lastName = etLastName.text.toString().trim()
+            val email = etEmail.text.toString().trim()
+            val password = etPassword.text.toString().trim()
+            val confirmPassword = etConfirmPassword.text.toString().trim()
+
+            if (!checkboxTos.isChecked) {
+                root.showSnackBar(getString(R.string.you_need_to_agree_to_tos))
+            }
+            if (spinnerDepartment.text.toString().isBlank()) {
+                dropdownDepartment.error = getString(R.string.please_select_a_department)
+            }
+
+            viewModel.onEvent(SignUpEvent.SignUp(
+                firstName = firstName,
+                lastName = lastName,
+                email = email,
+                password = password,
+                confirmPassword = confirmPassword
+            ))
+        }
+
+
+    }
+
+    //    MOCK_DATA_DROPDOWN
+    private fun setupDepartmentDropdown() {
+        val departments = listOf(
+            "Marketing",
+            "Finance",
+            "IT",
+            "HR",
+            "Operations"
+        )
+
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_list_item_1,
+            departments
+        )
+
+        binding.spinnerDepartment.setAdapter(adapter)
+    }
+
+    private fun validateOtpCode() = with(binding) {
+        btnValidate.setOnClickListener {
+            val otpCode = etOtp.text.toString().trim()
+
+            viewModel.onEvent(SignUpEvent.ValidateCode(otpCode))
+        }
+    }
+
+    private fun setupResendCode() = with(binding) {
+        tvResendCode.setOnClickListener {
+            val phoneNumber = etPhoneNumber.text.toString().trim()
+
+            viewModel.onEvent(SignUpEvent.ResendOtp(phoneNumber))
+        }
+    }
+
+    private fun onSendOtpClick() = with(binding) {
+        btnSendOtp.setOnClickListener {
+            val phoneNumber = etPhoneNumber.text.toString().trim()
+
+//            groupOtp.show()
+            viewModel.onEvent(SignUpEvent.SendOtp(phoneNumber))
+        }
+    }
+
+    private fun onSignInClick() {
+        binding.tvBtnSignIn.setOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+}
