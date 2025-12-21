@@ -16,4 +16,3 @@ fun UpcomingEventsResponseDto.toDomain() =
         imageUrl = imageUrl,
         isActive = isActive
     )
-

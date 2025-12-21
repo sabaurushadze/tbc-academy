@@ -1,6 +1,7 @@
 package com.example.academy_tbc.presentation.extension
 
 import android.content.Context
+import android.content.res.Resources
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
@@ -52,4 +53,8 @@ fun View.visibleIf(visible: Boolean?, gone: Boolean = true) {
     } else {
         if (gone) gone() else hide()
     }
+}
+
+fun Int.dpToPx(): Int {
+    return (this * Resources.getSystem().displayMetrics.density).toInt()
 }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/signInFragment">
+    app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/signInFragment"
         android:name="com.example.academy_tbc.presentation.screen.auth.sign_in.SignInFragment"
@@ -21,4 +21,8 @@
             android:id="@+id/action_signUpFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.academy_tbc.presentation.screen.home.HomeFragment"
+        android:label="HomeFragment" />
 </navigation>

@@ -62,4 +62,17 @@
     <string name="validate">Validate</string>
     <string name="password_does_not_match_confirm_password">Password does not match confirm password</string>
     <string name="please_select_a_department">Please select a department</string>
+    <string name="view_details">View Details</string>
+    <string name="eventhub">EventHub</string>
+    <string name="stay_connected_with_upcoming_company_events_and_activities">Stay connected with upcoming company events and activities.</string>
+    <string name="upcoming_events">Upcoming Events</string>
+    <string name="browse_by_category">Browse by Category</string>
+    <string name="team_building">Team Building</string>
+    <string name="sports">Sports</string>
+    <string name="workshops">Workshops</string>
+    <string name="happy_fridays">Happy Fridays</string>
+    <string name="cultural">Cultural</string>
+    <string name="wellness">Wellness</string>
+    <string name="trending_events">Trending Events</string>
+    <string name="popular_events_with_high_registration_rates">Popular events with high registration rates.</string>
 </resources>
