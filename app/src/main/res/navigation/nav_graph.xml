@@ -25,4 +25,20 @@
         android:id="@+id/homeFragment"
         android:name="com.example.academy_tbc.presentation.screen.home.HomeFragment"
         android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/eventsFragment"
+        android:name="com.example.academy_tbc.presentation.screen.events.EventsFragment"
+        android:label="EventsFragment" />
+    <fragment
+        android:id="@+id/myEventsFragment"
+        android:name="com.example.academy_tbc.presentation.screen.my_events.MyEventsFragment"
+        android:label="MyEventsFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.academy_tbc.presentation.screen.profile.ProfileFragment"
+        android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.example.academy_tbc.presentation.screen.updates.NotificationsFragment"
+        android:label="NotificationsFragment" />
 </navigation>

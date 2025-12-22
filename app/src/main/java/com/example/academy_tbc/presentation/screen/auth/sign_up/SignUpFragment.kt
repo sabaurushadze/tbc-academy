@@ -37,7 +37,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
     }
 
     private fun observeSideEffects() = with(binding) {
-        lifecycleCollectLatest(viewModel.effect) { effect ->
+        lifecycleCollectLatest(viewModel.sideEffect) { effect ->
             when (effect) {
                 is SignUpSideEffect.ShowError ->
                     root.showSnackBar(effect.error.getString(requireContext()))

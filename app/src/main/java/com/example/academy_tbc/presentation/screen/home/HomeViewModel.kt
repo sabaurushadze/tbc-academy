@@ -21,15 +21,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    ) : BaseViewModel<HomeState, HomeSideEffect, HomeEvent>(HomeState()) {
-
+) : BaseViewModel<HomeState, HomeSideEffect, HomeEvent>(HomeState()) {
 
 
     override fun onEvent(event: HomeEvent) {
 
     }
-
-
 
 
 }

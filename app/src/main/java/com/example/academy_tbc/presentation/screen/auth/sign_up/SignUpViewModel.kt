@@ -59,13 +59,13 @@ class SignUpViewModel @Inject constructor(
 //            SERVER CHECK HERE, IF ITS SUCCESS THERE SEND SUCCESS EFFECT,
 //            da timeri daacencele
             otpTimerJob?.cancel()
-            sendEffect(SignUpSideEffect.OtpCodeValid)
+            emitSideEffect(SignUpSideEffect.OtpCodeValid)
         }
     }
 
     private fun validateOtpCode(otpCode: String): Boolean {
         val otpCodeOk = handleValidation(validateOtpCodeUseCase(otpCode)) {
-            sendEffect(SignUpSideEffect.ShowOtpCodeError(it))
+            emitSideEffect(SignUpSideEffect.ShowOtpCodeError(it))
         }
 
         return otpCodeOk
@@ -92,19 +92,19 @@ class SignUpViewModel @Inject constructor(
     ): Boolean {
 
         val firstOk = handleValidation(validateFirstNameUseCase(firstName)) {
-            sendEffect(SignUpSideEffect.ShowFirstNameError(it))
+            emitSideEffect(SignUpSideEffect.ShowFirstNameError(it))
         }
 
         val lastOk = handleValidation(validateLastNameUseCase(lastName)) {
-            sendEffect(SignUpSideEffect.ShowLastNameError(it))
+            emitSideEffect(SignUpSideEffect.ShowLastNameError(it))
         }
 
         val emailOk = handleValidation(validateEmailUseCase(email)) {
-            sendEffect(SignUpSideEffect.ShowEmailError(it))
+            emitSideEffect(SignUpSideEffect.ShowEmailError(it))
         }
 
         val passOk = handleValidation(validatePasswordUseCase(password)) {
-            sendEffect(SignUpSideEffect.ShowPasswordError(it))
+            emitSideEffect(SignUpSideEffect.ShowPasswordError(it))
         }
 
 //        val confirmPassOk = handleValidation(validatePasswordUseCase(confirmPassword)) {
@@ -114,7 +114,7 @@ class SignUpViewModel @Inject constructor(
         val confirmPassOk = handleValidation(
             validateSignUpConfirmPasswordUseCase(password, confirmPassword)
         ) {
-            sendEffect(SignUpSideEffect.ShowConfirmPasswordError(it))
+            emitSideEffect(SignUpSideEffect.ShowConfirmPasswordError(it))
         }
 
 
@@ -124,7 +124,7 @@ class SignUpViewModel @Inject constructor(
 
     private fun validatePhoneNumber(phoneNumber: String): Boolean {
         val phoneOk = handleValidation(validatePhoneNumberUseCase(phoneNumber)) {
-            sendEffect(SignUpSideEffect.ShowPhoneNumberError(it))
+            emitSideEffect(SignUpSideEffect.ShowPhoneNumberError(it))
         }
 
         return phoneOk
@@ -156,17 +156,17 @@ class SignUpViewModel @Inject constructor(
 
         otpStartTime = SystemClock.elapsedRealtime()
 
-        updateState { copy(isOtpVisible = true, elapsedTime = otpDuration) }
+        updateUiState { copy(isOtpVisible = true, elapsedTime = otpDuration) }
 
         otpTimerJob = viewModelScope.launch {
             var remainingTime = otpDuration
             while (remainingTime > 0) {
-                updateState { copy(elapsedTime = remainingTime) }
+                updateUiState { copy(elapsedTime = remainingTime) }
                 delay(1000)
                 remainingTime -= 1000L
             }
-            updateState { copy(elapsedTime = 0L, isOtpVisible = false) }
-            sendEffect(SignUpSideEffect.OtpExpired)
+            updateUiState { copy(elapsedTime = 0L, isOtpVisible = false) }
+            emitSideEffect(SignUpSideEffect.OtpExpired)
         }
     }
 

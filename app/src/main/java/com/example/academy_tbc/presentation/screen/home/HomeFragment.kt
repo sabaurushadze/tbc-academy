@@ -13,8 +13,8 @@ import com.example.academy_tbc.presentation.extension.showSnackBar
 import com.example.academy_tbc.presentation.screen.home.categories.adapter.CategoryAdapter
 import com.example.academy_tbc.presentation.screen.home.categories.adapter.GridSpacingItemDecoration
 import com.example.academy_tbc.presentation.screen.home.categories.mapper.getCategoryIconRes
-import com.example.academy_tbc.presentation.screen.home.categories.mapper.getCategoryNameRes
 import com.example.academy_tbc.presentation.screen.home.categories.model.CategoryUi
+import com.example.academy_tbc.presentation.screen.home.trending_events.adapter.HorizontalSpacingItemDecoration
 import com.example.academy_tbc.presentation.screen.home.trending_events.adapter.TrendingEventAdapter
 import com.example.academy_tbc.presentation.screen.home.trending_events.model.TrendingEventUi
 import com.example.academy_tbc.presentation.screen.home.upcoming_events.adapter.UpcomingEventAdapter
@@ -27,9 +27,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     FragmentHomeBinding::inflate
 ) {
     private val viewModel: HomeViewModel by viewModels()
+
     private val upcomingEventAdapter by lazy {
         UpcomingEventAdapter(
-            onClick = {}
+            onClick = {
+            }
         )
     }
 
@@ -84,6 +86,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
                 isActive = true
             )
         )
+
         val categories: List<CategoryUi> = listOf(
             CategoryUi(
                 id = 1,
@@ -184,14 +187,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
     private fun setUpUpTrendingEventAdapter() = with(binding) {
         rvTrendingEvents.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false )
             adapter = trendingEventAdapter
             isNestedScrollingEnabled = false
+            addItemDecoration(HorizontalSpacingItemDecoration(
+                16.dpToPx(),
+                addStartSpacing = false,
+                addEndSpacing = false
+            ))
         }
     }
 
     private fun observeSideEffects() = with(binding) {
-        lifecycleCollectLatest(viewModel.effect) { effect ->
+        lifecycleCollectLatest(viewModel.sideEffect) { effect ->
             when (effect) {
                 is HomeSideEffect.ShowError ->
                     root.showSnackBar(effect.error.getString(requireContext()))

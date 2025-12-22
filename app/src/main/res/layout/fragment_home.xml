@@ -4,7 +4,7 @@
     android:background="@color/white"
     >
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -122,7 +122,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto_regular"
             android:text="@string/browse_by_category"
@@ -146,7 +146,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto_regular"
             android:text="@string/trending_events"
@@ -175,12 +175,60 @@
             android:id="@+id/rvTrendingEvents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="24dp"
+            android:layout_marginHorizontal="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTrendingEventDescription" />
 
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvFaq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/frequently_asked_questions"
+            android:textColor="@color/black2"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rvTrendingEvents"/>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvFaqQuestion1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/faq_question_1"
+            android:textColor="@color/black2"
+            android:textSize="14sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvFaq" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvFaqAnswer1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/faq_answer_1"
+            android:textColor="@color/gray2"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvFaqQuestion1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

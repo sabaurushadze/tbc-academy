@@ -35,12 +35,12 @@ class SignInViewModel @Inject constructor(
     private fun validateInputs(email: String, password: String): Boolean {
         val isEmailValid = when (val emailError = validateEmailUseCase(email)) {
             SignInValidationError.EMAIL_EMPTY -> {
-                sendEffect(SignInSideEffect.ShowEmailError(emailError.toGenericString()))
+                emitSideEffect(SignInSideEffect.ShowEmailError(emailError.toGenericString()))
                 false
             }
 
             SignInValidationError.EMAIL_WRONG_FORMAT -> {
-                sendEffect(SignInSideEffect.ShowEmailError(emailError.toGenericString()))
+                emitSideEffect(SignInSideEffect.ShowEmailError(emailError.toGenericString()))
                 false
             }
 
@@ -50,7 +50,7 @@ class SignInViewModel @Inject constructor(
         }
         val isPasswordValid = when (val passwordError = validatePasswordUseCase(password)) {
             SignInValidationError.PASSWORD_EMPTY -> {
-                sendEffect(SignInSideEffect.ShowPasswordError(passwordError.toGenericString()))
+                emitSideEffect(SignInSideEffect.ShowPasswordError(passwordError.toGenericString()))
                 false
             }
 

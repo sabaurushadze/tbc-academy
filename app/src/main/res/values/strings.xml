@@ -75,4 +75,15 @@
     <string name="wellness">Wellness</string>
     <string name="trending_events">Trending Events</string>
     <string name="popular_events_with_high_registration_rates">Popular events with high registration rates.</string>
+    <string name="frequently_asked_questions">Frequently Asked Questions</string>
+    <string name="faq_question_1">What if I need to cancel?</string>
+    <string name="faq_answer_1">You can cancel your registration up to 24 hours before the event through this app. This will allow someone from the waitlist to attend.</string>
+    <string name="home">Home</string>
+    <string name="browse">Browse</string>
+    <string name="my_events">My Events</string>
+    <string name="updates">Updates</string>
+    <string name="profile">Profile</string>
+    <string name="browse_events">Browse Events</string>
+    <string name="search_events">Search events...</string>
+    <string name="filters">Filters</string>
 </resources>
