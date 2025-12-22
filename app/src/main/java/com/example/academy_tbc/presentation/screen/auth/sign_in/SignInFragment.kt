@@ -36,6 +36,10 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(
                 is SignInSideEffect.ShowPasswordError -> {
                     etPassword.error = effect.error.getString(requireContext())
                 }
+
+                SignInSideEffect.NavigateToHome -> {
+                    findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToHomeFragment())
+                }
             }
         }
     }

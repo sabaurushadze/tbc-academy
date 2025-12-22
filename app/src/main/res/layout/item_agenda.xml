@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_marginBottom="16dp"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/idNumber"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/btn_circle"
+        android:backgroundTint="@color/white2"
+        android:text="1"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="1dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/white4"
+        app:layout_constraintTop_toBottomOf="@id/idNumber"
+        app:layout_constraintStart_toStartOf="@id/idNumber"
+        app:layout_constraintEnd_toEndOf="@id/idNumber"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="02:00 PM - Welcome Introduction"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black2"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/idNumber"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Overview of the workshop goals and key topics."
+        app:layout_constraintStart_toEndOf="@id/idNumber"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

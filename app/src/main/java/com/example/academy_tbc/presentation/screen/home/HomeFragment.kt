@@ -3,6 +3,7 @@ package com.example.academy_tbc.presentation.screen.home
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.academy_tbc.R
 import com.example.academy_tbc.databinding.FragmentHomeBinding
 import com.example.academy_tbc.domain.model.home.categories.CategoryType
 import com.example.academy_tbc.presentation.common.view.BaseFragment
@@ -91,42 +92,42 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             CategoryUi(
                 id = 1,
                 categoryType = CategoryType.TEAM_BUILDING,
-                title = "Team Building",
+                title = R.string.team_building,
                 icon = getCategoryIconRes(CategoryType.TEAM_BUILDING),
                 totalEvents = 5
             ),
             CategoryUi(
                 id = 2,
                 categoryType = CategoryType.SPORTS,
-                title = "Sports",
+                title = R.string.team_building,
                 icon = getCategoryIconRes(CategoryType.SPORTS),
                 totalEvents = 3
             ),
             CategoryUi(
                 id = 3,
                 categoryType = CategoryType.WORKSHOPS,
-                title = "Workshops",
+                title = R.string.team_building,
                 icon = getCategoryIconRes(CategoryType.WORKSHOPS),
                 totalEvents = 2
             ),
             CategoryUi(
                 id = 4,
                 categoryType = CategoryType.HAPPY_FRIDAYS,
-                title = "Happy Fridays",
+                title = R.string.team_building,
                 icon = getCategoryIconRes(CategoryType.HAPPY_FRIDAYS),
                 totalEvents = 4
             ),
             CategoryUi(
                 id = 5,
                 categoryType = CategoryType.CULTURAL,
-                title = "Cultural",
+                title = R.string.team_building,
                 icon = getCategoryIconRes(CategoryType.CULTURAL),
                 totalEvents = 1
             ),
             CategoryUi(
                 id = 6,
                 categoryType = CategoryType.WELLNESS,
-                title = "Wellness",
+                title = R.string.team_building,
                 icon = getCategoryIconRes(CategoryType.WELLNESS),
                 totalEvents = 6
             )

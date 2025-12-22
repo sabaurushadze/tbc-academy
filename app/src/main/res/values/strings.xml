@@ -86,4 +86,7 @@
     <string name="browse_events">Browse Events</string>
     <string name="search_events">Search events...</string>
     <string name="filters">Filters</string>
+    <string name="event_details">Event Details</string>
+    <string name="about_this_event">About this Event</string>
+    <string name="featured_speakers">Featured Speakers</string>
 </resources>

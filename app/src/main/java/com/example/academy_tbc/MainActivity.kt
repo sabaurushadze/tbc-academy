@@ -68,7 +68,8 @@ class MainActivity : AppCompatActivity() {
             R.id.profileFragment,
             R.id.myEventsFragment,
             R.id.eventsFragment,
-            R.id.notificationsFragment
+            R.id.notificationsFragment,
+            R.id.eventDetailsFragment
         )
     }
 

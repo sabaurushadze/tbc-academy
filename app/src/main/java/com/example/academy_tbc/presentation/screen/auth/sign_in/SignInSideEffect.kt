@@ -6,4 +6,6 @@ sealed interface SignInSideEffect {
     data class ShowError(val error: GenericString) : SignInSideEffect
     data class ShowEmailError(val error: GenericString) : SignInSideEffect
     data class ShowPasswordError(val error: GenericString) : SignInSideEffect
+
+    data object NavigateToHome : SignInSideEffect
 }

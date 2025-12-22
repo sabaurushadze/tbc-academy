@@ -29,6 +29,8 @@ class SignInViewModel @Inject constructor(
     private fun signIn(email: String, password: String, rememberMe: Boolean) {
         if (validateInputs(email = email, password = password)) {
 //            proceed sign in
+//            IF VALID then
+            emitSideEffect(SignInSideEffect.NavigateToHome)
         }
     }
 
