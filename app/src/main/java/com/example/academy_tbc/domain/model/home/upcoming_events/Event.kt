@@ -11,6 +11,6 @@ data class Event(
     val capacity: Int,
     val imageUrl: String?,
     val isActive: Boolean?,
-    val agendas: List<Agenda>,
-    val featuredSpeakers: List<FeaturedSpeaker>,
+    val agendas: List<Agenda>?,
+    val featuredSpeakers: List<FeaturedSpeaker>?,
 )

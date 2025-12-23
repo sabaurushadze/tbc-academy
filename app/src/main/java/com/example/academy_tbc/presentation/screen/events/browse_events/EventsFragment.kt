@@ -11,10 +11,9 @@ import com.example.academy_tbc.presentation.common.view.BaseFragment
 import com.example.academy_tbc.presentation.extension.dpToPx
 import com.example.academy_tbc.presentation.extension.lifecycleCollectLatest
 import com.example.academy_tbc.presentation.extension.showSnackBar
-import com.example.academy_tbc.presentation.screen.auth.sign_in.SignInFragmentDirections
-import com.example.academy_tbc.presentation.screen.events.browse_events.adapter.EventAdapter
-import com.example.academy_tbc.presentation.screen.events.browse_events.adapter.EventCategoryAdapter
-import com.example.academy_tbc.presentation.screen.events.browse_events.model.EventUi
+import com.example.academy_tbc.presentation.screen.events.browse_events.events.adapter.EventAdapter
+import com.example.academy_tbc.presentation.screen.events.browse_events.categories.adapter.EventCategoryAdapter
+import com.example.academy_tbc.presentation.screen.events.browse_events.events.model.EventUi
 import com.example.academy_tbc.presentation.screen.home.trending_events.adapter.HorizontalSpacingItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -53,73 +52,25 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>(
             EventUi(
                 id = 1,
                 title = "Team Building",
-                description = "Stay connected with upcoming company events and activities.",
-                eventTypeId = CategoryType.TEAM_BUILDING,
+//                description = "Stay connected with upcoming company events and activities.",
+                eventTypeId = 1,
                 startDateTime = "2025-12-21T18:00:00Z",
                 endDateTime = "2025-12-21T20:00:00Z",
                 location = "Hall A",
                 capacity = 50,
-                imageUrl = null,
+//                imageUrl = null,
                 isActive = true
             ),
             EventUi(
                 id = 2,
                 title = "Product Launch",
-                description = "Stay connected with upcoming company events and activities.",
-                eventTypeId = CategoryType.TEAM_BUILDING,
+//                description = "Stay connected with upcoming company events and activities.",
+                eventTypeId = 2,
                 startDateTime = "2025-12-22T15:30:00Z",
                 endDateTime = "2025-12-22T17:00:00Z",
                 location = "Room 101",
                 capacity = 200,
-                imageUrl = null,
-                isActive = true
-            ),
-            EventUi(
-                id = 3,
-                title = "Workshop",
-                description = "Training workshop",
-                eventTypeId = CategoryType.TEAM_BUILDING,
-                startDateTime = "2025-12-25T09:00:00Z",
-                endDateTime = "2025-12-25T12:00:00Z",
-                location = "Conference Room",
-                capacity = 30,
-                imageUrl = null,
-                isActive = true
-            ),
-            EventUi(
-                id = 4,
-                title = "Team Building",
-                description = "Stay connected with upcoming company events and activities.",
-                eventTypeId = CategoryType.TEAM_BUILDING,
-                startDateTime = "2025-12-21T18:00:00Z",
-                endDateTime = "2025-12-21T20:00:00Z",
-                location = "Hall A",
-                capacity = 50,
-                imageUrl = null,
-                isActive = true
-            ),
-            EventUi(
-                id = 5,
-                title = "Product Launch",
-                description = "Stay connected with upcoming company events and activities.",
-                eventTypeId = CategoryType.TEAM_BUILDING,
-                startDateTime = "2025-12-22T15:30:00Z",
-                endDateTime = "2025-12-22T17:00:00Z",
-                location = "Room 101",
-                capacity = 200,
-                imageUrl = null,
-                isActive = true
-            ),
-            EventUi(
-                id = 6,
-                title = "Workshop",
-                description = "Training workshop",
-                eventTypeId = CategoryType.TEAM_BUILDING,
-                startDateTime = "2025-12-25T09:00:00Z",
-                endDateTime = "2025-12-25T12:00:00Z",
-                location = "Conference Room",
-                capacity = 30,
-                imageUrl = null,
+//                imageUrl = null,
                 isActive = true
             )
         )

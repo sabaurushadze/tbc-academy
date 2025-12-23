@@ -3,13 +3,15 @@ package com.example.academy_tbc.presentation.screen.auth.sign_up
 import android.os.SystemClock
 import androidx.lifecycle.viewModelScope
 import com.example.academy_tbc.domain.model.auth.sign_up.SignUpValidationError
-import com.example.academy_tbc.domain.usecase.auth.sign_up.ValidateFirstNameUseCase
-import com.example.academy_tbc.domain.usecase.auth.sign_up.ValidateLastNameUseCase
-import com.example.academy_tbc.domain.usecase.auth.sign_up.ValidateOtpCodeUseCase
-import com.example.academy_tbc.domain.usecase.auth.sign_up.ValidatePhoneNumberUseCase
-import com.example.academy_tbc.domain.usecase.auth.sign_up.ValidateSignUpConfirmPasswordUseCase
-import com.example.academy_tbc.domain.usecase.auth.sign_up.ValidateSignUpEmailUseCase
-import com.example.academy_tbc.domain.usecase.auth.sign_up.ValidateSignUpPasswordUseCase
+import com.example.academy_tbc.domain.usecase.auth.sign_up.SignUpUseCase
+import com.example.academy_tbc.domain.usecase.auth.sign_up.validation.ValidateFirstNameUseCase
+import com.example.academy_tbc.domain.usecase.auth.sign_up.validation.ValidateLastNameUseCase
+import com.example.academy_tbc.domain.usecase.auth.sign_up.validation.ValidateOtpCodeUseCase
+import com.example.academy_tbc.domain.usecase.auth.sign_up.validation.ValidatePhoneNumberUseCase
+import com.example.academy_tbc.domain.usecase.auth.sign_up.validation.ValidateSignUpConfirmPasswordUseCase
+import com.example.academy_tbc.domain.usecase.auth.sign_up.validation.ValidateSignUpEmailUseCase
+import com.example.academy_tbc.domain.usecase.auth.sign_up.validation.ValidateSignUpPasswordUseCase
+import com.example.academy_tbc.presentation.common.mapper.toGenericString
 import com.example.academy_tbc.presentation.common.view.BaseViewModel
 import com.example.academy_tbc.presentation.screen.auth.sign_up.mapper.toGenericString
 import com.example.academy_tbc.presentation.util.GenericString
@@ -29,7 +31,7 @@ class SignUpViewModel @Inject constructor(
     private val validatePasswordUseCase: ValidateSignUpPasswordUseCase,
     private val validateSignUpConfirmPasswordUseCase: ValidateSignUpConfirmPasswordUseCase,
 
-
+    private val signUpUseCase: SignUpUseCase
     ) : BaseViewModel<SignUpState, SignUpSideEffect, SignUpEvent>(SignUpState()) {
 
     private var otpTimerJob: Job? = null
@@ -46,11 +48,17 @@ class SignUpViewModel @Inject constructor(
                 lastName = event.lastName,
                 email = event.email,
                 password = event.password,
-                confirmPassword = event.confirmPassword
+                confirmPassword = event.confirmPassword,
+                department = event.department
             )
 
             is SignUpEvent.ValidateCode -> validateOtpCodeOnServer(event.otpCode)
+            is SignUpEvent.SaveDepartment -> saveDepartment(event.department)
         }
+    }
+
+    private fun saveDepartment(departmentId: Int) {
+        updateUiState { copy(selectedDepartment = departmentId) }
     }
 
 
@@ -107,10 +115,6 @@ class SignUpViewModel @Inject constructor(
             emitSideEffect(SignUpSideEffect.ShowPasswordError(it))
         }
 
-//        val confirmPassOk = handleValidation(validatePasswordUseCase(confirmPassword)) {
-//            sendEffect(SignUpSideEffect.ShowPasswordError(it))
-//        }
-
         val confirmPassOk = handleValidation(
             validateSignUpConfirmPasswordUseCase(password, confirmPassword)
         ) {
@@ -136,7 +140,8 @@ class SignUpViewModel @Inject constructor(
         lastName: String,
         email: String,
         password: String,
-        confirmPassword: String
+        confirmPassword: String,
+        department: Int
     ) {
         if (validateInputs(
                 firstName = firstName,
@@ -146,7 +151,25 @@ class SignUpViewModel @Inject constructor(
                 confirmPassword = confirmPassword
 
             )) {
-//            create account
+            launchResource(
+                apiCall = signUpUseCase(
+                    firstName = firstName,
+                    lastName = lastName,
+                    email = email,
+                    password = password,
+                    department = department
+                ),
+                onLoading = {
+                    updateUiState { copy(isLoading = isLoading) }
+                },
+                onSuccess = { categories ->
+//                    aq gaisrole side effect gadaiyvane sign in ze
+//                    meti araferi wesit da sheiqmneba ra
+                },
+                onError = {
+                    emitSideEffect(SignUpSideEffect.ShowError(error = it.toGenericString()))
+                }
+            )
         }
     }
 

@@ -6,13 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.academy_tbc.databinding.ItemCategoryBinding
-import com.example.academy_tbc.databinding.ItemUpcomingEventBinding
-import com.example.academy_tbc.domain.model.home.categories.CategoryType
-import com.example.academy_tbc.presentation.screen.home.categories.mapper.getCategoryIconRes
-import com.example.academy_tbc.presentation.screen.home.categories.mapper.getCategoryNameRes
 import com.example.academy_tbc.presentation.screen.home.categories.model.CategoryUi
-import com.example.academy_tbc.presentation.screen.home.upcoming_events.model.UpcomingEventUi
-import com.example.academy_tbc.presentation.util.DateTimeParser
 
 class CategoryAdapter(
     val onClick: (Int) -> Unit,
@@ -35,8 +29,9 @@ class CategoryAdapter(
     inner class UserViewHolder(private val binding: ItemCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(category: CategoryUi) = with(binding) {
-            tvTitle.text = root.context.getString(getCategoryNameRes(category.categoryType))
-            ivCategory.setImageResource(getCategoryIconRes(category.categoryType))
+            tvTitle.text = root.context.getString(category.title)
+            ivCategory.setImageResource(category.icon)
+            ivCategory.setImageResource(category.icon)
             tvEventCount.text = "${category.totalEvents} events"
 
             root.setOnClickListener {

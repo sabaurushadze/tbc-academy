@@ -42,13 +42,13 @@ abstract class BaseViewModel<UiState, SideEffect, Event>(
     }
 
     protected fun <T, E : ResourceError> launchResource(
-        flow: Flow<Resource<T, E>>,
+        apiCall: Flow<Resource<T, E>>,
         onLoading: (Boolean) -> Unit = {},
         onSuccess: (T) -> Unit = {},
         onError: (E) -> Unit = {},
     ) {
         viewModelScope.launch {
-            flow.collectLatest { result ->
+            apiCall.collectLatest { result ->
                 when (result) {
                     is Resource.Loading -> onLoading(true)
                     is Resource.Success -> {

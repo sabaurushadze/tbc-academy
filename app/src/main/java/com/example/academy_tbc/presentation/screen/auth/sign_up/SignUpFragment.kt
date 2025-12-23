@@ -113,7 +113,8 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
                 lastName = lastName,
                 email = email,
                 password = password,
-                confirmPassword = confirmPassword
+                confirmPassword = confirmPassword,
+                department = viewModel.state.value.selectedDepartment
             ))
         }
 
@@ -122,21 +123,37 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
 
     //    MOCK_DATA_DROPDOWN
     private fun setupDepartmentDropdown() {
-        val departments = listOf(
-            "Marketing",
-            "Finance",
-            "IT",
-            "HR",
-            "Operations"
+        data class DepartmentUi(
+            val id: Int,
+            val name: String
         )
+//        val departments = listOf(
+//            "Marketing",
+//            "Finance",
+//            "IT",
+//            "HR",
+//            "Operations"
+//        )
+        val departments = listOf(
+            DepartmentUi(id = 1, name = "Marketing"),
+            DepartmentUi(id = 2, name = "Finance"),
+            DepartmentUi(id = 3, name = "IT"),
+            DepartmentUi(id = 4, name = "HR"),
+            DepartmentUi(id = 5, name = "Operations")
+        )
+
 
         val adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_list_item_1,
-            departments
+            departments.map { it.name }
         )
-
         binding.spinnerDepartment.setAdapter(adapter)
+
+        binding.spinnerDepartment.setOnItemClickListener { _, _, position, _ ->
+            viewModel.onEvent(SignUpEvent.SaveDepartment(departments[position].id))
+            binding.dropdownDepartment.error = null
+        }
     }
 
     private fun validateOtpCode() = with(binding) {

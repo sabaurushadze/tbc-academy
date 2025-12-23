@@ -8,6 +8,9 @@ fun CategoriesResponseDto.toDomain() =
     Category(
         id = id,
         title = title,
-        categoryType = CategoryType.fromId(categoryType) ?: CategoryType.TEAM_BUILDING,
+        categoryType = categoryType,
         totalEvents = totalEvents
     )
+
+
+fun List<CategoriesResponseDto>.toDomain() = map { it.toDomain() }

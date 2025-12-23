@@ -1,17 +1,13 @@
 package com.example.academy_tbc.presentation.screen.events.event_details.adapter
 
-import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.academy_tbc.R
 import com.example.academy_tbc.databinding.ItemFeaturedSpeakerBinding
-import com.example.academy_tbc.databinding.ItemHeaderCategoryBinding
 import com.example.academy_tbc.presentation.extension.loadImage
 import com.example.academy_tbc.presentation.screen.events.event_details.model.FeaturedSpeakerUi
-import com.example.academy_tbc.presentation.screen.home.categories.mapper.getCategoryNameRes
 
 class FeaturedSpeakersAdapter() :
     ListAdapter<FeaturedSpeakerUi, FeaturedSpeakersAdapter.UserViewHolder>(EventCategoryDiffUtil()) {

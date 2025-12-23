@@ -5,21 +5,15 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.academy_tbc.databinding.FragmentEventDetailBinding
-import com.example.academy_tbc.databinding.FragmentEventsBinding
 import com.example.academy_tbc.presentation.common.view.BaseFragment
-import com.example.academy_tbc.presentation.extension.dpToPx
 import com.example.academy_tbc.presentation.extension.lifecycleCollectLatest
 import com.example.academy_tbc.presentation.extension.showSnackBar
 import com.example.academy_tbc.presentation.screen.events.browse_events.EventsFragment.Companion.BUNDLE_KEY_EVENT_ID
 import com.example.academy_tbc.presentation.screen.events.browse_events.EventsFragment.Companion.REQUEST_KEY_EVENT_ID
-import com.example.academy_tbc.presentation.screen.events.browse_events.adapter.EventAdapter
-import com.example.academy_tbc.presentation.screen.events.browse_events.adapter.EventCategoryAdapter
-import com.example.academy_tbc.presentation.screen.events.browse_events.model.EventUi
 import com.example.academy_tbc.presentation.screen.events.event_details.adapter.AgendaAdapter
 import com.example.academy_tbc.presentation.screen.events.event_details.adapter.FeaturedSpeakersAdapter
 import com.example.academy_tbc.presentation.screen.events.event_details.model.AgendaUi
 import com.example.academy_tbc.presentation.screen.events.event_details.model.FeaturedSpeakerUi
-import com.example.academy_tbc.presentation.screen.home.trending_events.adapter.HorizontalSpacingItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -90,11 +84,11 @@ class EventDetailsFragment : BaseFragment<FragmentEventDetailBinding>(
                 role = "Lead Corporate Trainer"
             ),
         )
-        agendaAdapter.submitList(upcomingEvents)
+//        agendaAdapter.submitList(upcomingEvents)
         observeState()
         observeSideEffects()
-        agendaAdapter.submitList(upcomingEvents)
-        featuredSpeakersAdapter.submitList(featuredSpeakers)
+//        agendaAdapter.submitList(upcomingEvents)
+//        featuredSpeakersAdapter.submitList(featuredSpeakers)
     }
 
     private fun setUpAgendaAdapter() = with(binding) {

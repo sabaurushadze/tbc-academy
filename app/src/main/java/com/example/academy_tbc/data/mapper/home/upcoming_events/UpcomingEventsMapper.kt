@@ -1,8 +1,8 @@
 package com.example.academy_tbc.data.mapper.home.upcoming_events
 
-import com.example.academy_tbc.data.dto.response.home.upcoming_events.AgendaDto
-import com.example.academy_tbc.data.dto.response.home.upcoming_events.FeaturedSpeakersDto
-import com.example.academy_tbc.data.dto.response.home.upcoming_events.EventsResponseDto
+import com.example.academy_tbc.data.dto.response.home.events.AgendaDto
+import com.example.academy_tbc.data.dto.response.home.events.FeaturedSpeakersDto
+import com.example.academy_tbc.data.dto.response.home.events.EventsResponseDto
 import com.example.academy_tbc.domain.model.home.upcoming_events.Agenda
 import com.example.academy_tbc.domain.model.home.upcoming_events.FeaturedSpeaker
 import com.example.academy_tbc.domain.model.home.upcoming_events.Event
@@ -36,3 +36,4 @@ fun FeaturedSpeakersDto.toDomain() = FeaturedSpeaker(
     role = role,
     imageUrl = imageUrl
 )
+fun List<EventsResponseDto>.toDomain() = map { it.toDomain() }

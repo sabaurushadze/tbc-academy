@@ -1,32 +1,65 @@
 package com.example.academy_tbc.presentation.screen.home
 
-import android.os.SystemClock
-import androidx.lifecycle.viewModelScope
-import com.example.academy_tbc.domain.model.auth.sign_up.SignUpValidationError
-import com.example.academy_tbc.domain.usecase.auth.sign_up.ValidateFirstNameUseCase
-import com.example.academy_tbc.domain.usecase.auth.sign_up.ValidateLastNameUseCase
-import com.example.academy_tbc.domain.usecase.auth.sign_up.ValidateOtpCodeUseCase
-import com.example.academy_tbc.domain.usecase.auth.sign_up.ValidatePhoneNumberUseCase
-import com.example.academy_tbc.domain.usecase.auth.sign_up.ValidateSignUpConfirmPasswordUseCase
-import com.example.academy_tbc.domain.usecase.auth.sign_up.ValidateSignUpEmailUseCase
-import com.example.academy_tbc.domain.usecase.auth.sign_up.ValidateSignUpPasswordUseCase
+import com.example.academy_tbc.domain.usecase.category.GetCategoriesUseCase
+import com.example.academy_tbc.domain.usecase.event.GetEventsUseCase
+import com.example.academy_tbc.presentation.common.mapper.toGenericString
 import com.example.academy_tbc.presentation.common.view.BaseViewModel
-import com.example.academy_tbc.presentation.screen.auth.sign_up.mapper.toGenericString
-import com.example.academy_tbc.presentation.util.GenericString
+import com.example.academy_tbc.presentation.screen.events.browse_events.categories.mapper.toEventCategoryUi
+import com.example.academy_tbc.presentation.screen.home.categories.mapper.toCategoryUi
+import com.example.academy_tbc.presentation.screen.home.upcoming_events.mapper.toUpcomingEventUi
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    private val getEventsUseCase: GetEventsUseCase,
+    private val getCategoriesUseCase: GetCategoriesUseCase
 ) : BaseViewModel<HomeState, HomeSideEffect, HomeEvent>(HomeState()) {
 
 
     override fun onEvent(event: HomeEvent) {
-
+        when(event) {
+            HomeEvent.GetCategories -> getCategories()
+            HomeEvent.GetEvents -> getEvents()
+        }
     }
 
+    private fun getCategories() {
+        launchResource(
+            apiCall = getCategoriesUseCase(),
+            onLoading = {
+                updateUiState { copy(isLoading = isLoading) }
+            },
+            onSuccess = { categories ->
+                updateUiState {
+                    copy(
+                        categories = categories.map { it.toCategoryUi() }
+                    )
+                }
+            },
+            onError = {
+                emitSideEffect(HomeSideEffect.ShowError(error = it.toGenericString()))
+            }
+        )
+    }
+
+    private fun getEvents() {
+        launchResource(
+            apiCall = getEventsUseCase(),
+            onLoading = {
+                updateUiState { copy(isLoading = isLoading) }
+            },
+            onSuccess = { events ->
+                updateUiState {
+                    copy(
+                        events = events.map { it.toUpcomingEventUi() }
+                    )
+                }
+            },
+            onError = {
+                emitSideEffect(HomeSideEffect.ShowError(error = it.toGenericString()))
+            }
+        )
+    }
 
 }

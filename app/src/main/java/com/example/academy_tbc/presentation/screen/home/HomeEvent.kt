@@ -1,6 +1,8 @@
 package com.example.academy_tbc.presentation.screen.home
 
-sealed class HomeEvent {
-    data class SendOtp(val phoneNumber: String) : HomeEvent()
+import com.example.academy_tbc.presentation.screen.events.browse_events.EventsEvent
 
+sealed class HomeEvent {
+    data object GetCategories : HomeEvent()
+    data object GetEvents : HomeEvent()
 }

@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.academy_tbc.R
 import com.example.academy_tbc.databinding.FragmentHomeBinding
-import com.example.academy_tbc.domain.model.home.categories.CategoryType
 import com.example.academy_tbc.presentation.common.view.BaseFragment
 import com.example.academy_tbc.presentation.extension.dpToPx
 import com.example.academy_tbc.presentation.extension.lifecycleCollect
@@ -13,7 +12,6 @@ import com.example.academy_tbc.presentation.extension.lifecycleCollectLatest
 import com.example.academy_tbc.presentation.extension.showSnackBar
 import com.example.academy_tbc.presentation.screen.home.categories.adapter.CategoryAdapter
 import com.example.academy_tbc.presentation.screen.home.categories.adapter.GridSpacingItemDecoration
-import com.example.academy_tbc.presentation.screen.home.categories.mapper.getCategoryIconRes
 import com.example.academy_tbc.presentation.screen.home.categories.model.CategoryUi
 import com.example.academy_tbc.presentation.screen.home.trending_events.adapter.HorizontalSpacingItemDecoration
 import com.example.academy_tbc.presentation.screen.home.trending_events.adapter.TrendingEventAdapter
@@ -54,36 +52,30 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
                 id = 1,
                 title = "Team Building",
                 description = "Stay connected with upcoming company events and activities.",
-                eventTypeId = 1,
                 startDateTime = "2025-12-21T18:00:00Z",
                 endDateTime = "2025-12-21T20:00:00Z",
                 location = "Hall A",
                 capacity = 50,
-                imageUrl = null,
                 isActive = true
             ),
             UpcomingEventUi(
                 id = 2,
                 title = "Product Launch",
                 description = "Stay connected with upcoming company events and activities.",
-                eventTypeId = 1,
                 startDateTime = "2025-12-22T15:30:00Z",
                 endDateTime = "2025-12-22T17:00:00Z",
                 location = "Room 101",
                 capacity = 200,
-                imageUrl = null,
                 isActive = true
             ),
             UpcomingEventUi(
                 id = 3,
                 title = "Workshop",
                 description = "Training workshop",
-                eventTypeId = 2,
                 startDateTime = "2025-12-25T09:00:00Z",
                 endDateTime = "2025-12-25T12:00:00Z",
                 location = "Conference Room",
                 capacity = 30,
-                imageUrl = null,
                 isActive = true
             )
         )
@@ -91,47 +83,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         val categories: List<CategoryUi> = listOf(
             CategoryUi(
                 id = 1,
-                categoryType = CategoryType.TEAM_BUILDING,
                 title = R.string.team_building,
-                icon = getCategoryIconRes(CategoryType.TEAM_BUILDING),
+                icon = R.drawable.ic_home,
                 totalEvents = 5
             ),
             CategoryUi(
                 id = 2,
-                categoryType = CategoryType.SPORTS,
                 title = R.string.team_building,
-                icon = getCategoryIconRes(CategoryType.SPORTS),
+                icon = R.drawable.ic_home,
                 totalEvents = 3
             ),
             CategoryUi(
                 id = 3,
-                categoryType = CategoryType.WORKSHOPS,
                 title = R.string.team_building,
-                icon = getCategoryIconRes(CategoryType.WORKSHOPS),
+                icon = R.drawable.ic_home,
                 totalEvents = 2
-            ),
-            CategoryUi(
-                id = 4,
-                categoryType = CategoryType.HAPPY_FRIDAYS,
-                title = R.string.team_building,
-                icon = getCategoryIconRes(CategoryType.HAPPY_FRIDAYS),
-                totalEvents = 4
-            ),
-            CategoryUi(
-                id = 5,
-                categoryType = CategoryType.CULTURAL,
-                title = R.string.team_building,
-                icon = getCategoryIconRes(CategoryType.CULTURAL),
-                totalEvents = 1
-            ),
-            CategoryUi(
-                id = 6,
-                categoryType = CategoryType.WELLNESS,
-                title = R.string.team_building,
-                icon = getCategoryIconRes(CategoryType.WELLNESS),
-                totalEvents = 6
             )
         )
+
         val trendingEvents: List<TrendingEventUi> = listOf(
             TrendingEventUi(
                 id = 1,
@@ -157,7 +126,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
         setUpUpTrendingEventAdapter()
         upcomingEventAdapter.submitList(upcomingEvents)
         categoryAdapter.submitList(categories)
-        trendingEventAdapter.submitList(trendingEvents)
+//        trendingEventAdapter.submitList(trendingEvents)
     }
 
     override fun listeners() {

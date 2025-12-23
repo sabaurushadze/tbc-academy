@@ -29,7 +29,7 @@ android {
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"\""
+                "\"http://192.168.1.104:3000/\""
             )
         }
         release {
@@ -41,7 +41,7 @@ android {
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"\""
+                "\"http://192.168.1.104:3000/\""
             )
         }
     }

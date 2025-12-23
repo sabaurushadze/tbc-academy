@@ -6,7 +6,6 @@ import com.example.academy_tbc.domain.model.home.categories.CategoryType
 
 data class CategoryUi(
     val id: Int,
-    val categoryType: CategoryType,
     @param:StringRes val title: Int,
     @param:DrawableRes val icon: Int,
     val totalEvents: Int,

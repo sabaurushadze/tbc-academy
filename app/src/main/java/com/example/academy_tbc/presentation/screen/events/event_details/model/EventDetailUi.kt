@@ -11,8 +11,8 @@ data class EventDetailUi(
     val capacity: Int,
     val imageUrl: String?,
     val isActive: Boolean?,
-    val agendas: List<AgendaUi>,
-    val featuredSpeakers: List<FeaturedSpeakerUi>
+    val agendas: List<AgendaUi>?,
+    val featuredSpeakers: List<FeaturedSpeakerUi>?
 )
 
 data class AgendaUi(
