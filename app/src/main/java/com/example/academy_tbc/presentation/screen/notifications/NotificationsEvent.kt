@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.screen.updates
+package com.example.academy_tbc.presentation.screen.notifications
 
 
 sealed class NotificationsEvent {

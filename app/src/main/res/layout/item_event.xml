@@ -32,14 +32,15 @@
             android:fontFamily="@font/roboto_regular"
             android:text="20"
             android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvMonthAbbreviation"
+            app:layout_constraintEnd_toEndOf="@id/tvMonthAbbreviation"
             app:layout_constraintTop_toBottomOf="@id/tvMonthAbbreviation" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="32dp"
             android:background="@drawable/btn_category_round"
             android:backgroundTint="@color/white3"
             android:paddingHorizontal="8dp"
@@ -49,7 +50,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvAvailability"
+            android:id="@+id/tvEventStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -65,7 +66,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/roboto_medium"
             android:text="Annual Team Building Summit"
@@ -77,7 +78,7 @@
             android:id="@+id/icClock"
             android:layout_width="14dp"
             android:layout_height="14dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="10dp"
             android:src="@drawable/ic_clock"
             app:layout_constraintStart_toEndOf="@id/tvMonthNumber"
@@ -101,7 +102,7 @@
             android:id="@+id/icLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="34dp"
             android:layout_marginTop="10dp"
             android:src="@drawable/ic_location"
             app:layout_constraintStart_toEndOf="@id/tvMonthNumber"
@@ -127,15 +128,14 @@
             android:id="@+id/icPeople"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="32dp"
             android:layout_marginBottom="8dp"
             android:src="@drawable/ic_people"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/tvMonthNumber" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvCapacity"
+            android:id="@+id/tvCurrentCapacity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -145,6 +145,28 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/icPeople" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icAvailableSlots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="6dp"
+            android:src="@drawable/ic_person_add"
+            app:layout_constraintStart_toEndOf="@id/tvCurrentCapacity"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAvailableSlots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="6dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="102 Places"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/icAvailableSlots" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

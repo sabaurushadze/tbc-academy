@@ -6,10 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.academy_tbc.databinding.ItemTrendingEventBinding
-import com.example.academy_tbc.databinding.ItemUpcomingEventBinding
 import com.example.academy_tbc.presentation.extension.loadImage
 import com.example.academy_tbc.presentation.screen.home.trending_events.model.TrendingEventUi
-import com.example.academy_tbc.presentation.util.DateTimeParser
 
 class TrendingEventAdapter(
     val onClick: (Int) -> Unit,
@@ -34,8 +32,7 @@ class TrendingEventAdapter(
         fun bind(event: TrendingEventUi) = with(binding) {
             ivEvent.loadImage(event.imageUrl)
             tvTitle.text = event.title
-            tvEventTime.text = DateTimeParser.getFormattedDate(event.date)
-
+            tvEventTime.text = event.date
 
             root.setOnClickListener {
                 onClick(event.id)

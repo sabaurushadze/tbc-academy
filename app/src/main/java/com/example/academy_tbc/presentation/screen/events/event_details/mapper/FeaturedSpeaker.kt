@@ -5,7 +5,7 @@ import com.example.academy_tbc.presentation.screen.events.event_details.model.Fe
 
 fun FeaturedSpeaker.toPresentation() = FeaturedSpeakerUi(
     id = id,
-    imageUrl = imageUrl,
+    photoUrl = photoUrl,
     name = name,
     role = role
 )

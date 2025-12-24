@@ -7,13 +7,18 @@ data class EventsResponseDto(
     val id: Int,
     val title: String,
     val description: String?,
-    val eventTypeId: Int,
+    val categoryId: Int,
+    val categoryTitle: String,
     val startDateTime: String,
     val endDateTime: String,
+    val registrationDeadline: String,
     val location: String,
-    val capacity: Int,
+    val currentCapacity: Int,
+    val maxCapacity: Int,
+    val availableSlots: Int,
+    val eventStatus: String,
     val imageUrl: String?,
-    val isActive: Boolean?,
-    val agendas: List<AgendaDto>,
-    val featuredSpeakers: List<FeaturedSpeakersDto>
+    val isVisible: Boolean,
+    val agenda: List<AgendaDto>?,
+    val speakers: List<FeaturedSpeakersDto>?
 )

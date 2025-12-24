@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.screen.updates
+package com.example.academy_tbc.presentation.screen.notifications
 
 import com.example.academy_tbc.domain.usecase.auth.sign_in.validation.ValidateEmailUseCase
 import com.example.academy_tbc.domain.usecase.auth.sign_in.validation.ValidatePasswordUseCase

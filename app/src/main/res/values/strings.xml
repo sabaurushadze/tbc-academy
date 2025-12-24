@@ -89,4 +89,10 @@
     <string name="event_details">Event Details</string>
     <string name="about_this_event">About this Event</string>
     <string name="featured_speakers">Featured Speakers</string>
+    <string name="registered">%1$s registered</string>
+    <string name="spots_left">%1$s spots left</string>
+    <string name="registered_capacity">%1$s registered</string>
+    <string name="spots_left_capacity">%1$s spots left</string>
+    <string name="registered_spots_left">%1$s registered, %2$s spots left</string>
+    <string name="select_date">Select Date</string>
 </resources>

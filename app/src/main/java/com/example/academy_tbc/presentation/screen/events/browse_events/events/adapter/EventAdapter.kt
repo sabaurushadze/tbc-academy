@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.academy_tbc.R
 import com.example.academy_tbc.databinding.ItemEventBinding
 import com.example.academy_tbc.presentation.screen.events.browse_events.events.model.EventUi
-import com.example.academy_tbc.presentation.util.DateTimeParser
 
 class EventAdapter(
     val onClick: (Int) -> Unit,
@@ -30,13 +30,15 @@ class EventAdapter(
     inner class UserViewHolder(private val binding: ItemEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(event: EventUi) = with(binding) {
-            tvMonthAbbreviation.text = DateTimeParser.getMonthAbbr(event.startDateTime)
-            tvMonthNumber.text = DateTimeParser.getDay(event.startDateTime).toString()
             tvTitle.text = event.title
-            tvEventTime.text = "${DateTimeParser.getTime(event.startDateTime)} - ${DateTimeParser.getTime(event.endDateTime)}"
             tvLocation.text = event.location
-            tvCapacity.text = event.capacity.toString()
-            tvCategory.text = event.title
+            tvCategory.text = event.categoryTitle
+            tvAvailableSlots.text = root.context.getString(R.string.spots_left_capacity, event.availableSlots)
+            tvCurrentCapacity.text = root.context.getString(R.string.registered_capacity, event.currentCapacity)
+            tvMonthNumber.text = event.monthNumber
+            tvMonthAbbreviation.text = event.monthAbbreviation
+            tvEventTime.text = event.time
+            tvEventStatus.text = event.eventStatus
 
             root.setOnClickListener {
                 onClick(event.id)

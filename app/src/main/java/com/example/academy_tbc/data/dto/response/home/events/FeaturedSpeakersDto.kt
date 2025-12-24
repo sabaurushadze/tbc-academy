@@ -7,5 +7,5 @@ data class FeaturedSpeakersDto(
     val id: Int,
     val name: String,
     val role: String,
-    val imageUrl: String
+    val photoUrl: String
 )

@@ -1,9 +1,11 @@
 package com.example.academy_tbc.presentation.screen.home
 
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.academy_tbc.R
 import com.example.academy_tbc.databinding.FragmentHomeBinding
 import com.example.academy_tbc.presentation.common.view.BaseFragment
 import com.example.academy_tbc.presentation.extension.dpToPx
@@ -12,12 +14,9 @@ import com.example.academy_tbc.presentation.extension.lifecycleCollectLatest
 import com.example.academy_tbc.presentation.extension.showSnackBar
 import com.example.academy_tbc.presentation.screen.home.categories.adapter.CategoryAdapter
 import com.example.academy_tbc.presentation.screen.home.categories.adapter.GridSpacingItemDecoration
-import com.example.academy_tbc.presentation.screen.home.categories.model.CategoryUi
 import com.example.academy_tbc.presentation.screen.home.trending_events.adapter.HorizontalSpacingItemDecoration
 import com.example.academy_tbc.presentation.screen.home.trending_events.adapter.TrendingEventAdapter
-import com.example.academy_tbc.presentation.screen.home.trending_events.model.TrendingEventUi
 import com.example.academy_tbc.presentation.screen.home.upcoming_events.adapter.UpcomingEventAdapter
-import com.example.academy_tbc.presentation.screen.home.upcoming_events.model.UpcomingEventUi
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -29,14 +28,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
     private val upcomingEventAdapter by lazy {
         UpcomingEventAdapter(
-            onClick = {
+            onClick = { upcomingEventId ->
+                setFragmentResult(
+                    REQUEST_KEY_UPCOMING_EVENT_ID,
+                    bundleOf(BUNDLE_KEY_UPCOMING_EVENT_ID to upcomingEventId)
+                )
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToEventDetailsFragment())
             }
         )
     }
 
     private val categoryAdapter by lazy {
         CategoryAdapter(
-            onClick = {}
+            onClick = { categoryId ->
+                findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToEventsFragment(
+                        categoryId
+                    )
+                )
+            }
         )
     }
 
@@ -47,91 +57,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
     }
 
     override fun bind() {
-        val upcomingEvents: List<UpcomingEventUi> = listOf(
-            UpcomingEventUi(
-                id = 1,
-                title = "Team Building",
-                description = "Stay connected with upcoming company events and activities.",
-                startDateTime = "2025-12-21T18:00:00Z",
-                endDateTime = "2025-12-21T20:00:00Z",
-                location = "Hall A",
-                capacity = 50,
-                isActive = true
-            ),
-            UpcomingEventUi(
-                id = 2,
-                title = "Product Launch",
-                description = "Stay connected with upcoming company events and activities.",
-                startDateTime = "2025-12-22T15:30:00Z",
-                endDateTime = "2025-12-22T17:00:00Z",
-                location = "Room 101",
-                capacity = 200,
-                isActive = true
-            ),
-            UpcomingEventUi(
-                id = 3,
-                title = "Workshop",
-                description = "Training workshop",
-                startDateTime = "2025-12-25T09:00:00Z",
-                endDateTime = "2025-12-25T12:00:00Z",
-                location = "Conference Room",
-                capacity = 30,
-                isActive = true
-            )
-        )
-
-        val categories: List<CategoryUi> = listOf(
-            CategoryUi(
-                id = 1,
-                title = R.string.team_building,
-                icon = R.drawable.ic_home,
-                totalEvents = 5
-            ),
-            CategoryUi(
-                id = 2,
-                title = R.string.team_building,
-                icon = R.drawable.ic_home,
-                totalEvents = 3
-            ),
-            CategoryUi(
-                id = 3,
-                title = R.string.team_building,
-                icon = R.drawable.ic_home,
-                totalEvents = 2
-            )
-        )
-
-        val trendingEvents: List<TrendingEventUi> = listOf(
-            TrendingEventUi(
-                id = 1,
-                title = "Tech Talk: AI in Business",
-                date = "2025-12-21T18:00:00Z",
-                imageUrl = "https://raw.githubusercontent.com/sabaurushadze/api-images/refs/heads/main/gpu/4060/rtx_4060_8gb_1.png"
-            ),
-            TrendingEventUi(
-                id = 2,
-                title = "Tech Talk: AI in Business",
-                date = "2025-12-21T18:00:00Z",
-                imageUrl = ""
-            ),
-            TrendingEventUi(
-                id = 3,
-                title = "Tech Talk: AI in Business",
-                date = "2025-12-21T18:00:00Z",
-                imageUrl = ""
-            )
-        )
         setUpUpcomingEventAdapter()
         setUpCategoryAdapter()
         setUpUpTrendingEventAdapter()
-        upcomingEventAdapter.submitList(upcomingEvents)
-        categoryAdapter.submitList(categories)
-//        trendingEventAdapter.submitList(trendingEvents)
     }
 
     override fun listeners() {
         observeState()
         observeSideEffects()
+        viewAllEvents()
     }
 
     private fun setUpUpcomingEventAdapter() = with(binding) {
@@ -147,24 +81,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             layoutManager = GridLayoutManager(context, 3)
             adapter = categoryAdapter
             isNestedScrollingEnabled = false
-            addItemDecoration(GridSpacingItemDecoration(
-                spanCount = 3,
-                spacing = 12.dpToPx(),
-                includeEdge = true
-            ))
+            addItemDecoration(
+                GridSpacingItemDecoration(
+                    spanCount = 3,
+                    spacing = 12.dpToPx(),
+                    includeEdge = true
+                )
+            )
         }
     }
 
     private fun setUpUpTrendingEventAdapter() = with(binding) {
         rvTrendingEvents.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false )
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = trendingEventAdapter
             isNestedScrollingEnabled = false
-            addItemDecoration(HorizontalSpacingItemDecoration(
-                16.dpToPx(),
-                addStartSpacing = false,
-                addEndSpacing = false
-            ))
+            addItemDecoration(
+                HorizontalSpacingItemDecoration(
+                    16.dpToPx(),
+                    addStartSpacing = false,
+                    addEndSpacing = false
+                )
+            )
         }
     }
 
@@ -181,8 +119,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
     private fun observeState() {
         lifecycleCollect(viewModel.state) { state ->
+            upcomingEventAdapter.submitList(state.events)
+            categoryAdapter.submitList(state.categories)
         }
     }
 
+    private fun viewAllEvents() {
+        binding.tvBtnViewAll.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToEventsFragment())
+        }
+    }
+
+    companion object {
+        const val REQUEST_KEY_UPCOMING_EVENT_ID = "request_key_upcoming_event_id"
+        const val BUNDLE_KEY_UPCOMING_EVENT_ID = "bundle_key_upcoming_event_id"
+    }
 
 }

@@ -4,7 +4,6 @@ import com.example.academy_tbc.domain.usecase.category.GetCategoriesUseCase
 import com.example.academy_tbc.domain.usecase.event.GetEventsUseCase
 import com.example.academy_tbc.presentation.common.mapper.toGenericString
 import com.example.academy_tbc.presentation.common.view.BaseViewModel
-import com.example.academy_tbc.presentation.screen.events.browse_events.categories.mapper.toEventCategoryUi
 import com.example.academy_tbc.presentation.screen.home.categories.mapper.toCategoryUi
 import com.example.academy_tbc.presentation.screen.home.upcoming_events.mapper.toUpcomingEventUi
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,12 +12,17 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getEventsUseCase: GetEventsUseCase,
-    private val getCategoriesUseCase: GetCategoriesUseCase
+    private val getCategoriesUseCase: GetCategoriesUseCase,
 ) : BaseViewModel<HomeState, HomeSideEffect, HomeEvent>(HomeState()) {
 
 
+    init {
+        getCategories()
+        getEvents()
+    }
+
     override fun onEvent(event: HomeEvent) {
-        when(event) {
+        when (event) {
             HomeEvent.GetCategories -> getCategories()
             HomeEvent.GetEvents -> getEvents()
         }

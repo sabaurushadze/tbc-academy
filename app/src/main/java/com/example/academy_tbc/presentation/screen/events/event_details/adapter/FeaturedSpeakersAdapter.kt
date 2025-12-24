@@ -30,7 +30,7 @@ class FeaturedSpeakersAdapter() :
         fun bind(speaker: FeaturedSpeakerUi) = with(binding) {
             tvSpeaker.text = speaker.name
             tvRole.text = speaker.role
-            ivSpeaker.loadImage(speaker.imageUrl)
+            ivSpeaker.loadImage(speaker.photoUrl)
         }
     }
 }

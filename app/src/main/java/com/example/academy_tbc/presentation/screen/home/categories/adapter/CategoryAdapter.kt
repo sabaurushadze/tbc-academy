@@ -29,8 +29,7 @@ class CategoryAdapter(
     inner class UserViewHolder(private val binding: ItemCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(category: CategoryUi) = with(binding) {
-            tvTitle.text = root.context.getString(category.title)
-            ivCategory.setImageResource(category.icon)
+            tvTitle.text = category.title
             ivCategory.setImageResource(category.icon)
             tvEventCount.text = "${category.totalEvents} events"
 

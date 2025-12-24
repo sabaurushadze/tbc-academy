@@ -1,19 +1,26 @@
 package com.example.academy_tbc.presentation.screen.events.browse_events
 
+import android.os.Bundle
+import android.util.Log.d
 import androidx.core.os.bundleOf
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.academy_tbc.databinding.FragmentEventsBinding
-import com.example.academy_tbc.domain.model.home.categories.CategoryType
 import com.example.academy_tbc.presentation.common.view.BaseFragment
 import com.example.academy_tbc.presentation.extension.dpToPx
 import com.example.academy_tbc.presentation.extension.lifecycleCollectLatest
 import com.example.academy_tbc.presentation.extension.showSnackBar
-import com.example.academy_tbc.presentation.screen.events.browse_events.events.adapter.EventAdapter
+import com.example.academy_tbc.presentation.screen.events.browse_events.EventFilterBottomSheet.Companion.BUNDLE_KEY_DATE
+import com.example.academy_tbc.presentation.screen.events.browse_events.EventFilterBottomSheet.Companion.BUNDLE_KEY_LOCATION
+import com.example.academy_tbc.presentation.screen.events.browse_events.EventFilterBottomSheet.Companion.BUNDLE_KEY_ONLY_AVAILABLE
+import com.example.academy_tbc.presentation.screen.events.browse_events.EventFilterBottomSheet.Companion.REQUEST_KEY_FILTERS
 import com.example.academy_tbc.presentation.screen.events.browse_events.categories.adapter.EventCategoryAdapter
-import com.example.academy_tbc.presentation.screen.events.browse_events.events.model.EventUi
+import com.example.academy_tbc.presentation.screen.events.browse_events.events.adapter.EventAdapter
 import com.example.academy_tbc.presentation.screen.home.trending_events.adapter.HorizontalSpacingItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,6 +29,33 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>(
     FragmentEventsBinding::inflate
 ) {
     private val viewModel: EventsViewModel by viewModels()
+    val args: EventsFragmentArgs by navArgs()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setFragmentResultListener(
+            REQUEST_KEY_FILTERS,
+        ) { _, bundle ->
+            val location = bundle.getString(BUNDLE_KEY_LOCATION).orEmpty()
+            val onlyAvailable = bundle.getBoolean(BUNDLE_KEY_ONLY_AVAILABLE, false)
+            val date = bundle.getString(BUNDLE_KEY_DATE).orEmpty()
+
+            viewModel.onEvent(
+                EventsEvent.ApplyFilters(
+                    location = location,
+                    onlyAvailable = onlyAvailable,
+                    date = date
+                )
+            )
+        }
+
+        if (args.selectedCategoryId != -1) {
+            d("asdd", "called")
+            d("asdd", "${args.selectedCategoryId}")
+            viewModel.onEvent(EventsEvent.SaveCategory(args.selectedCategoryId))
+        }
+    }
+
 
     private val eventCategoryAdapter by lazy {
         EventCategoryAdapter(
@@ -42,42 +76,15 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>(
     }
 
     override fun bind() {
-        viewModel.onEvent(EventsEvent.SaveCategory(1))
         setUpEventCategoryAdapter()
         setUpEventAdapter()
     }
 
     override fun listeners() {
-        val upcomingEvents: List<EventUi> = listOf(
-            EventUi(
-                id = 1,
-                title = "Team Building",
-//                description = "Stay connected with upcoming company events and activities.",
-                eventTypeId = 1,
-                startDateTime = "2025-12-21T18:00:00Z",
-                endDateTime = "2025-12-21T20:00:00Z",
-                location = "Hall A",
-                capacity = 50,
-//                imageUrl = null,
-                isActive = true
-            ),
-            EventUi(
-                id = 2,
-                title = "Product Launch",
-//                description = "Stay connected with upcoming company events and activities.",
-                eventTypeId = 2,
-                startDateTime = "2025-12-22T15:30:00Z",
-                endDateTime = "2025-12-22T17:00:00Z",
-                location = "Room 101",
-                capacity = 200,
-//                imageUrl = null,
-                isActive = true
-            )
-        )
-
         observeState()
         observeSideEffects()
-        eventAdapter.submitList(upcomingEvents)
+        searchEvent()
+        onFilterButtonClick()
     }
 
     private fun setUpEventCategoryAdapter() = with(binding) {
@@ -115,6 +122,25 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>(
     private fun observeState() {
         lifecycleCollectLatest(viewModel.state) { state ->
             eventCategoryAdapter.submitList(state.eventCategories)
+            eventAdapter.submitList(state.events)
+        }
+    }
+
+    private fun searchEvent() {
+        binding.etSearch.doOnTextChanged { text, _, _, _ ->
+            viewModel.onEvent(
+                EventsEvent.Search(text?.toString().orEmpty())
+            )
+        }
+    }
+
+    private fun onFilterButtonClick() {
+        binding.btnFilter.setOnClickListener {
+            val filterBottomSheet = EventFilterBottomSheet()
+            filterBottomSheet.show(
+                parentFragmentManager,
+                EventFilterBottomSheet::class.java.simpleName
+            )
         }
     }
 

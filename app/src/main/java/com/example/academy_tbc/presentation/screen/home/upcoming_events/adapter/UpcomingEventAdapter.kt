@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.academy_tbc.R
 import com.example.academy_tbc.databinding.ItemUpcomingEventBinding
 import com.example.academy_tbc.presentation.screen.home.upcoming_events.model.UpcomingEventUi
-import com.example.academy_tbc.presentation.util.DateTimeParser
 
 class UpcomingEventAdapter(
     val onClick: (Int) -> Unit,
@@ -30,13 +30,16 @@ class UpcomingEventAdapter(
     inner class UserViewHolder(private val binding: ItemUpcomingEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(event: UpcomingEventUi) = with(binding) {
-            tvMonthAbbreviation.text = DateTimeParser.getMonthAbbr(event.startDateTime)
-            tvMonthNumber.text = DateTimeParser.getDay(event.startDateTime).toString()
+            tvMonthAbbreviation.text = event.monthAbbreviation
+            tvMonthNumber.text = event.monthNumber
             tvTitle.text = event.title
-            tvEventTime.text = "${DateTimeParser.getTime(event.startDateTime)} - ${DateTimeParser.getTime(event.endDateTime)}"
+            tvEventTime.text = event.time
             tvLocation.text = event.location
             tvDescription.text = event.description
-            tvCapacity.text = event.capacity.toString()
+            tvCurrentCapacity.text =
+                root.context.getString(R.string.registered, event.currentCapacity)
+            tvAvailableSlots.text =
+                root.context.getString(R.string.spots_left, event.availableSlots)
 
             tvBtnViewDetails.setOnClickListener {
                 onClick(event.id)

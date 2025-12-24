@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/signInFragment">
+    app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/signInFragment"
         android:name="com.example.academy_tbc.presentation.screen.auth.sign_in.SignInFragment"
@@ -27,11 +27,25 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.academy_tbc.presentation.screen.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_eventsFragment"
+            app:destination="@id/eventsFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/eventsFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_eventDetailsFragment"
+            app:destination="@id/eventDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/eventsFragment"
         android:name="com.example.academy_tbc.presentation.screen.events.browse_events.EventsFragment"
         android:label="EventsFragment" >
+        <argument
+            android:name="selectedCategoryId"
+            app:argType="integer"
+            android:defaultValue="-1"
+            />
         <action
             android:id="@+id/action_eventsFragment_to_eventDetailsFragment"
             app:destination="@id/eventDetailsFragment" />
@@ -46,7 +60,7 @@
         android:label="ProfileFragment" />
     <fragment
         android:id="@+id/notificationsFragment"
-        android:name="com.example.academy_tbc.presentation.screen.updates.NotificationsFragment"
+        android:name="com.example.academy_tbc.presentation.screen.notifications.NotificationsFragment"
         android:label="NotificationsFragment" />
     <fragment
         android:id="@+id/eventDetailsFragment"

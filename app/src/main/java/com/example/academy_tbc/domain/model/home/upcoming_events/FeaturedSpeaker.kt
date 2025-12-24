@@ -4,5 +4,5 @@ data class FeaturedSpeaker(
     val id: Int,
     val name: String,
     val role: String,
-    val imageUrl: String
+    val photoUrl: String
 )

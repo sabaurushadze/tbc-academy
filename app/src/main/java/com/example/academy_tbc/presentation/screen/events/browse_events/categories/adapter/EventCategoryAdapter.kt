@@ -31,7 +31,7 @@ class EventCategoryAdapter(
     inner class UserViewHolder(private val binding: ItemHeaderCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(category: EventCategoryUi) = with(binding) {
-            tvCategory.text = root.context.getString(category.title)
+            tvCategory.text = category.title
 
             if (category.selected) {
                 tvCategory.backgroundTintList =

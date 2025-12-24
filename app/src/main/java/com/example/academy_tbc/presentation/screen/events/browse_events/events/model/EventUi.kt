@@ -2,13 +2,15 @@ package com.example.academy_tbc.presentation.screen.events.browse_events.events.
 
 data class EventUi (
     val id: Int,
+    val eventStatus: String,
     val title: String,
-//    val description: String?,
-    val eventTypeId: Int,
-    val startDateTime: String,
-    val endDateTime: String,
+    val categoryTitle: String,
+    val categoryId: Int,
+    val time: String,
     val location: String,
-    val capacity: Int,
-//    val imageUrl: String?,
-    val isActive: Boolean?
+    val availableSlots: String,
+    val currentCapacity: String,
+    val monthAbbreviation: String,
+    val monthNumber: String,
+    val fullDate: String
 )

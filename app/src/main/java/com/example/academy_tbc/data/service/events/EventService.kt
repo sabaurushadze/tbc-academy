@@ -6,10 +6,10 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface EventService {
-    @GET("/api/v1/events")
+    @GET("/events")
     suspend fun getEvents(): Response<List<EventsResponseDto>>
 
-    @GET("/api/v1/events/{id}")
+    @GET("/events/{id}")
     suspend fun getEventById(
         @Path("id") id: Int
     ): Response<EventsResponseDto>

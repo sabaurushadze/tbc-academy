@@ -12,15 +12,20 @@ fun EventsResponseDto.toDomain() =
         id = id,
         title = title,
         description = description,
-        eventTypeId = eventTypeId,
+        categoryId = categoryId,
+        categoryTitle = categoryTitle,
         startDateTime = startDateTime,
         endDateTime = endDateTime,
+        registrationDeadline = registrationDeadline,
         location = location,
-        capacity = capacity,
+        currentCapacity = currentCapacity,
+        maxCapacity = maxCapacity,
+        availableSlots = availableSlots,
+        eventStatus = eventStatus,
         imageUrl = imageUrl,
-        isActive = isActive,
-        agendas = agendas.map { it.toDomain() },
-        featuredSpeakers = featuredSpeakers.map { it.toDomain() }
+        isVisible = isVisible,
+        agendas = agenda?.map { it.toDomain() } ?: listOf(),
+        featuredSpeakers = speakers?.map { it.toDomain() } ?: listOf()
     )
 
 fun AgendaDto.toDomain() = Agenda(
@@ -34,6 +39,6 @@ fun FeaturedSpeakersDto.toDomain() = FeaturedSpeaker(
     id = id,
     name = name,
     role = role,
-    imageUrl = imageUrl
+    photoUrl = photoUrl
 )
 fun List<EventsResponseDto>.toDomain() = map { it.toDomain() }

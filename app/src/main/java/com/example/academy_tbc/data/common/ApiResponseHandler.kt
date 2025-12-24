@@ -1,5 +1,6 @@
 package com.example.academy_tbc.data.common
 
+import android.util.Log.d
 import com.example.academy_tbc.domain.common.ApiError
 import com.example.academy_tbc.domain.common.Resource
 import kotlinx.coroutines.Dispatchers
@@ -47,6 +48,10 @@ class ApiResponseHandler @Inject constructor() {
                     }
                 }
             } catch (e: Exception) {
+                d(
+                    "asdd",
+                    "$e"
+                )
                 when (e) {
                     is CancellationException -> throw e
                     is UnknownHostException -> Resource.Error(ApiError.NETWORK_ERROR)

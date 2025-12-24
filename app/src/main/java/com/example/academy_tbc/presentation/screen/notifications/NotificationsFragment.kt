@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.screen.updates
+package com.example.academy_tbc.presentation.screen.notifications
 
 import androidx.fragment.app.viewModels
 import com.example.academy_tbc.databinding.FragmentNotificationsBinding

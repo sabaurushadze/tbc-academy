@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.academy_tbc.databinding.ItemAgendaBinding
 import com.example.academy_tbc.presentation.screen.events.event_details.model.AgendaUi
-import com.example.academy_tbc.presentation.util.DateTimeParser
 
 class AgendaAdapter() :
     ListAdapter<AgendaUi, AgendaAdapter.UserViewHolder>(EventDiffUtil()) {
@@ -30,7 +29,7 @@ class AgendaAdapter() :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(agenda: AgendaUi) = with(binding) {
 
-            tvTitle.text = "${DateTimeParser.getTime(agenda.time)} - ${agenda.title}"
+            tvTitle.text = "${agenda.time} - ${agenda.title}"
             tvDescription.text = agenda.description
             idNumber.text = agenda.id.toString()
             val isLast = bindingAdapterPosition == this@AgendaAdapter.itemCount - 1

@@ -3,15 +3,6 @@ package com.example.academy_tbc.presentation.screen.core
 import com.example.academy_tbc.R
 import com.example.academy_tbc.domain.model.home.categories.CategoryType
 
-fun CategoryType.toUiTextRes(): Int = when (this) {
-    CategoryType.TEAM_BUILDING -> R.string.team_building
-    CategoryType.SPORTS -> R.string.sports
-    CategoryType.WORKSHOPS -> R.string.workshops
-    CategoryType.HAPPY_FRIDAYS -> R.string.happy_fridays
-    CategoryType.CULTURAL -> R.string.cultural
-    CategoryType.WELLNESS -> R.string.wellness
-}
-
 fun CategoryType.toUiIconRes(): Int = when (this) {
     CategoryType.TEAM_BUILDING -> R.drawable.ic_groups
     CategoryType.SPORTS -> R.drawable.ic_sport

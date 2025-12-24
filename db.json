@@ -1,0 +1,223 @@
+{
+  "Events": [
+    {
+      "id": 1,
+      "title": "1111111111111111111111111111111",
+      "description": "Start the year with team alignment and goal setting",
+      "eventTypeName": "Hybrid",
+      "categoryId": 1,
+      "categoryTitle": "Social",
+      "startDateTime": "2025-12-05T10:00:00",
+      "endDateTime": "2026-01-05T12:00:00",
+      "registrationDeadline": "2026-01-03T23:59:59",
+      "location": "TBC",
+      "venueName": "Grand Conference Room",
+      "currentCapacity": 3,
+      "maxCapacity": 100,
+      "availableSlots": 97,
+      "eventStatus": "Available",
+      "autoApprove": true,
+      "imageUrl": "https://images.unsplash.com/photo-1540575467063-178a50c2df87",
+      "isVisible": true,
+      "tags": [
+        "indoor",
+        "remote-friendly"
+      ],
+      "createdByName": "Admin User",
+      "speakers": [
+        {
+          "id": 1,
+          "name": "John cena",
+          "role": "Python Expert & Data Scientist",
+          "photoUrl": "https://i.pravatar.cc/150?img=1"
+        }
+      ],
+      "agenda": [
+        {
+          "id": 1,
+          "time": "14:00-14:30",
+          "title": "Introduction to Python",
+          "description": "Basics and setup"
+        },
+        {
+          "id": 2,
+          "time": "14:30-15:30",
+          "title": "Python Fundamentals",
+          "description": "Variables, loops, functions"
+        },
+        {
+          "id": 3,
+          "time": "15:30-16:30",
+          "title": "Hands-on Coding",
+          "description": "Build your first Python program"
+        },
+        {
+          "id": 4,
+          "time": "16:30-17:00",
+          "title": "Q&A Session",
+          "description": "Ask your questions"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "2222222222222222222222222",
+      "description": "Start the year with team alignment and goal setting",
+      "eventTypeName": "Hybrid",
+      "categoryId": 1,
+      "categoryTitle": "Social",
+      "startDateTime": "2025-01-05T10:00:00",
+      "endDateTime": "2026-01-05T12:00:00",
+      "registrationDeadline": "2026-01-03T23:59:59",
+      "location": "Main Office Building",
+      "venueName": "Grand Conference Room",
+      "currentCapacity": 3,
+      "maxCapacity": 100,
+      "availableSlots": 97,
+      "eventStatus": "Available",
+      "autoApprove": true,
+      "imageUrl": "https://images.unsplash.com/photo-1540575467063-178a50c2df87",
+      "isVisible": true,
+      "tags": [
+        "indoor",
+        "remote-friendly"
+      ],
+      "createdByName": "Admin User",
+      "speakers": [
+        {
+          "id": 1,
+          "name": "Dr. Sarah Chen",
+          "role": "Python Expert & Data Scientist",
+          "photoUrl": "https://i.pravatar.cc/150?img=1"
+        }
+      ],
+      "agenda": [
+        {
+          "id": 1,
+          "time": "14:00-14:30",
+          "title": "Introduction to Python",
+          "description": "Basics and setup"
+        },
+        {
+          "id": 2,
+          "time": "14:30-15:30",
+          "title": "Python Fundamentals",
+          "description": "Variables, loops, functions"
+        },
+        {
+          "id": 3,
+          "time": "15:30-16:30",
+          "title": "Hands-on Coding",
+          "description": "Build your first Python program"
+        },
+        {
+          "id": 4,
+          "time": "16:30-17:00",
+          "title": "Q&A Session",
+          "description": "Ask your questions"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "33333333333333333333333333",
+      "description": "Start the year with team alignment and goal setting",
+      "eventTypeName": "Hybrid",
+      "categoryId": 2,
+      "categoryTitle": "Social",
+      "startDateTime": "2026-01-05T10:00:00",
+      "endDateTime": "2026-01-05T12:00:00",
+      "registrationDeadline": "2026-01-03T23:59:59",
+      "location": "Main Office Building",
+      "venueName": "Grand Conference Room",
+      "currentCapacity": 3,
+      "maxCapacity": 100,
+      "availableSlots": 97,
+      "eventStatus": "Closed",
+      "autoApprove": true,
+      "imageUrl": "https://images.unsplash.com/photo-1540575467063-178a50c2df87",
+      "isVisible": true,
+      "tags": [
+        "indoor",
+        "remote-friendly"
+      ],
+      "createdByName": "Admin User",
+      "speakers": [
+        {
+          "id": 1,
+          "name": "Dr. Sarah Chen",
+          "role": "Python Expert & Data Scientist",
+          "photoUrl": "https://i.pravatar.cc/150?img=1"
+        }
+      ],
+      "agenda": [
+        {
+          "id": 1,
+          "time": "14:00-14:30",
+          "title": "Introduction to Python",
+          "description": "Basics and setup"
+        },
+        {
+          "id": 2,
+          "time": "14:30-15:30",
+          "title": "Python Fundamentals",
+          "description": "Variables, loops, functions"
+        },
+        {
+          "id": 3,
+          "time": "15:30-16:30",
+          "title": "Hands-on Coding",
+          "description": "Build your first Python program"
+        },
+        {
+          "id": 4,
+          "time": "16:30-17:00",
+          "title": "Q&A Session",
+          "description": "Ask your questions"
+        }
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "title": "Cultural",
+      "totalEvents": 3
+    },
+    {
+      "id": 2,
+      "title": "Networking",
+      "totalEvents": 2
+    },
+    {
+      "id": 3,
+      "title": "Social",
+      "totalEvents": 123
+    },
+    {
+      "id": 4,
+      "title": "Sports",
+      "totalEvents": 4
+    },
+    {
+      "id": 5,
+      "title": "Team Building",
+      "totalEvents": 12
+    },
+    {
+      "id": 6,
+      "title": "Training",
+      "totalEvents": 40
+    },
+    {
+      "id": 7,
+      "title": "Wellness",
+      "totalEvents": 30
+    },
+    {
+      "id": 8,
+      "title": "Workshop",
+      "totalEvents": 20
+    }
+  ]
+}
