@@ -1,6 +1,7 @@
 package com.example.academy_tbc.presentation.screen.home
 
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -52,7 +53,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
     private val trendingEventAdapter by lazy {
         TrendingEventAdapter(
-            onClick = {}
+            onClick = { trendingEventId ->
+                setFragmentResult(
+                    "request_key_trending_event_id",
+                    bundleOf("bundle_key_trending_event_id" to trendingEventId)
+                )
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToEventDetailsFragment())
+            }
         )
     }
 
@@ -119,8 +126,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
 
     private fun observeState() {
         lifecycleCollect(viewModel.state) { state ->
+            binding.progressBar.isVisible = state.isLoading
             upcomingEventAdapter.submitList(state.events)
             categoryAdapter.submitList(state.categories)
+            trendingEventAdapter.submitList(state.trendingEvents)
         }
     }
 

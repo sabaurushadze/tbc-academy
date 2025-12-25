@@ -1,8 +1,8 @@
 package com.example.academy_tbc.presentation.screen.events.browse_events
 
 import android.os.Bundle
-import android.util.Log.d
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
@@ -50,8 +50,6 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>(
         }
 
         if (args.selectedCategoryId != -1) {
-            d("asdd", "called")
-            d("asdd", "${args.selectedCategoryId}")
             viewModel.onEvent(EventsEvent.SaveCategory(args.selectedCategoryId))
         }
     }
@@ -121,6 +119,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding>(
 
     private fun observeState() {
         lifecycleCollectLatest(viewModel.state) { state ->
+            binding.progressBar.isVisible = state.isLoading
             eventCategoryAdapter.submitList(state.eventCategories)
             eventAdapter.submitList(state.events)
         }

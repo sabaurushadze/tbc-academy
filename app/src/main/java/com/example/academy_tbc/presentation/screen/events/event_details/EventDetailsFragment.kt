@@ -1,5 +1,6 @@
 package com.example.academy_tbc.presentation.screen.events.event_details
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -38,10 +39,17 @@ class EventDetailsFragment : BaseFragment<FragmentEventDetailBinding>(
         setFragmentResultListener(REQUEST_KEY_EVENT_ID) { _, bundle ->
             val eventId = bundle.getInt(BUNDLE_KEY_EVENT_ID)
             viewModel.onEvent(EventDetailsEvent.GetEventById(eventId))
+            viewModel.onEvent(EventDetailsEvent.CheckRegisterEvent(eventId))
         }
         setFragmentResultListener(REQUEST_KEY_UPCOMING_EVENT_ID) { _, bundle ->
             val upcomingEventId = bundle.getInt(BUNDLE_KEY_UPCOMING_EVENT_ID)
             viewModel.onEvent(EventDetailsEvent.GetEventById(upcomingEventId))
+            viewModel.onEvent(EventDetailsEvent.CheckRegisterEvent(upcomingEventId))
+        }
+        setFragmentResultListener("request_key_trending_event_id") { _, bundle ->
+            val upcomingEventId = bundle.getInt("bundle_key_trending_event_id")
+            viewModel.onEvent(EventDetailsEvent.GetEventById(upcomingEventId))
+            viewModel.onEvent(EventDetailsEvent.CheckRegisterEvent(upcomingEventId))
         }
     }
 
@@ -54,6 +62,7 @@ class EventDetailsFragment : BaseFragment<FragmentEventDetailBinding>(
         observeState()
         observeSideEffects()
         goBackToBrowseEvents()
+        onRegisterNowButtonClick()
     }
 
     private fun setUpAgendaAdapter() = with(binding) {
@@ -100,6 +109,32 @@ class EventDetailsFragment : BaseFragment<FragmentEventDetailBinding>(
 
             agendaAdapter.submitList(state.event?.agendas)
             featuredSpeakersAdapter.submitList(state.event?.featuredSpeakers)
+
+            updateRegisterButton(state.isRegistered)
+        }
+    }
+
+    private fun updateRegisterButton(isRegistered: Boolean) {
+        val buttonColor = if (isRegistered) {
+            resources.getColor(R.color.light_gray, null)
+        } else {
+            resources.getColor(R.color.primary, null)
+        }
+        binding.btnEventRegister.backgroundTintList = ColorStateList.valueOf(buttonColor)
+
+        binding.btnEventRegister.text = if (isRegistered) {
+            getString(R.string.already_registered)
+        } else {
+            getString(R.string.register_now)
+        }
+    }
+
+    private fun onRegisterNowButtonClick() {
+        binding.btnEventRegister.setOnClickListener {
+            val eventId = viewModel.state.value.event?.id
+            eventId?.let {
+                viewModel.onEvent(EventDetailsEvent.ToggleRegistration(eventId))
+            }
         }
     }
 
@@ -108,4 +143,6 @@ class EventDetailsFragment : BaseFragment<FragmentEventDetailBinding>(
             findNavController().popBackStack()
         }
     }
+
+
 }

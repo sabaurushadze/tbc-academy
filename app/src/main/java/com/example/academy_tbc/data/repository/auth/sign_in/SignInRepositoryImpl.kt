@@ -7,7 +7,6 @@ import com.example.academy_tbc.data.mapper.auth.sign_in.toDomain
 import com.example.academy_tbc.data.service.auth.sign_in.SignInService
 import com.example.academy_tbc.domain.common.ApiError
 import com.example.academy_tbc.domain.common.Resource
-import com.example.academy_tbc.domain.common.ResourceError
 import com.example.academy_tbc.domain.model.auth.sign_in.AuthToken
 import com.example.academy_tbc.domain.repository.auth.sign_in.SignInRepository
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +14,7 @@ import javax.inject.Inject
 
 class SignInRepositoryImpl @Inject constructor(
     private val api: SignInService,
-    private val responseHandler: ApiResponseHandler
+    private val responseHandler: ApiResponseHandler,
 ) : SignInRepository {
     override fun signIn(
         email: String,

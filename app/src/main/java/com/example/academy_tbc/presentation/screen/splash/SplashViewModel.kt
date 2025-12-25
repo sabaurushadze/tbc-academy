@@ -1,15 +1,18 @@
 package com.example.academy_tbc.presentation.screen.splash
 
 import androidx.lifecycle.viewModelScope
+import com.example.academy_tbc.domain.preferences.AppPreferencesKeys
+import com.example.academy_tbc.domain.usecase.datastore.GetPreferenceUseCase
 import com.example.academy_tbc.presentation.common.view.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-//    private val hasUser: HasUserUseCase,
+    private val getPreferenceUseCase: GetPreferenceUseCase
 ) : BaseViewModel<Unit, SplashSideEffect, SplashEvent>(Unit) {
 
     private var splashJob: Job? = null
@@ -23,11 +26,12 @@ class SplashViewModel @Inject constructor(
 
     private fun onStartSplash() {
         splashJob = viewModelScope.launch {
-//            if (hasUser()) {
-//                sendEffect(SplashSideEffect.NavigateToHome)
-//            } else {
-//                sendEffect(SplashSideEffect.NavigateToOnboarding)
-//            }
+            val token = getPreferenceUseCase.invoke(AppPreferencesKeys.TOKEN, "").first()
+            if (token.isEmpty()) {
+                emitSideEffect(SplashSideEffect.NavigateToSignIn)
+            } else {
+                emitSideEffect(SplashSideEffect.NavigateToHome)
+            }
         }
     }
 

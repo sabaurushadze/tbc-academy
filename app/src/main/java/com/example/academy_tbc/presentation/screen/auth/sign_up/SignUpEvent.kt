@@ -11,6 +11,7 @@ sealed class SignUpEvent {
         val email: String,
         val password: String,
         val confirmPassword: String,
-        val department: Int
+        val department: Int,
+        val phoneNumber: String
         ) : SignUpEvent()
 }

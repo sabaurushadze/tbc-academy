@@ -31,7 +31,7 @@ class AgendaAdapter() :
 
             tvTitle.text = "${agenda.time} - ${agenda.title}"
             tvDescription.text = agenda.description
-            idNumber.text = agenda.id.toString()
+            idNumber.text = (bindingAdapterPosition + 1).toString()
             val isLast = bindingAdapterPosition == this@AgendaAdapter.itemCount - 1
             divider.visibility = if (isLast) View.GONE else View.VISIBLE
         }

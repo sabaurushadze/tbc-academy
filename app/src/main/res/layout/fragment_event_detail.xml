@@ -9,13 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/icBack"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/ic_back"
+            android:layout_marginTop="16dp"
+            android:background="@null"
+            android:src="@drawable/ic_left_arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,14 +24,14 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
             android:fontFamily="@font/roboto_bold"
             android:text="@string/event_details"
             android:textColor="@color/black2"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@id/icBack"
-            app:layout_constraintEnd_toEndOf="@id/icVertMore"
-            app:layout_constraintStart_toEndOf="@id/icBack"
-            app:layout_constraintTop_toTopOf="@id/icBack" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/icVertMore"
@@ -71,7 +72,6 @@
             android:backgroundTint="@color/white4"
             android:paddingHorizontal="12dp"
             android:paddingVertical="8dp"
-            android:text="Team Building"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivEvent" />
 
@@ -85,7 +85,7 @@
             android:backgroundTint="@color/black4"
             android:paddingHorizontal="12dp"
             android:paddingVertical="8dp"
-            android:text="Beginner"
+            android:text="@string/beginner"
             android:textColor="@color/white3"
             app:layout_constraintStart_toEndOf="@id/tvEventCategory"
             app:layout_constraintTop_toBottomOf="@id/ivEvent" />
@@ -98,7 +98,6 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="Leadership Workshop: Effective Communication"
             android:textColor="@color/black2"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -122,7 +121,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto_regular"
-            android:text="December 20, 2025"
             app:layout_constraintBottom_toBottomOf="@id/icCalendar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/icCalendar"
@@ -145,7 +143,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto_regular"
-            android:text="02:00 PM - 04:30 PM"
             app:layout_constraintBottom_toBottomOf="@id/icClock"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/icClock"
@@ -168,7 +165,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto_regular"
-            android:text="Training Room B, Building 4"
             app:layout_constraintBottom_toBottomOf="@id/icLocation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/icLocation"
@@ -191,7 +187,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto_regular"
-            android:text="129 registered, 7 spots left"
             app:layout_constraintBottom_toBottomOf="@id/icGroup"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/icGroup"
@@ -216,7 +211,7 @@
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/primary"
             android:fontFamily="@font/roboto_regular"
-            android:text="Register Now"
+            android:text="@string/register_now"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider2" />
@@ -227,7 +222,6 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
-            android:text="Registration closes on Dec 19, 2025 at 5:00 PM."
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -267,7 +261,6 @@
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto_regular"
             android:lineHeight="20sp"
-            android:text="Enhance your leadership skills with this interactive workshop focusing on communication strategies, active listening, and team motivation techniques. This session is designed for new and aspiring leaders looking to build a strong foundation in effective team management and communication."
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"

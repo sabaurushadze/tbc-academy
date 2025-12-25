@@ -1,28 +1,30 @@
 package com.example.academy_tbc.presentation.screen.auth.sign_in
 
+import androidx.lifecycle.viewModelScope
 import com.example.academy_tbc.domain.model.auth.sign_in.SignInValidationError
+import com.example.academy_tbc.domain.preferences.AppPreferencesKeys
 import com.example.academy_tbc.domain.usecase.auth.sign_in.SignInUseCase
 import com.example.academy_tbc.domain.usecase.auth.sign_in.validation.ValidateEmailUseCase
 import com.example.academy_tbc.domain.usecase.auth.sign_in.validation.ValidatePasswordUseCase
+import com.example.academy_tbc.domain.usecase.datastore.SetPreferenceUseCase
 import com.example.academy_tbc.presentation.common.mapper.toGenericString
 import com.example.academy_tbc.presentation.common.view.BaseViewModel
 import com.example.academy_tbc.presentation.screen.auth.sign_in.mapper.toGenericString
-import com.example.academy_tbc.presentation.screen.events.browse_events.EventsSideEffect
-import com.example.academy_tbc.presentation.screen.events.browse_events.categories.mapper.toEventCategoryUi
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val validateEmailUseCase: ValidateEmailUseCase,
     private val validatePasswordUseCase: ValidatePasswordUseCase,
-
-    private val signInUseCase: SignInUseCase
+    private val setPreferenceUseCase: SetPreferenceUseCase,
+    private val signInUseCase: SignInUseCase,
 ) : BaseViewModel<SignInState, SignInSideEffect, SignInEvent>(SignInState()) {
 
 
     override fun onEvent(event: SignInEvent) {
-        when(event) {
+        when (event) {
             is SignInEvent.SignIn -> signIn(
                 email = event.email,
                 password = event.password,
@@ -36,18 +38,28 @@ class SignInViewModel @Inject constructor(
         if (validateInputs(email = email, password = password)) {
             launchResource(
                 apiCall = signInUseCase(email = email, password = password),
-                onLoading = {
-                    updateUiState { copy(isLoading = isLoading) }
+                onLoading = { loading ->
+                    updateUiState { copy(isLoading = loading) }
                 },
-                onSuccess = { categories ->
-                    if (rememberMe) {
-
+                onSuccess = { signInResult ->
+                    viewModelScope.launch {
+                        if (rememberMe) {
+                            val token = signInResult.token
+                            val fullName = signInResult.fullName
+                            val phoneNumber = signInResult.phoneNumber
+                            val email = signInResult.email
+                            val department = signInResult.department
+                            setPreferenceUseCase.invoke(AppPreferencesKeys.TOKEN, token)
+                            setPreferenceUseCase.invoke(AppPreferencesKeys.FULL_NAME, fullName)
+                            setPreferenceUseCase.invoke(
+                                AppPreferencesKeys.PHONE_NUMBER,
+                                phoneNumber
+                            )
+                            setPreferenceUseCase.invoke(AppPreferencesKeys.EMAIL, email)
+                            setPreferenceUseCase.invoke(AppPreferencesKeys.DEPARTMENT, department)
+                        }
+                        emitSideEffect(SignInSideEffect.NavigateToHome)
                     }
-//                    if rememberMe is enabled save token in datastore
-//                    save token here in datastore
-//                    and send success side effect and navigate to home (also do splash screen and if remember me is enabled
-//                    dont bring back to splash screen
-                    emitSideEffect(SignInSideEffect.NavigateToHome)
 
                 },
                 onError = {

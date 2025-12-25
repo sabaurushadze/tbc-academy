@@ -13,15 +13,15 @@ data class EventDetailUi(
     val currentCapacity: String,
     val registrationClosingDate: String,
     val imageUrl: String?,
-    val agendas: List<AgendaUi>,
-    val featuredSpeakers: List<FeaturedSpeakerUi>
+    val agendas: List<AgendaUi>?,
+    val featuredSpeakers: List<FeaturedSpeakerUi>?
 )
 
 data class AgendaUi(
     val id: Int,
     val time: String,
     val title: String,
-    val description: String
+    val description: String?
 )
 
 data class FeaturedSpeakerUi(

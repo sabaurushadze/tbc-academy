@@ -1,8 +1,10 @@
 package com.example.academy_tbc.di
 
+import com.example.academy_tbc.data.service.auth.departments.DepartmentService
 import com.example.academy_tbc.data.service.auth.sign_in.SignInService
 import com.example.academy_tbc.data.service.auth.sign_up.SignUpService
 import com.example.academy_tbc.data.service.categories.CategoryService
+import com.example.academy_tbc.data.service.event_registration.EventRegistrationService
 import com.example.academy_tbc.data.service.events.EventService
 import dagger.Module
 import dagger.Provides
@@ -36,5 +38,17 @@ object ServiceModule {
     @Singleton
     fun provideCategoryService(retrofit: Retrofit): CategoryService {
         return retrofit.create(CategoryService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDepartmentService(retrofit: Retrofit): DepartmentService {
+        return retrofit.create(DepartmentService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideEventRegistrationService(retrofit: Retrofit): EventRegistrationService {
+        return retrofit.create(EventRegistrationService::class.java)
     }
 }

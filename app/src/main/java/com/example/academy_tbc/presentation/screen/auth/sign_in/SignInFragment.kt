@@ -1,5 +1,6 @@
 package com.example.academy_tbc.presentation.screen.auth.sign_in
 
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.academy_tbc.databinding.FragmentSignInBinding
@@ -33,6 +34,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(
                 is SignInSideEffect.ShowEmailError -> {
                     etEmail.error = effect.error.getString(requireContext())
                 }
+
                 is SignInSideEffect.ShowPasswordError -> {
                     etPassword.error = effect.error.getString(requireContext())
                 }
@@ -46,10 +48,9 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(
 
     private fun observeState() {
         lifecycleCollectLatest(viewModel.state) { state ->
-
+            binding.progressBar.isVisible = state.isLoading
         }
     }
-
 
 
     private fun signIn() = with(binding) {
@@ -58,7 +59,13 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>(
             val password = etPassword.text.toString().trim()
             val rememberMe = checkboxRememberMe.isChecked
 
-            viewModel.onEvent(SignInEvent.SignIn(email = email, password = password, rememberMe = rememberMe))
+            viewModel.onEvent(
+                SignInEvent.SignIn(
+                    email = email,
+                    password = password,
+                    rememberMe = rememberMe
+                )
+            )
         }
     }
 

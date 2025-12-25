@@ -7,5 +7,5 @@ data class AgendaDto(
     val id: Int,
     val time: String,
     val title: String,
-    val description: String
+    val description: String? = null
 )

@@ -1,14 +1,18 @@
 package com.example.academy_tbc.di
 
+import com.example.academy_tbc.data.repository.auth.departments.DepartmentRepositoryImpl
 import com.example.academy_tbc.data.repository.auth.sign_in.SignInRepositoryImpl
 import com.example.academy_tbc.data.repository.auth.sign_up.SignUpRepositoryImpl
 import com.example.academy_tbc.data.repository.categories.CategoryRepositoryImpl
 import com.example.academy_tbc.data.repository.datastore.DataStoreManagerImpl
+import com.example.academy_tbc.data.repository.event_registration.EventRegistrationRepositoryImpl
 import com.example.academy_tbc.data.repository.events.EventRepositoryImpl
+import com.example.academy_tbc.domain.repository.auth.departments.DepartmentRepository
 import com.example.academy_tbc.domain.repository.auth.sign_in.SignInRepository
 import com.example.academy_tbc.domain.repository.auth.sign_up.SignUpRepository
 import com.example.academy_tbc.domain.repository.categories.CategoryRepository
 import com.example.academy_tbc.domain.repository.datastore.DataStoreManager
+import com.example.academy_tbc.domain.repository.event_registration.EventRegistrationRepository
 import com.example.academy_tbc.domain.repository.events.EventRepository
 import dagger.Binds
 import dagger.Module
@@ -49,4 +53,16 @@ abstract class RepositoryModule {
     abstract fun bindCategoryRepository(
         impl: CategoryRepositoryImpl,
     ): CategoryRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindDepartmentRepository(
+        impl: DepartmentRepositoryImpl,
+    ): DepartmentRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindEventRegistrationRepository(
+        impl: EventRegistrationRepositoryImpl,
+    ): EventRegistrationRepository
 }

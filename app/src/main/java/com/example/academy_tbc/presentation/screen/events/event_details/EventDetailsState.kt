@@ -5,4 +5,5 @@ import com.example.academy_tbc.presentation.screen.events.event_details.model.Ev
 data class EventDetailsState(
     val isLoading: Boolean = false,
     val event: EventDetailUi? = null,
+    val isRegistered: Boolean = false
 )

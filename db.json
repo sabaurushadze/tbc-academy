@@ -2,7 +2,7 @@
   "Events": [
     {
       "id": 1,
-      "title": "1111111111111111111111111111111",
+      "title": "Tech Talk: AI in Business 1",
       "description": "Start the year with team alignment and goal setting",
       "eventTypeName": "Hybrid",
       "categoryId": 1,
@@ -61,7 +61,7 @@
     },
     {
       "id": 2,
-      "title": "2222222222222222222222222",
+      "title": "Tech Talk: AI in Business 2",
       "description": "Start the year with team alignment and goal setting",
       "eventTypeName": "Hybrid",
       "categoryId": 1,
@@ -120,7 +120,7 @@
     },
     {
       "id": 3,
-      "title": "33333333333333333333333333",
+      "title": "Tech Talk: AI in Business 3",
       "description": "Start the year with team alignment and goal setting",
       "eventTypeName": "Hybrid",
       "categoryId": 2,

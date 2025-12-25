@@ -3,6 +3,7 @@ package com.example.academy_tbc.presentation.screen.auth.sign_up
 import android.os.SystemClock
 import androidx.lifecycle.viewModelScope
 import com.example.academy_tbc.domain.model.auth.sign_up.SignUpValidationError
+import com.example.academy_tbc.domain.usecase.auth.department.GetDepartmentsUseCase
 import com.example.academy_tbc.domain.usecase.auth.sign_up.SignUpUseCase
 import com.example.academy_tbc.domain.usecase.auth.sign_up.validation.ValidateFirstNameUseCase
 import com.example.academy_tbc.domain.usecase.auth.sign_up.validation.ValidateLastNameUseCase
@@ -14,6 +15,7 @@ import com.example.academy_tbc.domain.usecase.auth.sign_up.validation.ValidateSi
 import com.example.academy_tbc.presentation.common.mapper.toGenericString
 import com.example.academy_tbc.presentation.common.view.BaseViewModel
 import com.example.academy_tbc.presentation.screen.auth.sign_up.mapper.toGenericString
+import com.example.academy_tbc.presentation.screen.auth.sign_up.mapper.toPresentation
 import com.example.academy_tbc.presentation.util.GenericString
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -31,8 +33,13 @@ class SignUpViewModel @Inject constructor(
     private val validatePasswordUseCase: ValidateSignUpPasswordUseCase,
     private val validateSignUpConfirmPasswordUseCase: ValidateSignUpConfirmPasswordUseCase,
 
-    private val signUpUseCase: SignUpUseCase
-    ) : BaseViewModel<SignUpState, SignUpSideEffect, SignUpEvent>(SignUpState()) {
+    private val signUpUseCase: SignUpUseCase,
+    private val getDepartmentsUseCase: GetDepartmentsUseCase,
+) : BaseViewModel<SignUpState, SignUpSideEffect, SignUpEvent>(SignUpState()) {
+
+    init {
+        getDepartments()
+    }
 
     private var otpTimerJob: Job? = null
     private var otpStartTime = 0L
@@ -49,7 +56,8 @@ class SignUpViewModel @Inject constructor(
                 email = event.email,
                 password = event.password,
                 confirmPassword = event.confirmPassword,
-                department = event.department
+                department = event.department,
+                phoneNumber = event.phoneNumber
             )
 
             is SignUpEvent.ValidateCode -> validateOtpCodeOnServer(event.otpCode)
@@ -61,6 +69,20 @@ class SignUpViewModel @Inject constructor(
         updateUiState { copy(selectedDepartment = departmentId) }
     }
 
+    private fun getDepartments() {
+        launchResource(
+            apiCall = getDepartmentsUseCase(),
+            onLoading = {
+                updateUiState { copy(isLoading = isLoading) }
+            },
+            onSuccess = {
+                updateUiState { copy(departments = it.map { it.toPresentation() }) }
+            },
+            onError = {
+                emitSideEffect(SignUpSideEffect.ShowError(error = it.toGenericString()))
+            }
+        )
+    }
 
     private fun validateOtpCodeOnServer(otpCode: String) {
         if (validateOtpCode(otpCode)) {
@@ -96,7 +118,7 @@ class SignUpViewModel @Inject constructor(
         lastName: String,
         email: String,
         password: String,
-        confirmPassword: String
+        confirmPassword: String,
     ): Boolean {
 
         val firstOk = handleValidation(validateFirstNameUseCase(firstName)) {
@@ -141,7 +163,8 @@ class SignUpViewModel @Inject constructor(
         email: String,
         password: String,
         confirmPassword: String,
-        department: Int
+        department: Int,
+        phoneNumber: String,
     ) {
         if (validateInputs(
                 firstName = firstName,
@@ -150,21 +173,22 @@ class SignUpViewModel @Inject constructor(
                 password = password,
                 confirmPassword = confirmPassword
 
-            )) {
+            )
+        ) {
             launchResource(
                 apiCall = signUpUseCase(
                     firstName = firstName,
                     lastName = lastName,
                     email = email,
                     password = password,
-                    department = department
+                    department = department,
+                    phoneNumber = phoneNumber
                 ),
                 onLoading = {
                     updateUiState { copy(isLoading = isLoading) }
                 },
-                onSuccess = { categories ->
-//                    aq gaisrole side effect gadaiyvane sign in ze
-//                    meti araferi wesit da sheiqmneba ra
+                onSuccess = {
+                    emitSideEffect(SignUpSideEffect.SuccessAndNavigateToSignIn)
                 },
                 onError = {
                     emitSideEffect(SignUpSideEffect.ShowError(error = it.toGenericString()))

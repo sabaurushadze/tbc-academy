@@ -1,5 +1,6 @@
 package com.example.academy_tbc.presentation.screen.auth.sign_up
 
+import android.util.Log.d
 import android.widget.ArrayAdapter
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
@@ -20,6 +21,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
     FragmentSignUpBinding::inflate
 ) {
     private val viewModel: SignUpViewModel by viewModels()
+    private var departmentAdapter: ArrayAdapter<String>? = null
 
     override fun bind() {
         applyTosTextColors()
@@ -71,6 +73,11 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
                 is SignUpSideEffect.ShowOtpCodeError -> {
                     etOtp.error = effect.error.getString(requireContext())
                 }
+
+                SignUpSideEffect.SuccessAndNavigateToSignIn -> {
+                    root.showSnackBar(getString(R.string.successfully_registered_please_sign_in))
+                    findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToSignInFragment())
+                }
             }
         }
     }
@@ -83,6 +90,15 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
             val seconds = state.elapsedTime / 1000
             binding.tvCodeExpirationTimer.text =
                 getString(R.string.code_expires_in_02d_02d).format(seconds / 60, seconds % 60)
+
+            if (departmentAdapter == null && state.departments != null) {
+                departmentAdapter = ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_list_item_1,
+                    state.departments.map { it.name }
+                )
+                binding.spinnerDepartment.setAdapter(departmentAdapter)
+            }
         }
     }
 
@@ -95,17 +111,25 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
 
     private fun signUp() = with(binding) {
         btnCreateAccount.setOnClickListener {
+
             val firstName = etFirstName.text.toString().trim()
             val lastName = etLastName.text.toString().trim()
             val email = etEmail.text.toString().trim()
             val password = etPassword.text.toString().trim()
             val confirmPassword = etConfirmPassword.text.toString().trim()
-
+            val phoneNumber = etPhoneNumber.text.toString().trim()
             if (!checkboxTos.isChecked) {
                 root.showSnackBar(getString(R.string.you_need_to_agree_to_tos))
+                return@setOnClickListener
             }
             if (spinnerDepartment.text.toString().isBlank()) {
                 dropdownDepartment.error = getString(R.string.please_select_a_department)
+            }
+            val departmentId = viewModel.state.value.selectedDepartment
+            d("asdd", "$departmentId")
+            if (departmentId == null) {
+                dropdownDepartment.error = getString(R.string.please_select_a_department)
+                return@setOnClickListener
             }
 
             viewModel.onEvent(SignUpEvent.SignUp(
@@ -114,45 +138,20 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(
                 email = email,
                 password = password,
                 confirmPassword = confirmPassword,
-                department = viewModel.state.value.selectedDepartment
+                department = departmentId,
+                phoneNumber = phoneNumber
             ))
         }
 
 
     }
 
-    //    MOCK_DATA_DROPDOWN
     private fun setupDepartmentDropdown() {
-        data class DepartmentUi(
-            val id: Int,
-            val name: String
-        )
-//        val departments = listOf(
-//            "Marketing",
-//            "Finance",
-//            "IT",
-//            "HR",
-//            "Operations"
-//        )
-        val departments = listOf(
-            DepartmentUi(id = 1, name = "Marketing"),
-            DepartmentUi(id = 2, name = "Finance"),
-            DepartmentUi(id = 3, name = "IT"),
-            DepartmentUi(id = 4, name = "HR"),
-            DepartmentUi(id = 5, name = "Operations")
-        )
-
-
-        val adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_list_item_1,
-            departments.map { it.name }
-        )
-        binding.spinnerDepartment.setAdapter(adapter)
-
         binding.spinnerDepartment.setOnItemClickListener { _, _, position, _ ->
-            viewModel.onEvent(SignUpEvent.SaveDepartment(departments[position].id))
-            binding.dropdownDepartment.error = null
+            val department = viewModel.state.value.departments?.get(position)
+            department?.let {
+                viewModel.onEvent(SignUpEvent.SaveDepartment(it.id))
+            }
         }
     }
 

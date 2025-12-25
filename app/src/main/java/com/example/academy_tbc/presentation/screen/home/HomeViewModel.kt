@@ -1,10 +1,12 @@
 package com.example.academy_tbc.presentation.screen.home
 
 import com.example.academy_tbc.domain.usecase.category.GetCategoriesUseCase
+import com.example.academy_tbc.domain.usecase.event.GetEventsByPopularity
 import com.example.academy_tbc.domain.usecase.event.GetEventsUseCase
 import com.example.academy_tbc.presentation.common.mapper.toGenericString
 import com.example.academy_tbc.presentation.common.view.BaseViewModel
 import com.example.academy_tbc.presentation.screen.home.categories.mapper.toCategoryUi
+import com.example.academy_tbc.presentation.screen.home.trending_events.mapper.toTrendingEventUi
 import com.example.academy_tbc.presentation.screen.home.upcoming_events.mapper.toUpcomingEventUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -13,12 +15,13 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getEventsUseCase: GetEventsUseCase,
     private val getCategoriesUseCase: GetCategoriesUseCase,
+    private val getEventsByPopularity: GetEventsByPopularity,
 ) : BaseViewModel<HomeState, HomeSideEffect, HomeEvent>(HomeState()) {
-
 
     init {
         getCategories()
-        getEvents()
+        getEvents(3)
+        getTrendingEvents()
     }
 
     override fun onEvent(event: HomeEvent) {
@@ -31,8 +34,8 @@ class HomeViewModel @Inject constructor(
     private fun getCategories() {
         launchResource(
             apiCall = getCategoriesUseCase(),
-            onLoading = {
-                updateUiState { copy(isLoading = isLoading) }
+            onLoading = { loading ->
+                updateUiState { copy(isLoading = loading) }
             },
             onSuccess = { categories ->
                 updateUiState {
@@ -47,11 +50,11 @@ class HomeViewModel @Inject constructor(
         )
     }
 
-    private fun getEvents() {
+    private fun getEvents(pages: Int? = null) {
         launchResource(
-            apiCall = getEventsUseCase(),
-            onLoading = {
-                updateUiState { copy(isLoading = isLoading) }
+            apiCall = getEventsUseCase(pages),
+            onLoading = { loading ->
+                updateUiState { copy(isLoading = loading) }
             },
             onSuccess = { events ->
                 updateUiState {
@@ -64,6 +67,28 @@ class HomeViewModel @Inject constructor(
                 emitSideEffect(HomeSideEffect.ShowError(error = it.toGenericString()))
             }
         )
+    }
+
+    private fun getTrendingEvents() {
+        launchResource(
+            apiCall = getEventsByPopularity(3),
+            onLoading = { loading ->
+                updateUiState { copy(isLoading = loading) }
+            },
+            onSuccess = { events ->
+                updateUiState {
+                    copy(
+                        trendingEvents = events.map { it.toTrendingEventUi() }
+                    )
+                }
+            },
+            onError = {
+                emitSideEffect(HomeSideEffect.ShowError(error = it.toGenericString()))
+            }
+        )
+    }
+
+    companion object {
     }
 
 }

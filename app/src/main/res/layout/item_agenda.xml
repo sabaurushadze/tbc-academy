@@ -11,7 +11,6 @@
         android:layout_height="24dp"
         android:background="@drawable/btn_circle"
         android:backgroundTint="@color/white2"
-        android:text="1"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +30,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="02:00 PM - Welcome Introduction"
         app:layout_constraintEnd_toEndOf="parent"
         android:textColor="@color/black2"
         android:textSize="14sp"
@@ -45,7 +43,6 @@
         android:layout_marginStart="16dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Overview of the workshop goals and key topics."
         app:layout_constraintStart_toEndOf="@id/idNumber"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"/>
 

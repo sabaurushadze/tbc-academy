@@ -5,6 +5,6 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface CategoryService {
-    @GET("/categories")
+    @GET("/api/Events/categories")
     suspend fun getCategories(): Response<List<CategoriesResponseDto>>
 }

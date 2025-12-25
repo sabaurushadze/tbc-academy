@@ -1,6 +1,7 @@
 package com.example.academy_tbc.presentation.screen.profile
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.academy_tbc.databinding.FragmentProfileBinding
 import com.example.academy_tbc.presentation.common.view.BaseFragment
 import com.example.academy_tbc.presentation.extension.lifecycleCollectLatest
@@ -19,7 +20,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
     override fun listeners() {
         observeState()
         observeSideEffects()
-
+        signOut()
     }
 
     private fun observeSideEffects() = with(binding) {
@@ -28,13 +29,26 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(
                 is ProfileSideEffect.ShowError ->
                     root.showSnackBar(effect.error.getString(requireContext()))
 
+                ProfileSideEffect.NavigateToSignIn -> {
+                    findNavController().navigate(
+                        ProfileFragmentDirections.actionProfileFragmentToSignInFragment()
+                    )
+                }
             }
         }
     }
 
-    private fun observeState() {
+    private fun observeState() = with(binding) {
         lifecycleCollectLatest(viewModel.state) { state ->
+            tvFullName.text = state.fullName
+            tvEmail.text = state.email
+            tvDepartment.text = state.department
+        }
+    }
 
+    private fun signOut() {
+        binding.btnSignOut.setOnClickListener {
+            viewModel.onEvent(ProfileEvent.SignOut)
         }
     }
 

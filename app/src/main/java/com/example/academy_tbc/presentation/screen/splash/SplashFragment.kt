@@ -1,6 +1,7 @@
 package com.example.academy_tbc.presentation.screen.splash
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.academy_tbc.databinding.FragmentSplashBinding
 import com.example.academy_tbc.presentation.common.view.BaseFragment
 import com.example.academy_tbc.presentation.extension.lifecycleCollect
@@ -19,15 +20,18 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(
     private fun observeSideEffects() {
         lifecycleCollect(viewModel.sideEffect) { effect ->
             when (effect) {
-                SplashSideEffect.NavigateToHome -> {}
-//                    findNavController().navigate(
-//                    SplashFragmentDirections.actionSplashFragmentToHomeFragment()
-//                )
+                SplashSideEffect.NavigateToHome -> {
+                    findNavController().navigate(
+                        SplashFragmentDirections.actionSplashFragmentToHomeFragment()
+                    )
+                }
 
-                SplashSideEffect.NavigateToOnboarding -> {}
-//                    findNavController().navigate(
-//                    SplashFragmentDirections.actionSplashFragmentToSignInFragment()
-//                )
+                SplashSideEffect.NavigateToSignIn -> {
+                    findNavController().navigate(
+                        SplashFragmentDirections.actionSplashFragmentToSignInFragment()
+                    )
+                }
+
             }
         }
     }

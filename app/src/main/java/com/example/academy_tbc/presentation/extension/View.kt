@@ -14,8 +14,8 @@ import com.google.android.material.snackbar.Snackbar
 
 fun ImageView.loadImage(
     url: String?,
-    placeholderRes: Int = R.drawable.ic_launcher_background,
-    errorRes: Int = R.drawable.ic_launcher_background,
+    placeholderRes: Int = R.drawable.placeholder_collab,
+    errorRes: Int = R.drawable.placeholder_collab,
     enableCrossfade: Boolean = true,
 ) {
     this.load(url) {

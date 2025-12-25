@@ -2,7 +2,6 @@ package com.example.academy_tbc.domain.usecase.auth.sign_in
 
 import com.example.academy_tbc.domain.common.ApiError
 import com.example.academy_tbc.domain.common.Resource
-import com.example.academy_tbc.domain.common.ResourceError
 import com.example.academy_tbc.domain.model.auth.sign_in.AuthToken
 import com.example.academy_tbc.domain.repository.auth.sign_in.SignInRepository
 import kotlinx.coroutines.flow.Flow

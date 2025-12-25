@@ -16,6 +16,7 @@ sealed interface SignUpSideEffect {
 
 //    success
     data object OtpCodeValid : SignUpSideEffect
+    data object SuccessAndNavigateToSignIn : SignUpSideEffect
 
 
 

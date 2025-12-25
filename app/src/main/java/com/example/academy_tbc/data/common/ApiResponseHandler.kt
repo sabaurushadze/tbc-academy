@@ -1,16 +1,15 @@
 package com.example.academy_tbc.data.common
 
-import android.util.Log.d
 import com.example.academy_tbc.domain.common.ApiError
 import com.example.academy_tbc.domain.common.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import java.io.IOException
 import java.net.UnknownHostException
+import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
 
 class ApiResponseHandler @Inject constructor() {
@@ -26,6 +25,7 @@ class ApiResponseHandler @Inject constructor() {
         return withContext(Dispatchers.IO) {
             try {
                 val response = call()
+
                 if (response.isSuccessful) {
                     val body = response.body()
                     if (body != null) {
@@ -34,24 +34,9 @@ class ApiResponseHandler @Inject constructor() {
                         Resource.Error(ApiError.UNKNOWN)
                     }
                 } else {
-                    val errorBodyString = response.errorBody()?.string()
-                    if (errorBodyString.isNullOrEmpty()) {
-                        Resource.Error(ApiError.UNKNOWN)
-
-                    } else {
-                        Resource.Error(
-                            ApiError.valueOf(
-                                ApiError.UNKNOWN.name
-                            )
-                        )
-
-                    }
+                    Resource.Error(ApiError.UNKNOWN)
                 }
             } catch (e: Exception) {
-                d(
-                    "asdd",
-                    "$e"
-                )
                 when (e) {
                     is CancellationException -> throw e
                     is UnknownHostException -> Resource.Error(ApiError.NETWORK_ERROR)

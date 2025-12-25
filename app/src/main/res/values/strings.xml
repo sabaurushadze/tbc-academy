@@ -95,4 +95,14 @@
     <string name="spots_left_capacity">%1$s spots left</string>
     <string name="registered_spots_left">%1$s registered, %2$s spots left</string>
     <string name="select_date">Select Date</string>
+    <string name="my_events2">My Events</string>
+    <string name="list">List</string>
+    <string name="beginner">Beginner</string>
+    <string name="successfully_registered_please_sign_in">Successfully registered! Please Sign In</string>
+    <string name="register_now">Register Now</string>
+    <string name="already_registered">Registered</string>
+    <string name="sign_out">Sign out</string>
+    <string name="email_is">Email:</string>
+    <string name="department_is">Department:</string>
+    <string name="full_name_is">Full name:</string>
 </resources>

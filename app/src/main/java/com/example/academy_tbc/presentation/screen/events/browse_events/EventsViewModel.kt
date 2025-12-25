@@ -22,9 +22,8 @@ import kotlin.time.ExperimentalTime
 @HiltViewModel
 class EventsViewModel @Inject constructor(
     private val getEventsUseCase: GetEventsUseCase,
-    private val getCategoriesUseCase: GetCategoriesUseCase
+    private val getCategoriesUseCase: GetCategoriesUseCase,
 ) : BaseViewModel<EventsState, EventsSideEffect, EventsEvent>(EventsState()) {
-
 
     init {
         getEvents()
@@ -82,7 +81,7 @@ class EventsViewModel @Inject constructor(
         query: String = "",
         location: String = "",
         date: String = "",
-        onlyAvailable: Boolean = false
+        onlyAvailable: Boolean = false,
     ): List<EventUi> {
         val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
 
@@ -99,6 +98,7 @@ class EventsViewModel @Inject constructor(
                             val endOfWeek = startOfWeek.plus(6, DateTimeUnit.DAY)
                             event.localDate() in startOfWeek..endOfWeek
                         }
+
                         "This month" -> event.localDate().month == today.month && event.localDate().year == today.year
                         else -> true
                     }
@@ -106,11 +106,14 @@ class EventsViewModel @Inject constructor(
     }
 
 
-
     private fun getCategories() {
         launchResource(
             apiCall = getCategoriesUseCase(),
-            onLoading = { updateUiState { copy(isLoading = isLoading) } },
+            onLoading = { loading ->
+                updateUiState {
+                    copy(isLoading = loading)
+                }
+            },
             onSuccess = { categories ->
                 val uiCategories = categories.map { it.toEventCategoryUi() }
 
@@ -141,8 +144,8 @@ class EventsViewModel @Inject constructor(
     private fun getEvents() {
         launchResource(
             apiCall = getEventsUseCase(),
-            onLoading = {
-                updateUiState { copy(isLoading = isLoading) }
+            onLoading = { loading ->
+                updateUiState { copy(isLoading = loading) }
             },
             onSuccess = { events ->
                 val uiEvents = events.map { it.toEventUi() }
@@ -169,7 +172,8 @@ class EventsViewModel @Inject constructor(
 
     private fun saveCategory(categoryEventId: Int) {
         updateUiState {
-            val updatedCategories = eventCategories.map { it.copy(selected = it.id == categoryEventId) }
+            val updatedCategories =
+                eventCategories.map { it.copy(selected = it.id == categoryEventId) }
             copy(
                 selectedCategoryId = categoryEventId,
                 eventCategories = updatedCategories,
