@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.common.view
+package com.example.academy_tbc.presentation.common
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

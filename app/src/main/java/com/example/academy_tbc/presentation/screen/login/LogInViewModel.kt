@@ -1,8 +1,8 @@
 package com.example.academy_tbc.presentation.screen.login
 
 import com.example.academy_tbc.domain.usecase.login.LogInUseCase
+import com.example.academy_tbc.presentation.common.BaseViewModel
 import com.example.academy_tbc.presentation.common.mapper.toGenericString
-import com.example.academy_tbc.presentation.common.view.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
