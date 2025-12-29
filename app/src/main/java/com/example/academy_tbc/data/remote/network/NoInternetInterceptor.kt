@@ -1,6 +1,6 @@
 package com.example.academy_tbc.data.remote.network
 
-import com.example.academy_tbc.domain.manager.NetworkStateManager
+import com.example.academy_tbc.data.manager.NetworkStateManager
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
