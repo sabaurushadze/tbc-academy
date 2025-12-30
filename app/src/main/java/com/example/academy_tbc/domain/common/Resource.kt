@@ -1,7 +1,11 @@
 package com.example.academy_tbc.domain.common
 
-sealed interface Resource<out D, out E : ResourceError> {
-    data class Success<out D>(val data: D) : Resource<D, Nothing>
-    data class Error<out E : ResourceError>(val error: E) : Resource<Nothing, E>
-    data object Loading : Resource<Nothing, Nothing>
+sealed interface Resource<out T> {
+    data class Success<out T>(val data: T) : Resource<T>
+    data class Error(
+        val error: ResourceError? = null,
+        val serverError: String? = null
+    ) : Resource<Nothing>
+
+    data class Loading(val isLoading: Boolean) : Resource<Nothing>
 }

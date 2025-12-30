@@ -11,7 +11,6 @@ class LogInViewModel @Inject constructor(
     private val logInUseCase: LogInUseCase,
 ) : BaseViewModel<LogInState, LogInSideEffect, LogInEvent>(LogInState()) {
 
-
     override fun onEvent(event: LogInEvent) {
         when (event) {
             is LogInEvent.LogIn -> logIn(
@@ -20,14 +19,12 @@ class LogInViewModel @Inject constructor(
         }
     }
 
-    private fun logIn(
-        email: String, password: String,
-    ) {
-        launchResource(
-            flow = logInUseCase(email, password),
-            onLoading = { updateState { copy(isLoading = isLoading) } },
-            onSuccess = { sendEffect(LogInSideEffect.NavigateToHome) },
-            onError = { sendEffect(LogInSideEffect.ShowError(it.toGenericString())) }
+    private fun logIn(email: String, password: String) {
+        handleResponse(
+            apiCall = { logInUseCase(email, password) },
+            onLoading = { updateState { copy(isLoading = it) } },
+            onSuccess = { emitSideEffect(LogInSideEffect.NavigateToHome) },
+            onError = { emitSideEffect(LogInSideEffect.ShowError(it.toGenericString())) }
         )
     }
 }

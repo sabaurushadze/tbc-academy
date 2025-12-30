@@ -28,7 +28,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(
     }
 
     private fun observeSideEffects() {
-        lifecycleCollectLatest(viewModel.effect) { effect ->
+        lifecycleCollectLatest(viewModel.sideEffect) { effect ->
             when (effect) {
                 LogInSideEffect.NavigateToHome -> {
                 }
