@@ -1,7 +1,7 @@
 package com.example.academy_tbc.di
 
 import android.content.Context
-import com.example.academy_tbc.data.manager.NetworkStateManager
+import com.example.academy_tbc.data.remote.manager.NetworkStateManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -13,4 +13,7 @@
     <string name="not_found">404 not found</string>
     <string name="server_error">Server error</string>
     <string name="parsing_error">Could not parse the JSON</string>
+    <string name="category">Category</string>
+    <string name="enter_category">Enter category</string>
+    <string name="suggestions">Suggestions</string>
 </resources>
