@@ -3,11 +3,12 @@ package com.example.academy_tbc.presentation.common
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.academy_tbc.domain.common.Resource
-import com.example.academy_tbc.domain.common.ResourceError
+import com.example.academy_tbc.domain.common.Failure
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
@@ -18,41 +19,35 @@ abstract class BaseViewModel<STATE, EFFECT, EVENT>(
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(initialState)
-    val state: StateFlow<STATE> = _state
+    val state: StateFlow<STATE> = _state.asStateFlow()
 
-    protected fun updateState(reduce: STATE.() -> STATE) {
-        _state.update(reduce)
+    private val _sideEffect by lazy { Channel<EFFECT>() }
+    val sideEffect = _sideEffect.receiveAsFlow()
+
+    open fun onEvent(event: EVENT) = Unit
+
+    protected fun updateState(block: STATE.() -> STATE) {
+        _state.update(block)
     }
-
-    private val _effect = Channel<EFFECT>()
-    val effect = _effect.receiveAsFlow()
-
-    protected fun sendEffect(effect: EFFECT) {
+    protected fun emitSideEffect(sideEffect: EFFECT) {
         viewModelScope.launch {
-            _effect.send(effect)
+            _sideEffect.send(sideEffect)
         }
     }
 
-    open fun onEvent(event: EVENT) {}
 
-    protected fun <T, E : ResourceError> launchResource(
-        flow: Flow<Resource<T, E>>,
-        onLoading: (Boolean) -> Unit = {},
-        onSuccess: (T) -> Unit = {},
-        onError: (E) -> Unit = {}
+    protected fun <T: Any, E: Failure> handleResponse(
+        apiCall: () -> Flow<Resource<T, E>>,
+        onSuccess: (T) -> Unit,
+        onError: (E) -> Unit,
+        onLoading: () -> Unit,
     ) {
         viewModelScope.launch {
-            flow.collectLatest { result ->
-                when (result) {
-                    is Resource.Loading -> onLoading(true)
-                    is Resource.Success -> {
-                        onLoading(false)
-                        onSuccess(result.data)
-                    }
-                    is Resource.Error -> {
-                        onLoading(false)
-                        onError(result.error)
-                    }
+            apiCall().collectLatest { resource ->
+                when (resource) {
+                    is Resource.Success -> onSuccess(resource.data)
+                    is Resource.Error -> onError(resource.error)
+                    Resource.Loading -> onLoading()
                 }
             }
         }

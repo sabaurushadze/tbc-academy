@@ -7,4 +7,6 @@
     <string name="something_went_wrong_please_try_again">Something went wrong, please try again</string>
     <string name="unknown_error">Unknown Error</string>
     <string name="no_internet_connection">No internet connection</string>
+    <string name="time_out">Im tired boss</string>
+    <string name="serialization_error">Error while parsing JSON</string>
 </resources>

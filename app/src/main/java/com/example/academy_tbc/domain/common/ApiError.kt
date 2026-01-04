@@ -1,6 +1,8 @@
 package com.example.academy_tbc.domain.common
 
-enum class ApiError : ResourceError {
+enum class ApiError : Failure {
     UNKNOWN,
-    NETWORK_ERROR
+    NETWORK_ERROR,
+    TIMEOUT,
+    SERIALIZATION
 }

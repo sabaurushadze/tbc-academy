@@ -23,11 +23,11 @@ class LogInViewModel @Inject constructor(
     private fun logIn(
         email: String, password: String,
     ) {
-        launchResource(
-            flow = logInUseCase(email, password),
+        handleResponse(
+            apiCall = { logInUseCase(email, password) },
             onLoading = { updateState { copy(isLoading = isLoading) } },
-            onSuccess = { sendEffect(LogInSideEffect.NavigateToHome) },
-            onError = { sendEffect(LogInSideEffect.ShowError(it.toGenericString())) }
+            onSuccess = { emitSideEffect(LogInSideEffect.NavigateToHome) },
+            onError = { emitSideEffect(LogInSideEffect.ShowError(it.toGenericString())) }
         )
     }
 }
