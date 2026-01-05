@@ -33,8 +33,10 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(
                 LogInSideEffect.NavigateToHome -> {
                 }
 
-                is LogInSideEffect.ShowError ->
-                    binding.root.showSnackBar(effect.error.getString(requireContext()))
+                is LogInSideEffect.ShowSnackBar -> {
+                    binding.root.showSnackBar(getString(effect.errorRes))
+
+                }
             }
         }
     }

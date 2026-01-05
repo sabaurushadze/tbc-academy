@@ -2,15 +2,15 @@ package com.example.academy_tbc.presentation.common.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.academy_tbc.domain.common.Resource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 abstract class BaseViewModel<STATE, EFFECT, EVENT>(
     initialState: STATE,
@@ -27,41 +27,27 @@ abstract class BaseViewModel<STATE, EFFECT, EVENT>(
     protected fun updateState(block: STATE.() -> STATE) {
         _state.update(block)
     }
+
     protected fun emitSideEffect(sideEffect: EFFECT) {
         viewModelScope.launch {
             _sideEffect.send(sideEffect)
         }
     }
 
+    protected open fun setLoading(isLoading: Boolean = false) {}
 
-    protected fun <T: Any> handleResponse(
-        apiCall: () -> Flow<Resource<T>>,
-        onSuccess: (T) -> Unit,
-        onError: (Resource.Error) -> Unit,
-        onLoading: (Boolean) -> Unit,
+    protected fun launchWithLoading(
+        updateLoading: (Boolean) -> Unit = ::setLoading,
+        block: suspend () -> Unit,
     ) {
+        updateLoading(true)
+
         viewModelScope.launch {
-            apiCall.invoke().collect { resource ->
-                getResourceType(
-                    resource = resource,
-                    onSuccess = onSuccess,
-                    onError = onError,
-                    onLoading = onLoading
-                )
+            try {
+                block()
+            } finally {
+                withContext(Dispatchers.Main.immediate) { updateLoading(false) }
             }
-        }
-    }
-
-    private fun <T: Any> getResourceType(
-        resource: Resource<T>,
-        onSuccess: (T) -> Unit,
-        onError: (Resource.Error) -> Unit,
-        onLoading: (Boolean) -> Unit,
-    ) {
-        when (resource) {
-            is Resource.Success -> onSuccess(resource.data)
-            is Resource.Error -> onError(resource)
-            is Resource.Loading -> onLoading(resource.isLoading)
         }
     }
 }

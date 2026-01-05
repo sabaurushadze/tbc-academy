@@ -1,9 +1,9 @@
 package com.example.academy_tbc.presentation.screen.login
 
-import com.example.academy_tbc.presentation.util.GenericString
+import androidx.annotation.StringRes
 
 sealed interface LogInSideEffect {
     data object NavigateToHome : LogInSideEffect
-    data class ShowError(val error: GenericString) : LogInSideEffect
+    data class ShowSnackBar(@param:StringRes val errorRes: Int) : LogInSideEffect
 
 }

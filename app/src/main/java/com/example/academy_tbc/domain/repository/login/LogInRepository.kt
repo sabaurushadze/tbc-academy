@@ -1,9 +1,9 @@
 package com.example.academy_tbc.domain.repository.login
 
+import com.example.academy_tbc.domain.common.DataError
 import com.example.academy_tbc.domain.common.Resource
-import com.example.academy_tbc.domain.model.login.LogInResponse
-import kotlinx.coroutines.flow.Flow
+import com.example.academy_tbc.domain.model.login.AuthToken
 
 interface LogInRepository {
-    fun logIn(): Flow<Resource<LogInResponse>>
+    suspend fun logIn(): Resource<AuthToken, DataError.Network>
 }

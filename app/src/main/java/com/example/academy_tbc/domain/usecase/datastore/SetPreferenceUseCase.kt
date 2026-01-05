@@ -7,7 +7,7 @@ import javax.inject.Inject
 class SetPreferenceUseCase @Inject constructor(
     private val preferencesRepository: DataStoreManager
 ) {
-    suspend fun <T> invoke(key: Preferences.Key<T>, value: T) {
+    suspend operator fun <T> invoke(key: Preferences.Key<T>, value: T) {
         preferencesRepository.setPreference(key, value)
     }
 }
