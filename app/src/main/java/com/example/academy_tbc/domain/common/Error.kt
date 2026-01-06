@@ -3,6 +3,11 @@ package com.example.academy_tbc.domain.common
 interface Error
 interface Retryable
 
+sealed interface SessionError : Error {
+    data object Unauthenticated : SessionError
+    data object Unknown : SessionError, Retryable
+}
+
 sealed interface DataError : Error {
     enum class Network : DataError {
         NO_CONNECTION, TIMEOUT, BAD_REQUEST, UNAUTHORIZED, FORBIDDEN, NOT_FOUND, INTERNAL_SERVER_ERROR, SERVICE_UNAVAILABLE, UNKNOWN

@@ -4,7 +4,7 @@ import com.example.academy_tbc.domain.common.onFailure
 import com.example.academy_tbc.domain.common.onSuccess
 import com.example.academy_tbc.domain.preferences.AppPreferenceKeys
 import com.example.academy_tbc.domain.usecase.datastore.SetPreferenceUseCase
-import com.example.academy_tbc.domain.usecase.login.LogInUseCase
+import com.example.academy_tbc.domain.usecase.auth.login.LogInUseCase
 import com.example.academy_tbc.presentation.common.view.BaseViewModel
 import com.example.academy_tbc.presentation.screen.login.mapper.UiAuthTokenMapper
 import com.example.academy_tbc.presentation.util.toStringResId

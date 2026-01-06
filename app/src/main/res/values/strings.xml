@@ -5,17 +5,39 @@
     <string name="error_unauthorized">You are not authorized. Please log in again.</string>
     <string name="error_forbidden">Access forbidden. You do not have permission to perform this action.</string>
     <string name="error_not_found">The requested resource was not found.</string>
-
-
-    <string name="something_went_wrong_please_try_again">Something went wrong, please try again</string>
-    <string name="unknown_error">Unknown Error</string>
-    <string name="no_internet_connection">No internet connection</string>
-    <string name="user_with_this_email_cannot_be_registered">User with this email cannot be registered</string>
     <string name="error_permission_denied">Permission denied</string>
     <string name="error_document_not_found">Document not found</string>
     <string name="error_unauthenticated">Your session has expired. Please log in again.</string>
     <string name="error_email_field_empty">Email field is emtpy</string>
     <string name="error_wrong_email_format">Wrong email format</string>
     <string name="error_password_field_empty">Password field is empty</string>
+    <string name="something_went_wrong_please_try_again">Something went wrong, please try again</string>
     <string name="password_too_weak">Password must be at least 8 characters. \nContain at least 1 uppercase letter \nand one symbol.</string>
+    <string name="unknown_error">Unknown Error</string>
+    <string name="user_with_this_email_cannot_be_registered">User with this email cannot be registered</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="welcome">Welcome</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="home">Home</string>
+    <string name="log_out">Log out</string>
+    <string name="get_users">Get users</string>
+    <string name="error_fetching_users">Error fetching users</string>
+    <string name="no_internet_connection_please_try_again">No internet connection. Please try again.</string>
+    <string name="ok">OK</string>
+    <string name="log_out_really">Log out?</string>
+    <string name="cancel">Cancel</string>
+    <string name="remember_me">Remember me</string>
+    <string name="full_name">%1$s %2$s</string>
+    <string name="profile">Profile</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="retry">Retry</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="timeout">It is taking a while! Please try again</string>
+    <string name="user_not_found">User not found</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="try_again">Try again</string>
+    <string name="something_went_wrong">Something went wrong!</string>
 </resources>

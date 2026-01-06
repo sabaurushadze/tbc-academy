@@ -1,4 +1,4 @@
-package com.example.academy_tbc.domain.usecase.login
+package com.example.academy_tbc.domain.usecase.auth.login
 
 import com.example.academy_tbc.domain.common.DataError
 import com.example.academy_tbc.domain.common.Resource
@@ -10,6 +10,6 @@ class LogInUseCase @Inject constructor(
     private val logInRepository: LogInRepository,
 ) {
     suspend operator fun invoke(email: String, password: String): Resource<AuthToken, DataError.Network> {
-        return logInRepository.logIn()
+        return logInRepository.logIn(email = email, password = password)
     }
 }

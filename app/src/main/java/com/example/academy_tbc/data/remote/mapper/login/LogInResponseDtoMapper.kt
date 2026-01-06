@@ -1,6 +1,6 @@
-package com.example.academy_tbc.data.remote.mapper
+package com.example.academy_tbc.data.remote.mapper.login
 
-import com.example.academy_tbc.data.remote.model.response.login.LogInResponseDto
+import com.example.academy_tbc.data.remote.dto.response.login.LogInResponseDto
 import com.example.academy_tbc.domain.common.ToDomainMapper
 import com.example.academy_tbc.domain.model.login.AuthToken
 import javax.inject.Inject
