@@ -1,0 +1,18 @@
+package com.example.academy_tbc.data.remote.service.users
+
+import com.example.academy_tbc.data.remote.dto.response.users.UsersResponseDto
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Query
+
+interface UsersApiService {
+    @GET(USERS)
+    suspend fun getUsers(
+        @Query("page") page: Int,
+        @Query("per_page") perPage: Int
+    ): Response<UsersResponseDto>
+
+    companion object {
+        private const val USERS = "users"
+    }
+}

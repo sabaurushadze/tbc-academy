@@ -9,9 +9,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.example.academy_tbc" />
-                  <option name="mobileSdkAppId" value="1:211635306572:android:5adae56520b94caeb874e9" />
-                  <option name="projectId" value="midtermpcshop" />
-                  <option name="projectNumber" value="211635306572" />
+                  <option name="mobileSdkAppId" value="1:964990451292:android:db3549243b0b5dd1087099" />
+                  <option name="projectId" value="notifications-14da1" />
+                  <option name="projectNumber" value="964990451292" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

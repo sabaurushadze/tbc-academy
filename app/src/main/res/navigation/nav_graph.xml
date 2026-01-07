@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+ <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/logInFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/logInFragment"
         android:name="com.example.academy_tbc.presentation.screen.login.LogInFragment"
         android:label="fragment_log_in"
-        tools:layout="@layout/fragment_log_in" />
+        tools:layout="@layout/fragment_log_in" >
+        <action
+            android:id="@+id/action_logInFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.academy_tbc.presentation.screen.splash.SplashFragment"
@@ -30,5 +34,15 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home"
         app:popUpTo="@id/splashFragment"
-        app:popUpToInclusive="true"/>
+        app:popUpToInclusive="true">
+        <deepLink
+            app:uri="myapp://home" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.academy_tbc.presentation.screen.profile.ProfileFragment"
+        android:label="ProfileFragment" >
+        <deepLink
+            app:uri="myapp://profile" />
+    </fragment>
 </navigation>

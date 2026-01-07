@@ -1,8 +1,10 @@
 package com.example.academy_tbc.di
 
 import com.example.academy_tbc.data.repository.datastore.DataStoreManagerImpl
+import com.example.academy_tbc.data.repository.home.UsersRepositoryImpl
 import com.example.academy_tbc.data.repository.login.LogInRepositoryImpl
 import com.example.academy_tbc.domain.repository.datastore.DataStoreManager
+import com.example.academy_tbc.domain.repository.home.UsersRepository
 import com.example.academy_tbc.domain.repository.login.LogInRepository
 import dagger.Binds
 import dagger.Module
@@ -24,4 +26,10 @@ abstract class RepositoryModule {
     abstract fun bindLogInRepository(
         impl: LogInRepositoryImpl,
     ): LogInRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindUserRepository(
+        impl: UsersRepositoryImpl,
+    ): UsersRepository
 }

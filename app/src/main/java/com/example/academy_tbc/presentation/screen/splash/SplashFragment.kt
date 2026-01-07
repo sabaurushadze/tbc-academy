@@ -24,7 +24,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(
                     SplashFragmentDirections.actionSplashFragmentToHomeFragment()
                 )
 
-                SplashSideEffect.NavigateToOnboarding -> findNavController().navigate(
+                SplashSideEffect.NavigateToLogin -> findNavController().navigate(
                     SplashFragmentDirections.actionSplashFragmentToLogInFragment()
                 )
             }

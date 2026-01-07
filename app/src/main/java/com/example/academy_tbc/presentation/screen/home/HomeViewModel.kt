@@ -6,16 +6,18 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
+import com.example.academy_tbc.domain.usecase.home.GetUsersPagingUseCase
+import com.example.academy_tbc.presentation.screen.home.mapper.UiUserMapper
+import com.example.academy_tbc.presentation.screen.home.model.UserModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     getUsersPagingUseCase: GetUsersPagingUseCase,
+    private val uiUserMapper: UiUserMapper,
 ) : ViewModel() {
 
     val usersFlow: Flow<PagingData<UserModel.User>> = getUsersPagingUseCase(
@@ -24,7 +26,7 @@ class HomeViewModel @Inject constructor(
             enablePlaceholders = false
         )
     ).map { pagingData ->
-        pagingData.map { it.toPresentation() }
+        pagingData.map(uiUserMapper::mapFromDomain)
     }.cachedIn(viewModelScope)
 
 

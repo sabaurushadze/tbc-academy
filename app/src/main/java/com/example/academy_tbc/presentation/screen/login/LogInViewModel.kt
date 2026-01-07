@@ -21,18 +21,21 @@ class LogInViewModel @Inject constructor(
     override fun onEvent(event: LogInEvent) {
         when (event) {
             is LogInEvent.LogIn -> logIn(
-                email = event.email, password = event.password
+                email = event.email, password = event.password, rememberMe = event.rememberMe
             )
         }
     }
 
     override fun setLoading(isLoading: Boolean) = updateState { copy(isLoading = isLoading) }
 
-    private fun logIn(email: String, password: String) = launchWithLoading {
+
+    private fun logIn(email: String, password: String, rememberMe: Boolean) = launchWithLoading {
         logInUseCase(email = email, password = password)
             .onSuccess { resultDomain ->
                 val resultUi = uiAuthTokenMapper.mapFromDomain(resultDomain)
-                setPreferenceUseCase(AppPreferenceKeys.TOKEN, resultUi.token)
+                if (rememberMe) {
+                    setPreferenceUseCase(AppPreferenceKeys.TOKEN, resultUi.token)
+                }
                 emitSideEffect(LogInSideEffect.NavigateToHome)
             }
             .onFailure { emitSideEffect(LogInSideEffect.ShowSnackBar(errorRes = it.toStringResId())) }

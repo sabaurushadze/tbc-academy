@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.dagger.hilt.android)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -66,7 +67,7 @@ android {
 }
 
 dependencies {
-
+    implementation(platform(libs.firebase.bom))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -82,6 +83,7 @@ dependencies {
     implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.hilt.android)
+    implementation(libs.firebase.messaging)
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
