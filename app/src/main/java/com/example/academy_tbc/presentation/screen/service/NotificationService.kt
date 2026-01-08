@@ -2,7 +2,6 @@ package com.example.academy_tbc.presentation.screen.service
 
 import android.annotation.SuppressLint
 import android.os.Build
-import androidx.annotation.RequiresApi
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,30 +23,34 @@ class NotificationService : FirebaseMessagingService() {
     enum class Type { PROFILE, HOME }
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onMessageReceived(message: RemoteMessage) {
-        val title = message.data[TITLE] ?: message.notification?.title ?: "New notification"
-        val body = message.data[BODY] ?: message.notification?.body.orEmpty()
+        super.onMessageReceived(message)
 
-        when (Type.entries.find { it.name == message.data[TYPE] }) {
-            Type.PROFILE -> {
-                notificationHelper.showProfileNotification(
-                    title = title,
-                    body = body,
-                )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val title = message.data[TITLE] ?: message.notification?.title ?: "New notification"
+            val body = message.data[BODY] ?: message.notification?.body.orEmpty()
+
+            when (Type.entries.find { it.name == message.data[TYPE] }) {
+
+                Type.PROFILE -> {
+                    notificationHelper.showProfileNotification(
+                        title = title,
+                        body = body,
+                    )
+                }
+
+                Type.HOME -> {
+                    notificationHelper.showHomeNotification(
+                        title = title,
+                        body = body,
+                    )
+
+                }
+
+                null -> return
             }
 
-            Type.HOME -> {
-                notificationHelper.showHomeNotification(
-                    title = title,
-                    body = body,
-                )
-
-            }
-
-            null -> {
-                return
-            }
         }
+
     }
 }
