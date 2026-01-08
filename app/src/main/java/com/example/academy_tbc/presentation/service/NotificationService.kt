@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.screen.service
+package com.example.academy_tbc.presentation.service
 
 import android.annotation.SuppressLint
 import android.os.Build

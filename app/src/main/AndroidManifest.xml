@@ -29,7 +29,7 @@
         </activity>
 
         <service
-            android:name=".presentation.screen.service.NotificationService"
+            android:name=".presentation.service.NotificationService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
