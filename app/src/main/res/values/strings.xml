@@ -18,4 +18,11 @@
     <string name="error_wrong_email_format">Wrong email format</string>
     <string name="error_password_field_empty">Password field is empty</string>
     <string name="password_too_weak">Password must be at least 8 characters. \nContain at least 1 uppercase letter \nand one symbol.</string>
+    <string name="select_an_image">Select an image</string>
+    <string name="upload_an_image">Upload an image</string>
+    <string name="take_a_picture">Take a picture</string>
+    <string name="select_an_image_from_gallery">Select an image from gallery</string>
+    <string name="iu">Image upload failed</string>
+    <string name="image_upload_failed">Image upload failed</string>
+    <string name="image_uploaded_successfully">Image uploaded successfully</string>
 </resources>

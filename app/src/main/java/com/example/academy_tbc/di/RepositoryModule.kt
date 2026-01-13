@@ -1,9 +1,13 @@
 package com.example.academy_tbc.di
 
+import com.example.academy_tbc.data.manager.UploadManager
 import com.example.academy_tbc.data.repository.datastore.DataStoreManagerImpl
 import com.example.academy_tbc.data.repository.login.LogInRepositoryImpl
+import com.example.academy_tbc.data.util.ImageCompressor
+import com.example.academy_tbc.domain.manager.FileUploadManager
 import com.example.academy_tbc.domain.repository.datastore.DataStoreManager
 import com.example.academy_tbc.domain.repository.login.LogInRepository
+import com.example.academy_tbc.domain.util.Compressor
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -24,4 +28,12 @@ abstract class RepositoryModule {
     abstract fun bindLogInRepository(
         impl: LogInRepositoryImpl,
     ): LogInRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsCompressor(impl: ImageCompressor): Compressor
+
+    @Binds
+    @Singleton
+    abstract fun bindFileUploadManager(uploadManager: UploadManager): FileUploadManager
 }

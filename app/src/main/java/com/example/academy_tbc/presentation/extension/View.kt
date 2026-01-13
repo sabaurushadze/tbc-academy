@@ -12,6 +12,19 @@ import com.example.academy_tbc.R
 import com.google.android.material.snackbar.Snackbar
 
 fun ImageView.loadImage(
+    image: ByteArray,
+    placeholderRes: Int = R.drawable.ic_launcher_background,
+    errorRes: Int = R.drawable.ic_launcher_background,
+    enableCrossfade: Boolean = true,
+) {
+    this.load(image) {
+        placeholder(placeholderRes)
+        error(errorRes)
+        crossfade(enableCrossfade)
+    }
+}
+
+fun ImageView.loadImage(
     url: String?,
     placeholderRes: Int = R.drawable.ic_launcher_background,
     errorRes: Int = R.drawable.ic_launcher_background,
