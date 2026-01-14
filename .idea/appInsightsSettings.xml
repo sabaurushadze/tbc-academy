@@ -9,9 +9,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.example.academy_tbc" />
-                  <option name="mobileSdkAppId" value="1:299844260717:android:928a27f490ef6a40384064" />
-                  <option name="projectId" value="uploadphotos-88a91" />
-                  <option name="projectNumber" value="299844260717" />
+                  <option name="mobileSdkAppId" value="1:211635306572:android:5adae56520b94caeb874e9" />
+                  <option name="projectId" value="midtermpcshop" />
+                  <option name="projectNumber" value="211635306572" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
