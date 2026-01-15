@@ -14,7 +14,7 @@
     <string name="error_permission_denied">Permission denied</string>
     <string name="error_document_not_found">Document not found</string>
     <string name="error_unauthenticated">Your session has expired. Please log in again.</string>
-    <string name="error_email_field_empty">Email field is emtpy</string>
+    <string name="error_email_field_empty">Email field is empty</string>
     <string name="error_wrong_email_format">Wrong email format</string>
     <string name="error_password_field_empty">Password field is empty</string>
     <string name="password_too_weak">Password must be at least 8 characters. \nContain at least 1 uppercase letter \nand one symbol.</string>
