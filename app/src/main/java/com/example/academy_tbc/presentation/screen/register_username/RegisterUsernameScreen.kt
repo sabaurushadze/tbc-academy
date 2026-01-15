@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.screen.login
+package com.example.academy_tbc.presentation.screen.register_username
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,16 +36,16 @@ import com.example.academy_tbc.presentation.theme.MyApplicationTheme
 import com.example.academy_tbc.presentation.theme.White
 
 @Composable
-fun LogInScreen(
-    viewModel: LogInViewModel = hiltViewModel(),
+fun RegisterUsernameScreen(
+    viewModel: RegisterUsernameViewModel = hiltViewModel(),
+    navigateToHome: () -> Unit,
     navigateBack: () -> Unit = {},
-    navigateToHome: () -> Unit = {},
     onShowSnackBar: (String) -> Unit,
 ) {
     val context = LocalContext.current
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    LogInContent(
+    RegisterUsernameContent(
         state = state,
         onEvent = viewModel::onEvent,
         onBackClick = { navigateBack() }
@@ -54,24 +53,23 @@ fun LogInScreen(
 
     CollectSideEffect(viewModel.sideEffect) { sideEffect ->
         when (sideEffect) {
-            LogInSideEffect.NavigateToHome -> {
+            RegisterUsernameSideEffect.NavigateToHome -> {
                 navigateToHome()
             }
 
-            is LogInSideEffect.ShowSnackBar -> {
+            is RegisterUsernameSideEffect.ShowSnackBar -> {
                 val error = context.getString(sideEffect.errorRes)
                 onShowSnackBar(error)
             }
         }
     }
-
 }
 
 
 @Composable
-fun LogInContent(
-    state: LogInState,
-    onEvent: (LogInEvent) -> Unit,
+fun RegisterUsernameContent(
+    state: RegisterUsernameState,
+    onEvent: (RegisterUsernameEvent) -> Unit,
     onBackClick: () -> Unit,
 ) {
     Column(
@@ -101,8 +99,45 @@ fun LogInContent(
         Column(
             modifier = Modifier
                 .fillMaxSize(),
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Top
         ) {
+            Text(
+                modifier = Modifier.padding(
+                    bottom = 32.dp,
+                    top = 24.dp
+                ),
+                text = stringResource(R.string.register_lowercase),
+                fontSize = 32.sp
+            )
+
+            OutlinedTextField(
+                value = state.username,
+                onValueChange = { onEvent(RegisterUsernameEvent.UsernameChanged(it)) },
+                label = { Text(stringResource(R.string.username)) },
+                modifier = Modifier.fillMaxWidth(),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = Black,
+                    focusedTextColor = Black,
+                    focusedLabelColor = Black,
+                    focusedLeadingIconColor = Black,
+                )
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            AppButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(52.dp),
+                text = "SIGN UP",
+                buttonColor = Black,
+                textColor = White,
+                textSize = 14.sp,
+                onClick = {
+                    onEvent(RegisterUsernameEvent.Register)
+                }
+            )
+            Spacer(modifier = Modifier.height(32.dp))
 
             if (state.isLoading) {
                 CircularProgressIndicator(
@@ -112,60 +147,6 @@ fun LogInContent(
                     color = Black
                 )
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                modifier = Modifier.padding(
-                    bottom = 32.dp
-                ),
-                text = stringResource(R.string.log_in_lowercase),
-                fontSize = 32.sp
-            )
-
-            OutlinedTextField(
-                value = state.email,
-                onValueChange = { onEvent(LogInEvent.EmailChanged(it)) },
-                label = { Text(stringResource(R.string.email)) },
-                modifier = Modifier.fillMaxWidth(),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Black,
-                    focusedTextColor = Black,
-                    focusedLabelColor = Black,
-                    focusedLeadingIconColor = Black,
-
-                    )
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            OutlinedTextField(
-                value = state.password,
-                onValueChange = { onEvent(LogInEvent.PasswordChanged(it)) },
-                label = { Text(stringResource(R.string.password)) },
-                modifier = Modifier.fillMaxWidth(),
-                visualTransformation = PasswordVisualTransformation(),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Black,
-                    focusedTextColor = Black,
-                    focusedLabelColor = Black,
-                    focusedLeadingIconColor = Black,
-
-                    )
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            AppButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(52.dp),
-                text = stringResource(R.string.log_in_uppercase),
-                buttonColor = Black,
-                textColor = White,
-                textSize = 14.sp,
-                onClick = {
-                    onEvent(LogInEvent.LogIn)
-                }
-            )
         }
 
     }
@@ -177,11 +158,9 @@ fun LogInContent(
 @Composable
 fun SimpleComposablePreview() {
     MyApplicationTheme {
-        LogInContent(
-            state = LogInState(
+        RegisterUsernameContent(
+            state = RegisterUsernameState(
                 isLoading = true,
-                email = "123",
-                password = "123"
             ),
             onEvent = {},
             onBackClick = {}

@@ -1,6 +1,6 @@
 package com.example.academy_tbc.data.remote.network
 
-import com.example.academy_tbc.domain.preferences.AppPreferenceKeys
+import com.example.academy_tbc.data.repository.datastore.AppPreferenceKeys
 import com.example.academy_tbc.domain.repository.datastore.DataStoreManager
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking

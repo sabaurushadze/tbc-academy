@@ -4,9 +4,20 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.academy_tbc.presentation.screen.login.LogInScreen
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
+import com.example.academy_tbc.presentation.navigation.AppNavHost
 import com.example.academy_tbc.presentation.theme.MyApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -14,8 +25,32 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val navController = rememberNavController()
+            val snackbarHostState = remember { SnackbarHostState() }
+            val scope = rememberCoroutineScope()
+
             MyApplicationTheme {
-                LogInScreen()
+                Scaffold(
+                    snackbarHost = {
+                        SnackbarHost(
+                            modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing),
+                            hostState = snackbarHostState,
+                        )
+                    },
+                ) {
+                    AppNavHost(
+                        navController = navController,
+                        onShowSnackBar = { message ->
+                            if (snackbarHostState.currentSnackbarData == null)
+                                scope.launch {
+                                    snackbarHostState.showSnackbar(
+                                        message,
+                                        withDismissAction = true
+                                    )
+                                }
+                        }
+                    )
+                }
             }
         }
     }

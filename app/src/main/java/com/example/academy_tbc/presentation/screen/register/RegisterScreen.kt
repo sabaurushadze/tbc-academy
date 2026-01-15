@@ -1,4 +1,4 @@
-package com.example.academy_tbc.presentation.screen.login
+package com.example.academy_tbc.presentation.screen.register
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -37,16 +37,16 @@ import com.example.academy_tbc.presentation.theme.MyApplicationTheme
 import com.example.academy_tbc.presentation.theme.White
 
 @Composable
-fun LogInScreen(
-    viewModel: LogInViewModel = hiltViewModel(),
+fun RegisterScreen(
+    viewModel: RegisterViewModel = hiltViewModel(),
+    navigateToUserNameCreation: () -> Unit,
     navigateBack: () -> Unit = {},
-    navigateToHome: () -> Unit = {},
     onShowSnackBar: (String) -> Unit,
 ) {
     val context = LocalContext.current
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    LogInContent(
+    RegisterContent(
         state = state,
         onEvent = viewModel::onEvent,
         onBackClick = { navigateBack() }
@@ -54,11 +54,11 @@ fun LogInScreen(
 
     CollectSideEffect(viewModel.sideEffect) { sideEffect ->
         when (sideEffect) {
-            LogInSideEffect.NavigateToHome -> {
-                navigateToHome()
+            RegisterSideEffect.NavigateToUserNameCreation -> {
+                navigateToUserNameCreation()
             }
 
-            is LogInSideEffect.ShowSnackBar -> {
+            is RegisterSideEffect.ShowSnackBar -> {
                 val error = context.getString(sideEffect.errorRes)
                 onShowSnackBar(error)
             }
@@ -69,9 +69,9 @@ fun LogInScreen(
 
 
 @Composable
-fun LogInContent(
-    state: LogInState,
-    onEvent: (LogInEvent) -> Unit,
+fun RegisterContent(
+    state: RegisterState,
+    onEvent: (RegisterEvent) -> Unit,
     onBackClick: () -> Unit,
 ) {
     Column(
@@ -117,13 +117,13 @@ fun LogInContent(
                 modifier = Modifier.padding(
                     bottom = 32.dp
                 ),
-                text = stringResource(R.string.log_in_lowercase),
+                text = stringResource(R.string.register_lowercase),
                 fontSize = 32.sp
             )
 
             OutlinedTextField(
                 value = state.email,
-                onValueChange = { onEvent(LogInEvent.EmailChanged(it)) },
+                onValueChange = { onEvent(RegisterEvent.EmailChanged(it)) },
                 label = { Text(stringResource(R.string.email)) },
                 modifier = Modifier.fillMaxWidth(),
                 colors = OutlinedTextFieldDefaults.colors(
@@ -132,14 +132,14 @@ fun LogInContent(
                     focusedLabelColor = Black,
                     focusedLeadingIconColor = Black,
 
-                    )
+                )
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
             OutlinedTextField(
                 value = state.password,
-                onValueChange = { onEvent(LogInEvent.PasswordChanged(it)) },
+                onValueChange = { onEvent(RegisterEvent.PasswordChanged(it)) },
                 label = { Text(stringResource(R.string.password)) },
                 modifier = Modifier.fillMaxWidth(),
                 visualTransformation = PasswordVisualTransformation(),
@@ -149,7 +149,7 @@ fun LogInContent(
                     focusedLabelColor = Black,
                     focusedLeadingIconColor = Black,
 
-                    )
+                )
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -158,12 +158,12 @@ fun LogInContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(52.dp),
-                text = stringResource(R.string.log_in_uppercase),
+                text = stringResource(R.string.next),
                 buttonColor = Black,
                 textColor = White,
                 textSize = 14.sp,
                 onClick = {
-                    onEvent(LogInEvent.LogIn)
+                    onEvent(RegisterEvent.Register)
                 }
             )
         }
@@ -177,8 +177,8 @@ fun LogInContent(
 @Composable
 fun SimpleComposablePreview() {
     MyApplicationTheme {
-        LogInContent(
-            state = LogInState(
+        RegisterContent(
+            state = RegisterState(
                 isLoading = true,
                 email = "123",
                 password = "123"
