@@ -21,7 +21,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.academy_tbc.R
-import com.example.academy_tbc.presentation.common.CollectSideEffect
 import com.example.academy_tbc.presentation.designsystem.AppButton
 import com.example.academy_tbc.presentation.theme.Black
 import com.example.academy_tbc.presentation.theme.MyApplicationTheme
@@ -44,7 +43,7 @@ fun LogInScreen(
     navigateToHome: () -> Unit = {},
     onShowSnackBar: (String) -> Unit,
 ) {
-    val context = LocalContext.current
+    val context = LocalResources.current
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     LogInContent(
@@ -67,19 +66,6 @@ fun LogInScreen(
             }
         }
     }
-//    CollectSideEffect(viewModel.sideEffect) { sideEffect ->
-//        when (sideEffect) {
-//            LogInSideEffect.NavigateToHome -> {
-//                navigateToHome()
-//            }
-//
-//            is LogInSideEffect.ShowSnackBar -> {
-//                val error = context.getString(sideEffect.errorRes)
-//                onShowSnackBar(error)
-//            }
-//        }
-//    }
-
 }
 
 

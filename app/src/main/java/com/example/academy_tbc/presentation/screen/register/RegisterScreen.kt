@@ -21,7 +21,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -31,9 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.academy_tbc.R
-import com.example.academy_tbc.presentation.common.CollectSideEffect
 import com.example.academy_tbc.presentation.designsystem.AppButton
-import com.example.academy_tbc.presentation.screen.login.LogInSideEffect
 import com.example.academy_tbc.presentation.theme.Black
 import com.example.academy_tbc.presentation.theme.MyApplicationTheme
 import com.example.academy_tbc.presentation.theme.White
@@ -45,7 +43,7 @@ fun RegisterScreen(
     navigateBack: () -> Unit = {},
     onShowSnackBar: (String) -> Unit,
 ) {
-    val context = LocalContext.current
+    val context = LocalResources.current
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     RegisterContent(
@@ -136,7 +134,7 @@ fun RegisterContent(
                     focusedLabelColor = Black,
                     focusedLeadingIconColor = Black,
 
-                )
+                    )
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -153,7 +151,7 @@ fun RegisterContent(
                     focusedLabelColor = Black,
                     focusedLeadingIconColor = Black,
 
-                )
+                    )
             )
 
             Spacer(modifier = Modifier.height(16.dp))
