@@ -29,7 +29,7 @@ android {
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"https://reqres.in/api/\""
+                "\"http://10.0.2.2:3000/\""
             )
         }
         release {
@@ -41,7 +41,7 @@ android {
             buildConfigField(
                 "String",
                 "BASE_URL",
-                "\"https://reqres.in/api/\""
+                "\"http://10.0.2.2:3000/\""
             )
         }
     }
@@ -79,6 +79,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.android.material)
     implementation(libs.coil)
+    implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)

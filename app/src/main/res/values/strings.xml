@@ -27,4 +27,6 @@
     <string name="log_in_uppercase">LOG IN</string>
     <string name="next">NEXT</string>
     <string name="username">Username</string>
+    <string name="currency_gel">₾</string>
+    <string name="currency_usd">$</string>
 </resources>

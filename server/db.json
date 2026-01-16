@@ -1,0 +1,134 @@
+{
+  "categories": [
+    { "id": 1, "name": "All" },
+    { "id": 2, "name": "Party" },
+    { "id": 3, "name": "Camping" },
+    { "id": 4, "name": "Wedding" },
+    { "id": 5, "name": "Sports" },
+    { "id": 6, "name": "Hiking" },
+    { "id": 7, "name": "Office" }
+  ],
+  "outfits": [
+    {
+      "id": 1,
+      "category": 5,
+      "name": "North Face",
+      "price": {
+        "amount": 120.00,
+        "currency": "USD"
+      },
+      "image": "https://i.postimg.cc/FKHmKPQK/download.jpg"
+    },
+    {
+      "id": 2,
+      "category": 5,
+      "name": "North Face",
+      "price": {
+        "amount": 120.00,
+        "currency": "USD"
+      },
+      "image": "https://i.postimg.cc/FKHmKPQK/download.jpg"
+    },
+    {
+      "id": 3,
+      "category": 1,
+      "name": "Super kostumi",
+      "price": {
+        "amount": 120.00,
+        "currency": "USD"
+      },
+      "image": "https://i.postimg.cc/FKHmKPQK/download.jpg"
+    },
+    {
+      "id": 4,
+      "category": 1,
+      "name": "Super kostumi",
+      "price": {
+        "amount": 120.00,
+        "currency": "USD"
+      },
+      "image": "https://i.postimg.cc/FKHmKPQK/download.jpg"
+    },
+    {
+      "id": 5,
+      "category": 2,
+      "name": "bazrobis jinsebi",
+      "price": {
+        "amount": 120.00,
+        "currency": "USD"
+      },
+      "image": "https://i.postimg.cc/FKHmKPQK/download.jpg"
+    },
+    {
+      "id": 6,
+      "category": 2,
+      "name": "bazrobis jinsebi",
+      "price": {
+        "amount": 120.00,
+        "currency": "USD"
+      },
+      "image": "https://i.postimg.cc/FKHmKPQK/download.jpg"
+    },
+    {
+      "id": 7,
+      "category": 3,
+      "name": "meoradebidan",
+      "price": {
+        "amount": 120.00,
+        "currency": "USD"
+      },
+      "image": "https://i.postimg.cc/FKHmKPQK/download.jpg"
+    },
+    {
+      "id": 8,
+      "category": 3,
+      "name": "meoradebidan",
+      "price": {
+        "amount": 120.00,
+        "currency": "USD"
+      },
+      "image": "https://i.postimg.cc/FKHmKPQK/download.jpg"
+    },
+    {
+      "id": 9,
+      "category": 4,
+      "name": "lilos kurtka",
+      "price": {
+        "amount": 120.00,
+        "currency": "USD"
+      },
+      "image": "https://i.postimg.cc/FKHmKPQK/download.jpg"
+    },
+    {
+      "id": 10,
+      "category": 4,
+      "name": "lilos kurtka",
+      "price": {
+        "amount": 120.00,
+        "currency": "USD"
+      },
+      "image": "https://i.postimg.cc/FKHmKPQK/download.jpg"
+    },
+    {
+      "id": 11,
+      "category": 6,
+      "name": "Armani",
+      "price": {
+        "amount": 120.00,
+        "currency": "USD"
+      },
+      "image": "https://i.postimg.cc/FKHmKPQK/download.jpg"
+    },
+    {
+      "id": 12,
+      "category": 6,
+      "name": "Armani",
+      "price": {
+        "amount": 120.00,
+        "currency": "USD"
+      },
+      "image": "https://i.postimg.cc/FKHmKPQK/download.jpg"
+    }
+  ]
+
+}

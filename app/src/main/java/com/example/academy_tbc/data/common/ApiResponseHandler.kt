@@ -1,5 +1,6 @@
 package com.example.academy_tbc.data.common
 
+import android.util.Log.d
 import com.example.academy_tbc.domain.common.DataError
 import com.example.academy_tbc.domain.common.Resource
 import retrofit2.HttpException
@@ -23,6 +24,7 @@ class ApiResponseHandler @Inject constructor() {
                 Resource.Failure(error = error)
             }
         } catch (e: Exception) {
+            d("asdd", "$e")
             Resource.Failure(error = mapExceptionToNetworkError(e))
         }
     }
