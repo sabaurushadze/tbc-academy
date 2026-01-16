@@ -17,6 +17,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,18 +53,32 @@ fun LogInScreen(
         onBackClick = { navigateBack() }
     )
 
-    CollectSideEffect(viewModel.sideEffect) { sideEffect ->
-        when (sideEffect) {
-            LogInSideEffect.NavigateToHome -> {
-                navigateToHome()
-            }
+    LaunchedEffect(Unit) {
+        viewModel.sideEffect.collect { sideEffect ->
+            when (sideEffect) {
+                LogInSideEffect.NavigateToHome -> {
+                    navigateToHome()
+                }
 
-            is LogInSideEffect.ShowSnackBar -> {
-                val error = context.getString(sideEffect.errorRes)
-                onShowSnackBar(error)
+                is LogInSideEffect.ShowSnackBar -> {
+                    val error = context.getString(sideEffect.errorRes)
+                    onShowSnackBar(error)
+                }
             }
         }
     }
+//    CollectSideEffect(viewModel.sideEffect) { sideEffect ->
+//        when (sideEffect) {
+//            LogInSideEffect.NavigateToHome -> {
+//                navigateToHome()
+//            }
+//
+//            is LogInSideEffect.ShowSnackBar -> {
+//                val error = context.getString(sideEffect.errorRes)
+//                onShowSnackBar(error)
+//            }
+//        }
+//    }
 
 }
 

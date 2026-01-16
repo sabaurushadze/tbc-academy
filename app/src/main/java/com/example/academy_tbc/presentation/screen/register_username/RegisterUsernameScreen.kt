@@ -17,6 +17,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,6 +32,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.academy_tbc.R
 import com.example.academy_tbc.presentation.common.CollectSideEffect
 import com.example.academy_tbc.presentation.designsystem.AppButton
+import com.example.academy_tbc.presentation.screen.register.RegisterSideEffect
 import com.example.academy_tbc.presentation.theme.Black
 import com.example.academy_tbc.presentation.theme.MyApplicationTheme
 import com.example.academy_tbc.presentation.theme.White
@@ -51,15 +53,17 @@ fun RegisterUsernameScreen(
         onBackClick = { navigateBack() }
     )
 
-    CollectSideEffect(viewModel.sideEffect) { sideEffect ->
-        when (sideEffect) {
-            RegisterUsernameSideEffect.NavigateToHome -> {
-                navigateToHome()
-            }
+    LaunchedEffect(Unit) {
+        viewModel.sideEffect.collect { sideEffect ->
+            when (sideEffect) {
+                RegisterUsernameSideEffect.NavigateToHome -> {
+                    navigateToHome()
+                }
 
-            is RegisterUsernameSideEffect.ShowSnackBar -> {
-                val error = context.getString(sideEffect.errorRes)
-                onShowSnackBar(error)
+                is RegisterUsernameSideEffect.ShowSnackBar -> {
+                    val error = context.getString(sideEffect.errorRes)
+                    onShowSnackBar(error)
+                }
             }
         }
     }
