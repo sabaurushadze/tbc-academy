@@ -19,7 +19,7 @@ fun NavGraphBuilder.authNavGraph(
     navigateBack: () -> Unit,
 ) {
 
-    navigation<AuthNavGraphRoute>(startDestination = HomeRoute) {
+    navigation<AuthNavGraphRoute>(startDestination = OnboardingRoute) {
 
         composable<OnboardingRoute> {
             OnboardingScreen(

@@ -29,4 +29,5 @@
     <string name="username">Username</string>
     <string name="currency_gel">₾</string>
     <string name="currency_usd">$</string>
+    <string name="no_outfits_on_this_category">no outfits on this category</string>
 </resources>

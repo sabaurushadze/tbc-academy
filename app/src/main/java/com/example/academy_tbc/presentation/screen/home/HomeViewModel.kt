@@ -1,6 +1,6 @@
 package com.example.academy_tbc.presentation.screen.home
 
-import android.util.Log.d
+import androidx.lifecycle.viewModelScope
 import com.example.academy_tbc.domain.common.onFailure
 import com.example.academy_tbc.domain.common.onSuccess
 import com.example.academy_tbc.domain.usecase.category.GetCategoriesUseCase
@@ -11,6 +11,7 @@ import com.example.academy_tbc.presentation.screen.home.category.mapper.toPresen
 import com.example.academy_tbc.presentation.screen.home.outfit.mapper.toPresentation
 import com.example.academy_tbc.presentation.util.toStringResId
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,43 +26,69 @@ class HomeViewModel @Inject constructor(
         getOutfits()
     }
 
-//    override fun setLoading(isLoading: Boolean) = updateState { copy(isLoading = isLoading) }
-
     override fun onEvent(event: HomeEvent) {
         when (event) {
             HomeEvent.GetCategories -> getCategories()
             HomeEvent.GetOutfits -> getOutfits()
             is HomeEvent.CategoryClicked -> getOutfitsById(event.id)
+            is HomeEvent.FavoriteClicked -> saveFavoriteOutfit(event.id)
         }
     }
 
-    private fun getCategories() = launchWithLoading {
+    private fun saveFavoriteOutfit(id: Int) {
+        updateState {
+            val updatedFavorites =
+                if (favoriteOutfits.contains(id)) {
+                    favoriteOutfits - id
+                } else {
+                    favoriteOutfits + id
+                }
+            copy(favoriteOutfits = updatedFavorites)
+        }
+    }
+
+    private fun getCategories() = viewModelScope.launch {
+        updateState { copy(isLoading = true) }
+
         getCategoriesUseCase()
             .onSuccess { categoriesDomain ->
                 updateState { copy(categories = categoriesDomain.map { it.toPresentation() }) }
+                updateState { copy(isLoading = false) }
             }
-            .onFailure { emitSideEffect(HomeSideEffect.ShowSnackBar(it.toStringResId())) }
+            .onFailure {
+                emitSideEffect(HomeSideEffect.ShowSnackBar(it.toStringResId()))
+                updateState { copy(isLoading = false) }
+            }
     }
 
-    private fun getOutfits() = launchWithLoading {
+    private fun getOutfits() = viewModelScope.launch {
+        updateState { copy(isLoading = true) }
         getOutfitsUseCase()
             .onSuccess { outfitsDomain ->
                 updateState { copy(outfits = outfitsDomain.map { it.toPresentation() }) }
+                updateState { copy(isLoading = false) }
             }
-            .onFailure { emitSideEffect(HomeSideEffect.ShowSnackBar(it.toStringResId())) }
+            .onFailure {
+                emitSideEffect(HomeSideEffect.ShowSnackBar(it.toStringResId()))
+                updateState { copy(isLoading = false) }
+            }
     }
 
-    private fun getOutfitsById(id: Int) = launchWithLoading {
+    private fun getOutfitsById(id: Int) = viewModelScope.launch {
+        updateState { copy(isLoading = true) }
         getOutfitsByIdUseCase(id)
             .onSuccess { outfitsDomain ->
                 updateState {
                     copy(
                         outfits = outfitsDomain.map { it.toPresentation() },
-                        selectedCategoryId = id
+                        selectedCategoryId = id,
                     )
                 }
-            d("asdd", "pressed id is: $id")
+                updateState { copy(isLoading = false) }
             }
-            .onFailure { emitSideEffect(HomeSideEffect.ShowSnackBar(it.toStringResId())) }
+            .onFailure {
+                emitSideEffect(HomeSideEffect.ShowSnackBar(it.toStringResId()))
+                updateState { copy(isLoading = false) }
+            }
     }
 }

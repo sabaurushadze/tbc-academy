@@ -1,6 +1,5 @@
 package com.example.academy_tbc.domain.usecase.outfit
 
-import android.util.Log.d
 import com.example.academy_tbc.domain.common.DataError
 import com.example.academy_tbc.domain.common.Resource
 import com.example.academy_tbc.domain.model.outfit.Outfit
@@ -12,10 +11,8 @@ class GetOutfitsByCategoryIdUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(id: Int): Resource<List<Outfit>, DataError.Network> {
         return if (id == 1) {
-            d("asdd", "else called with id: $id")
             outfitRepository.getOutfits()
         } else {
-            d("asdd", "else called with id: $id")
             outfitRepository.getOutfitsByCategory(id)
         }
     }

@@ -7,6 +7,7 @@ import com.example.academy_tbc.presentation.screen.home.outfit.model.UiOutfit
 
 fun Outfit.toPresentation(): UiOutfit {
     return UiOutfit(
+        id = id,
         category = category,
         name = name,
         image = image,

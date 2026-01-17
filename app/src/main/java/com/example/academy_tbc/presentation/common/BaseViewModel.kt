@@ -2,7 +2,6 @@ package com.example.academy_tbc.presentation.common
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -10,7 +9,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 abstract class BaseViewModel<STATE, EFFECT, EVENT>(
     initialState: STATE,
@@ -31,23 +29,6 @@ abstract class BaseViewModel<STATE, EFFECT, EVENT>(
     protected fun emitSideEffect(sideEffect: EFFECT) {
         viewModelScope.launch {
             _sideEffect.send(sideEffect)
-        }
-    }
-
-    protected open fun setLoading(isLoading: Boolean = false) {}
-
-    protected fun launchWithLoading(
-        updateLoading: (Boolean) -> Unit = ::setLoading,
-        block: suspend () -> Unit,
-    ) {
-        updateLoading(true)
-
-        viewModelScope.launch {
-            try {
-                block()
-            } finally {
-                withContext(Dispatchers.Main.immediate) { updateLoading(false) }
-            }
         }
     }
 }

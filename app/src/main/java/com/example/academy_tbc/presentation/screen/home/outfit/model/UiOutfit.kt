@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import com.example.academy_tbc.domain.model.outfit.OutfitCategory
 
 data class UiOutfit(
+    val id: Int,
     val category: OutfitCategory,
     val name: String,
     val image: String,
