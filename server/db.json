@@ -1,134 +1,124 @@
 {
-  "categories": [
-    { "id": 1, "name": "All" },
-    { "id": 2, "name": "Party" },
-    { "id": 3, "name": "Camping" },
-    { "id": 4, "name": "Wedding" },
-    { "id": 5, "name": "Sports" },
-    { "id": 6, "name": "Hiking" },
-    { "id": 7, "name": "Office" }
-  ],
-  "outfits": [
+  "orders": [
     {
       "id": 1,
-      "category": 5,
-      "name": "North Face",
-      "price": {
-        "amount": 120.00,
-        "currency": "USD"
-      },
-      "image": "https://i.postimg.cc/Hn8pz90W/image.png"
+      "status": "DELIVERED",
+      "orderName": "Order #1524",
+      "trackingNumber": "IK281281237",
+      "quantity": 2,
+      "deliveryDate": 1769066093121,
+      "subtotal": 110,
+      "details": {
+        "type": "BORDER_DELAY",
+        "borderCountry": "Mexico",
+        "reason": "Customs inspection",
+        "estimatedDelayDays": 5
+      }
     },
     {
       "id": 2,
-      "category": 5,
-      "name": "North Face",
-      "price": {
-        "amount": 120.00,
-        "currency": "USD"
-      },
-      "image": "https://i.postimg.cc/Hn8pz90W/image.png"
+      "status": "DELIVERED",
+      "orderName": "Order #1525",
+      "trackingNumber": "IK281271237",
+      "quantity": 10,
+      "deliveryDate": 1769066397566,
+      "subtotal": 492,
+      "details": {
+        "type": "IN_TRANSIT",
+        "currentCity": "Barcelona",
+        "nextCheckpoint": "Madrid",
+        "progressPercent": 65
+      }
     },
     {
       "id": 3,
-      "category": 1,
-      "name": "Super kostumi",
-      "price": {
-        "amount": 120.00,
-        "currency": "USD"
-      },
-      "image": "https://i.postimg.cc/Hn8pz90W/image.png"
+      "status": "CANCELED",
+      "orderName": "Order #1526",
+      "trackingNumber": "IK581212237",
+      "quantity": 1,
+      "deliveryDate": 1769066444678,
+      "subtotal": 2842,
+      "details": {
+        "type": "HIGH_VALUE",
+        "insuredAmount": 3000,
+        "requiresSignature": true,
+        "fragile": true
+      }
     },
     {
       "id": 4,
-      "category": 1,
-      "name": "Super kostumi",
-      "price": {
-        "amount": 120.00,
-        "currency": "USD"
-      },
-      "image": "https://i.postimg.cc/Hn8pz90W/image.png"
+      "status": "CANCELED",
+      "orderName": "Order #1527",
+      "trackingNumber": "IK581212290",
+      "quantity": 100,
+      "deliveryDate": 1769066553088,
+      "subtotal": 25000,
+      "details": {
+        "type": "BULK",
+        "warehouseId": "WH-23",
+        "palletCount": 4,
+        "handlingInstructions": "Forklift required"
+      }
     },
     {
       "id": 5,
-      "category": 2,
-      "name": "bazrobis jinsebi",
-      "price": {
-        "amount": 120.00,
-        "currency": "USD"
-      },
-      "image": "https://i.postimg.cc/Hn8pz90W/image.png"
+      "status": "PENDING",
+      "orderName": "Order #1524",
+      "trackingNumber": "IK281281237",
+      "quantity": 2,
+      "deliveryDate": 1769066093121,
+      "subtotal": 110,
+      "details": {
+        "type": "BORDER_DELAY",
+        "borderCountry": "Mexico",
+        "reason": "Customs inspection",
+        "estimatedDelayDays": 5
+      }
     },
     {
       "id": 6,
-      "category": 2,
-      "name": "bazrobis jinsebi",
-      "price": {
-        "amount": 120.00,
-        "currency": "USD"
-      },
-      "image": "https://i.postimg.cc/Hn8pz90W/image.png"
+      "status": "PENDING",
+      "orderName": "Order #1525",
+      "trackingNumber": "IK281271237",
+      "quantity": 10,
+      "deliveryDate": 1769066397566,
+      "subtotal": 492,
+      "details": {
+        "type": "IN_TRANSIT",
+        "currentCity": "Barcelona",
+        "nextCheckpoint": "Madrid",
+        "progressPercent": 65
+      }
     },
     {
       "id": 7,
-      "category": 3,
-      "name": "meoradebidan",
-      "price": {
-        "amount": 120.00,
-        "currency": "USD"
-      },
-      "image": "https://i.postimg.cc/Hn8pz90W/image.png"
+      "status": "PENDING",
+      "orderName": "Order #1526",
+      "trackingNumber": "IK581212237",
+      "quantity": 1,
+      "deliveryDate": 1769066444678,
+      "subtotal": 2842,
+      "details": {
+        "type": "HIGH_VALUE",
+        "insuredAmount": 3000,
+        "requiresSignature": true,
+        "fragile": true
+      }
     },
     {
       "id": 8,
-      "category": 3,
-      "name": "meoradebidan",
-      "price": {
-        "amount": 120.00,
-        "currency": "USD"
-      },
-      "image": "https://i.postimg.cc/Hn8pz90W/image.png"
-    },
-    {
-      "id": 9,
-      "category": 4,
-      "name": "lilos kurtka",
-      "price": {
-        "amount": 120.00,
-        "currency": "USD"
-      },
-      "image": "https://i.postimg.cc/Hn8pz90W/image.png"
-    },
-    {
-      "id": 10,
-      "category": 4,
-      "name": "lilos kurtka",
-      "price": {
-        "amount": 120.00,
-        "currency": "USD"
-      },
-      "image": "https://i.postimg.cc/Hn8pz90W/image.png"
-    },
-    {
-      "id": 11,
-      "category": 6,
-      "name": "Armani",
-      "price": {
-        "amount": 120.00,
-        "currency": "USD"
-      },
-      "image": "https://i.postimg.cc/Hn8pz90W/image.png"
-    },
-    {
-      "id": 12,
-      "category": 6,
-      "name": "Armani",
-      "price": {
-        "amount": 120.00,
-        "currency": "USD"
-      },
-      "image": "https://i.postimg.cc/Hn8pz90W/image.png"
+      "status": "PENDING",
+      "orderName": "Order #1527",
+      "trackingNumber": "IK581212290",
+      "quantity": 100,
+      "deliveryDate": 1769066553088,
+      "subtotal": 25000,
+      "details": {
+        "type": "BULK",
+        "warehouseId": "WH-23",
+        "palletCount": 4,
+        "handlingInstructions": "Forklift required"
+      }
     }
   ]
-
 }

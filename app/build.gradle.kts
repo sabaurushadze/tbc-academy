@@ -84,6 +84,8 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
     implementation(libs.retrofit)
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.30.1")
     implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.hilt.android)

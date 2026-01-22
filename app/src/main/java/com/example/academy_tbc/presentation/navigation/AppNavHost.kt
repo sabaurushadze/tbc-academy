@@ -5,12 +5,8 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.example.academy_tbc.presentation.navigation.auth.AuthNavGraphRoute
-import com.example.academy_tbc.presentation.navigation.auth.HomeRoute
-import com.example.academy_tbc.presentation.navigation.auth.LoginScreenRoute
-import com.example.academy_tbc.presentation.navigation.auth.RegisterScreenRoute
-import com.example.academy_tbc.presentation.navigation.auth.RegisterUserNameRoute
-import com.example.academy_tbc.presentation.navigation.auth.authNavGraph
+import com.example.academy_tbc.presentation.navigation.home.HomeRoute
+import com.example.academy_tbc.presentation.navigation.home.homeNavGraph
 
 @Composable
 fun AppNavHost(
@@ -19,32 +15,14 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = AuthNavGraphRoute,
+        startDestination = HomeRoute,
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
         popEnterTransition = { EnterTransition.None },
         popExitTransition = { ExitTransition.None }
     ) {
-        authNavGraph(
-            onShowSnackBar = onShowSnackBar,
-            navigateToLogin = {
-                navController.navigate(LoginScreenRoute)
-            },
-            navigateToRegister = {
-                navController.navigate(RegisterScreenRoute)
-            },
-            navigateBack = {
-                navController.navigateUp()
-            },
-            navigateToUserNameCreation = {
-                navController.navigate(RegisterUserNameRoute)
-            },
-            navigateToHome = {
-                navController.navigate(HomeRoute) {
-                    popUpTo(AuthNavGraphRoute) { inclusive = true }
-                    launchSingleTop = true
-                }
-            },
+        homeNavGraph(
+            onShowSnackBar = onShowSnackBar
         )
     }
 }

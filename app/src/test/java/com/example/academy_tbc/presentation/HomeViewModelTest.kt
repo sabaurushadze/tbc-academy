@@ -1,62 +1,55 @@
 package com.example.academy_tbc.presentation
 
 
-import app.cash.turbine.test
 import com.example.academy_tbc.domain.common.DataError
 import com.example.academy_tbc.domain.common.Resource
-import com.example.academy_tbc.domain.model.category.Category
-import com.example.academy_tbc.domain.model.outfit.Currency
-import com.example.academy_tbc.domain.model.outfit.Outfit
-import com.example.academy_tbc.domain.model.outfit.OutfitCategory
-import com.example.academy_tbc.domain.usecase.category.GetCategoriesUseCase
-import com.example.academy_tbc.domain.usecase.outfit.GetOutfitsByCategoryIdUseCase
-import com.example.academy_tbc.domain.usecase.outfit.GetOutfitsUseCase
+import com.example.academy_tbc.domain.model.order.BorderDelayDetails
+import com.example.academy_tbc.domain.model.order.Order
+import com.example.academy_tbc.domain.model.order.OrderStatus
+import com.example.academy_tbc.domain.usecase.order.GetOrdersByStatusUseCase
+import com.example.academy_tbc.domain.usecase.order.UpdateOrderUseCase
 import com.example.academy_tbc.presentation.screen.home.HomeEvent
-import com.example.academy_tbc.presentation.screen.home.HomeSideEffect
 import com.example.academy_tbc.presentation.screen.home.HomeViewModel
+import com.example.academy_tbc.presentation.screen.home.orders.enums.OrdersTab
+import com.example.academy_tbc.presentation.screen.home.orders.mapper.toPresentation
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
+import junit.framework.TestCase.assertFalse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class HomeViewModelTest {
 
+    private val testDispatcher = StandardTestDispatcher()
     private lateinit var viewModel: HomeViewModel
 
-    private val getCategoriesUseCase: GetCategoriesUseCase = mockk()
-    private val getOutfitsUseCase: GetOutfitsUseCase = mockk()
-    private val getOutfitsByCategoryIdUseCase: GetOutfitsByCategoryIdUseCase = mockk()
+    private val getOrdersUseCase: GetOrdersByStatusUseCase = mockk()
+    private val updateOrderUseCase: UpdateOrderUseCase = mockk()
 
-    private val testDispatcher = StandardTestDispatcher()
-
-    private val dummyCategories = listOf(
-        Category(1, "Party"),
-        Category(2, "Sports")
-    )
-
-    val dummyOutfits = listOf(
-        Outfit(
+    private val orders = listOf(
+        Order(
             id = 1,
-            category = OutfitCategory.PARTY,
-            name = "Outfit1",
-            image = "https://fastly.picsum.photos/id/830/536/354.jpg?hmac=M5EsVFyBxZR708JhsNqDjIbvm0CMgKZ_rOjrXCI5KYw",
-            price = Outfit.Price(amount = 10.0, currency = Currency.GEL)
-        ),
-        Outfit(
-            id = 2,
-            category = OutfitCategory.CAMPING,
-            name = "Outfit2",
-            image = "https://fastly.picsum.photos/id/237/536/354.jpg?hmac=i0yVXW1ORpyCZpQ-CknuyV-jbtU7_x9EBQVhvT5aRr0",
-            price = Outfit.Price(amount = 20.0, currency = Currency.USD)
+            status = OrderStatus.PENDING,
+            orderName = OrderStatus.PENDING.name,
+            trackingNumber = "TK131231384",
+            quantity = "4",
+            deliveryDate = "12/12/2026",
+            subtotal = "$290",
+            details = BorderDelayDetails(
+                borderCountry = "Mexico",
+                reason = "Illegal drugs",
+
+                estimatedDelayDays = 29
+            )
         )
     )
 
@@ -64,17 +57,10 @@ class HomeViewModelTest {
     fun setup() {
         Dispatchers.setMain(testDispatcher)
 
-        coEvery { getCategoriesUseCase() } returns Resource.Success(dummyCategories)
-        coEvery { getOutfitsUseCase() } returns Resource.Success(dummyOutfits)
-        coEvery { getOutfitsByCategoryIdUseCase(any()) } returns Resource.Success(dummyOutfits)
-
         viewModel = HomeViewModel(
-            getCategoriesUseCase,
-            getOutfitsUseCase,
-            getOutfitsByCategoryIdUseCase
+            getOrdersUseCase,
+            updateOrderUseCase,
         )
-
-        testDispatcher.scheduler.advanceUntilIdle()
     }
 
     @After
@@ -83,83 +69,85 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `init loads categories and outfits successfully`() = runTest {
-        val state = viewModel.state.value
+    fun `getOrders success updates state`() = runTest {
+        coEvery { getOrdersUseCase(OrdersTab.PENDING.status) } returns
+                Resource.Success(orders)
 
-        assertEquals(2, state.categories.size)
-        assertEquals(2, state.outfits.size)
-        assertEquals(false, state.isLoading)
+        viewModel.onEvent(HomeEvent.GetOrders)
+
+        testScheduler.advanceUntilIdle()
+
+        val state = viewModel.state.value
+        assertEquals(orders.map { it.toPresentation() }, state.orders)
+        assertFalse(state.isLoading)
+        assertFalse(state.isRefreshing)
     }
 
     @Test
-    fun `clicking a category updates outfits and selectedCategoryId`() = runTest {
-        val categoryId = 2
-        val updatedOutfits = listOf(
-            Outfit(
-                3, OutfitCategory.CAMPING, "Outfit3", "https://fastly.picsum.photos/id/237/536/354.jpg?hmac=i0yVXW1ORpyCZpQ-CknuyV-jbtU7_x9EBQVhvT5aRr0", Outfit.Price(
-                    2.2,
-                    Currency.GEL
-                )
+    fun `getOrders error clears orders and stops loading`() = runTest {
+        coEvery { getOrdersUseCase(OrdersTab.PENDING.status) } returns
+                Resource.Failure(DataError.Network.NO_CONNECTION)
+
+        viewModel.onEvent(HomeEvent.GetOrders)
+        testScheduler.advanceUntilIdle()
+
+        val state = viewModel.state.value
+        assertEquals(emptyList(), state.orders)
+        assertFalse(state.isLoading)
+        assertFalse(state.isRefreshing)
+    }
+
+    @Test
+    fun `changing tab fetches orders for new status`() = runTest {
+        val shippedOrders = listOf(
+            orders.first().copy(
+                id = 2,
+                status = OrderStatus.DELIVERED,
+                orderName = OrderStatus.DELIVERED.name
             )
         )
-        coEvery { getOutfitsByCategoryIdUseCase(categoryId) } returns Resource.Success(
-            updatedOutfits
-        )
 
-        viewModel.onEvent(HomeEvent.CategoryClicked(categoryId))
-        testDispatcher.scheduler.advanceUntilIdle()
+        coEvery { getOrdersUseCase(OrdersTab.DELIVERED.status) } returns
+                Resource.Success(shippedOrders)
+
+        viewModel.onEvent(HomeEvent.TabSelected(OrdersTab.DELIVERED))
+        testScheduler.advanceUntilIdle()
 
         val state = viewModel.state.value
-        assertEquals(categoryId, state.selectedCategoryId)
-        assertEquals(updatedOutfits.size, state.outfits.size)
+        assertEquals(
+            shippedOrders.map { it.toPresentation() },
+            state.orders
+        )
     }
 
     @Test
-    fun `clicking favorite toggles favorite list`() = runTest {
-        val outfitId = 1
+    fun `updateOrder success refreshes orders`() = runTest {
+        coEvery {
+            updateOrderUseCase(1, OrderStatus.DELIVERED)
+        } returns Resource.Success(Unit)
 
-        assertEquals(0, viewModel.state.value.favoriteOutfits.size)
+        coEvery {
+            getOrdersUseCase(OrdersTab.PENDING.status)
+        } returns Resource.Success(orders)
 
-        viewModel.onEvent(HomeEvent.FavoriteClicked(outfitId))
-        assertEquals(listOf(outfitId), viewModel.state.value.favoriteOutfits)
-
-        viewModel.onEvent(HomeEvent.FavoriteClicked(outfitId))
-        assertEquals(emptyList<Int>(), viewModel.state.value.favoriteOutfits)
-    }
-
-    @Test
-    fun `getCategoriesUseCase failure emits side effect`() = runTest {
-        coEvery { getCategoriesUseCase() } returns Resource.Failure(DataError.Network.INTERNAL_SERVER_ERROR)
-
-        viewModel = HomeViewModel(
-            getCategoriesUseCase,
-            getOutfitsUseCase,
-            getOutfitsByCategoryIdUseCase
+        viewModel.onEvent(
+            HomeEvent.UpdateOrder(
+                id = 1,
+                status = OrderStatus.DELIVERED
+            )
         )
 
-        viewModel.sideEffect.test {
-            testDispatcher.scheduler.advanceUntilIdle()
-            val effect = awaitItem()
-            assert(effect is HomeSideEffect.ShowSnackBar)
-            cancelAndIgnoreRemainingEvents()
-        }
-    }
+        testScheduler.advanceUntilIdle()
 
-    @Test
-    fun `getOutfitsUseCase failure emits side effect`() = runTest {
-        coEvery { getOutfitsUseCase() } returns Resource.Failure(DataError.Network.TIMEOUT)
+        val state = viewModel.state.value
 
-        viewModel = HomeViewModel(
-            getCategoriesUseCase,
-            getOutfitsUseCase,
-            getOutfitsByCategoryIdUseCase
+        assertEquals(
+            orders.map { it.toPresentation() },
+            state.orders
         )
-
-        viewModel.sideEffect.test {
-            testDispatcher.scheduler.advanceUntilIdle()
-            val effect = awaitItem()
-            assert(effect is HomeSideEffect.ShowSnackBar)
-            cancelAndIgnoreRemainingEvents()
-        }
+        assertFalse(state.isLoading)
+        assertFalse(state.isRefreshing)
     }
+
+
 }

@@ -1,17 +1,12 @@
 package com.example.academy_tbc.presentation.screen.home
 
-import com.example.academy_tbc.presentation.screen.home.category.model.UiCategory
-import com.example.academy_tbc.presentation.screen.home.outfit.model.UiOutfit
+import com.example.academy_tbc.presentation.screen.home.orders.enums.OrdersTab
+import com.example.academy_tbc.presentation.screen.home.orders.model.UiOrder
 
 data class HomeState(
-    val categories: List<UiCategory> = listOf(),
-    val outfits: List<UiOutfit> = listOf(),
     val isLoading: Boolean = false,
-    val selectedCategoryId: Int = 1,
-    val favoriteOutfits: List<Int> = listOf()
-) {
-    val isCategoryOrOutfitReady: Boolean
-        get() = categories.isNotEmpty() || outfits.isNotEmpty()
-}
-
-
+    val isRefreshing: Boolean = false,
+    val orders: List<UiOrder> = listOf(),
+    val selectedTab: OrdersTab = OrdersTab.PENDING,
+    val selectedOrder: UiOrder? = null
+)

@@ -3,12 +3,13 @@ package com.example.academy_tbc.presentation.screen.home
 import androidx.lifecycle.viewModelScope
 import com.example.academy_tbc.domain.common.onFailure
 import com.example.academy_tbc.domain.common.onSuccess
-import com.example.academy_tbc.domain.usecase.category.GetCategoriesUseCase
-import com.example.academy_tbc.domain.usecase.outfit.GetOutfitsByCategoryIdUseCase
-import com.example.academy_tbc.domain.usecase.outfit.GetOutfitsUseCase
+import com.example.academy_tbc.domain.model.order.OrderStatus
+import com.example.academy_tbc.domain.usecase.order.GetOrdersByStatusUseCase
+import com.example.academy_tbc.domain.usecase.order.UpdateOrderUseCase
 import com.example.academy_tbc.presentation.common.BaseViewModel
-import com.example.academy_tbc.presentation.screen.home.category.mapper.toPresentation
-import com.example.academy_tbc.presentation.screen.home.outfit.mapper.toPresentation
+import com.example.academy_tbc.presentation.screen.home.orders.enums.OrdersTab
+import com.example.academy_tbc.presentation.screen.home.orders.mapper.toPresentation
+import com.example.academy_tbc.presentation.screen.home.orders.model.UiOrder
 import com.example.academy_tbc.presentation.util.toStringResId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,79 +17,74 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getCategoriesUseCase: GetCategoriesUseCase,
-    private val getOutfitsUseCase: GetOutfitsUseCase,
-    private val getOutfitsByIdUseCase: GetOutfitsByCategoryIdUseCase,
+    private val getOrdersUseCase: GetOrdersByStatusUseCase,
+    private val updateOrderUseCase: UpdateOrderUseCase,
 ) : BaseViewModel<HomeState, HomeSideEffect, HomeEvent>(HomeState()) {
-
-    init {
-        getCategories()
-        getOutfits()
-    }
 
     override fun onEvent(event: HomeEvent) {
         when (event) {
-            HomeEvent.GetCategories -> getCategories()
-            HomeEvent.GetOutfits -> getOutfits()
-            is HomeEvent.CategoryClicked -> getOutfitsById(event.id)
-            is HomeEvent.FavoriteClicked -> saveFavoriteOutfit(event.id)
+            HomeEvent.GetOrders -> getOrders()
+            is HomeEvent.TabSelected -> updateSelectedTab(event.tab)
+            is HomeEvent.UpdateOrder -> updateOrder(event.id, event.status)
+            is HomeEvent.SelectOrder -> selectOrder(event.id)
+            HomeEvent.UnselectOrder -> unselectOrder()
         }
     }
 
-    private fun saveFavoriteOutfit(id: Int) {
+    private fun selectOrder(uiOrder: UiOrder) {
+        updateState { copy(selectedOrder = uiOrder) }
+    }
+
+    private fun unselectOrder() {
+        updateState { copy(selectedOrder = null) }
+    }
+
+    private fun updateOrder(id: Int, status: OrderStatus) = viewModelScope.launch {
+        updateState { copy(isLoading = true) }
+        updateOrderUseCase(
+            id = id,
+            status = status
+        )
+            .onSuccess {
+                updateState { copy(isLoading = false) }
+                getOrders()
+            }
+            .onFailure {
+                emitSideEffect(HomeSideEffect.ShowSnackBar(it.toStringResId()))
+                updateState { copy(isLoading = false) }
+            }
+    }
+
+    private fun updateSelectedTab(selectedTab: OrdersTab) {
         updateState {
-            val updatedFavorites =
-                if (favoriteOutfits.contains(id)) {
-                    favoriteOutfits - id
-                } else {
-                    favoriteOutfits + id
-                }
-            copy(favoriteOutfits = updatedFavorites)
+            copy(
+                selectedTab = selectedTab,
+                orders = listOf()
+            )
         }
+        getOrders()
     }
 
-    private fun getCategories() = viewModelScope.launch {
-        updateState { copy(isLoading = true) }
+    private fun getOrders(isPullToRefresh: Boolean = false) = viewModelScope.launch {
+        if (isPullToRefresh) {
+            updateState { copy(isRefreshing = true) }
+        } else {
+            updateState { copy(isLoading = true) }
+        }
 
-        getCategoriesUseCase()
-            .onSuccess { categoriesDomain ->
-                updateState { copy(categories = categoriesDomain.map { it.toPresentation() }) }
-                updateState { copy(isLoading = false) }
-            }
-            .onFailure {
-                emitSideEffect(HomeSideEffect.ShowSnackBar(it.toStringResId()))
-                updateState { copy(isLoading = false) }
-            }
-    }
-
-    private fun getOutfits() = viewModelScope.launch {
-        updateState { copy(isLoading = true) }
-        getOutfitsUseCase()
-            .onSuccess { outfitsDomain ->
-                updateState { copy(outfits = outfitsDomain.map { it.toPresentation() }) }
-                updateState { copy(isLoading = false) }
-            }
-            .onFailure {
-                emitSideEffect(HomeSideEffect.ShowSnackBar(it.toStringResId()))
-                updateState { copy(isLoading = false) }
-            }
-    }
-
-    private fun getOutfitsById(id: Int) = viewModelScope.launch {
-        updateState { copy(isLoading = true) }
-        getOutfitsByIdUseCase(id)
+        getOrdersUseCase(status = state.value.selectedTab.status)
             .onSuccess { outfitsDomain ->
                 updateState {
                     copy(
-                        outfits = outfitsDomain.map { it.toPresentation() },
-                        selectedCategoryId = id,
+                        orders = outfitsDomain.map { it.toPresentation() },
+                        isLoading = false,
+                        isRefreshing = false
                     )
                 }
-                updateState { copy(isLoading = false) }
             }
             .onFailure {
                 emitSideEffect(HomeSideEffect.ShowSnackBar(it.toStringResId()))
-                updateState { copy(isLoading = false) }
+                updateState { copy(isLoading = false, isRefreshing = false) }
             }
     }
 }

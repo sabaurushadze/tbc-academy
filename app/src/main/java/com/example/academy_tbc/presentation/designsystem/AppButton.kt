@@ -1,64 +1,40 @@
 package com.example.academy_tbc.presentation.designsystem
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.academy_tbc.presentation.theme.Black
+import androidx.compose.ui.text.TextStyle
+import com.example.academy_tbc.presentation.theme.AppColor
+import com.example.academy_tbc.presentation.theme.AppDimens
+import com.example.academy_tbc.presentation.theme.AppRadius
+import com.example.academy_tbc.presentation.theme.AppTextStyle
 
 @Composable
-fun AppButton(
+fun AppButtonOutlined(
     modifier: Modifier = Modifier,
-    text: String = "",
-    border: BorderStroke? = null,
-    shape: Shape = RoundedCornerShape(4.dp),
-    buttonColor: Color = Black,
-    textColor: Color = Black,
-    textSize: TextUnit = 14.sp,
+    text: String,
+    enabled: Boolean = true,
+    border: BorderStroke = BorderStroke(width = AppDimens.size1, color = AppColor.onBackground),
+    shape: Shape = AppRadius.radius8,
+    textStyle: TextStyle = AppTextStyle.body14Medium,
+    contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     onClick: () -> Unit,
+) {
+    OutlinedButton(
+        modifier = modifier.height(AppDimens.size36),
+        onClick = onClick,
+        border = border,
+        enabled = enabled,
+        shape = shape,
+        contentPadding = contentPadding
     ) {
-    val content: @Composable () -> Unit = {
-        Text(
-            text = text,
-            fontSize = textSize,
-            textAlign = TextAlign.Center,
-            color = textColor
-        )
-    }
-
-    if (border != null) {
-        OutlinedButton(
-            modifier = modifier,
-            border = border,
-            shape = shape,
-            onClick = onClick
-        ) {
-            content()
-        }
-    } else {
-        Button(
-            modifier = modifier,
-            colors = ButtonColors(
-                containerColor = buttonColor,
-                disabledContainerColor = buttonColor.copy(alpha = 0.5f),
-                disabledContentColor = textColor.copy(alpha = 0.5f),
-                contentColor = textColor
-            ),
-            shape = shape,
-            onClick = onClick
-        ) {
-            content()
-        }
+        Text(text = text, style = textStyle)
     }
 
 }
