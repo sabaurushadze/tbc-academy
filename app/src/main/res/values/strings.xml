@@ -57,4 +57,7 @@
     <string name="subtotal_amount">Subtotal:</string>
     <string name="details">Details</string>
     <string name="tracking_number">Tracking number:</string>
+    <string name="sent_a_voice_message">Sent a voice message</string>
+    <string name="sent_an_attachment">Sent an attachment</string>
+    <string name="search">Search</string>
 </resources>

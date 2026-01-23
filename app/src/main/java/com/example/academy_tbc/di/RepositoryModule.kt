@@ -1,9 +1,9 @@
 package com.example.academy_tbc.di
 
 import com.example.academy_tbc.data.repository.datastore.DataStoreManagerImpl
-import com.example.academy_tbc.data.repository.order.OrderRepositoryImpl
+import com.example.academy_tbc.data.repository.user.UserRepositoryImpl
 import com.example.academy_tbc.domain.repository.datastore.DataStoreManager
-import com.example.academy_tbc.domain.repository.order.OrderRepository
+import com.example.academy_tbc.domain.repository.user.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -21,5 +21,5 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindOutfitRepository(impl: OrderRepositoryImpl): OrderRepository
+    abstract fun bindUserRepository(impl: UserRepositoryImpl): UserRepository
 }

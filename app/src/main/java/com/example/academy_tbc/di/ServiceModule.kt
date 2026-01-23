@@ -1,6 +1,6 @@
 package com.example.academy_tbc.di
 
-import com.example.academy_tbc.data.remote.service.outfit.OrderService
+import com.example.academy_tbc.data.remote.service.user.UserService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +13,7 @@ import javax.inject.Singleton
 object ServiceModule {
     @Provides
     @Singleton
-    fun provideOutfitService(retrofit: Retrofit): OrderService {
-        return retrofit.create(OrderService::class.java)
+    fun provideOutfitService(retrofit: Retrofit): UserService {
+        return retrofit.create(UserService::class.java)
     }
 }

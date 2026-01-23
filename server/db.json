@@ -1,124 +1,44 @@
 {
-  "orders": [
+  "users": [
     {
       "id": 1,
-      "status": "DELIVERED",
-      "orderName": "Order #1524",
-      "trackingNumber": "IK281281237",
-      "quantity": 2,
-      "deliveryDate": 1769066093121,
-      "subtotal": 110,
-      "details": {
-        "type": "BORDER_DELAY",
-        "borderCountry": "Mexico",
-        "reason": "Customs inspection",
-        "estimatedDelayDays": 5
-      }
+      "image": "https://www.alia.ge/wp-content/uploads/2022/09/grisha.jpg",
+      "owner": "გრიშა ონიანი",
+      "lastMessage": "თავის ტერიტორიას ბომბავდა",
+      "lastActive": "4:20 PM",
+      "unreadMessages": 3,
+      "isTyping": false,
+      "lastMessageType": "text"
     },
     {
-      "id": 2,
-      "status": "DELIVERED",
-      "orderName": "Order #1525",
-      "trackingNumber": "IK281271237",
-      "quantity": 10,
-      "deliveryDate": 1769066397566,
-      "subtotal": 492,
-      "details": {
-        "type": "IN_TRANSIT",
-        "currentCity": "Barcelona",
-        "nextCheckpoint": "Madrid",
-        "progressPercent": 65
-      }
+      "id":2,
+      "image": null,
+      "owner":"ჯემალ კაკაურიძე",
+      "lastMessage":"",
+      "lastActive":"3:00 AM",
+      "unreadMessages":0,
+      "isTyping": true,
+      "lastMessageType": "voice"
     },
     {
-      "id": 3,
-      "status": "CANCELED",
-      "orderName": "Order #1526",
-      "trackingNumber": "IK581212237",
-      "quantity": 1,
-      "deliveryDate": 1769066444678,
-      "subtotal": 2842,
-      "details": {
-        "type": "HIGH_VALUE",
-        "insuredAmount": 3000,
-        "requiresSignature": true,
-        "fragile": true
-      }
+      "id":3,
+      "image": "https://i.ytimg.com/vi/KYY0TBqTfQg/hqdefault.jpg",
+      "owner": "გურამ ჯინორია",
+      "lastMessage":"",
+      "lastActive":"1:00 PM",
+      "unreadMessages":0,
+      "isTyping": false,
+      "lastMessageType":"file"
     },
     {
-      "id": 4,
-      "status": "CANCELED",
-      "orderName": "Order #1527",
-      "trackingNumber": "IK581212290",
-      "quantity": 100,
-      "deliveryDate": 1769066553088,
-      "subtotal": 25000,
-      "details": {
-        "type": "BULK",
-        "warehouseId": "WH-23",
-        "palletCount": 4,
-        "handlingInstructions": "Forklift required"
-      }
-    },
-    {
-      "id": 5,
-      "status": "PENDING",
-      "orderName": "Order #1524",
-      "trackingNumber": "IK281281237",
-      "quantity": 2,
-      "deliveryDate": 1769066093121,
-      "subtotal": 110,
-      "details": {
-        "type": "BORDER_DELAY",
-        "borderCountry": "Mexico",
-        "reason": "Customs inspection",
-        "estimatedDelayDays": 5
-      }
-    },
-    {
-      "id": 6,
-      "status": "PENDING",
-      "orderName": "Order #1525",
-      "trackingNumber": "IK281271237",
-      "quantity": 10,
-      "deliveryDate": 1769066397566,
-      "subtotal": 492,
-      "details": {
-        "type": "IN_TRANSIT",
-        "currentCity": "Barcelona",
-        "nextCheckpoint": "Madrid",
-        "progressPercent": 65
-      }
-    },
-    {
-      "id": 7,
-      "status": "PENDING",
-      "orderName": "Order #1526",
-      "trackingNumber": "IK581212237",
-      "quantity": 1,
-      "deliveryDate": 1769066444678,
-      "subtotal": 2842,
-      "details": {
-        "type": "HIGH_VALUE",
-        "insuredAmount": 3000,
-        "requiresSignature": true,
-        "fragile": true
-      }
-    },
-    {
-      "id": 8,
-      "status": "PENDING",
-      "orderName": "Order #1527",
-      "trackingNumber": "IK581212290",
-      "quantity": 100,
-      "deliveryDate": 1769066553088,
-      "subtotal": 25000,
-      "details": {
-        "type": "BULK",
-        "warehouseId": "WH-23",
-        "palletCount": 4,
-        "handlingInstructions": "Forklift required"
-      }
+      "id":4,
+      "image": "",
+      "owner": "კაკო წენგუაშვილი",
+      "lastMessage": "ადამიანი რო მოსაკლავად გაგიმეტებს თანაც ქალი ის დასანდობი არ არი",
+      "lastActive": "1:00 PM",
+      "unreadMessages": 0,
+      "isTyping": false,
+      "lastMessageType": "text"
     }
   ]
 }

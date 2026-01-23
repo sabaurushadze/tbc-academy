@@ -21,6 +21,9 @@ data class AppColors(
 
     val neutral1: Color = Color.Unspecified,
     val neutral2: Color = Color.Unspecified,
+    val neutral3: Color = Color.Unspecified,
+    val neutral4: Color = Color.Unspecified,
+
 
     val error: Color = Color.Unspecified,
     val warning: Color = Color.Unspecified,
@@ -28,13 +31,16 @@ data class AppColors(
 )
 
 internal val lightAppColors = AppColors(
-    primary = Color(0xFF0064D2),
+    primary = Color(0xFF2ECC71),
     onPrimary = Color(0xFFFFFFFF),
-    background = Color(0xFFFFFFFF),
-    onBackground = Color(0xFF141416),
+    background = Color(0xFF1F2E35),
+    onBackground = Color(0xFFFFFFFF),
 
     neutral1 = Color(0xFF777E90),
-    neutral2 = Color(0xFF43484B),
+    neutral2 = Color(0xFFB8C2C0),
+    neutral3 = Color(0xFFEDF1FA),
+    neutral4 = Color(0xFF1A282F),
+
     error = Color(0xFFC50000),
     success = Color(0xFF009254),
     warning = Color(0xFFCF6212)

@@ -19,9 +19,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    const val TYPE = "type"
     val json = Json {
-        classDiscriminator = TYPE
         ignoreUnknownKeys = true
     }
 

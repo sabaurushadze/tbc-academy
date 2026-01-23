@@ -14,4 +14,6 @@ object AppDimens {
     val size24 = 24.dp
     val size32 = 32.dp
     val size36 = 36.dp
+    val size48 = 48.dp
+    val size56 = 56.dp
 }
