@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -60,34 +61,10 @@ fun HomeScreen(
 
     val bottomSheetState = rememberModalBottomSheetState()
 
-    state.selectedOrder?.let {
-        ModalBottomSheet(
-            onDismissRequest = { viewModel.onEvent(HomeEvent.UnselectOrder) },
-            sheetState = bottomSheetState
-        ) {
-            state.selectedOrder?.let { order ->
-                OrderDetailsSheet(
-                    order = order,
-                    onDeliver = {
-                        viewModel.onEvent(HomeEvent.UpdateOrder(order.id, OrderStatus.DELIVERED))
-                        viewModel.onEvent(HomeEvent.UnselectOrder)
-                    },
-                    onCancel = {
-                        viewModel.onEvent(HomeEvent.UpdateOrder(order.id, OrderStatus.CANCELED))
-                        viewModel.onEvent(HomeEvent.UnselectOrder)
-                    }
-                )
-            }
-        }
-    }
-
-    HomeContent(
-        state = state, onEvent = viewModel::onEvent
-    )
-
     LaunchedEffect(Unit) {
         viewModel.onEvent(HomeEvent.GetOrders)
     }
+//    extension
     CollectEvent(
         viewModel.sideEffect
     ) { sideEffect ->
@@ -98,6 +75,33 @@ fun HomeScreen(
             }
         }
     }
+
+    HomeContent(
+        state = state,
+        onEvent = viewModel::onEvent
+    )
+
+    state.selectedOrder?.let {
+        ModalBottomSheet(
+            onDismissRequest = { viewModel.onEvent(HomeEvent.UnselectOrder) },
+            sheetState = bottomSheetState
+        ) {
+//            state.selectedOrder?.let { order ->
+                OrderDetailsSheet(
+                    order = it,
+                    onDeliver = {
+                        viewModel.onEvent(HomeEvent.UpdateOrder(it.id, OrderStatus.DELIVERED))
+                        viewModel.onEvent(HomeEvent.UnselectOrder)
+                    },
+                    onCancel = {
+                        viewModel.onEvent(HomeEvent.UpdateOrder(it.id, OrderStatus.CANCELED))
+                        viewModel.onEvent(HomeEvent.UnselectOrder)
+                    }
+                )
+//            }
+        }
+    }
+
 
 }
 
@@ -110,7 +114,7 @@ private fun HomeContent(
         modifier = Modifier
             .fillMaxSize()
             .background(AppColor.background)
-            .padding(WindowInsets.systemBars.asPaddingValues()),
+            .systemBarsPadding()
     ) {
         HomeTabs(
             tabs = OrdersTab.entries.toList(),
@@ -168,7 +172,7 @@ private fun HomeContent(
 }
 
 @Composable
-fun HomeTabs(
+private fun HomeTabs(
     tabs: List<OrdersTab>,
     selectedTab: OrdersTab,
     onTabSelected: (OrdersTab) -> Unit,

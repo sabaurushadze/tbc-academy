@@ -17,42 +17,44 @@ data class OrderResponseDto(
     val deliveryDate: Long,
     val subtotal: Int,
     val details: OrderDetailsDto
-)
+) {
+    @Serializable
+    sealed interface OrderDetailsDto
 
-@Serializable
-sealed interface OrderDetailsDto
+    @Serializable
+    @SerialName(BORDER_DELAY)
+    data class BorderDelayDetailsDto(
+        val borderCountry: String,
+        val reason: String,
+        val estimatedDelayDays: Int
+    ) : OrderDetailsDto
 
-@Serializable
-@SerialName(BORDER_DELAY)
-data class BorderDelayDetailsDto(
-    val borderCountry: String,
-    val reason: String,
-    val estimatedDelayDays: Int
-) : OrderDetailsDto
+    @Serializable
+    @SerialName(IN_TRANSIT)
+    data class InTransitDetailsDto(
+        val currentCity: String,
+        val nextCheckpoint: String,
+        val progressPercent: Int
+    ) : OrderDetailsDto
 
-@Serializable
-@SerialName(IN_TRANSIT)
-data class InTransitDetailsDto(
-    val currentCity: String,
-    val nextCheckpoint: String,
-    val progressPercent: Int
-) : OrderDetailsDto
+    @Serializable
+    @SerialName(HIGH_VALUE)
+    data class HighValueOrderDetailsDto(
+        val insuredAmount: Int,
+        val requiresSignature: Boolean,
+        val fragile: Boolean
+    ) : OrderDetailsDto
 
-@Serializable
-@SerialName(HIGH_VALUE)
-data class HighValueOrderDetailsDto(
-    val insuredAmount: Int,
-    val requiresSignature: Boolean,
-    val fragile: Boolean
-) : OrderDetailsDto
+    @Serializable
+    @SerialName(BULK)
+    data class BulkOrderDetailsDto(
+        val warehouseId: String,
+        val palletCount: Int,
+        val handlingInstructions: String
+    ) : OrderDetailsDto
+}
 
-@Serializable
-@SerialName(BULK)
-data class BulkOrderDetailsDto(
-    val warehouseId: String,
-    val palletCount: Int,
-    val handlingInstructions: String
-) : OrderDetailsDto
+
 
 object OrderDetailTypes {
     const val BORDER_DELAY = "BORDER_DELAY"
