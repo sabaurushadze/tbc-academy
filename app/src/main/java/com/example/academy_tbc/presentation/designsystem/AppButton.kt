@@ -14,7 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.academy_tbc.presentation.theme.Black
+import com.example.academy_tbc.presentation.theme.AppColor
 
 @Composable
 fun AppButton(
@@ -22,8 +22,8 @@ fun AppButton(
     text: String = "",
     border: BorderStroke? = null,
     shape: Shape = RoundedCornerShape(4.dp),
-    buttonColor: Color = Black,
-    textColor: Color = Black,
+    buttonColor: Color = AppColor.primary,
+    textColor: Color = AppColor.onBackground,
     textSize: TextUnit = 14.sp,
     onClick: () -> Unit,
     ) {

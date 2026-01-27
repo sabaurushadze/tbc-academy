@@ -43,7 +43,7 @@ object AppModule {
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
         noInternetInterceptor: NoInternetInterceptor,
-        authInterceptor: AuthInterceptor
+        authInterceptor: AuthInterceptor,
     ): OkHttpClient {
         return OkHttpClient.Builder().apply {
             if (BuildConfig.DEBUG) addInterceptor(loggingInterceptor)

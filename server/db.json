@@ -1,0 +1,84 @@
+{
+  "locations": [
+    {
+      "location": "Tbilisi, Georgia",
+      "altitude_m": 380,
+      "title": "Old Town Rooftop Workspace",
+      "image": "https://i.ibb.co/ZpXQF9HK/765b8824579745-5604a73989a51.jpg",
+      "stars": 4,
+      "price":"$120"
+    },
+    {
+      "location": "Gudauri, Georgia",
+      "altitude_m": 2200,
+      "title": "Mountain View Construction Site",
+      "image": "https://i.ibb.co/ZpXQF9HK/765b8824579745-5604a73989a51.jpg",
+      "stars": 5,
+      "price": "$120"
+    },
+    {
+      "location": "Batumi, Georgia",
+      "altitude_m": 3,
+      "title": "Seaside Port Office",
+      "image": "https://i.ibb.co/ZpXQF9HK/765b8824579745-5604a73989a51.jpg",
+      "stars": 3,
+      "price": "$120"
+    },
+    {
+      "location": "Kutaisi, Georgia",
+      "altitude_m": 125,
+      "title": "Industrial Warehouse Project",
+      "image": "https://i.ibb.co/ZpXQF9HK/765b8824579745-5604a73989a51.jpg",
+      "stars": 4,
+      "price": "$120"
+    },
+    {
+      "location": "Stepantsminda (Kazbegi), Georgia",
+      "altitude_m": 1740,
+      "title": "High-Altitude Cabin Site",
+      "image": "https://i.ibb.co/ZpXQF9HK/765b8824579745-5604a73989a51.jpg",
+      "stars": 5,
+      "price": "$120"
+    },
+    {
+      "location": "Rustavi, Georgia",
+      "altitude_m": 350,
+      "title": "Factory Expansion Zone",
+      "image": "https://i.ibb.co/ZpXQF9HK/765b8824579745-5604a73989a51.jpg",
+      "stars": 2,
+      "price": "$120"
+    },
+    {
+      "location": "Bakuriani, Georgia",
+      "altitude_m": 1700,
+      "title": "Ski Resort Hotel Construction",
+      "image": "https://i.ibb.co/ZpXQF9HK/765b8824579745-5604a73989a51.jpg",
+      "stars": 5,
+      "price": "$120"
+    },
+    {
+      "location": "Poti, Georgia",
+      "altitude_m": 2,
+      "title": "Logistics Hub Yard",
+      "image": "https://i.ibb.co/ZpXQF9HK/765b8824579745-5604a73989a51.jpg",
+      "stars": 3,
+      "price": "$120"
+    },
+    {
+      "location": "Mestia, Georgia",
+      "altitude_m": 1500,
+      "title": "Remote Mountain Basecamp",
+      "image": "https://i.ibb.co/ZpXQF9HK/765b8824579745-5604a73989a51.jpg",
+      "stars": 4,
+      "price": "$120"
+    },
+    {
+      "location": "Telavi, Georgia",
+      "altitude_m": 490,
+      "title": "Vineyard Infrastructure Project",
+      "image": "https://i.ibb.co/ZpXQF9HK/765b8824579745-5604a73989a51.jpg",
+      "stars": 4,
+      "price": "$120"
+    }
+  ]
+}

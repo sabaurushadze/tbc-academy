@@ -1,8 +1,0 @@
-package com.example.academy_tbc.presentation.screen.register
-
-import androidx.annotation.StringRes
-
-sealed interface RegisterSideEffect {
-    data class ShowSnackBar(@param:StringRes val errorRes: Int) : RegisterSideEffect
-    data object NavigateToUserNameCreation : RegisterSideEffect
-}

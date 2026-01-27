@@ -15,7 +15,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.academy_tbc.presentation.navigation.AppNavHost
-import com.example.academy_tbc.presentation.theme.MyApplicationTheme
+import com.example.academy_tbc.presentation.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
             val snackbarHostState = remember { SnackbarHostState() }
             val scope = rememberCoroutineScope()
 
-            MyApplicationTheme {
+            AppTheme {
                 Scaffold(
                     snackbarHost = {
                         SnackbarHost(

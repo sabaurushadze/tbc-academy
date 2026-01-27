@@ -1,7 +1,59 @@
 package com.example.academy_tbc.presentation.theme
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 
-val Black = Color(0xFF000000)
-val White = Color(0xFFFFFFFF)
+val LocalColor = compositionLocalOf { AppColors() }
+
+val AppColor: AppColors
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalColor.current
+
+data class AppColors(
+    val primary: Color = Color.Unspecified,
+    val onPrimary: Color = Color.Unspecified,
+    val background: Color = Color.Unspecified,
+    val onBackground: Color = Color.Unspecified,
+    val surface: Color = Color.Unspecified,
+
+    val neutral1: Color = Color.Unspecified,
+
+    val neutralText1: Color = Color.Unspecified,
+
+    val error: Color = Color.Unspecified,
+    val unspecified: Color = Color.Unspecified,
+)
+
+internal val lightAppColors = AppColors(
+    primary = Color(0xFF0064D2),
+    onPrimary = Color(0xFFFFFFFF),
+    background = Color(0xFF22343C),
+    onBackground = Color(0xFF101010),
+    surface = Color(0xFFF5F5F5),
+
+    neutral1 = Color(0xFFE0E0E0),
+
+    neutralText1 = Color(0xFF626262),
+
+    error = Color(0xFFB61616),
+    unspecified = Color.Unspecified
+
+)
+
+internal val darkAppColors = AppColors(
+    primary = Color(0xFF5A9BFF),
+    onPrimary = Color(0xFF000000),
+    background = Color(0xFF8BC8E3),
+    onBackground = Color(0xFFFFFFFF),
+    neutral1 = Color(0xFFE0E0E0),
+    surface = Color(0xFF262626),
+
+
+
+    error = Color(0xFFEA5858),
+    unspecified = Color.Unspecified
+)
