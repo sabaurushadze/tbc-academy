@@ -5,13 +5,12 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.example.academy_tbc.presentation.navigation.auth.HomeScreenRoute
-import com.example.academy_tbc.presentation.navigation.auth.homeNavGraph
+import com.example.academy_tbc.presentation.screen.home.navigation.HomeScreenRoute
+import com.example.academy_tbc.presentation.screen.home.navigation.homeNavGraph
 
 @Composable
 fun AppNavHost(
     navController: NavHostController,
-    onShowSnackBar: (String) -> Unit,
 ) {
     NavHost(
         navController = navController,
@@ -21,8 +20,6 @@ fun AppNavHost(
         popEnterTransition = { EnterTransition.None },
         popExitTransition = { ExitTransition.None }
     ) {
-        homeNavGraph(
-            onShowSnackBar = onShowSnackBar,
-        )
+        homeNavGraph()
     }
 }

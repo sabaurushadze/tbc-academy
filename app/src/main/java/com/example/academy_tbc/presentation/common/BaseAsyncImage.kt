@@ -1,5 +1,6 @@
 package com.example.academy_tbc.presentation.common
 
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,7 +19,8 @@ fun BaseAsyncImage(
     contentDescription: String = "",
     contentScale: ContentScale = ContentScale.Crop,
     placeholderRes: Int = R.drawable.placeholder,
-    errorRes: Int = R.drawable.placeholder
+    errorRes: Int = R.drawable.placeholder,
+    clipShape: RoundedCornerShape = AppRadius.radius16,
 ) {
     AsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
@@ -30,7 +32,7 @@ fun BaseAsyncImage(
         contentDescription = contentDescription,
         contentScale = contentScale,
         modifier = modifier.clip(
-            AppRadius.radius16
+            clipShape
         )
     )
 }

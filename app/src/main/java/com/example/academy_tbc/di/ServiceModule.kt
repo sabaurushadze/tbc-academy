@@ -1,6 +1,7 @@
 package com.example.academy_tbc.di
 
-import com.example.academy_tbc.data.remote.service.location.LocationService
+import com.example.academy_tbc.data.remote.service.post.PostService
+import com.example.academy_tbc.data.remote.service.story.StoryService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +14,13 @@ import javax.inject.Singleton
 object ServiceModule {
     @Provides
     @Singleton
-    fun provideLocationService(retrofit: Retrofit): LocationService {
-        return retrofit.create(LocationService::class.java)
+    fun providePostService(retrofit: Retrofit): PostService {
+        return retrofit.create(PostService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideStoryService(retrofit: Retrofit): StoryService {
+        return retrofit.create(StoryService::class.java)
     }
 }

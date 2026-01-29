@@ -1,8 +1,10 @@
 package com.example.academy_tbc.presentation.screen.home
 
-import com.example.academy_tbc.presentation.screen.home.model.UiLocation
+import com.example.academy_tbc.presentation.screen.home.model.post.UiPost
+import com.example.academy_tbc.presentation.screen.home.model.story.UiStory
 
 data class HomeState(
-    val locations: List<UiLocation> = listOf(),
+    val posts: List<UiPost> = listOf(),
+    val stories: List<UiStory> = listOf(),
     val isLoading: Boolean = false,
 )

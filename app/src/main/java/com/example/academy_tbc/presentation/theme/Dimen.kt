@@ -33,6 +33,7 @@ data class AppDimens(
     val size28: Dp = 28.dp,
     val size32: Dp = 32.dp,
     val size40: Dp = 40.dp,
+    val size42: Dp = 42.dp,
     val size48: Dp = 48.dp,
     val size50: Dp = 50.dp,
     val size56: Dp = 56.dp,
@@ -41,6 +42,8 @@ data class AppDimens(
     val size100: Dp = 100.dp,
     val size132: Dp = 132.dp,
     val size144: Dp = 144.dp,
+    val size154: Dp = 154.dp,
+    val size200: Dp = 200.dp,
 
     val roundedCornerMediumSize: Dp = 12.dp,
 
