@@ -19,7 +19,7 @@
     <string name="error_password_field_empty">Password field is empty</string>
     <string name="password_too_weak">Password must be at least 8 characters. \nContain at least 1 uppercase letter \nand one symbol.</string>
     <string name="log_in">LOG IN</string>
-    <string name="register">REGISTER</string>
+    <string name="register">Register</string>
     <string name="register_lowercase">Register</string>
     <string name="log_in_lowercase">Log in</string>
     <string name="email">Email</string>
@@ -29,4 +29,12 @@
     <string name="username">Username</string>
     <string name="statistics">Statistics</string>
     <string name="write_comment">Write comment...</string>
+    <string name="phone">Phone</string>
+    <string name="full_name">Full name</string>
+    <string name="birthday">Birthday</string>
+    <string name="gender">Gender</string>
+    <string name="jemali">Jemala</string>
+    <string name="field_not_filled_in">Field not filled in: %1$s</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 </resources>

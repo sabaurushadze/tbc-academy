@@ -1,11 +1,9 @@
 package com.example.academy_tbc.di
 
 import com.example.academy_tbc.data.repository.datastore.DataStoreManagerImpl
-import com.example.academy_tbc.data.repository.post.PostRepositoryImpl
-import com.example.academy_tbc.data.repository.story.StoryRepositoryImpl
+import com.example.academy_tbc.data.repository.form.FormRepositoryImpl
 import com.example.academy_tbc.domain.repository.datastore.DataStoreManager
-import com.example.academy_tbc.domain.repository.post.PostRepository
-import com.example.academy_tbc.domain.repository.story.StoryRepository
+import com.example.academy_tbc.domain.repository.form.FormRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -23,9 +21,5 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindPostRepository(impl: PostRepositoryImpl): PostRepository
-
-    @Binds
-    @Singleton
-    abstract fun bindStoryRepository(impl: StoryRepositoryImpl): StoryRepository
+    abstract fun bindStoryRepository(impl: FormRepositoryImpl): FormRepository
 }

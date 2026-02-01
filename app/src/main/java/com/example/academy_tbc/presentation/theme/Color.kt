@@ -35,10 +35,10 @@ internal val lightAppColors = AppColors(
     primary = Color(0xFF0064D2),
     onPrimary = Color(0xFFFFFFFF),
 
-    background = Color(0xFF22343C),
+    background = Color(0xFFFFFFFF),
     onBackground = Color(0xFF101010),
 
-    surface = Color(0xFF30444E),
+    surface = Color(0xFFF1F1F1),
     onSurface = Color(0xFF96A7AF),
     onSurfaceContainer = Color(0xFF2A3C44),
     onSurfaceLight = Color(0xFFFFFFFF),
@@ -55,7 +55,7 @@ internal val lightAppColors = AppColors(
 internal val darkAppColors = AppColors(
     primary = Color(0xFF5A9BFF),
     onPrimary = Color(0xFF000000),
-    background = Color(0xFF8BC8E3),
+    background = Color(0xFF000000),
     onBackground = Color(0xFFFFFFFF),
     neutral1 = Color(0xFFB2B2B2),
     onSurfaceLight = Color(0xFFFFFFFF),

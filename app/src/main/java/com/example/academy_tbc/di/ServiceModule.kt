@@ -1,7 +1,6 @@
 package com.example.academy_tbc.di
 
-import com.example.academy_tbc.data.remote.service.post.PostService
-import com.example.academy_tbc.data.remote.service.story.StoryService
+import com.example.academy_tbc.data.remote.service.form.FormService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,15 +11,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ServiceModule {
-    @Provides
-    @Singleton
-    fun providePostService(retrofit: Retrofit): PostService {
-        return retrofit.create(PostService::class.java)
-    }
 
     @Provides
     @Singleton
-    fun provideStoryService(retrofit: Retrofit): StoryService {
-        return retrofit.create(StoryService::class.java)
+    fun provideFormService(retrofit: Retrofit): FormService {
+        return retrofit.create(FormService::class.java)
     }
 }
