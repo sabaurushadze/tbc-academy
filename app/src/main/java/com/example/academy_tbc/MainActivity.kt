@@ -14,9 +14,9 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.example.academy_tbc.presentation.compositionlocal.LocalSnackbarHostState
-import com.example.academy_tbc.presentation.navigation.AppNavHost
-import com.example.academy_tbc.presentation.theme.AppTheme
+import com.example.academy_tbc.navigation.AppNavHost
+import com.tbc.core.presentation.compositionlocal.LocalSnackbarHostState
+import com.tbc.core_ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
